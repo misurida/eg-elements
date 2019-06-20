@@ -1111,7 +1111,7 @@
 
 <script>
     /* eslint-disable */
-    import Calendar from '../eg_elements/src/calendar/Calendar'
+    import Calendar from '../elements/src/calendar/Calendar'
 
     export default {
         name: 'home',

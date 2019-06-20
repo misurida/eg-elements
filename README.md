@@ -1,4 +1,4 @@
-# eg-components
+# eg-elements
 
 ## Project setup
 ```
