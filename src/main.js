@@ -6,6 +6,12 @@ import './registerServiceWorker'
 
 Vue.config.productionTip = false
 
+// we import the global components components
+import EgButton from './eg_elements/src/EgButton'
+import EgInput from './eg_elements/src/EgInput'
+Vue.component('eg-button', EgButton);
+Vue.component('eg-input', EgInput);
+
 new Vue({
   router,
   store,
