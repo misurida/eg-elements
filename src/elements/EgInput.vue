@@ -188,6 +188,9 @@
                 }
 
                 // autowidth
+                &.autowidth {
+                    justify-content: flex-start;
+                }
                 .autowidth-shadow {
                     position: absolute;
                     left: 0;
@@ -1237,6 +1240,8 @@
                 }
             }
         }
+        &.date.legacy,
+        &.time.legacy,
         &.datetime,
         &.date-range,
         &.time-range {
@@ -1666,6 +1671,7 @@
                     'file-check-pad':hasFileCheck&&!isLoading,
                     'number-content':isNumber&&!noButtons,
                     dragging:isDragging,
+                    autowidth:autoWidth,
                     'has-left-icon':hasPills&&hasLeftIcon}"
                     v-if="!isRadio&&!isCheckbox"
                     :id="theId+'-content'"

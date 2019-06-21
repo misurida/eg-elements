@@ -1,83 +1,132 @@
 <style lang="scss">
-    //--- Color variables ---
-    $lmgray: #E3E3E3;
-    $lgray: #C4C4C4;
-    $red: #9C2727;
-    $red2: #812323;
-    $mgray: #A8A8A8;
-    $dgray: #6d6d6d;
-    $llgray: #f2f2f2;
-    $black: #2A2A2A;
+    @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+    // Colors
+    $black: #121212;
+    $dgray: #3B3B3B;
+    $mgray: #e5e5e5;
+    $lgray: #f2f2f2;
+    $white: #f5f5f5;
+    $errorRed: #e02b2b;
+    $warningOrange: #c69e33;
+    $validGreen: #338633;
 
-    //--- Style variables ---
-    // (C for Color, BC for Background Color, BS for Box Shadow,
-    // B for Border, FS for Font Size, P for Padding)
+    $primary: #9C2727;
+    $cPrimary: $white;
+    $secondary: #3F2E5E;
+    $cSecondary: $white;
+    $ternary: #696996;
+    $cTernary: $white;
+    $light: $lgray;
+    $cLight: $black;
+    $dark: $dgray;
+    $cDark: $white;
+
+    // animations
+    $t1: border .2s, box-shadow .1s, background .2s;
+
+    // > Styles
     // default
-    $defBorder: none;
-    $defBorderRadius: none;
-    $defPadding: 0.5rem 1.2rem;
-    $defFontSize: 1rem;
-    $defBC: $llgray;
-    // default hover
-    $defBS: 0 0 0 .2rem rgba(0,0,0,0.05);
-    // transparent
-    $transparentC: $mgray;
-    $transparentBC: transparent;
-    $transparentBS: 0 0 0 .2rem transparent;
-    // transparent hover
-    $transparentHoverC: $black;
-    $transparentHoverBC: transparent;
-    $transparentHoverBS: none;
-    // thin
-    $thinC: $mgray;
-    $thinBC: transparent;
-    $thinB: 1px solid rgba($thinC, .5);
-    // red
-    $redC: $llgray!important;
-    $redBC: $red!important;
-    $redBS: 0 0 0 .2rem transparent;
-    // red hover
-    $redHoverBC: $red2;
-    $redHoverBS: 0 0 0 .2rem rgba(220,43,85,.25);
-    // small
-    $smallFS: 0.8em;
-    $smallP: 4px 15px;
-    // gray
-    $grayBC: $lmgray;
-    // gray hover
-    $grayHoverBC: transparent;
-    $grayHoverBS: none;
-    // yoga
-    $yogaC: $lgray;
-    $yogaBC: transparent;
-    $yogaBS: none;
-    $yogaP: 20px 5px 0 5px;
-    $yogaDotC: $llgray;
-    // yoga hover
-    $yogaHoverC: $dgray;
-    $yogaHoverBC: transparent;
-    $yogaHoverBS: none;
-    $yogaHoverDotC: $lgray;
-    $yogaSelectedC: $red;
+    $cDefault: $black; // color
+    $bgDefault: $mgray; // background-color
+    $bDefault: 1px solid transparent; // border
+    $bsDefault: 0 0 0 .2rem rgba($bgDefault, 0.3); // box shadow
+    $hbDefault: 1px solid rgba($cDefault, 0.1); // hover border
+    $fbDefault: 1px solid rgba($cDefault, 0.2); // focus border
+    // primary
+    $cPrimary: $cPrimary;
+    $bgPrimary: $primary;
+    $bPrimary: 1px solid transparent;
+    $bsPrimary: 0 0 0 .2rem rgba($primary, 0.3);
+    $hbPrimary: 1px solid rgba($cPrimary, 0.1);
+    $fbPrimary: 1px solid rgba($cPrimary, 0.2);
+    // secondary
+    $cSecondary: $cSecondary;
+    $bgSecondary: $secondary;
+    $bSecondary: 1px solid transparent;
+    $bsSecondary: 0 0 0 .2rem rgba($secondary, 0.3);
+    $hbSecondary: 1px solid rgba($cSecondary, 0.1);
+    $fbSecondary: 1px solid rgba($cSecondary, 0.2);
+    // ternary
+    $cTernary: $cTernary;
+    $bgTernary: $ternary;
+    $bTernary: 1px solid transparent;
+    $bsTernary: 0 0 0 .2rem rgba($ternary, 0.3);
+    $hbTernary: 1px solid rgba($cTernary, 0.1);
+    $fbTernary: 1px solid rgba($cTernary, 0.2);
+    // light
+    $cLight: $cLight;
+    $bgLight: $light;
+    $bLight: 1px solid transparent;
+    $bsLight: 0 0 0 .2rem rgba($light, 0.3);
+    $hbLight: 1px solid rgba($cLight, 0.1);
+    $fbLight: 1px solid rgba($cLight, 0.2);
+    // dark
+    $cDark: $cDark;
+    $bgDark: $dark;
+    $bDark: 1px solid transparent;
+    $bsDark: 0 0 0 .2rem rgba($dark, 0.3);
+    $hbDark: 1px solid rgba($cDark, 0.1);
+    $fbDark: 1px solid rgba($cDark, 0.2);
+    // thick
+    $cThick: $black;
+    $bgThick: $lgray;
+    $bThick: 2px solid lighten($black, 60%);
+    $bsThick: 0 0 0 .2rem rgba(lighten($black, 60%), 0.3);
+    $hbThick: $bThick;
+    $fbThick: $bThick;
 
-    //--- Loader variables ---
-    $loaderSize: 20px;
-    $loaderBorder: 2px;
-    @keyframes eg-button-spin {
-        from { transform: rotate(0deg) }
-        to { transform: rotate(360deg) }
-    }
+    // > Types
+    $pDefault: 0.625em 1.4em;
+    $fsDefault: 1rem;
+    // small
+    $pSmall: 0.4em 1.4em;
+    $fsSmall: 0.75rem;
+    // big
+    $pBig: 0.675em 1.5em;
+    $fsBig: 1.3rem;
+    // thin
+    $pThin: 0.3em 0.7em;
+    // fat
+    $pFat: 1em 2.5em;
+    // round
+    $roundRadius: 20px;
 
     .eg-button {
+        // properties
+        position: relative;
+        cursor: pointer;
+        font-size: $fsDefault;
+        line-height: $fsDefault;
+        padding: $pDefault;
+        background-color: $bgDefault;
+        border: $bDefault;
+        border-radius: 5px;
+        color: $cDefault;
+        font-family: 'Lato', sans-serif;
+        margin: 0 auto;
+
+        // positionining
+        display: flex;
+        align-items: center;
+
+        // transition
+        transition: $t1;
+
         // loader properties
+        $loaderSize: 20px;
+        $loaderBorder: 2px;
+        @keyframes eg-button-spin {
+            from { transform: rotate(0deg) }
+            to { transform: rotate(360deg) }
+        }
         .loader {
-            position: relative;
             display: inline-block;
             width: $loaderSize;
             height: $loaderSize;
             overflow: hidden;
             transition: .2s;
             max-width: $loaderSize;
+            position: relative;
             left: 10px;
             &.hidden {
                 max-width: 0;
@@ -87,242 +136,393 @@
                 top: 0;
                 left: 0;
                 display: block;
-                border: $loaderBorder solid rgba(#fff,.2);
+                border: $loaderBorder solid rgba($cDefault,.1);
+                border-top: $loaderBorder solid $cDefault;
                 border-radius: 50%;
-                border-top: $loaderBorder solid $dgray;
-                width: $loaderSize;
-                height: $loaderSize;
+                width: $loaderSize - 5px;
+                height: $loaderSize - 5px;
                 animation: eg-button-spin 1s linear infinite;
             }
         }
 
-        // button properties
-        border: $defBorder;
-        border-radius: $defBorderRadius;
-        cursor: pointer;
-        transition: color .2s;
-        position: relative;
-        color: $black;
-        box-sizing: border-box;
-        font-family: inherit;
-        display: flex;
-        align-items: center;
-        padding: $defPadding;
-        font-size: $defFontSize;
-        line-height: 1.6;
-        background-color: $defBC;
-        user-select: none;
-        &:hover:not(.disabled),
-        &:focus:not(.disabled) {
+        // >>> Style !!!
+
+        // Default
+        &.active:not(.yoga):not(.link):not(.disabled),
+        &.hover:not(.yoga):not(.link):not(.disabled),
+        &:hover:not(.yoga):not(.link):not(.disabled) {
             outline: none;
-            background-color: $llgray;
-            box-shadow: $defBS;
+            box-shadow: $bsDefault;
+            border: $hbDefault;
+            &.primary {
+                border: $hbPrimary;
+                box-shadow: $bsPrimary;
+            }
+            &.secondary {
+                border: $hbSecondary;
+                box-shadow: $bsSecondary;
+            }
+            &.ternary {
+                border: $hbTernary;
+                box-shadow: $bsTernary;
+            }
+            &.light {
+                border: $hbLight;
+                box-shadow: $bsLight;
+            }
+            &.dark {
+                border: $hbDark;
+                box-shadow: $bsDark;
+            }
+            &.thick {
+                border: $bThick;
+                box-shadow: $bsThick;
+                background-color: transparent;
+            }
+            &.error {
+                box-shadow: 0 0 0 .2rem rgba($errorRed, 0.3);
+            }
+            &.warning {
+                box-shadow: 0 0 0 .2rem rgba($warningOrange, 0.3);
+            }
+            &.valid {
+                box-shadow: 0 0 0 .2rem rgba($validGreen, 0.3);
+            }
         }
-        svg {
-            &:not(.caret-right) {
-                left: 15px;
+        &.focus:not(.yoga):not(.link):not(.disabled),
+        &:focus:not(.yoga):not(.link):not(.disabled) {
+            outline: none;
+            box-shadow: $bsDefault;
+            border: $fbDefault;
+            &.primary {
+                border: $fbPrimary;
             }
-            &.caret-right {
-                right: 15px;
+            &.seconday {
+                border: $fbSecondary;
             }
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1;
-            &.reverse {
-                transform: translateY(-50%) rotate(180deg);
+            &.ternary {
+                border: $fbTernary;
+            }
+            &.light {
+                border: $fbDark;
+            }
+            &.dark {
+                border: $fbDark;
+            }
+            &.thick {
+                border: $bThick;
             }
         }
-        path {
-            fill: $dgray;
+
+        &.primary {
+            color: $cPrimary;
+            background-color: $bgPrimary;
+            border: $bPrimary;
+            .loader .loader-inside {
+                border: $loaderBorder solid rgba($cPrimary,.1);
+                border-top: $loaderBorder solid $cPrimary;
+            }
+            .svg-icon svg path {
+                fill: rgba($cPrimary, 0.9);
+            }
+            &.warning {
+                background-color: $warningOrange;
+            }
+            &.valid {
+                background-color: $validGreen;
+            }
+        }
+        &.secondary {
+            color: $cSecondary;
+            background-color: $bgSecondary;
+            border: $bSecondary;
+            .loader .loader-inside {
+                border: $loaderBorder solid rgba($cSecondary,.1);
+                border-top: $loaderBorder solid $cSecondary;
+            }
+            .svg-icon svg path {
+                fill: rgba($cSecondary, 0.9);
+            }
+        }
+        &.ternary {
+            color: $cTernary;
+            background-color: $bgTernary;
+            border: $bTernary;
+            .loader .loader-inside {
+                border: $loaderBorder solid rgba($cTernary,.1);
+                border-top: $loaderBorder solid $cTernary;
+            }
+            .svg-icon svg path {
+                fill: rgba($cTernary, 0.9);
+            }
+        }
+        &.light {
+            color: $cLight;
+            background-color: $bgLight;
+            border: $bLight;
+            .loader .loader-inside {
+                border: $loaderBorder solid rgba($cLight,.1);
+                border-top: $loaderBorder solid $cLight;
+            }
+            .svg-icon svg path {
+                fill: rgba($cLight, 0.9);
+            }
+        }
+        &.dark {
+            color: $cDark;
+            background-color: $bgDark;
+            border: $bDark;
+            .loader .loader-inside {
+                border: $loaderBorder solid rgba($cDark,.1);
+                border-top: $loaderBorder solid $cDark;
+            }
+            .svg-icon svg path {
+                fill: rgba($cDark, 0.9);
+            }
+        }
+        &.link {
+            background-color: transparent;
+            text-decoration: underline;
+            padding: 0;
+            transition: opacity .15s;
+            &:not(.disabled).focus,
+            &:not(.disabled).active,
+            &:not(.disabled):hover,
+            &:not(.disabled):focus {
+                opacity: 0.6;
+                outline: none;
+            }
         }
         &.transparent {
-            color: $transparentC;
-            background-color: $transparentBC;
-            box-shadow: $transparentBS;
-            path {
-                fill: $mgray;
-                transition: all .2s;
+            background-color: transparent;
+        }
+
+
+
+
+        // error, warning and valid
+        &.error {
+            color: $errorRed;
+        }
+        &.warning {
+            color: $warningOrange;
+        }
+        &.valid {
+            color: $validGreen;
+        }
+        &.primary,
+        &.secondary,
+        &.ternary,
+        &.dark {
+            &.error {
+                color: $lgray;
+                background-color: $errorRed;
             }
-            &:hover,
-            &:focus {
-                color: $transparentHoverC;
-                background-color: $transparentHoverBC;
-                box-shadow: $transparentHoverBS;
-                path {
-                    fill: $transparentHoverC;
-                }
+            &.warning {
+                color: $lgray;
+                background-color: $warningOrange;
             }
+            &.valid {
+                color: $lgray;
+                background-color: $validGreen;
+            }
+        }
+
+        // types
+        &.small {
+            padding: $pSmall;
+            font-size: $fsSmall;
+            line-height: $fsSmall;
+        }
+        &.big {
+            padding: $pBig;
+            font-size: $fsBig;
+            line-height: $fsBig;
         }
         &.thin {
-            border: $thinB;
-            color: $thinC;
-            background-color: $thinBC;
-            path {
-                fill: $thinC;
-            }
+            padding: $pThin;
         }
-        &.red {
-            color: $redC;
-            background-color: $redBC;
-            path {
-                fill: $redC;
-            }
-            &:focus,
-            &:hover {
-                background-color: $red2;
-                box-shadow: $redHoverBS;
-            }
+        &.fat {
+            padding: $pFat;
+        }
+        &.square {
+            border-radius: 0;
+        }
+        &.round {
+            border-radius: $roundRadius;
         }
         &.wide {
             width: 100%;
             justify-content: center;
-            &.all-width {
-                margin-top: 5px;
-            }
         }
-        &.has-caret {
-            &:not(.caret-right) {
-                padding-left: 40px;
+
+        // icons
+        $iconWidth: 2em;
+        .svg-icon {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: $iconWidth;
+            &.r-icon {
+                right: 10px;
             }
-            &.caret-right {
-                padding-right: 40px;
-                justify-content: right;
+            &.l-icon {
+                left: 10px;
             }
-            justify-content: left;
-        }
-        &.small {
-            font-size: $smallFS;
-            padding: $smallP;
-            &.rc {
-                margin-top: 10px;
-            }
-            .loader {
-                left: 5px;
-                width: 15px;
-                height: 15px;
-                .loader-inside {
-                    border: 2px solid rgba(#fff,.2);
-                    border-top: 2px solid $dgray;
-                    width: 15px;
-                    height: 15px;
+            svg {
+                height: $iconWidth;
+                width: $iconWidth;
+                path {
+                    fill: rgba($cDefault,0.75);
                 }
             }
         }
-        &.left {
-            float: left!important;
+        &.ri {
+            padding-right: 3em;
+            &.no-content {
+                padding-right: 2em;
+            }
         }
-        &.right {
-            float: right!important;
-            margin-left: 5px;
+        &.li {
+            padding-left: 3em;
+            &.no-content {
+                padding-left: 2em;
+            }
         }
-        &.star {
-            padding-left: 20px;
+        &.li.ri.no-content {
+            padding-right: 3.3em;
         }
-        &.flex {
-            flex: 1;
-        }
-        &.disabled {
-            opacity: .5;
+
+        // states
+        &:disabled,
+        .disabled {
+            opacity: 0.8;
+            color: rgba($cDefault, 0.5);
             cursor: default;
-            &:focus,
-            &:hover {
-                background-color: inherit;
-                opacity: .5;
-                box-shadow: 0 0 0 .2rem transparent;
+            &.dark,
+            &.primary,
+            &.secondary,
+            &.ternary {
+                color: rgba($cPrimary, 0.5);
             }
         }
-        &.square {
-            border-radius: 0;
-            width: calc(100% - 10px);
-            margin: 5px;
-        }
-        &.tall {
-            padding-top: 20px;
-            padding-bottom: 20px;
-            margin-top: 20px;
-        }
-        &.link {
-            padding: 0;
-            margin: 0 10px;
-            text-decoration: underline;
-            background-color: transparent;
-            &.small {
-                font-size: 1em;
+
+        // special styles
+        &.thick {
+            color: $cThick;
+            background-color: $bgThick;
+            border: $bThick;
+            .loader .loader-inside {
+                border: $loaderBorder solid rgba($cThick,.1);
+                border-top: $loaderBorder solid $cThick;
             }
-            &:hover {
-                background-color: transparent;
-                box-shadow: none;
-                color: $black;
+            .svg-icon svg path {
+                fill: rgba($cThick, 0.9);
             }
-            &:focus {
-                background-color: transparent;
-                box-shadow: none;
-                opacity: .5;
+            &.error {
+                border-color: $errorRed;
+                color: $errorRed;
             }
-        }
-        &.gray {
-            background-color: $grayBC;
-            &:hover {
-                background-color: $grayHoverBC;
-                box-shadow: $grayHoverBS;
+            &.warning {
+                border-color: $warningOrange;
+                color: $warningOrange;
+            }
+            &.valid {
+                border-color: $validGreen;
+                color: $validGreen;
             }
         }
         &.yoga {
-            color: $yogaC;
-            background-color: $yogaBC;
-            padding: $yogaP;
-            box-shadow: $yogaBS;
-            position: relative;
-            justify-content: center;
-            transition: color .2s;
+            $dotSize: 8px;
+            background-color: transparent;
+            padding-top: 1.5em;
+            color: $black;
+            .loader .loader-inside {
+                border: $loaderBorder solid rgba($black,.1);
+                border-top: $loaderBorder solid $black;
+            }
+            .svg-icon svg path {
+                fill: darken($mgray, 40%);
+            }
             &::before {
                 content: '';
-                height: 6px;
-                width: 6px;
                 position: absolute;
-                top: 5px;
+                top: 10px;
                 left: 50%;
-                transform: translateX(-50%);
-                background-color: $yogaDotC;
+                width: $dotSize;
+                height: $dotSize;
+                background-color: rgba($primary, 0.2);
                 border-radius: 50%;
-                transition: all .2s;
+                transform: translateX(-50%);
             }
-            &:hover,
-            &:focus {
-                box-shadow: $yogaHoverBS;
-                background-color: $yogaHoverBC;
-                color: $yogaHoverC;
+            transition: opacity .15s;
+            &:not(.disabled).focus,
+            &:not(.disabled):hover,
+            &:not(.disabled):focus {
+                opacity: 0.6;
+                outline: none;
+            }
+            &.active {
                 &::before {
-                    background-color: $yogaHoverDotC;
+                    background-color: $primary;
                 }
             }
-            &.selected {
-                color: $yogaSelectedC;
+            &.error {
+                color: $errorRed;
                 &::before {
-                    background-color: $yogaSelectedC;
+                    background-color: $errorRed;
                 }
             }
+            &.warning {
+                color: $warningOrange;
+                &::before {
+                    background-color: $warningOrange;
+                }
+            }
+            &.valid {
+                color: $validGreen;
+                &::before {
+                    background-color: $validGreen;
+                }
+            }
+            &.small::before {
+                width: $dotSize/1.5;
+                height: $dotSize/1.5;
+            }
+            &.big::before {
+                width: $dotSize*1.5;
+                height: $dotSize*1.5;
+            }
+        }
+
+        // helpers
+        &.fr {
+            float: right;
+        }
+        &.fl {
+            float: left;
+        }
+        &.la {
+            text-align: left;
+        }
+        &.ra {
+            text-align: right;
         }
     }
 </style>
 
 <template>
-    <button :disabled="disabled" class="eg-button" :class="{'has-caret':caret||caretReverse||caretRight, transparent, red, wide, small, left, right, thin, star, selected, yoga, disabled, square, tall, link, gray, 'caret-right':caretRight}" @click="$emit('click')">
-        <svg v-if="caret || caretReverse" :class="{reverse:caretReverse}" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 7L0.499999 13.9282L0.5 0.0717963L14 7Z"/>
-        </svg>
+    <button :disabled="disabled" class="eg-button" :class="computeClass" @click="$emit('click')">
+        <svg-icon class="l-icon" v-if="li||leftIcon" :type="_li"></svg-icon>
         <span>
-            <span v-if="star&&selected">&#9733;</span>
-            <span v-else-if="star">&#10032;</span>
             <slot></slot>
         </span>
-        <div class="loader" :class="{hidden:!loading}">
-            <div class="loader-inside"></div>
-        </div>
-        <svg class="caret-right" v-if="caretRight" :class="{reverse:caretReverse}" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 7L0.499999 13.9282L0.5 0.0717963L14 7Z"/>
-        </svg>
+        <svg-icon class="r-icon" v-if="!!ri||!!i||!!rightIcon" :type="_ri"></svg-icon>
+        <span class="loader" :class="{hidden:!loading}">
+            <span class="loader-inside"></span>
+        </span>
     </button>
 </template>
 
@@ -330,28 +530,117 @@
     export default {
         props: {
             // main
-            loading: {type: Boolean, default: false},
-            disabled: {type: Boolean, default: false},
-            // secondary
-            caret: {type: Boolean, default: false},
-            caretReverse: {type: Boolean, default: false},
-            caretRight: {type: Boolean, default: false},
-            selected: {type: Boolean, default: false},
-            star: {type: Boolean, default: false},
-            // style
-            transparent: {type: Boolean, default: false},
-            gray: {type: Boolean, default: false},
-            red: {type: Boolean, default: false},
-            thin: {type: Boolean, default: false},
+            type: { type: String, default: null },
+            sty: { type: String, default: null },
+
+            // styles
+            primary: {type: Boolean, default: false},
+            pri: {type: Boolean, default: false},
+            secondary: {type: Boolean, default: false},
+            sec: {type: Boolean, default: false},
+            ternary: {type: Boolean, default: false},
+            ter: {type: Boolean, default: false},
             link: {type: Boolean, default: false},
+            thick: {type: Boolean, default: false},
+            transparent: {type: Boolean, default: false},
+            tra: {type: Boolean, default: false},
+            light: {type: Boolean, default: false},
+            dark: {type: Boolean, default: false},
             yoga: {type: Boolean, default: false},
-            // size and position
-            wide: {type: Boolean, default: false},
+
+            // types
             small: {type: Boolean, default: false},
-            left: {type: Boolean, default: false},
-            right: {type: Boolean, default: false},
+            big: {type: Boolean, default: false},
+            wide: {type: Boolean, default: false},
+            floatLeft: {type: Boolean, default: false},
+            fl: {type: Boolean, default: false},
+            floatRight: {type: Boolean, default: false},
+            fr: {type: Boolean, default: false},
+            leftAlign: {type: Boolean, default: false},
+            la: {type: Boolean, default: false},
+            rightAlign: {type: Boolean, default: false},
+            ra: {type: Boolean, default: false},
             square: {type: Boolean, default: false},
-            tall: {type: Boolean, default: false},
+            round: {type: Boolean, default: false},
+            thin: {type: Boolean, default: false},
+            fat: {type: Boolean, default: false},
+
+            // states
+            disabled: {type: Boolean, default: false},
+            loading: {type: Boolean, default: false},
+            active: {type: Boolean, default: false},
+            error: {type: Boolean, default: false},
+            warning: {type: Boolean, default: false},
+            valid: {type: Boolean, default: false},
+            rightIcon: {type: String, default: null},
+            ri: {type: String, default: null},
+            i: {type: String, default: null},
+            leftIcon: {type: String, default: null},
+            li: {type: String, default: null},
+
+
+        },
+        computed: {
+            computeClass() {
+                let o = [];
+                if(this.type) o.push(this.type);
+                if(this.sty) o.push(this.sty);
+                if(!this.hasContent) o.push("no-content");
+
+                // styles
+                if(this.primary || this.pri) o.push("primary");
+                if(this.secondary || this.sec) o.push("secondary");
+                if(this.ternary || this.ter) o.push("ternary");
+                if(this.link) o.push("link");
+                if(this.thick) o.push("thick");
+                if(this.transparent) o.push("transparent");
+
+                // types
+                if(this.small) o.push("small");
+                if(this.big) o.push("big");
+                if(this.wide) o.push("wide");
+                if(this.fat) o.push("fat");
+                if(this.thin) o.push("thin");
+                if(this.floatLeft || this.fl) o.push("fl");
+                if(this.floatRight || this.fr) o.push("fr");
+                if(this.leftAlign || this.la) o.push("la");
+                if(this.rightAlign || this.ra) o.push("ra");
+                if(this.square) o.push("square");
+                if(this.round) o.push("round");
+
+                // states
+                if(this.disabled) o.push("disabled");
+                if(this.loading) o.push("loading");
+                if(this.active) o.push("active");
+                if(this.error) o.push("error");
+                if(this.warning) o.push("warning");
+                if(this.valid) o.push("valid");
+                if(this.rightIcon || this.ri || this.i) o.push("ri");
+                if(this.leftIcon || this.li) o.push("li");
+
+                return o;
+            },
+            _ri() {
+                if(this.i) return this.i;
+                if(this.ri) return this.ri;
+                if(this.rightIcon) return this.rightIcon;
+                return null;
+            },
+            _li() {
+                if(this.li) return this.li;
+                if(this.leftIcon) return this.leftIcon;
+                return null;
+            },
+            hasContent() {
+                let s = this.$slots;
+                if(Object.keys(s).length > 0) {
+                    let def = s.default;
+                    if(def && def.length > 0) {
+                        return !!def[0].text;
+                    }
+                }
+                return true;
+            }
         }
     }
 </script>
