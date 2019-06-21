@@ -7,8 +7,8 @@ import './registerServiceWorker'
 Vue.config.productionTip = false
 
 // we import the global components components
-import EgButton from './eg_elements/src/EgButton'
-import EgInput from './eg_elements/src/EgInput'
+import EgButton from './elements/EgButton'
+import EgInput from './elements/EgInput'
 Vue.component('eg-button', EgButton);
 Vue.component('eg-input', EgInput);
 
