@@ -398,7 +398,8 @@ The *v-tooltip* is a [vuejs directive](https://vuejs.org/v2/guide/custom-directi
 **Directive Hook Arguments: binding args**. You can pass an Object to the *v-tooltip* to set the text to display and other configuration options using the binding args:
 
 ```
-<div id="demo" v-tooltip:args></div>
+<div id="demo" v-tooltip:[args]></div>
+
 ```
 
 The *v-tooltip* argument (args) Object can have the following attributes:
@@ -426,3 +427,9 @@ In this situation, yan can set the configuration options using the *binding modi
 ```
 <div id="demo" v-tooltip.l="'Hello'"></div>
 ```
+
+If you want to display more complex content, you can use the default splot of the *my-popover* element:
+
+
+## \<MyPopover\>
+
