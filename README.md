@@ -1,15 +1,5 @@
 # Eg-Elements
 
-https://www.palettable.io/9C2727-3B3B3B-696996-F5F5F5-3F2E5E
-
-```
-// t : the text to display in the bubble
-// c : alias for text (means content), higher priority
-// d : display (on hover: h, on click: c)
-// p : the position (left: l, center: c, right: r)
-// w : the maximum size of the tooltip wrapper
-```
-
 ## Installation
 
 Using **npm**: ` npm i eg-elements --save`
@@ -400,3 +390,39 @@ A *datetime-range input* allows the user to select a number by clicking on a pic
 - `noSteps` (Boolean, false): If *true*, no steps are visible when hovering the stars.
 - `free` (Boolean, false): If *true*, the computed value is not based on the steps but on the cursor position.
 
+
+## Directive v-tooltip
+
+The *v-tooltip* is a [vuejs directive](https://vuejs.org/v2/guide/custom-directive.html#Directive-Hook-Arguments) that can be use on any html element and displays some text in an hovering bubble next to the target element. The directive can be used with two methods:
+
+**Directive Hook Arguments: binding args**. You can pass an Object to the *v-tooltip* to set the text to display and other configuration options using the binding args:
+
+```
+<div id="demo" v-tooltip:args></div>
+```
+
+The *v-tooltip* argument (args) Object can have the following attributes:
+
+- `text (t)`: A string representing the text to display in the tooltip. You can also use the shorthand `t`.
+- `content (c)`: A string representing the content to display. Has a higher priority than `text`. You can also use the shorthand `c`.
+- `display (d)`: A character defining the display mode: 'h' to reveal the tooltip on target hover, or 'c' to reveal the tooltip when the target is clicked. You can also use the shorthand `d`.
+- `position (p)`: A character defining the display mode: 'l' to left align the tooltip, 'm' to center the tooltip or 'r' to right align the tooltip. You can also use the shorthand `p`.
+- `width (w)`: The maximum size of the tooltip wrapper. You can also use the shorthand `w`.
+
+**Directive Hook Arguments: binding value**. You pass directly the text to display using the binding value:
+
+```
+<div id="demo" v-tooltip="'Hello'"></div>
+```
+
+You can also use the binding value as args Object:
+
+```
+<div id="demo" v-tooltip="{text:'Hello!', width:'120px'}"></div>
+```
+
+In this situation, yan can set the configuration options using the *binding modifiers* 'h' or 'c' for the display, or 'l', 'm' or 'r' for the position:
+
+```
+<div id="demo" v-tooltip.l="'Hello'"></div>
+```
