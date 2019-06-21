@@ -1052,13 +1052,13 @@
                             :count="5">
                     </eg-input>
                     <pre v-if="show.star">
-< eg-input
+&lt;eg-input
         type="star"
         label="Stepped star"
         v-model="number"
         :steps="2"
-        :count="3">
-< /eg-input>
+        :count="3"&gt;
+&lt;/eg-input&gt;
                     </pre>
                 </div>
                 <div v-if="show.star&&false">
@@ -1072,15 +1072,15 @@
                             :count="6">
                     </eg-input>
                     <pre v-if="show.star">
-< eg-input
+&lt;eg-input
         type="star"
         label="Free star"
         v-model="number"
         :steps="2"
         message="There are 1/2 steps but but not restricting"
         free
-        :count="6">
-< /eg-input>
+        :count="6"&gt;
+&lt;/eg-input&gt;
                     </pre>
                 </div>
             </div>

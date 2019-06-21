@@ -1508,7 +1508,7 @@
         </div>
         <!-- Radio -->
         <div v-else-if="isRadio" class="radio-container">
-            <div v-for="(v,label,i) in elements" class="radio-wrapper">
+            <div v-for="(v,label,i) in elements" class="radio-wrapper" :key="i">
                 <div class="radio-inner">
                     <!-- Radio legacy -->
                     <template v-if="legacy">
@@ -1525,10 +1525,10 @@
                     <!-- Radio svg -->
                     <template v-else>
                         <button
-                                class="radiobox"
+                                class="radiobox zoom"
                                 :id="theId+'-radio-'+i"
                                 :disabled="disabled||isLoading"
-                                :class="{selected:checkIfCheck(v), zoom:zoomDot, round:!zoomDot}"
+                                :class="{selected:checkIfCheck(v)}"
                                 @keyup.left="selectValueBefore(i)"
                                 @keyup.up="selectValueBefore(i)"
                                 @keyup.right="selectValueAfter(i)"
@@ -1582,7 +1582,7 @@
                 </button>
                 <div class="slider-line" :style="sliderLineStyle">
                     <template>
-                        <div class="slider-step" :class="{restricted, transparent:!showSteps}" v-for="(s,i) in sliderRange" :style="buildStepStyle(i)">
+                        <div class="slider-step" :class="{restricted, transparent:!showSteps}" v-for="(s,i) in sliderRange" :key="i" :style="buildStepStyle(i)">
                             <div class="slider-step-label" :class="{shy:showStepLabelsOnHover}" v-if="showStepLabels" :style="buildSliderStepLabelStyle(i)">{{ !isNaN(s) && s%1!=0 ? s.toFixed(toFixed) : s }}</div>
                         </div>
                     </template>
@@ -1592,7 +1592,7 @@
         <!-- Star -->
         <div v-else-if="isStar" :id="theId+'-star-wrapper'" class="star-wrapper" @mouseleave="starOff">
             <template v-for="i in count">
-                <svg @mousemove="starOver($event,i)" @click="clickStar($event,i)" :class="{hover:starHovered==i, activated:starActive>=i, full:starHovered>=i, active:i==starActive}" version="1.1" viewBox="0 0 13.229 13.229" xmlns="http://www.w3.org/2000/svg">
+                <svg @mousemove="starOver($event,i)" :key="i" @click="clickStar($event,i)" :class="{hover:starHovered==i, activated:starActive>=i, full:starHovered>=i, active:i==starActive}" version="1.1" viewBox="0 0 13.229 13.229" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="light-to-transparent">
                             <stop offset="0%"  :stop-color="lightGray"/>
@@ -1643,16 +1643,18 @@
             <option :value="null" class="option-placeholder" v-if="placeholder||placeholder==''" :selected="value===null||value===placeholder||value===''">{{ placeholder }}</option>
             <template v-if="Object.keys(selectedItems).length==1">
                 <option
-                        v-for="(item) in selectedItems[Object.keys(selectedItems)[0]]"
+                        v-for="(item,i) in selectedItems[Object.keys(selectedItems)[0]]"
+                        :key="i"
                         :selected="isOptionSelected(item)"
                         :value="computeOptionValue(item)">
                     {{ computeOptionValue(item) }}
                 </option>
             </template>
             <template v-else-if="Object.keys(selectedItems).length>0">
-                <optgroup v-for="(g,groupName,i) in selectedItems" :label="groupName">
+                <optgroup v-for="(g,groupName,i) in selectedItems" :key="i" :label="groupName">
                     <option
-                            v-for="(item) in g"
+                            v-for="(item,j) in g"
+                            :key="j"
                             :selected="isOptionSelected(item)"
                             :value="computeOptionValue(item)">
                         {{ computeOptionValue(item) }}</option>
@@ -1709,7 +1711,7 @@
                     <div v-else-if="autoWidth" class="autowidth-shadow" :id="theId+'-autowidth-shadow'">{{ autoWidthLabel }}</div>
                     <!-- Pills -->
                     <template v-if="hasPills && valueIsArray">
-                        <button class="pill" v-for="(p,i) in value" @mousedown.prevent.stop="popElement(i)" @keyup.enter="popElement(i)">
+                        <button class="pill" v-for="(p,i) in value" :key="i" @mousedown.prevent.stop="popElement(i)" @keyup.enter="popElement(i)">
                             <span>{{ itemIsObject && p && !!p[oLabel] ? p[oLabel] : p }}</span>
                             <div class="cross-pill" @mousedown.prevent.stop="popElement(i)">
                                 <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1975,6 +1977,10 @@
                                 @input="handleDateTimeCalendar"
                                 :format="format"
                                 useSelectInput
+                                :daysShortNames="daysShortNames"
+                                :daysFullNames="daysFullNames"
+                                :monthsShortNames="monthsShortNames"
+                                :monthsFullNames="monthsFullNames"
                                 materialized>
                         </calendar>
                         <div v-if="isTime||isTimeRange||isDateTime||isDateTimeRange" class="timer-wrapper">
@@ -1983,19 +1989,19 @@
                                     <div class="time-col">
                                         <span>{{ hoursLabel }}</span>
                                         <div class="time-grid">
-                                            <button v-for="i in 24" :class="{selected:i==hour}" @click="setTime('hour',i)" @dblclick="hoursTrick(i)">{{ i }}</button>
+                                            <button v-for="i in 24" :key="i" :class="{selected:i==hour}" @click="setTime('hour',i)" @dblclick="hoursTrick(i)">{{ i }}</button>
                                         </div>
                                     </div>
                                     <div class="time-col">
                                         <span>{{ minutesLabel }}</span>
                                         <div class="time-grid">
-                                            <button v-for="i in eachFive" :class="{selected:i==minute}" @click="setTime('min',i)" @dblclick="minutesTrick(i)">{{ i }}</button>
+                                            <button v-for="i in eachFive" :key="i" :class="{selected:i==minute}" @click="setTime('min',i)" @dblclick="minutesTrick(i)">{{ i }}</button>
                                         </div>
                                     </div>
                                     <div class="time-col">
                                         <span>{{ secondsLabel }}</span>
                                         <div class="time-grid">
-                                            <button v-for="i in eachFive" :class="{selected:i==second}" @click="setTime('sec',i)">{{ i }}</button>
+                                            <button v-for="i in eachFive" :key="i" :class="{selected:i==second}" @click="setTime('sec',i)">{{ i }}</button>
                                         </div>
                                     </div>
                                 </template>
@@ -2003,26 +2009,26 @@
                                     <div class="time-col">
                                         <span>{{ hoursLabel }}</span>
                                         <div class="time-grid">
-                                            <button v-for="i in 24" :class="{selected:i==hour2}" @click="setTime('hour',i,0,1)" @dblclick="hoursTrick(i,1)">{{ i }}</button>
+                                            <button v-for="i in 24" :key="i" :class="{selected:i==hour2}" @click="setTime('hour',i,0,1)" @dblclick="hoursTrick(i,1)">{{ i }}</button>
                                         </div>
                                     </div>
                                     <div class="time-col">
                                         <span>{{ minutesLabel }}</span>
                                         <div class="time-grid">
-                                            <button v-for="i in eachFive" :class="{selected:i==minute2}" @click="setTime('min',i,0,1)" @dblclick="minutesTrick(i,1)">{{ i }}</button>
+                                            <button v-for="i in eachFive" :key="i" :class="{selected:i==minute2}" @click="setTime('min',i,0,1)" @dblclick="minutesTrick(i,1)">{{ i }}</button>
                                         </div>
                                     </div>
                                     <div class="time-col">
                                         <span>{{ secondsLabel }}</span>
                                         <div class="time-grid">
-                                            <button v-for="i in eachFive" :class="{selected:i==second2}" @click="setTime('sec',i,0,1)">{{ i }}</button>
+                                            <button v-for="i in eachFive" :key="i" :class="{selected:i==second2}" @click="setTime('sec',i,0,1)">{{ i }}</button>
                                         </div>
                                     </div>
                                 </template>
                             </div>
                             <div v-if="isTimeRange||isDateTimeRange" class="timer-footer">
-                                <button @click="showTimePanelVerso=false" :class="{selected:!showTimePanelVerso}">Début</button>
-                                <button @click="showTimePanelVerso=true" :class="{selected:showTimePanelVerso}">Fin</button>
+                                <button @click="showTimePanelVerso=false" :class="{selected:!showTimePanelVerso}">{{ startingTimeLabel }}</button>
+                                <button @click="showTimePanelVerso=true" :class="{selected:showTimePanelVerso}">{{ endingTimeLabel }}</button>
                             </div>
                         </div>
                     </div>
@@ -2031,19 +2037,19 @@
                             <div class="time-col">
                                 <span>{{ hoursLabel }}</span>
                                 <div class="time-grid">
-                                    <button v-for="i in 24" :class="{selected:i==hour}" @click="setTime('hour',i)" @dblclick="hoursTrick(i)">{{ i }}</button>
+                                    <button v-for="i in 24" :key="i" :class="{selected:i==hour}" @click="setTime('hour',i)" @dblclick="hoursTrick(i)">{{ i }}</button>
                                 </div>
                             </div>
                             <div class="time-col">
                                 <span>{{ minutesLabel }}</span>
                                 <div class="time-grid">
-                                    <button v-for="i in eachFive" :class="{selected:i==minute}" @click="setTime('min',i)" @dblclick="minutesTrick(i)">{{ i }}</button>
+                                    <button v-for="i in eachFive" :key="i" :class="{selected:i==minute}" @click="setTime('min',i)" @dblclick="minutesTrick(i)">{{ i }}</button>
                                 </div>
                             </div>
                             <div class="time-col">
                                 <span>{{ secondsLabel }}</span>
                                 <div class="time-grid">
-                                    <button v-for="i in eachFive" :class="{selected:i==second}" @click="setTime('sec',i)">{{ i }}</button>
+                                    <button v-for="i in eachFive" :key="i" :class="{selected:i==second}" @click="setTime('sec',i)">{{ i }}</button>
                                 </div>
                             </div>
                         </template>
@@ -2051,45 +2057,48 @@
                             <div class="time-col">
                                 <span>{{ hoursLabel }}</span>
                                 <div class="time-grid">
-                                    <button v-for="i in 24" :class="{selected:i==hour2}" @click="setTime('hour',i,0,1)" @dblclick="hoursTrick(i,1)">{{ i }}</button>
+                                    <button v-for="i in 24" :key="i" :class="{selected:i==hour2}" @click="setTime('hour',i,0,1)" @dblclick="hoursTrick(i,1)">{{ i }}</button>
                                 </div>
                             </div>
                             <div class="time-col">
                                 <span>{{ minutesLabel }}</span>
                                 <div class="time-grid">
-                                    <button v-for="i in eachFive" :class="{selected:i==minute2}" @click="setTime('min',i,0,1)" @dblclick="minutesTrick(i,1)">{{ i }}</button>
+                                    <button v-for="i in eachFive" :key="i" :class="{selected:i==minute2}" @click="setTime('min',i,0,1)" @dblclick="minutesTrick(i,1)">{{ i }}</button>
                                 </div>
                             </div>
                             <div class="time-col">
                                 <span>{{ secondsLabel }}</span>
                                 <div class="time-grid">
-                                    <button v-for="i in eachFive" :class="{selected:i==second2}" @click="setTime('sec',i,0,1)">{{ i }}</button>
+                                    <button v-for="i in eachFive" :key="i" :class="{selected:i==second2}" @click="setTime('sec',i,0,1)">{{ i }}</button>
                                 </div>
                             </div>
                         </template>
                     </div>
-                    <template v-for="(g,groupName,i) in selectedItems" v-if="Object.keys(selectedItems).length>0">
-                        <span class="item-group-label" v-if="groupName!=0">{{ groupName }}</span>
-                        <ul class="item-group">
-                            <li
-                                    :tabindex="tabindex?0:-1"
-                                    v-for="(item,j) in g"
-                                    @keyup.up="focusItem(i,j,true)"
-                                    @keyup.left="focusItem(i,j,true)"
-                                    @keyup.down="focusItem(i,j)"
-                                    @keyup.right="focusItem(i,j)"
-                                    @keydown.enter.prevent.stop="selectItem($event, item)"
-                                    @mousedown.prevent="selectItem($event, item)"
-                                    class="select-item"
-                                    :class="{selected:isInList(item)}"
-                                    :data-group="i"
-                                    :disabled="disabled||isLoading"
-                                    :data-item="j">
-                                <div class="list-item" :class="{'opt-group':isOptGroup}">
-                                    <span class="content">{{ computeOptionValue(item) }}</span>
-                                </div>
-                            </li>
-                        </ul>
+                    <template v-if="Object.keys(selectedItems).length>0">
+                        <template v-for="(g,groupName,i) in selectedItems">
+                            <span class="item-group-label" v-if="groupName!=0" :key="i+guid(2)">{{ groupName }}</span>
+                            <ul class="item-group" :key="i+guid(2)">
+                                <li
+                                        :tabindex="tabindex?0:-1"
+                                        v-for="(item,j) in g"
+                                        :key="j+guid(2)"
+                                        @keyup.up="focusItem(i,j,true)"
+                                        @keyup.left="focusItem(i,j,true)"
+                                        @keyup.down="focusItem(i,j)"
+                                        @keyup.right="focusItem(i,j)"
+                                        @keydown.enter.prevent.stop="selectItem($event, item)"
+                                        @mousedown.prevent="selectItem($event, item)"
+                                        class="select-item"
+                                        :class="{selected:isInList(item)}"
+                                        :data-group="i"
+                                        :disabled="disabled||isLoading"
+                                        :data-item="j">
+                                    <div class="list-item" :class="{'opt-group':isOptGroup}">
+                                        <span class="content">{{ computeOptionValue(item) }}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </template>
                     </template>
                     <div class="select-panel-content" v-else-if="noItemLabel">
                         <span>{{ noItemLabel }}</span>
@@ -2101,16 +2110,16 @@
         <div class="messages-zone" v-if="showMessagesZone">
             <div class="message-counter" :class="{error:counterError}" v-if="hasCounter">{{valueCount}} / {{counter}}</div>
             <ul v-if="displayedErrorMessages.length>0" class="message message-list" :class="{shorter:multiple}">
-                <li v-for="m in displayedErrorMessages">{{ m }}</li>
+                <li v-for="m in displayedErrorMessages" :key="m">{{ m }}</li>
             </ul>
             <ul v-else-if="messages.length>0" class="message message-list" :class="{shorter:multiple}">
-                <li v-for="m in messages">{{ m }}</li>
+                <li v-for="m in messages" :key="m">{{ m }}</li>
             </ul>
             <div v-else-if="hasMessage" class="message">{{ displayedErrorMessage||message }}</div>
         </div>
         <!-- Multiple files -->
         <div class="file-list" v-if="isFile && files.length>1">
-            <div class="file-element-wrapper" v-for="(f,i) in files">
+            <div class="file-element-wrapper" v-for="(f,i) in files" :key="i">
                 <div class="file-element" :class="{loaded:fileIsInValue(f), error:f.unvalid}" tabindex="0">
                     <div class="file-content" :class="{'has-icon':hasIcon, 'file-check-pad':hasFileCheck&&!f.unvalid}">
                         <span class="file-picture" :id="theId+'-file-'+i" v-if="isType('image',f)"></span>
@@ -2132,7 +2141,7 @@
                     </div>
                 </div>
                 <ul v-if="f.unvalid" class="message message-list">
-                    <li v-for="m in f.errors">{{ m }}</li>
+                    <li v-for="m in f.errors" :key="m">{{ m }}</li>
                 </ul>
             </div>
         </div>
@@ -2151,7 +2160,6 @@
         },
         props: {
             // global
-            useHammer: { type: Boolean, default: true },
             type: { type: String, default: "text", validator: (value) => [
                     'text',
                     'textarea',
@@ -2160,7 +2168,6 @@
                     'radio',
                     'switch',
                     'number',
-                    'slider',
                     'file',
                     'date',
                     'time',
@@ -2168,6 +2175,7 @@
                     'datetime',
                     'date-range',
                     'datetime-range',
+                    'slider',
                     'star',
                     // natives
                     'password',
@@ -2179,30 +2187,32 @@
             value: {},
             label: { type: String, default: null },
             id: { type: String, default: null },
-            lid: { type: Boolean, default: true },
+            idSeed: { type: Boolean, default: false },
+            autoFocus: { type: Boolean, default: false },
+            useHammer: { type: Boolean, default: true },
+
+            // states
             legacy: { type: Boolean, default: false },
             disabled: { type: Boolean, default: false },
             error: { type: Boolean, default: false },
+            loading: { type: Boolean, default: false },
+
+            // messages
             message: { type: String, default: null },
             messages: { type: Array, default(){ return [] } },
             errorMessage: { type: String, default: null },
             errorMessages: { type: Array, default(){ return [] } },
-            changeEvent: { type: Boolean, default: false },
-            idSeed: { type: Boolean, default: false },
-            loading: { type: Boolean, default: false },
-
-            // events
-            eFocus: { type: Boolean, default: false },
-            eBlur: { type: Boolean, default: false },
 
             // style
-            small: { type: Boolean, default: false },
-            big: { type: Boolean, default: false },
-            widthBasis: { type: Number, default: 30 },
             minWidth: { type: Number, default: 50 },
             width: { type: String, default: null },
-            height: { type: String, default: null },
             autoWidth: { type: Boolean, default: false },
+            widthBasis: { type: Number, default: 10 },
+
+            // events
+            eChange: { type: Boolean, default: false },
+            eFocus: { type: Boolean, default: false },
+            eBlur: { type: Boolean, default: false },
 
             // text
             placeholder: { default: null },
@@ -2217,12 +2227,10 @@
             },
             deleteCross: { type: Boolean, default: true },
             emptyShowCross: { type: Boolean, default: false },
-            autoFocus: { type: Boolean, default: false },
             counter: { default: null },
             counterLock: { type: Boolean, default: true },
             counterWords: { type: Boolean, default: false },
             counterSeparator: { type: String, default: ' ' },
-            counterMessage: { type: String, default: "Le compteur a été dépassé !" },
 
             // textarea
             rows: { default: 2 },
@@ -2232,7 +2240,6 @@
 
             // radio
             elements: { type: Object, default(){return {}}},
-            zoomDot: { type: Boolean, default: true },
 
             // select
             list: { type: Array, default(){return[]} },
@@ -2244,47 +2251,41 @@
             restrictToOptions: { type: Boolean, default: true },
             tabindex: { type: Boolean, default: false },
             oLabel: { type: String, default: "name" },
-            searchLabel: { type: String, default: "Recherche:" },
-            noItemLabel: { type: String, default: "Aucun elements..." },
+
 
             // slider
             steps: { type: Number, default: null },
             dotSize: { type: Number, default: 25 },
-            displayNumber: {type: Boolean, default: false},
             toFixed: {type: Number, default: 2},
-            precision: {type: Number, default: 5},
             stepless: {type: Boolean, default: false},
+            displayNumber: {type: Boolean, default: false},
             showDotLabel: {type: Boolean, default: true},
             showSteps: {type: Boolean, default: true},
             showStepLabels: {type: Boolean, default: true},
             showStepLabelsOnHover: {type: Boolean, default: false},
             restricted: {type: Boolean, default: false},
-            minLabelWidth: {type: Number, default: 20},
             showLabelEach: {type: Number, default: null},
+            minLabelWidth: {type: Number, default: 20},
             showLabelOffset: {type: Number, default: 2},
+            precision: {type: Number, default: 5},
             labelMaxWidth: {type: Number, default: 0},
 
             // file
             oSize: { type: String, default: null },
             oType: { type: String, default: "type" },
             oUrl: { type: String, default: "url" },
-            filesMultipleLabel: { type: String, default: "fichiers" },
-            dropLabel: { type: String, default: "Déposer ici" },
             maxSize: { type: Number, default: null }, // kb: x1024, mb: x1024x1024, gb: x1024x1024x1024
-            maxSizeError: { type: String, default: "La taille du fichier dépasse la taille maximale" },
             extensions: { type: Array, default(){ return [] } },
-            extensionError: { type: String, default: "L'extension du fichier n'est pas valide" },
             instant: {type: Boolean, default: false},
-            noValidFileMessage: { type: String, default: "Aucun fichier n'est valide" },
 
             // number
             min: { type: Number, default: null },
             max: { type: Number, default: null },
             increment: { type: Number, default: 1 },
-            startDelay: { type: Number, default: 300 },
-            speed: { type: Number, default: 30 },
             noInput: { type: Boolean, default: false },
             noButtons: { type: Boolean, default: false },
+            startDelay: { type: Number, default: 300 },
+            speed: { type: Number, default: 30 },
 
             // date
             format: { type: String, default: null,
@@ -2299,11 +2300,6 @@
                     ].indexOf(value) !== -1
                 }
             },
-
-            // time
-            hoursLabel: { type: String, default: "Heures" },
-            minutesLabel: { type: String, default: "Minutes" },
-            secondsLabel: { type: String, default: "Secondes" },
 
             // datetime & time-range
             sep: { type: String, default: '' },
@@ -2320,6 +2316,25 @@
             darkGray: { type: String, default: "#75282e" },
             noSteps: { type: Boolean, default: false },
             free: { type: Boolean, default: false },
+
+            // strings
+            counterMessage: { type: String, default: "Le compteur a été dépassé !" },
+            hoursLabel: { type: String, default: "Heures" },
+            minutesLabel: { type: String, default: "Minutes" },
+            secondsLabel: { type: String, default: "Secondes" },
+            noValidFileMessage: { type: String, default: "Aucun fichier n'est valide" },
+            extensionError: { type: String, default: "L'extension du fichier n'est pas valide" },
+            maxSizeError: { type: String, default: "La taille du fichier dépasse la taille maximale" },
+            filesMultipleLabel: { type: String, default: "fichiers" },
+            dropLabel: { type: String, default: "Déposer ici" },
+            searchLabel: { type: String, default: "Recherche:" },
+            noItemLabel: { type: String, default: "Aucun elements..." },
+            startingTimeLabel: { type: String, default: "Début" },
+            endingTimeLabel: { type: String, default: "Fin" },
+            daysShortNames: { type: Array, default(){ return [ 'lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim' ] } },
+            daysFullNames: { type: Array, default(){ return [ 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche' ] } },
+            monthsShortNames: { type: Array, default(){ return [ 'jan', 'fev', 'mars', 'avr', 'mai', 'juin', 'juil', 'aout', 'sept', 'oct', 'nov', 'dec' ] } },
+            monthsFullNames: { type: Array, default(){ return [ 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre' ] } }
         },
         data() {
             return {
@@ -2449,7 +2464,7 @@
                 else if(this.isTimeRelated) {
                     if(this.regexUnvalid) {
                         this.regexUnvalid = false;
-                        this.changeEvent ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
+                        this.eChange ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
                     }
                 }
                 // we the user quits an not week and regexUnvalid field, the handleInput() for init is run.
@@ -2473,24 +2488,24 @@
                     // for a number, we set the value to min (if specified) or to 0
                     if(this.isNumber) {
                         if(!this.min || this.min == 0) {
-                            this.changeEvent ? this.$emit('change', 0) : this.$emit('input', 0);
+                            this.eChange ? this.$emit('change', 0) : this.$emit('input', 0);
                         }
                         else {
-                            this.changeEvent ? this.$emit('change', this.min) : this.$emit('input', this.min);
+                            this.eChange ? this.$emit('change', this.min) : this.$emit('input', this.min);
                         }
                     }
                     // for a select
                     else if(this.isSelect || (this.isText && this.multiple)) {
                         // default behaviour: we emit an empty string
                         if(!this.restrictToOptions && !this.multiple) {
-                            this.changeEvent ? this.$emit('change', "") : this.$emit('input', "");
+                            this.eChange ? this.$emit('change', "") : this.$emit('input', "");
                             this.query = this.multiple ? "" : null;
                         }
                         // when multiple, we first check the query
                         else if(this.multiple) {
                             // if the query is empty (or no focus), we empty the field by sending an empty array
                             if(this.query === "" || !this.hasFocus) {
-                                this.changeEvent ? this.$emit('change', []) : this.$emit('input', []);
+                                this.eChange ? this.$emit('change', []) : this.$emit('input', []);
                                 this.$nextTick(() => {
                                     this.buildSelectResultsStyle();
                                 });
@@ -2504,7 +2519,7 @@
                         }
                         // secure default behaviours
                         else {
-                            this.changeEvent ? this.$emit('change', "") : this.$emit('input', "");
+                            this.eChange ? this.$emit('change', "") : this.$emit('input', "");
                         }
                     }
                     // for a file, we remove the first file of the list
@@ -2513,7 +2528,7 @@
                     }
                     else {
                         this.regexUnvalid = false;
-                        this.changeEvent ? this.$emit('change', "") : this.$emit('input', "");
+                        this.eChange ? this.$emit('change', "") : this.$emit('input', "");
                     }
                 }
                 // if deleteCross is not activated, we only emit enter (the simple icon is used)
@@ -2530,11 +2545,11 @@
                         if(this.value.length>0) {
                             let o = JSON.parse(JSON.stringify(this.value));
                             o.pop();
-                            this.changeEvent ? this.$emit('change', o) : this.$emit('input', o);
+                            this.eChange ? this.$emit('change', o) : this.$emit('input', o);
                         }
                         // otherwise we emit an empty fresh array
                         else {
-                            this.changeEvent ? this.$emit('change', []) : this.$emit('input', []);
+                            this.eChange ? this.$emit('change', []) : this.$emit('input', []);
                         }
                     }
                 }
@@ -2561,7 +2576,7 @@
                         let o = JSON.parse(JSON.stringify(this.value));
                         o.push(this.query);
                         if(!(this.counter && o.length>this.counter)) {
-                            this.changeEvent ? this.$emit('change', o) : this.$emit('input', o);
+                            this.eChange ? this.$emit('change', o) : this.$emit('input', o);
                         }
                         this.query = "";
                         this.focusField();
@@ -2581,7 +2596,7 @@
                         let val = e.target.value;
                         if(this.max !== null && val > this.max) val = this.max;
                         if(this.min !== null && val < this.min) val = this.min;
-                        this.changeEvent ? this.$emit('change', val) : this.$emit('input', val);
+                        this.eChange ? this.$emit('change', val) : this.$emit('input', val);
                     }
                     // for the checkboxes
                     else if(this.isCheckbox) {
@@ -2592,7 +2607,7 @@
                                 o = JSON.parse(JSON.stringify(this.value));
                             }
                             o.indexOf(e) >= 0 ? o = o.filter(a => a != e) : o.push(e);
-                            this.changeEvent ? this.$emit('change', o) : this.$emit('input', o);
+                            this.eChange ? this.$emit('change', o) : this.$emit('input', o);
                         }
                         // otherwise we toggle the value
                         else {
@@ -2600,14 +2615,14 @@
                             if(this.value === 'false' || !this.value) {
                                 val = false
                             }
-                            this.changeEvent ? this.$emit('change', val) : this.$emit('input', val);
+                            this.eChange ? this.$emit('change', val) : this.$emit('input', val);
                         }
                     }
                     // if the counter triggers an error and is hard-locking
                     else if(!this.multiple && this.counterError && this.counterLock) {
                         // if we remove some text, we are allowed to update the value
                         if(e.target.value.length < this.value.length) {
-                            this.changeEvent ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
+                            this.eChange ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
                         }
                         // we reset the value to the biggest correct value
                         else {
@@ -2629,7 +2644,7 @@
                             this.query = e.target.value;
                         }
                         else {
-                            this.changeEvent ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
+                            this.eChange ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
                         }
                     }
                 }
@@ -2763,14 +2778,14 @@
                                 if(this.isDateTime) { this.cutTime(value[1]); }
                                 if(this.isTimeRange) { this.cutTime(value); }
                                 if(this.isDateTimeRange) { this.cutTime(value); }
-                                else this.changeEvent ? this.$emit('change', value) : this.$emit('input', value);
+                                else this.eChange ? this.$emit('change', value) : this.$emit('input', value);
                             }
                             else {
-                                if(!this.changeEvent) this.$emit('change', value);
+                                if(!this.eChange) this.$emit('change', value);
                             }
                         }
                         else {
-                            this.changeEvent ? this.$emit('change', value) : this.$emit('input', value);
+                            this.eChange ? this.$emit('change', value) : this.$emit('input', value);
                         }
                     }
                 }
@@ -2791,14 +2806,14 @@
                         if((!this.regexUnvalid || !this.strongRegex)) {
                             if(!this.regexUnvalid || this.weakRegex) {
                                 this.cutTime(value);
-                                this.changeEvent ? this.$emit('change', value) : this.$emit('input', value);
+                                this.eChange ? this.$emit('change', value) : this.$emit('input', value);
                             }
                             else {
-                                if(!this.changeEvent) this.$emit('change', value);
+                                if(!this.eChange) this.$emit('change', value);
                             }
                         }
                         else {
-                            this.changeEvent ? this.$emit('change', value) : this.$emit('input', value);
+                            this.eChange ? this.$emit('change', value) : this.$emit('input', value);
                         }
                     }
                 }
@@ -2810,7 +2825,7 @@
                         regPassTest = regex.test(value[0]) && regex.test(value[1]);
                     }
                     // we only verify if we can
-                    else if(!!value) {
+                    else if(value) {
                         regPassTest = regex.test(value);
                     }
                     // the test is passed, or considered as
@@ -2823,64 +2838,64 @@
                             // datetime
                             if(this.isDateTime && e.isDate) {
                                 this.lastValidValue[0] = value;
-                                this.changeEvent ? this.$emit('change', [value,l[1]]) : this.$emit('input', [value,l[1]]);
+                                this.eChange ? this.$emit('change', [value,l[1]]) : this.$emit('input', [value,l[1]]);
                             }
                             else if(this.isDateTime && e.isTime) {
                                 this.lastValidValue[1] = value;
-                                this.changeEvent ? this.$emit('change', [l[0],value]) : this.$emit('input', [l[0],value]);
+                                this.eChange ? this.$emit('change', [l[0],value]) : this.$emit('input', [l[0],value]);
                             }
                             // time-range
                             else if(this.isTimeRange && e.isStart) {
                                 this.lastValidValue[0] = value;
-                                this.changeEvent ? this.$emit('change', [value,l[1]]) : this.$emit('input', [value,l[1]]);
+                                this.eChange ? this.$emit('change', [value,l[1]]) : this.$emit('input', [value,l[1]]);
                             }
                             else if(this.isTimeRange && e.isEnd) {
                                 this.lastValidValue[1] = value;
-                                this.changeEvent ? this.$emit('change', [l[0],value]) : this.$emit('input', [l[0],value]);
+                                this.eChange ? this.$emit('change', [l[0],value]) : this.$emit('input', [l[0],value]);
                             }
                             // date-range
                             else if(this.isDateRange && e.isFrom) {
                                 this.lastValidValue[0] = value;
-                                this.changeEvent ? this.$emit('change', [value,l[1]]) : this.$emit('input', [value,l[1]]);
+                                this.eChange ? this.$emit('change', [value,l[1]]) : this.$emit('input', [value,l[1]]);
                             }
                             else if(this.isDateRange && e.isTo) {
                                 this.lastValidValue[1] = value;
-                                this.changeEvent ? this.$emit('change', [l[0],value]) : this.$emit('input', [l[0],value]);
+                                this.eChange ? this.$emit('change', [l[0],value]) : this.$emit('input', [l[0],value]);
                             }
                             // datetime-range both dates
                             else if(this.isDateTimeRange && e.isDate) {
                                 this.lastValidValue[0][0] = value[0];
                                 this.lastValidValue[1][0] = value[1];
-                                this.changeEvent ? this.$emit('change', [[value[0],l[0][1]],[value[1],l[1][1]]]) : this.$emit('input', [[value[0],l[0][1]],[value[1],l[1][1]]]);
+                                this.eChange ? this.$emit('change', [[value[0],l[0][1]],[value[1],l[1][1]]]) : this.$emit('input', [[value[0],l[0][1]],[value[1],l[1][1]]]);
                             }
                             // datetime-range
                             else if(this.isDateTimeRange && e.isFrom) {
                                 this.lastValidValue[0][0] = value;
-                                this.changeEvent ? this.$emit('change', [[value,l[0][1]],[l[1][0],l[1][1]]]) : this.$emit('input', [[value,l[0][1]],[l[1][0],l[1][1]]]);
+                                this.eChange ? this.$emit('change', [[value,l[0][1]],[l[1][0],l[1][1]]]) : this.$emit('input', [[value,l[0][1]],[l[1][0],l[1][1]]]);
                             }
                             else if(this.isDateTimeRange && e.isStart) {
                                 this.lastValidValue[0][1] = value;
-                                this.changeEvent ? this.$emit('change', [[l[0][0],value],[l[1][0],l[1][1]]]) : this.$emit('input', [[l[0][0],value],[l[1][0],l[1][1]]]);
+                                this.eChange ? this.$emit('change', [[l[0][0],value],[l[1][0],l[1][1]]]) : this.$emit('input', [[l[0][0],value],[l[1][0],l[1][1]]]);
                             }
                             else if(this.isDateTimeRange && e.isTo) {
                                 this.lastValidValue[1][0] = value;
-                                this.changeEvent ? this.$emit('change', [[l[0][0],l[0][1]],[value,l[1][1]]]) : this.$emit('input', [[l[0][0],l[0][1]],[value,l[1][1]]]);
+                                this.eChange ? this.$emit('change', [[l[0][0],l[0][1]],[value,l[1][1]]]) : this.$emit('input', [[l[0][0],l[0][1]],[value,l[1][1]]]);
                             }
                             else if(this.isDateTimeRange && e.isEnd) {
                                 this.lastValidValue[1][1] = value;
-                                this.changeEvent ? this.$emit('change', [[l[0][0],l[0][1]],[l[1][0],value]]) : this.$emit('input', [[l[0][0],l[0][1]],[l[1][0],value]]);
+                                this.eChange ? this.$emit('change', [[l[0][0],l[0][1]],[l[1][0],value]]) : this.$emit('input', [[l[0][0],l[0][1]],[l[1][0],value]]);
                             }
                             // default
                             else {
                                 this.lastValidValue = value;
                                 // we cut the time
                                 if(this.isTime) { this.cutTime(value); }
-                                this.changeEvent ? this.$emit('change', value) : this.$emit('input', value);
+                                this.eChange ? this.$emit('change', value) : this.$emit('input', value);
                             }
                         }
                         else {
                             this.regexUnvalid = true;
-                            if(!this.changeEvent) {
+                            if(!this.eChange) {
                                 this.$emit('change', value);
                             }
                         }
@@ -2893,7 +2908,7 @@
                 }
                 // no regex is usable
                 else if(e instanceof Event) {
-                    this.changeEvent ? this.$emit('change', value) : this.$emit('input', value);
+                    this.eChange ? this.$emit('change', value) : this.$emit('input', value);
                 }
             },
             // handle the rules validation, used by handleInput()
@@ -2913,7 +2928,7 @@
                     }
                     // the test is passed, we emit
                     else if(this.internErrorMessages.length <= 0 || !this.strongRegex) {
-                        this.changeEvent && !this.weakRegex ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
+                        this.eChange && !this.weakRegex ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
                     }
                     // the test is failed: we don't emit
                     else {
@@ -2958,7 +2973,7 @@
             popElement(i) {
                 let o = JSON.parse(JSON.stringify(this.value));
                 o.splice(i,1);
-                this.changeEvent ? this.$emit('change', o) : this.$emit('input', o);
+                this.eChange ? this.$emit('change', o) : this.$emit('input', o);
                 this.$nextTick(() => {
                     this.buildSelectResultsStyle();
                 });
@@ -3125,7 +3140,7 @@
                     if(!this.valueIsArray) o = [];
                     o.push(file);
                     this.preventFileUpdate = true;
-                    this.changeEvent ? this.$emit('change', o) : this.$emit('input', o);
+                    this.eChange ? this.$emit('change', o) : this.$emit('input', o);
                     this.$emit('submit', file);
                     setTimeout(() => { this.preventFileUpdate = false; }, 500);
                 }
@@ -3134,7 +3149,7 @@
             submitFiles() {
                 if(this.files.length == 1) {
                     this.$emit('submit', this.files);
-                    this.changeEvent ? this.$emit('change', this.files) : this.$emit('input', this.files);
+                    this.eChange ? this.$emit('change', this.files) : this.$emit('input', this.files);
                     return true;
                 }
                 else if(this.files.length > 1) {
@@ -3148,7 +3163,7 @@
                             }
                         }
                         this.$emit('submit', o);
-                        this.changeEvent ? this.$emit('change', validFiles) : this.$emit('input', validFiles);
+                        this.eChange ? this.$emit('change', validFiles) : this.$emit('input', validFiles);
                         return true;
                     }
                 }
@@ -3208,7 +3223,7 @@
                 else if(va > this.theMax) {
                     va = this.theMax;
                 }
-                this.changeEvent ? this.$emit('change', va) : this.$emit('input', va);
+                this.eChange ? this.$emit('change', va) : this.$emit('input', va);
                 if(this.stepless) {
                     this.buildDotStyle();
                 }
@@ -3357,7 +3372,7 @@
                         if(this.itemIsObject) {
                             // if a label attribute is defined, we try to remove it from the value (array).
                             // if we cannot, we add the item to the value
-                            if(this.oLabel && a) {
+                            if(this.oLabel) {
                                 let sel = value.filter(a => a[this.oLabel] != item[this.oLabel]);
                                 sel.length >= value.length ? value.push(item) : value = sel;
                             }
@@ -3372,7 +3387,7 @@
                             }
                         }
                         // we emit the new value
-                        this.changeEvent ? this.$emit('change', value) : this.$emit('input', value);
+                        this.eChange ? this.$emit('change', value) : this.$emit('input', value);
                         // if the pills are changing the size of the input, we have to update the results position
                         this.$nextTick(() => {
                             this.buildSelectResultsStyle();
@@ -3384,7 +3399,7 @@
                     if(this.editable) {
                         this.query = this.multiple ? "" : item;
                     }
-                    this.changeEvent ? this.$emit('change', item) : this.$emit('input', item);
+                    this.eChange ? this.$emit('change', item) : this.$emit('input', item);
                 }
                 if(e === false || (!e.ctrlKey && !e.shiftKey)) {
                     this.lockSelectPanel = false;
@@ -3411,7 +3426,7 @@
                     let item = j;
                     let keys = Object.keys(this.selectedItems);
                     if(this.isOptGroup) {
-                        if(!!backward) {
+                        if(backward) {
                             if(item>0) {
                                 item--;
                             }
@@ -3523,7 +3538,6 @@
             selectMouseDown(e) {
                 if(this.hasFocus) {
                     let in$El = false;
-                    let inItem = false;
                     let inPanel = false;
                     e.path.forEach(elem => {
                         if(elem.classList) {
@@ -3532,9 +3546,6 @@
                             }
                             else if(elem.classList.contains('calendar-header-content')) {
                                 in$El = true;
-                            }
-                            else if(elem.classList.contains('select-item')) {
-                                inItem = true;
                             }
                             else if(elem.classList.contains('select-panel')) {
                                 inPanel = true;
@@ -3568,7 +3579,7 @@
                     else {
                         val = this.switchValues[Object.keys(this.switchValues)[1]];
                     }
-                    this.changeEvent ? this.$emit('change', val) : this.$emit('input', val);
+                    this.eChange ? this.$emit('change', val) : this.$emit('input', val);
                 }
             },
 
@@ -3801,19 +3812,19 @@
                 // emitting the value built
                 if(this.isDateTime) {
                     this.lastValidValue[1] = v;
-                    this.changeEvent ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
+                    this.eChange ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
                 }
                 else if(this.isTimeRange) {
                     this.lastValidValue = [v,v2];
-                    this.changeEvent ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
+                    this.eChange ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
                 }
                 else if(this.isDateTimeRange) {
                     let l = this.lastValidValue;
                     this.lastValidValue = [[l[0][0],v],[l[1][0],v2]];
-                    this.changeEvent ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
+                    this.eChange ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
                 }
                 else {
-                    this.changeEvent ? this.$emit('change', v) : this.$emit('input', v);
+                    this.eChange ? this.$emit('change', v) : this.$emit('input', v);
                 }
             },
             // set one of the time information split and store in the component
@@ -3906,7 +3917,7 @@
                 else if(!isNaN(this.dc)) {
                     val = (i-1) + parseFloat(this.dc);
                 }
-                this.changeEvent ? this.$emit('change', val) : this.$emit('input', val);
+                this.eChange ? this.$emit('change', val) : this.$emit('input', val);
             },
             // @mousemove event handler for the star input individual star. Compute the new hovering position.
             starOver(e,i) {
@@ -4011,96 +4022,7 @@
             },
             // return true if obj1 and obj2 are similar
             compareObjects(obj1, obj2) {
-                let i, l, leftChain, rightChain;
-                function compare2Objects (x, y) {
-                    let p;
-                    // remember that NaN === NaN returns false
-                    // and isNaN(undefined) returns true
-                    if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') {
-                        return true;
-                    }
-                    // Compare primitives and functions.
-                    // Check if both arguments link to the same object.
-                    // Especially useful on the step where we compare prototypes
-                    if (x === y) {
-                        return true;
-                    }
-                    // Works in case when functions are created in constructor.
-                    // Comparing dates is a common scenario. Another built-ins?
-                    // We can even handle functions passed across iframes
-                    if ((typeof x === 'function' && typeof y === 'function') ||
-                        (x instanceof Date && y instanceof Date) ||
-                        (x instanceof RegExp && y instanceof RegExp) ||
-                        (x instanceof String && y instanceof String) ||
-                        (x instanceof Number && y instanceof Number)) {
-                        return x.toString() === y.toString();
-                    }
-                    // At last checking prototypes as good as we can
-                    if (!(x instanceof Object && y instanceof Object)) {
-                        return false;
-                    }
-                    if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
-                        return false;
-                    }
-                    if (x.constructor !== y.constructor) {
-                        return false;
-                    }
-                    if (x.prototype !== y.prototype) {
-                        return false;
-                    }
-                    // Check for infinitive linking loops
-                    if (leftChain.indexOf(x) > -1 || rightChain.indexOf(y) > -1) {
-                        return false;
-                    }
-                    // Quick checking of one object being a subset of another.
-                    // todo: cache the structure of arguments[0] for performance
-                    for (p in y) {
-                        if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
-                            return false;
-                        }
-                        else if (typeof y[p] !== typeof x[p]) {
-                            return false;
-                        }
-                    }
-                    for (p in x) {
-                        if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
-                            return false;
-                        }
-                        else if (typeof y[p] !== typeof x[p]) {
-                            return false;
-                        }
-                        switch (typeof (x[p])) {
-                            case 'object':
-                            case 'function':
-                                leftChain.push(x);
-                                rightChain.push(y);
-                                if (!compare2Objects (x[p], y[p])) {
-                                    return false;
-                                }
-                                leftChain.pop();
-                                rightChain.pop();
-                                break;
-                            default:
-                                if (x[p] !== y[p]) {
-                                    return false;
-                                }
-                                break;
-                        }
-                    }
-                    return true;
-                }
-                if (arguments.length < 1) {
-                    return true; //Die silently? Don't know how to handle such case, please help...
-                    // throw "Need two or more arguments to compare";
-                }
-                for (i = 1, l = arguments.length; i < l; i++) {
-                    leftChain = []; //Todo: this can be cached
-                    rightChain = [];
-                    if (!compare2Objects(arguments[0], arguments[i])) {
-                        return false;
-                    }
-                }
-                return true;
+                return JSON.stringify(obj1) === JSON.stringify(obj2);
             },
             // return if obj is empty
             isEmpty(obj) {
@@ -4154,7 +4076,6 @@
                 }
                 return string;
             },
-
         },
         watch: {
             hasFocus() {
@@ -4213,7 +4134,7 @@
                 if(this.id) {
                     return this.id;
                 }
-                else if(this.label && this.lid) {
+                else if(this.label) {
                     let o = this.label.replace(/\s+/g, '-').toLowerCase();
                     if(this.idSeed) o += '-' + this.guid(1);
                     return o;
@@ -4234,12 +4155,7 @@
             inputStyle() {
                 if(this.autoWidth) {
                     if((this.isSelect&&!this.editable) || (this.isNumber&&this.noInput) || (this.isText&&this.multiple)) {
-                        if(!isNaN(this.inputValueWidth)) {
-                            return "width:" + this.inputValueWidth + "px;";
-                        }
-                        else {
-                            return "width:20px;";
-                        }
+                        return  "width:" + (!isNaN(this.inputValueWidth) ? this.inputValueWidth : this.widthBasis) + "px;";
                     }
                     else {
                         let iconWidth = 30;
@@ -4258,7 +4174,6 @@
             inputClass() {
                 let o = [];
                 o.push(this.type);
-                if(this.small) o.push('small');
                 if(this.disabled) o.push('disabled');
                 if(this.hasError) o.push('error');
                 if(this.legacy) o.push('legacy');
@@ -4332,13 +4247,8 @@
             showMessagesZone() { return this.hasCounter || this.hasMessage || this.displayedErrorMessages.length>0 || this.messages.length>0 },
             // compute the value to be used with the invisible .autowidth-shadow to compute the text size
             autoWidthLabel() {
-                if(this.isFile) {
-                    if(this.multiple) {
-
-                    }
-                    else if(this.files && this.files.length > 0 && this.files[0]) {
-                        return this.files[0][this.oLabel];
-                    }
+                if(this.isFile && !this.multiple && this.files && this.files.length > 0 && this.files[0]) {
+                    return this.files[0][this.oLabel];
                 }
                 return this.value || this.placeholder;
             },
@@ -4386,11 +4296,9 @@
             counterError() {
                 if(this.valueCount && !!this.counter && !isNaN(this.counter)) {
                     if(this.valueCount > parseInt(this.counter)) {
-                        this.internErrorMessage = this.counterMessage;
                         return true;
                     }
                     else {
-                        this.internErrorMessage = "";
                         return false;
                     }
                 }
@@ -4479,7 +4387,7 @@
             displaysSelectCaret() { return this.selectLike && !this.query; },
             // compute the label (mostly the value) to display in the select field
             selectLabel() {
-                if(!!this.value || (this.valueIsArray&&this.value.length==0)) {
+                if(this.value || (this.valueIsArray&&this.value.length==0)) {
                     if(this.multiple) {
                         return "&nbsp;";
                     }
@@ -4491,11 +4399,11 @@
                             return this.value;
                         }
                     }
-                    else if(!!this.value) {
+                    else if(this.value) {
                         return this.value;
                     }
                 }
-                if(!!this.placeholder) {
+                if(this.placeholder) {
                     return this.placeholder;
                 }
                 return "&nbsp;";
