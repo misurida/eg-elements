@@ -2,11 +2,13 @@
 
 https://www.palettable.io/9C2727-3B3B3B-696996-F5F5F5-3F2E5E
 
+```
 // t : the text to display in the bubble
 // c : alias for text (means content), higher priority
 // d : display (on hover: h, on click: c)
 // p : the position (left: l, center: c, right: r)
 // w : the maximum size of the tooltip wrapper
+```
 
 ## Installation
 
