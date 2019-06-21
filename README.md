@@ -15,9 +15,9 @@ You can alternatively use the components individually:
 import { Input, Btn } from "eg-elements"
 ```
 
-## Demo and Documentation
+## [Demo](https://ege.erwan.ch) and Documentation
 
-You can see the live demo [here](http://eg-c.guyomar.ch), and the documentation just below!
+You can see the live demo [here](https://ege.erwan.ch), and the documentation just below!
 
 
 
