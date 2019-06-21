@@ -24,6 +24,9 @@
             margin-top: 50px;
         }
     }
+    .home-demo {
+        margin-top: 50px;
+    }
 </style>
 
 <template>
@@ -34,14 +37,25 @@
             <router-link :to="{name:'inputs'}"><h3>&lt;MyInput&gt;</h3></router-link>
         </div>
         <h2>Directive v-tooltip</h2>
-        <div class="tooltip-demo">
+        <div class="home-demo">
             <span v-tooltip="'Tooltip content'">Tooltip test</span>
+        </div>
+        <div class="home-demo">
+            <eg-input label="Testing" left-icon="fa:fas fa-biohazard" v-model="text"></eg-input>
+            <eg-input label="Testing2" icon="ma:sentiment_satisfied_alt" v-model="text"></eg-input>
+        </div>
+        <div class="home-demo">
+            <eg-input label="Testing2" type="textarea" icon="fa:fas fa-biohazard" v-model="text"></eg-input>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-
+        data() {
+            return {
+                text: "Write here"
+            }
+        }
     }
 </script>

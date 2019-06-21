@@ -251,17 +251,19 @@
         }
 
         // input icons
+        $iconWidth: 1em;
         .input-icon {
             position: absolute;
             top: 50%;
             right: 10px;
             cursor: pointer;
-            width: 1.2em;
-            height: 1.2em;
+            width: $iconWidth;
+            height: $iconWidth;
             display: flex;
             align-items: center;
             justify-content: center;
             transform: translateY(-50%);
+            font-size: 1.2rem;
             &.left-icon {
                 right: auto;
                 left: 10px;
@@ -312,6 +314,9 @@
             }
             &.file-check-icon {
                 right: 35px;
+            }
+            &.eg-loader-wrapper {
+                right: 10px;
             }
         }
 
@@ -560,16 +565,16 @@
                     border: 2px solid rgba(#000,.05);
                     border-radius: 50%;
                     border-top: 2px solid $borderColor;
-                    width: 20px;
-                    height: 20px;
+                    width: 15px;
+                    height: 15px;
                     animation: spin 1s linear infinite;
                 }
                 &.small {
                     height: 15px;
                     width: 15px;
                     .eg-loader-inside {
-                        height: 15px;
-                        width: 15px;
+                        height: 10px;
+                        width: 10px;
                     }
                 }
             }
@@ -669,6 +674,7 @@
                 width: 15px;
                 height: 15px;
                 right: 8px;
+                font-size: 1rem;
             }
             .eg-input-wrapper {
                 // (icon padding)
@@ -1681,8 +1687,8 @@
                     @ondrop="handleDrop"
                     @click="handleContentClick">
                 <!-- Left icon -->
-                <div v-if="hasLeftIcon" class="input-icon left-icon" @click="$emit('slotIcon')">
-                    <slot name="icon"></slot>
+                <div v-if="hasLeftIcon" class="input-icon left-icon" @click="$emit('enter')">
+                    <svg-icon :type="leftIcon"></svg-icon>
                 </div>
                 <!-- Prefix -->
                 <span class="prefix" v-if="prefix&&isText">{{ prefix }}</span>
@@ -1941,7 +1947,7 @@
                         <path d="m39.457 9.3008a2.0002 2.0002 0 0 0-1.5176 0.73437s-9.0346 10.887-16.221 24.074c-2.8541-2.7542-5.3164-4.7958-7.0371-5.9434-2.116-1.4112-3.502-1.9102-3.502-1.9102a2.0002 2.0002 0 1 0-1.2832 3.7891s0.71769 0.21431 2.5664 1.4473c1.8487 1.233 4.6517 3.4259 8.2832 7.1953l1.9395 2.0117 1.2793-2.4844c7.0631-13.719 17.037-25.605 17.037-25.605a2.0002 2.0002 0 0 0-1.5449-3.3086z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill="#000" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
                     </svg>
                 </div>
-                <div v-if="isLoading" class="input-icon">
+                <div v-if="isLoading" class="input-icon eg-loader-wrapper">
                     <div class="eg-loader-container"><div class="eg-loader" :class="{small:isTextarea}"><div class="eg-loader-inside"></div></div></div>
                 </div>
                 <div v-else-if="displaysSelectCaret" class="input-icon select-caret" :class="{reversed:hasFocus}">
@@ -1958,6 +1964,9 @@
                     <svg fill="none" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
                         <path d="m39.457 9.3008a2.0002 2.0002 0 0 0-1.5176 0.73437s-9.0346 10.887-16.221 24.074c-2.8541-2.7542-5.3164-4.7958-7.0371-5.9434-2.116-1.4112-3.502-1.9102-3.502-1.9102a2.0002 2.0002 0 1 0-1.2832 3.7891s0.71769 0.21431 2.5664 1.4473c1.8487 1.233 4.6517 3.4259 8.2832 7.1953l1.9395 2.0117 1.2793-2.4844c7.0631-13.719 17.037-25.605 17.037-25.605a2.0002 2.0002 0 0 0-1.5449-3.3086z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill="#000" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
                     </svg>
+                </div>
+                <div v-else-if="icon" class="input-icon">
+                    <svg-icon :type="icon"></svg-icon>
                 </div>
                 <div v-else-if="hasCross&&!disabled" @click.prevent.stop="handleCrossBtn" class="input-icon" :class="{invisible:empty&&!emptyShowCross}">
                     <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -2222,9 +2231,8 @@
             strongRegex: { type: Boolean, default: false },
             weakRegex: { type: Boolean, default: false },
             rules: { type: Array, default(){return []} },
-            icon: { type: String, default: null, validator: (value) =>
-                    ['cross', 'glass', 'check'].indexOf(value) !== -1
-            },
+            icon: { type: String, default: null },
+            leftIcon: { type: String, default: null },
             deleteCross: { type: Boolean, default: true },
             emptyShowCross: { type: Boolean, default: false },
             counter: { default: null },
@@ -4255,7 +4263,7 @@
 
             // > Text
             // true if a left icon has been passed with the slot named 'icon'
-            hasLeftIcon() { return !!this.$slots.icon; },
+            hasLeftIcon() { return !!this.leftIcon; },
             // true if the input must contains the multiple values as displayed tags (called pills).
             hasPills() { return (this.isSelect || this.isText) && this.multiple },
             // true if 'value' is of the object type
