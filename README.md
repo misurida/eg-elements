@@ -275,9 +275,9 @@ A *number input* allows the user to select a number between `min` and `max`. Two
 A *file input* allows the user to view, download or delete a file. The user can also drag and drop files on the field. The `value` attribute must be an array that will be updated by the field. The array will be filled with objects as follows (the [*key*] are defined by the attributes of the same name, and you can omit a dynamic argument):
 ```
 {
-  [oLabel]: (ex: "name"): String representing the name to be displayed.
-  [oType]: (e. g. "ext"):  String representing the extension or MIME type of the file.
-  [oUrl]: (ex: "url"): Url representing the location of the resource.
+  [oLabel]: (b.e: "name"): String representing the name to be displayed.
+  [oType]: (b.e: "ext"):  String representing the extension or MIME type of the file.
+  [oUrl]: (b.e: "url"): Url representing the location of the resource.
   unvalid: Boolean true if there is an error
   errors: Array containing the error messages to be displayed
 }
