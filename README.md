@@ -1,5 +1,7 @@
 # Eg-Elements
 
+https://www.palettable.io/9C2727-3B3B3B-696996-F5F5F5-3F2E5E
+
 ## Installation
 
 Using **npm**: ` npm i eg-elements --save`
