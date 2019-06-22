@@ -378,6 +378,11 @@
                     fill: rgba($cDefault,0.75);
                 }
             }
+            &.inline-icon {
+                margin: 0 5px;
+                position: relative;
+                width: auto;
+            }
         }
         &.ri {
             padding-right: 3em;
@@ -393,6 +398,12 @@
         }
         &.li.ri.no-content {
             padding-right: 3.3em;
+        }
+        &:not(.li):not(.ri) {
+            &.no-content {
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+            }
         }
 
         // states
@@ -510,16 +521,23 @@
         &.ra {
             text-align: right;
         }
+
     }
 </style>
 
 <template>
     <button :disabled="disabled" class="eg-button" :class="computeClass" @click="$emit('click')">
         <svg-icon class="l-icon" v-if="li||leftIcon" :type="_li"></svg-icon>
+        <template v-if="leftIcons.length>0" v-for="i in leftIcons">
+            <svg-icon class="inline-icon inline-left" :type="i"></svg-icon>
+        </template>
         <span>
             <slot></slot>
         </span>
-        <svg-icon class="r-icon" v-if="!!ri||!!i||!!rightIcon" :type="_ri"></svg-icon>
+        <template v-if="icons.length>0" v-for="i in icons">
+            <svg-icon class="inline-icon" :type="i"></svg-icon>
+        </template>
+        <svg-icon class="r-icon" v-if="!!ri||!!i||!!icon" :type="_ri"></svg-icon>
         <span class="loader" :class="{hidden:!loading}">
             <span class="loader-inside"></span>
         </span>
@@ -572,12 +590,13 @@
             error: {type: Boolean, default: false},
             warning: {type: Boolean, default: false},
             valid: {type: Boolean, default: false},
-            rightIcon: {type: String, default: null},
+            icon: {type: String, default: null},
             ri: {type: String, default: null},
             i: {type: String, default: null},
             leftIcon: {type: String, default: null},
             li: {type: String, default: null},
-
+            icons: {type: Array, default(){return[]}},
+            leftIcons: {type: Array, default(){return[]}},
 
         },
         computed: {
@@ -593,7 +612,7 @@
                 if(this.ternary || this.ter) o.push("ternary");
                 if(this.link) o.push("link");
                 if(this.thick) o.push("thick");
-                if(this.transparent) o.push("transparent");
+                if(this.transparent || this.tra) o.push("transparent");
 
                 // types
                 if(this.small) o.push("small");
@@ -615,7 +634,7 @@
                 if(this.error) o.push("error");
                 if(this.warning) o.push("warning");
                 if(this.valid) o.push("valid");
-                if(this.rightIcon || this.ri || this.i) o.push("ri");
+                if(this.icon || this.ri || this.i) o.push("ri");
                 if(this.leftIcon || this.li) o.push("li");
 
                 return o;
@@ -623,7 +642,7 @@
             _ri() {
                 if(this.i) return this.i;
                 if(this.ri) return this.ri;
-                if(this.rightIcon) return this.rightIcon;
+                if(this.icon) return this.icon;
                 return null;
             },
             _li() {
@@ -639,7 +658,7 @@
                         return !!def[0].text;
                     }
                 }
-                return true;
+                return false;
             }
         }
     }

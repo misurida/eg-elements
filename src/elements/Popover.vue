@@ -8,7 +8,7 @@
     }
 </style>
 
-<template>
+<template v-if="value">
     <div class="popover-wrapper" :id="localId">
         <div class="popover-content">
             <slot></slot>
@@ -23,12 +23,16 @@
             w: { default: null }, // the max width of the wrapper (default: 120)
             value: { default: false }, // the show / hide boolean
             id: { default: null }, // randomly generated if not specified
-            hideOnContentClick: { type: Boolean, default: false},
+            hideOnContentClick: { type: Boolean, default: true},
             canOpen: { type: Boolean, default: true}, // to lock the opening
         },
         data() {
             return {
-                localId: null
+                localId: null,
+                togglePopover: null,
+                clickPopover: null,
+                clickedContent: null,
+                attachClickOnParent: null,
             }
         },
         methods: {
@@ -40,9 +44,20 @@
             }
         },
         mounted() {
+            // quick style
+            let bg = '#fff';
+            let color = '#222';
+            let fontSize = '0.8rem';
+            let bs = "0 0 3px 2px rgba(0,0,0,.05)";
+            let border = "1px solid #ccc";
+
+            // base values
             let args = this.args;
             let text = "";
-            let position = "c";
+            let position = "m";
+            let maxWidth = this.w ? this.w : 120;
+
+            // we set the values based on the arguments
             if(typeof args === 'string') {
                 text = args;
             }
@@ -51,8 +66,8 @@
                 text = args.c ? args.c : text;
                 position = args.p ? args.p : position;
             }
-            let maxWidth = this.w ? this.w : 120;
 
+            // we set the id
             let localId = this.id;
             if(!this.id) {
                 this.localId = this.randomId();
@@ -62,25 +77,31 @@
                 this.localId = this.id;
             }
 
+            // we get the parent and force the relative position
             let parent = this.$el.parentElement;
             let pp = parent.style.position;
-            if(pp == "")
-                parent.style.position = "relative";
+            if(pp == "") parent.style.position = "relative";
 
+            // we get the wrapper and the content
+            let content = this.$el.querySelector('.popover-content');
+            let wrapper = this.$el;
+            wrapper.style.display = 'none';
 
+            // compute thw style of the wrapper and the content based on the parent's properties
             function evaluatePosition() {
+                // wrapper styling
                 wrapper.style.width = maxWidth + 'px';
                 wrapper.style.bottom = (parent.offsetHeight + 12) + 'px';
-                if(position == 'c') {
+                if(position == 'm') {
                     wrapper.style.left = '50%';
                     wrapper.style.textAlign = "center";
                     wrapper.style.transform = 'translateX(-50%)';
                 }
-                else if(position == 'l') {
+                else if(position == 'r') {
                     wrapper.style.right = '-7px';
                     wrapper.style.textAlign = "right";
                 }
-                else if(position == 'r') {
+                else if(position == 'l') {
                     wrapper.style.left = '-7px';
                     wrapper.style.textAlign = "left";
                 }
@@ -89,37 +110,29 @@
                 wrapper.style.zIndex = '999';
                 wrapper.style.position = 'absolute';
 
+                // content styling
+                content.style.fontSize = fontSize;
+                content.style.lineHeight = fontSize;
+                content.style.padding = '6px 12px'; // custom
+                content.style.color = color; // custom
+                content.style.borderRadius = '3px'; // custom
+                content.style.boxShadow = bs; // custom
+                content.style.backgroundColor = bg; // custom
+                content.style.border = border; // custom
                 content.style.position = 'relative';
-                content.style.padding = '4px 8px';
                 content.style.display = 'inline-block';
-                content.style.borderRadius = '2px';
-                content.style.fontSize = '14px';
-                content.style.lineHeight = '14px';
-                content.style.backgroundColor = '#fff';
-                content.style.color = '#333333';
                 content.style.zIndex = '1';
                 content.style.opacity = '1';
-                content.style.boxShadow = "5px 5px 5px 0px rgba(0,0,0,.1)";
             }
-
-            let wrapper = this.$el;
-
-            wrapper.style.display = 'none';
-            let content = this.$el.querySelector('.popover-content');
             evaluatePosition();
 
+            // we create the arrow
+            let arrowSize = "5px";
             let arrow = document.createElement('span');
             arrow.style.top = '100%';
-            if(position == 'c') {
-                arrow.style.left = '50%';
-            }
-            else if(position == 'l') {
-                arrow.style.right = '10px';
-            }
-            else if(position == 'r') {
-                arrow.style.left = '10px';
-            }
-
+            if(position == 'm') arrow.style.left = '50%';
+            else if(position == 'r') arrow.style.right = "12px";
+            else if(position == 'l') arrow.style.left = "12px";
             arrow.style.border = "solid transparent";
             arrow.style.content = " ";
             arrow.style.height = "0";
@@ -127,23 +140,22 @@
             arrow.style.position = "absolute";
             arrow.style.pointerEvents = "none";
             arrow.style.borderColor = "rgba(255, 255, 255, 0)";
-            arrow.style.borderTopColor = "#ffffff";
+            arrow.style.borderTopColor = bg;
             arrow.style.display = 'inline-block';
-            arrow.style.borderWidth = "10px";
-            arrow.style.marginLeft = "-10px";
+            arrow.style.borderWidth = arrowSize;
+            arrow.style.marginLeft = "-"+arrowSize;
             content.appendChild(arrow);
 
+            // we set the event listeners
             let s = this;
-            function togglePopover(e) {
-                if(this.open && (!e.path || (e.path && !clickPopover(e.path.splice(0,8))))) {
-                    wrapper.style.display = "none";
-                    document.removeEventListener('click', togglePopover);
-                    parent.addEventListener('click', attachClickOnParent);
+            this.togglePopover = (e) => {
+                if(this.value && (!e.path || (e.path && !this.clickPopover(e.path.splice(0,8))))) {
+                    document.removeEventListener('click', this.togglePopover);
+                    parent.addEventListener('click', this.attachClickOnParent);
                     s.$emit('input', false);
                 }
-            }
-
-            function clickPopover(path) {
+            };
+            this.clickPopover = (path) => {
                 let test = false;
                 if(!s.hideOnContentClick) {
                     path.forEach(p => {
@@ -153,34 +165,35 @@
                     });
                 }
                 return test;
-            }
-
-            function clickedContent(path) {
+            };
+            this.clickedContent = (path) => {
                 let test = false;
                 path.forEach(p => {
-                    if(p.classList.contains('popover-content')) {
+                    if(p && p.classList && p.classList.contains('popover-content')) {
                         test = true;
                     }
                 });
                 return test;
-            }
-
-            function attachClickOnParent(e) {
-                if(s.canOpen && (e.path && !clickedContent(e.path.splice(0,8)))) {
+            };
+            this.attachClickOnParent = (e) => {
+                if(s.canOpen && (e.path && !this.clickedContent(e.path.splice(0,8)))) {
                     e.stopPropagation();
                     wrapper.style.display = "inline-block";
                     if (!s.open) {
-                        document.addEventListener('click', togglePopover);
-                        parent.removeEventListener('click', attachClickOnParent);
+                        document.addEventListener('click', this.togglePopover);
+                        parent.removeEventListener('click', this.attachClickOnParent);
                         s.$emit('input', true);
                         setTimeout(() => {
                             evaluatePosition();
                         }, 100);
                     }
                 }
-            }
-
-            parent.addEventListener('click', attachClickOnParent);
+            };
+            parent.addEventListener('click', this.attachClickOnParent);
+        },
+        destroyed() {
+            let parent = this.$el.parentElement;
+            if(parent) parent.removeEventListener('click', this.attachClickOnParent);
         }
     }
 </script>

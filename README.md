@@ -433,3 +433,11 @@ If you want to display more complex content, you can use the default splot of th
 
 ## \<MyPopover\>
 
+```
+<my-popover click exitOnDomClick>
+    <div slot="content">
+        <button class="sem-btn" @click="denySchool(s.sc_id)">Confirm</button>
+    </div>
+    <span slot="target" class="delete-button">&#10005;</span>
+</my-popover>
+```

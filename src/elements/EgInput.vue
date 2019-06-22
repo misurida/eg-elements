@@ -253,17 +253,38 @@
         // input icons
         $iconWidth: 1em;
         .input-icon {
-            position: absolute;
-            top: 50%;
-            right: 10px;
             cursor: pointer;
-            width: $iconWidth;
-            height: $iconWidth;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translateY(-50%);
             font-size: 1.2rem;
+            position: relative;
+            width: auto;
+            &:not(.inline-icon) {
+                width: $iconWidth;
+                height: $iconWidth;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transform: translateY(-50%);
+                position: absolute;
+                top: 50%;
+                right: 10px;
+            }
+            &.inline-icon {
+                margin: 0 5px;
+                display: flex;
+                align-items: center;
+                &+.inline-icon {
+                    margin-right: 0;
+                }
+                &.inline-left {
+                    margin-right: 5px;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                    &+.inline-icon {
+                        margin-right: 10px;
+                    }
+                }
+            }
             &.left-icon {
                 right: auto;
                 left: 10px;
@@ -1690,6 +1711,12 @@
                 <div v-if="hasLeftIcon" class="input-icon left-icon" @click="$emit('enter')">
                     <svg-icon :type="leftIcon"></svg-icon>
                 </div>
+                <!-- Left icons (inline) -->
+                <template v-if="leftIcons.length>0">
+                    <div v-for="i in leftIcons" class="input-icon inline-icon inline-left">
+                        <svg-icon :type="i"></svg-icon>
+                    </div>
+                </template>
                 <!-- Prefix -->
                 <span class="prefix" v-if="prefix&&isText">{{ prefix }}</span>
                 <!-- Textarea -->
@@ -1931,6 +1958,12 @@
                 </template>
                 <!-- Suffix -->
                 <span v-if="suffix&&isText" class="suffix">{{ suffix }}</span>
+                <!-- Icons (inline) -->
+                <template v-if="icons.length>0">
+                    <div v-for="i in icons" class="input-icon inline-icon">
+                        <svg-icon :type="i"></svg-icon>
+                    </div>
+                </template>
                 <!-- Icons -->
                 <div v-if="isNumber&&!noButtons" class="input-icon minus-icon" :class="{'with-cross':hasIcon}" @mousedown.stop="minusDown" @mouseup.stop="minusUp" @mouseleave.stop="killTimer">
                     <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1955,23 +1988,14 @@
                         <path d="m12.225 16.85 12.5 16.667 12.5-16.667z" fill="#000"/>
                     </svg>
                 </div>
-                <div v-else-if="(icon==='glass'&&!deleteCross||icon==='glass'&&deleteCross&&empty)" class="input-icon" @click="handleEnter">
-                    <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m38.088 11.088c-14.888 0-27 12.112-27 27s12.112 27 27 27c6.3654 0 12.219-2.2195 16.84-5.918l28.82 28.82a3.0003 3.0003 0 1 0 4.2422-4.2422l-28.82-28.82c3.6985-4.6208 5.918-10.474 5.918-16.84 0-14.888-12.112-27-27-27zm0 4c12.726 0 23 10.274 23 23s-10.274 23-23 23-23-10.274-23-23 10.274-23 23-23z" color="#000000" color-rendering="auto" dominant-baseline="auto" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
-                    </svg>
-                </div>
                 <div v-else-if="icon==='check'" class="input-icon" @click="handleEnter">
-                    <svg fill="none" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m39.457 9.3008a2.0002 2.0002 0 0 0-1.5176 0.73437s-9.0346 10.887-16.221 24.074c-2.8541-2.7542-5.3164-4.7958-7.0371-5.9434-2.116-1.4112-3.502-1.9102-3.502-1.9102a2.0002 2.0002 0 1 0-1.2832 3.7891s0.71769 0.21431 2.5664 1.4473c1.8487 1.233 4.6517 3.4259 8.2832 7.1953l1.9395 2.0117 1.2793-2.4844c7.0631-13.719 17.037-25.605 17.037-25.605a2.0002 2.0002 0 0 0-1.5449-3.3086z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill="#000" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
-                    </svg>
+                    <svg-icon :type="checkIcon"></svg-icon>
                 </div>
                 <div v-else-if="icon" class="input-icon">
                     <svg-icon :type="icon"></svg-icon>
                 </div>
                 <div v-else-if="hasCross&&!disabled" @click.prevent.stop="handleCrossBtn" class="input-icon" :class="{invisible:empty&&!emptyShowCross}">
-                    <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m22.411 20a2.4002 2.4007 0 0 0-1.6718 4.1227l25.865 25.871-25.89 25.896a2.4009 2.4014 0 1 0 3.3952 3.396l25.89-25.896 25.89 25.896a2.4009 2.4014 0 1 0 3.3952-3.396l-25.89-25.896 25.865-25.871a2.4002 2.4007 0 0 0-1.6718-4.1227 2.4002 2.4007 0 0 0-1.7234 0.72671l-25.865 25.871-25.865-25.871a2.4002 2.4007 0 0 0-1.7234-0.72671z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill-rule="evenodd" image-rendering="auto" shape-rendering="auto" solid-color="#000000" stroke-width=".80008" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
-                    </svg>
+                    <svg-icon :type="crossIcon"></svg-icon>
                 </div>
                 <!-- Select panel -->
                 <div v-if="selectLike" class="select-panel" :class="{visible:hasFocus, 'show-scrollbar':showScrollbar}" :style="selectResultsStyle">
@@ -2232,7 +2256,12 @@
             weakRegex: { type: Boolean, default: false },
             rules: { type: Array, default(){return []} },
             icon: { type: String, default: null },
+            icons: { type: Array, default(){return []} },
             leftIcon: { type: String, default: null },
+            leftIcons: { type: Array, default(){return []} },
+            crossIcon: { type: String, default: 'cross' },
+            checkIcon: { type: String, default: 'check' },
+
             deleteCross: { type: Boolean, default: true },
             emptyShowCross: { type: Boolean, default: false },
             counter: { default: null },
@@ -4331,6 +4360,8 @@
                     || this.isFile
                     || this.isTimeRelated
                     || (this.hasPrefix && this.isText || this.isNumber)
+                    || this.leftIcons.length > 0
+                    || this.icons.length > 0;
             },
 
             // > Select
