@@ -1,9 +1,15 @@
 {
   "name": "eg-elements",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Vuejs UI and structure components library",
   "keywords": [
-      "vuejs", "ui", "ux", "simple", "component", "button", "input"
+    "vuejs",
+    "ui",
+    "ux",
+    "simple",
+    "component",
+    "button",
+    "input"
   ],
   "main": "index.js",
   "files": [
