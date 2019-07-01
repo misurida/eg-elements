@@ -1,6 +1,6 @@
 // Import vue component
-import Input from './src/elements/EgInput';
-import Btn from './src/elements/EgButton';
+import Input from './src/elements/input/EgInput';
+import Btn from './src/elements/button/EgButton';
 import Vue from "vue/types/index";
 
 // Declare install function executed by Vue.use()

@@ -87,8 +87,8 @@
             type: {type: String, default: null}
         },
         computed: {
-            useFontAwesome() { return this.type.indexOf('fa:') == 0 },
-            useMaterialIcons() { return this.type.indexOf('ma:') == 0 },
+            useFontAwesome() { return this.type && this.type.indexOf('fa:') == 0 },
+            useMaterialIcons() { return this.type && this.type.indexOf('ma:') == 0 },
             t() {
                 if(this.useFontAwesome || this.useMaterialIcons) {
                     return this.type.substr(3);

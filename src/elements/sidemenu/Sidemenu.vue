@@ -1,131 +1,92 @@
-<style>
-    /* ------------------------------------ *\
-         Structure
-    \* ------------------------------------ */
+<style lang="scss">
+    .side-menu-wrapper {
+        &.active {
+            padding: 0;
+        }
+        // menu panel
+        .side-menu {
+            position: fixed;
+            padding: 0;
+            box-sizing: border-box;
+            z-index: 1;
+            overflow-y: auto;
+            .left-side-menu {
+                top: 0;
+                bottom: 0;
+            }
+            .right-side-menu {
+                top: 0;
+                bottom: 0;
+            }
+            .bottom-side-menu {
+                left: 0;
+                right: 0;
+            }
+            .icon-zone {
+                position: absolute;
+                height: 50px;
+                text-align: right;
+                display: none;
+                right: 0;
+                span {
+                    height: 20px;
+                    width: 20px;
+                    font-size: 20px;
+                    margin: 5px;
+                    color: #CCC;
+                    cursor: pointer;
+                    transition: color .2s;
+                }
+            }
+            i:hover {
+                color: #777;
+            }
+            &:not(.active) {
+                left: 0 !important;
+                width: 100% !important;
+                position: relative;
+            }
+            &.active {
+                padding: 0;
+                z-index: 10;
+            }
+            &.display {
+                .icon-zone.display {
+                    display: inherit;
+                }
+            }
+        }
+        // touch zone
+        .touch-zone {
+            position: absolute;
+            display: none;
+            &.left-touch-zone {
+                left: 0;
+                top: 0; bottom: 0;
+            }
 
-    .brand-logo-container {
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-        flex-shrink: 0;
-        box-sizing: border-box;
-    }
+            &.right-touch-zone {
+                right: 0;
+                top: 0; bottom: 0;
+            }
 
-    .side-menu * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    .side-menu {
-        position: fixed;
-        padding: 0;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        z-index: 1;
-        overflow-y: auto;
-    }
-
-    .left-side-menu {
-        top: 0;
-        bottom: 0;
-    }
-
-    .right-side-menu {
-        top: 0;
-        bottom: 0;
-    }
-
-    .bottom-side-menu {
-        left: 0;
-        right: 0;
-    }
-
-    .side-menu .icon-zone {
-        position: absolute;
-        height: 50px;
-        text-align: right;
-        display: none;
-        right: 0;
-    }
-
-    .side-menu .icon-zone span {
-        height: 20px;
-        width: 20px;
-        font-size: 20px;
-        margin: 5px;
-        color: #CCC;
-        cursor: pointer;
-        -webkit-transition: color .2s;
-        -moz-transition: color .2s;
-        -ms-transition: color .2s;
-        -o-transition: color .2s;
-        transition: color .2s;
-    }
-
-    .side-menu .icon-zone i:hover {
-        color: #777;
-    }
-
-
-    /* ------------------------------------ *\
-         Touch zone
-    \* ------------------------------------ */
-
-    .touch-zone {
-        position: absolute;
-        display: none;
-    }
-
-    .left-touch-zone {
-        left: 0;
-        top: 0; bottom: 0;
-    }
-
-    .right-touch-zone {
-        right: 0;
-        top: 0; bottom: 0;
-    }
-
-    .bottom-touch-zone {
-        left: 0; right: 0;
-        bottom: 0;
-    }
-
-    .shadow-zone {
-        position: fixed;
-        top: 0; left: 0; bottom: 0; right: 0;
-        height: 100%;
-        width: 100%;
-        background: #222;
-        cursor: pointer;
-    }
-
-    /* ------------------------------------ *\
-        Responsiveness
-    \* ------------------------------------ */
-
-    .side-menu-wrapper.active {
-        padding: 0;
-    }
-
-    .side-menu:not(.active) {
-        left: 0 !important;
-        width: 100% !important;
-        position: relative;
-    }
-
-    .side-menu.active {
-        padding: 0;
-        z-index: 10;
-    }
-
-    .side-menu.display .icon-zone.display {
-        display: inherit;
-    }
-    .touch-zone.display {
-        display: inherit;
+            &.bottom-touch-zone {
+                left: 0; right: 0;
+                bottom: 0;
+            }
+            .display {
+                display: inherit;
+            }
+        }
+        // shadow zone
+        .shadow-zone {
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            height: 100%;
+            width: 100%;
+            background: #222;
+            cursor: pointer;
+        }
     }
 </style>
 
@@ -179,19 +140,11 @@
                 h: 0,
                 lateralStyle: {
                     transform: 'translateX(0)',
-                    '-webkit-transition': 'transform 0s',
-                    '-moz-transition': 'transform 0s',
-                    '-ms-transition': 'transform 0s',
-                    '-o-transition': 'transform 0s',
-                    'transition': 'transform 0s'
+                    transition: 'transform 0s'
                 },
                 bottomStyle: {
                     transform: 'translateY(0)',
-                    '-webkit-transition': 'transform .3s',
-                    '-moz-transition': 'transform .3s',
-                    '-ms-transition': 'transform .3s',
-                    '-o-transition': 'transform .3s',
-                    'transition': 'transform .3s',
+                    transition: 'transform .3s',
                     bottom: '-' + this.height + 'px',
                     height: this.width + 'px'
                 },
@@ -205,23 +158,15 @@
                 },
                 bottomTouchStyle: {
                     transform: 'translateY(0)',
-                    '-webkit-transition': 'transform .3s',
-                    '-moz-transition': 'transform .3s',
-                    '-ms-transition': 'transform .3s',
-                    '-o-transition': 'transform .3s',
-                    'transition': 'transform .1s',
+                    transition: 'transform .1s',
                     height: this.touchWidth + 'px',
                     background: this.touchBackground,
                     zIndex: 2 * this.zIndexMult
                 },
                 shadow: {
-                    'opacity': 0,
                     'z-index': -1,
-                    '-webkit-transition': 'opacity .3s',
-                    '-moz-transition': 'opacity .3s',
-                    '-ms-transition': 'opacity .3s',
-                    '-o-transition': 'opacity .3s',
-                    'transition': 'opacity .3s',
+                    opacity: 0,
+                    transition: 'opacity .3s',
                     background: this.shadowBackground
                 },
                 settings: {
@@ -235,9 +180,6 @@
             }
         },
         methods: {
-            getTouchName() {
-                return this.orientation + '-touch-zone';
-            },
             appendDirection( e ) {
                 return this.orientation + '-' + e;
             },
@@ -248,41 +190,16 @@
                 this.h = this.computeH();
             },
             setShortAnim() {
-                this.lateralStyle['-webkit-transition'] = 'transform 0s, opacity 0s';
-                this.lateralStyle['-moz-transition'] = 'transform 0s, opacity 0s';
-                this.lateralStyle['-ms-transition'] = 'transform 0s, opacity 0s';
-                this.lateralStyle['-o-transition'] = 'transform 0s, opacity 0s';
                 this.lateralStyle['transition'] = 'transform 0s, opacity 0s';
-                this.bottomStyle['-webkit-transition'] = 'transform 0s, opacity 0s';
-                this.bottomStyle['-moz-transition'] = 'transform 0s, opacity 0s';
-                this.bottomStyle['-ms-transition'] = 'transform 0s, opacity 0s';
-                this.bottomStyle['-o-transition'] = 'transform 0s, opacity 0s';
                 this.bottomStyle['transition'] = 'transform 0s, opacity 0s';
-                this.shadow['-webkit-transition'] = 'transform 0s, opacity 0s';
-                this.shadow['-moz-transition'] = 'transform 0s, opacity 0s';
-                this.shadow['-ms-transition'] = 'transform 0s, opacity 0s';
-                this.shadow['-o-transition'] = 'transform 0s, opacity 0s';
                 this.shadow['transition'] = 'transform 0s, opacity 0s';
             },
             setLongAnim() {
-                this.lateralStyle['-webkit-transition'] = 'transform .3s, opacity .3s';
-                this.lateralStyle['-moz-transition'] = 'transform .3s, opacity .3s';
-                this.lateralStyle['-ms-transition'] = 'transform .3s, opacity .3s';
-                this.lateralStyle['-o-transition'] = 'transform .3s, opacity .3s';
                 this.lateralStyle['transition'] = 'transform .3s, opacity .3s';
-                this.bottomStyle['-webkit-transition'] = 'transform .3s, opacity .3s';
-                this.bottomStyle['-moz-transition'] = 'transform .3s, opacity .3s';
-                this.bottomStyle['-ms-transition'] = 'transform .3s, opacity .3s';
-                this.bottomStyle['-o-transition'] = 'transform .3s, opacity .3s';
                 this.bottomStyle['transition'] = 'transform .3s, opacity .3s';
-                this.shadow['-webkit-transition'] = 'transform .3s, opacity .3s';
-                this.shadow['-moz-transition'] = 'transform .3s, opacity .3s';
-                this.shadow['-ms-transition'] = 'transform .3s, opacity .3s';
-                this.shadow['-o-transition'] = 'transform .3s, opacity .3s';
                 this.shadow['transition'] = 'transform .3s, opacity .3s';
             },
             setShadowOpacity( e ) {
-
                 let d = e.direction; // 2: left, 4: right, 8: bottom
                 let maxOpacity = this.opacityMax;
                 if(maxOpacity == undefined)
@@ -437,23 +354,16 @@
                 return this.w <= this.trigger;
             },
             open() {
-                if(!this.active)
-                    return 0;
-                return this.value;
+                return this.active ? this.value : 0;
             },
             lateralTouchStyle() {
-                let o = {
+                return {
                     transform: 'translateX(0)',
-                    '-webkit-transition': 'transform .3s',
-                    '-moz-transition': 'transform .3s',
-                    '-ms-transition': 'transform .3s',
-                    '-o-transition': 'transform .3s',
-                    'transition': 'transform .3s',
+                    transition: 'transform .3s',
                     width: this.touchWidth + 'px',
                     background: this.touchBackground,
                     zIndex: 1 * this.zIndexMult,
                 };
-                return o;
             },
         },
         mounted() {
@@ -562,6 +472,7 @@
                 }
 
                 /*
+                bottom menu (prototype)
                 else if(this.orientation == 'bottom') {
                     if(this.enableSwipe) {
                         menu.on('swipeup', function() {

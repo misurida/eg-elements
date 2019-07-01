@@ -2,17 +2,51 @@
 
 ## Installation
 
-Using **npm**: ` npm i eg-elements --save`
+Using **npm**:
+
+```
+npm i eg-elements --save
+```
 
 To use the library globally and register all the components in your main js file:
 ```
 import eg from "eg-elements"
-Vue.use(eg);
+Vue.use(eg)
 ```
 
 You can alternatively use the components individually:
 ```
-import { Input, Btn } from "eg-elements"
+import { Input, Btn } from 'eg-elements'
+```
+
+The components styles are written in `lang="scss"`, so you might need the [Webpack SASS pre-processor](https://vue-loader.vuejs.org/guide/pre-processors.html):
+
+```
+Webpack SASS pre-processor
+```
+
+In the webpack config:
+
+```
+module.exports = {
+  module: {
+    rules: [
+      // ... other rules omitted
+
+      // this will apply to both plain `.scss` files
+      // AND `<style lang="scss">` blocks in `.vue` files
+      {
+        test: /\.scss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      }
+    ]
+  },
+  // plugin omitted
+}
 ```
 
 ## [Demo](https://ege.erwan.ch) and Documentation
@@ -21,7 +55,7 @@ You can see the live demo [here](https://ege.erwan.ch), and the documentation ju
 
 
 
-## \<Btn\>
+## \<EgBtn\>
 
 The Btn element can be used to display a `<button>` tag quickly. It has multiples styles availables that can be set through the components attributes (*props*), and can display icons on the left or the right. You can set the button style, but also change its state to `loading` to display a loader, `disabled` to to lock it or `error` and `warning` to display a quick style layer on top of the regular style.
 
@@ -395,40 +429,56 @@ A *datetime-range input* allows the user to select a number by clicking on a pic
 
 The *v-tooltip* is a [vuejs directive](https://vuejs.org/v2/guide/custom-directive.html#Directive-Hook-Arguments) that can be use on any html element and displays some text in an hovering bubble next to the target element. The directive can be used with two methods:
 
-**Directive Hook Arguments: binding args**. You can pass an Object to the *v-tooltip* to set the text to display and other configuration options using the binding args:
-
-```
-<div id="demo" v-tooltip:[args]></div>
-
-```
-
 The *v-tooltip* argument (args) Object can have the following attributes:
 
 - `text (t)`: A string representing the text to display in the tooltip. You can also use the shorthand `t`.
-- `content (c)`: A string representing the content to display. Has a higher priority than `text`. You can also use the shorthand `c`.
-- `display (d)`: A character defining the display mode: 'h' to reveal the tooltip on target hover, or 'c' to reveal the tooltip when the target is clicked. You can also use the shorthand `d`.
-- `position (p)`: A character defining the display mode: 'l' to left align the tooltip, 'm' to center the tooltip or 'r' to right align the tooltip. You can also use the shorthand `p`.
-- `width (w)`: The maximum size of the tooltip wrapper. You can also use the shorthand `w`.
+- `display (d)`: A string defining the display mode: 'hover' to reveal the tooltip on target hover, or 'click' to reveal the tooltip when the target is clicked. You can also use the shorthand `d`.
+- `position (p)`: A character defining the display mode: 'l' to left align the tooltip, 'c' to center the tooltip or 'r' to right align the tooltip. You can also use the shorthand `p`.
+- `side (s)`: A character defining the side to display: 't' for on top, 'r' for on the right, 'b' for below and 'l' for on the left. You can also use the shorthand `s`.
+- `width (w)`: The maximum width of the tooltip wrapper. You can also use the shorthand `w`.
+- `height (h)`: The maximum height of the tooltip wrapper. You can also use the shorthand `h`.
 
-**Directive Hook Arguments: binding value**. You pass directly the text to display using the binding value:
+You can simply pass a string to use the default parameters: 'hover' (display), 't' (side) et 'c' (position). The maximum width will be the width of the target element.
 
 ```
-<div id="demo" v-tooltip="'Hello'"></div>
+<div v-tooltip="'Hello'"></div>
 ```
 
 You can also use the binding value as args Object:
 
 ```
-<div id="demo" v-tooltip="{text:'Hello!', width:'120px'}"></div>
+<div v-tooltip="{t:'Hello!', w:'120px'}"></div>
 ```
 
-In this situation, yan can set the configuration options using the *binding modifiers* 'h' or 'c' for the display, or 'l', 'm' or 'r' for the position:
+You can also use the *binding modifiers*: 'click' for the display, 'left', 'top', 'right' or 'bottom' for the side and 'l', 'c' or 'r', 't', b' for the position:
 
 ```
-<div id="demo" v-tooltip.l="'Hello'"></div>
+<div v-tooltip.r.bottom.click="'Hello'"></div>
 ```
 
-If you want to display more complex content, you can use the default splot of the *my-popover* element:
+You can also use the dynamic argument to change by example the text after the tooltip rendering:
+
+```
+<div v-tooltip:[args]></div>
+```
+
+then in the component:
+
+```
+data() {
+    return {
+        args: {
+            text: 'Hello!',
+            display: 'click',
+            position: 'top',
+            side: 'l',
+            width: '200px'
+        }
+    }
+}
+```
+
+If you want to display more complex content, you can use the default slot of the *my-popover* element:
 
 
 ## \<MyPopover\>

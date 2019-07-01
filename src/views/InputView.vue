@@ -1,53 +1,7 @@
-<style lang="scss">
-    .home {
-        h2 {
-            margin: 0;
-        }
-    }
-    .demo-zone {
-        padding: 40px;
-        max-width: 1400px;
-        margin: 0 auto 20px;
-        pre {
-            text-align: left;
-            background-color: #f5f5f5;
-            border-radius: 5px;
-            padding: 10px;
-            overflow-x: auto;
-            flex: 1;
-            margin: 10px 0 0 0;
-            width: 90%;
-        }
-        & > div:first-child {
-            padding: 20px 0;
-        }
-    }
-    .demo-hero {
-        margin: 40px 0;
-    }
-    .demo-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        & > div {
-            min-width: 300px;
-            margin: 10px;
-            padding-top: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-        }
-    }
-    .title-bloc {
-        background-color: #f5f5f5;
-    }
-</style>
-
 <template>
-    <div class="home">
-        <h1>Demo of the EgInput &lt;MyInput&gt;</h1>
-        <div class="demo-hero">
+    <div class="content-wrapper">
+        <h1>Demo of &lt;EgInput&gt;</h1>
+        <div v-if="false" class="demo-hero">
 
         </div>
 
@@ -66,8 +20,7 @@
 &lt;eg-input
         label="Simple input"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -86,8 +39,7 @@
         :counter="50"
         width="200px"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -100,8 +52,7 @@
         label="AutoWidth input"
         auto-width
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -118,8 +69,7 @@
         weak-regex
         message="No numbers please!"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -134,8 +84,7 @@
         :regex="/^([^0-9]*)$/"
         message="No numbers please!"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -152,8 +101,7 @@
         strong-regex
         message="No numbers please!"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -176,8 +124,7 @@
         width="300px"
         message="No numbers AND only uppercases!"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -198,8 +145,7 @@
         width="100%"
         auto-width
         v-model="array"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -216,8 +162,7 @@
         suffix="%"
         auto-width
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -238,8 +183,7 @@
         type="textarea"
         label="Simple textarea"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -264,8 +208,7 @@
         width="100%"
         :autoResize="false"
         v-model="bigText"&gt;
-&lt;/eg-input&gt;
-          </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -282,8 +225,7 @@
         width="300px"
         auto-resize
         v-model="bigText"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -306,8 +248,7 @@
         label="Simple select"
         :list="[1,'Option',55.5]"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -324,8 +265,7 @@
         :list="bigArray"
         width="100%"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -346,8 +286,7 @@
                   'Words': ['I', 'am', 'selectable']
                   }"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -364,8 +303,7 @@
         editable
         :list="['Opt1', 'Opt2', 'Opt3']"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -384,8 +322,7 @@
         placeholder="Choose options..."
         :list="[{id:1, name:'test'}, {id:2, name:'test2'}]"
         v-model="object"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -404,8 +341,7 @@
         placeholder="Choose options..."
         :list="['Example', 'Opt2', 'Opt3']"
         v-model="array"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -430,8 +366,7 @@
         placeholder="Choose 2 options..."
         :list="['Example', 'Opt2', 'Opt3']"
         v-model="array"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -454,8 +389,7 @@
         :restrictToOptions="false"
         :list="['Example', 'Opt2', 'Opt3']"
         v-model="array"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -474,8 +408,7 @@
         :list="[1,'Option',55.5]"
         placeholder=""
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -492,8 +425,7 @@
         legacy
         :list="[{id:1, name:'Object 1'}, {id:2, name:'Object 2'}]"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -516,8 +448,7 @@
                   'Words': ['I', 'am', 'selectable']
                   }"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -538,8 +469,7 @@
         type="checkbox"
         label="Simple checkbox"
         v-model="boolean"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -554,8 +484,7 @@
         legacy
         label="Checkbox legacy"
         v-model="boolean"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -572,8 +501,25 @@
         label="Multiple checkboxes"
         :list="['Yes', 'No', 'Maybe', 'Example']"
         v-model="array"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
+                </div>
+                <div>
+                    <eg-input
+                            type="checkbox"
+                            multiple
+                            legacy
+                            label="Multiple legacy checkboxes"
+                            :list="['Yes', 'No', 'Maybe', 'Example']"
+                            v-model="array">
+                    </eg-input>
+                    <pre v-if="show.checkbox">
+&lt;eg-input
+        type="checkbox"
+        multiple
+        label="Multiple checkboxes"
+        :list="['Yes', 'No', 'Maybe', 'Example']"
+        v-model="array"&gt;
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -590,8 +536,7 @@
         label="Simple radio"
         :elements="{Now:false,After:true}"
         v-model="boolean"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -606,8 +551,7 @@
         label="Text radio"
         :elements="{Before:'Ok',Now:'Example text'}"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -624,8 +568,7 @@
         label="Text radio legacy"
         :elements="{Before:'Ok',Now:'Example text'}"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -638,8 +581,7 @@
         type="switch"
         label="Simple switch"
         v-model="boolean"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -662,8 +604,7 @@
         :min="0"
         label="Simple number"
         v-model="number"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -686,8 +627,7 @@
         :max="50"
         message="Also noInput and limits"
         v-model="number"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -706,8 +646,7 @@
         no-buttons
         :deleteCross="false"
         v-model="number"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -732,8 +671,7 @@
         :min="0" :max="10"
         width="100%"
         v-model="number"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -752,8 +690,7 @@
         :showLabelEach="1"
         width="100%"
         v-model="number"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -778,8 +715,7 @@
         suffix="%"
         width="100%"
         v-model="number"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -802,8 +738,7 @@
                   ]"
         width="300px"
         v-model="text"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -836,8 +771,7 @@
         @delete="handleDelete"
         placeholder="Click to add a file..."
         :value="file"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -860,8 +794,7 @@
         :extensions="['png', 'jpeg', 'jpg', 'gif']"
         placeholder="Click or drop files..."
         v-model="files"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -882,8 +815,7 @@
         label="Simple date"
         type="date"
         v-model="date"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -900,8 +832,7 @@
         format="DD/MM/YYYY"
         editable
         v-model="date2"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -916,8 +847,7 @@
         type="date-range"
         width="250px"
         v-model="daterange"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -934,8 +864,7 @@
         legacy
         :delete-cross="false"
         v-model="date"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -948,8 +877,7 @@
         label="Simple time"
         type="time"
         v-model="time"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -966,8 +894,7 @@
         legacy
         :delete-cross="false"
         v-model="time"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -982,8 +909,7 @@
         type="time-range"
         width="250px"
         v-model="timerange"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -998,8 +924,7 @@
         type="datetime"
         width="250px"
         v-model="datetime"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -1012,8 +937,7 @@
         label="Datetime range"
         type="datetime-range"
         v-model="datetimerange"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -1040,8 +964,7 @@
         :activeColor="color"
         :darkGray="color2"
         :count="5"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div v-if="show.star&&false">
                     <eg-input
@@ -1058,8 +981,7 @@
         v-model="number"
         :steps="2"
         :count="3"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div v-if="show.star&&false">
                     <eg-input
@@ -1080,8 +1002,7 @@
         message="There are 1/2 steps but but not restricting"
         free
         :count="6"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>
@@ -1102,8 +1023,7 @@
         type="color"
         label="Color input"
         v-model="color"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
                 <div>
                     <eg-input
@@ -1116,8 +1036,7 @@
         type="color"
         label="Darker color"
         v-model="color2"&gt;
-&lt;/eg-input&gt;
-                    </pre>
+&lt;/eg-input&gt;</pre>
                 </div>
             </div>
         </div>

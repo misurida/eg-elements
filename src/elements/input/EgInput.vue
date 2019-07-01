@@ -35,7 +35,6 @@
     $checkboxFill: #E3E3E3;
     $radioColor: #6d6d6d;
 
-
     // Icons & buttons
     $buttonWidth: 1.6em;
     $filePicSize: 28px;
@@ -245,6 +244,7 @@
             cursor: pointer;
             user-select: none;
             font-family: inherit;
+            margin-bottom: 5px;
             &.group-label {
                 margin-bottom: 5px;
             }
@@ -418,44 +418,6 @@
                 margin-left: 6px;
                 &.error {
                     color: $errorColor;
-                }
-            }
-        }
-
-        // pill (items on the multiple input)
-        .pill {
-            background-color: $pillBC;
-            border-radius: $borderRadius;
-            margin: 0 6px 0 0;
-            padding: $pillPadding;
-            font-size: 0.65rem;
-            position: relative;
-            cursor: pointer;
-            border: 1px solid transparent;
-            &:focus {
-                outline-width: 0;
-                border-color: rgba($borderColor, 0.5);
-            }
-            &:hover {
-                background-color: $pillBCHover;
-            }
-            &:first-child {
-                margin-left: 0;
-            }
-            .cross-pill {
-                display: inline-block;
-                width: 20px;
-                height: 20px;
-                position: absolute;
-                right: 2px;
-                top: 1px;
-                svg {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    top: 0;
-                    right: 0;
-                    transform: scale(.6);
                 }
             }
         }
@@ -732,7 +694,7 @@
                 height: 16px;
                 width: 16px;
                 margin-right: 8px;
-                margin-bottom: 2px;
+                margin-top: 3px;
                 position: relative;
                 cursor: pointer;
                 background-color: transparent;
@@ -797,17 +759,53 @@
                     }
 
                 }
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: -3px;
+                    left: -3px;
+                    right: -3px;
+                    bottom: -3px;
+                    border-radius: 50%;
+                    opacity: 0;
+                    z-index: -1;
+                }
+                &:hover,
+                &:focus {
+                    box-shadow: none;
+                    &::after {
+                        background-color: $listHoverBC;
+                        opacity: 1;
+                    }
+                }
             }
             &.legacy {
                 .radio-container {
                     margin-top: 5px;
                 }
                 input {
+                    margin-top: 3px;
                     height: 15px;
                     width: 15px;
+                    position: relative;
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: -3px;
+                        left: -3px;
+                        right: -3px;
+                        bottom: -3px;
+                        border-radius: 50%;
+                        opacity: 0;
+                        z-index: -1;
+                    }
+                    &:hover,
                     &:focus {
-                        box-shadow: $boxShadow;
-                        outline-width: 0;
+                        box-shadow: none;
+                        &::after {
+                            background-color: $listHoverBC;
+                            opacity: 1;
+                        }
                     }
                 }
             }
@@ -825,7 +823,7 @@
             box-shadow: $listBS;
             border-radius: $listBorderRadius;
             z-index: 1000;
-            margin-bottom: 10px;
+            margin-bottom: 0;
             width: 100%;
             font-size: $listFS;
             overflow-y: auto;
@@ -874,6 +872,9 @@
                     &.opt-group {
                         padding-left: 0.5em;
                     }
+                    &.empty {
+                        color: $placeholderColor;
+                    }
                 }
             }
             // item group wrapper
@@ -897,6 +898,7 @@
                 max-height: $maxHeight;
                 transform: scale(1) translateY(0);
                 opacity: 1;
+                margin-bottom: 10px;
             }
         }
         .select-facade {
@@ -904,15 +906,30 @@
             text-align: left;
             cursor: pointer;
         }
+        // fix
         &.select {
             .option-placeholder {
                 color: $placeholderColor;
+            }
+            &:not(.time) {
+                .eg-input-content {
+                    width: 100%; // fix
+                    .select-facade {
+                        flex: 1;
+                    }
+                }
+            }
+            .eg-input-wrapper {
+                input {
+                    width: 100%;
+                }
             }
         }
         &.slider {
             .slider-wrapper {
                 display: flex;
                 margin-bottom: 20px;
+                margin-top: 10px;
                 .slider-value {
                     margin-right: 10px;
                 }
@@ -1110,6 +1127,11 @@
                 user-select: none;
                 &.has-icon {
                     padding-right: $hPadding + (3*$buttonWidth);
+                }
+            }
+            &:not(.time) {
+                input {
+                    width: 100%; // quick fix
                 }
             }
         }
@@ -1479,14 +1501,55 @@
         }
         &.text,
         &.textarea {
-            .eg-input-content {
-                width: 100%;
-                .input-style-wrapper,
-                .select-facade,
-                textarea,
-                input {
+            &:not(.auto-width) {
+                .eg-input-content {
+
                     width: 100%;
+                    .input-style-wrapper,
+                    .select-facade,
+                    textarea,
+                    input {
+                        width: 100%;
+                    }
                 }
+            }
+        }
+    }
+
+    // pill (items on the multiple input)
+    .el-tag {
+        background-color: $pillBC;
+        border-radius: $borderRadius;
+        margin: 0 6px 0 0;
+        padding: $pillPadding;
+        font-size: 0.65rem;
+        position: relative;
+        cursor: pointer;
+        border: 1px solid transparent;
+        &:focus {
+            outline-width: 0;
+            border-color: rgba($borderColor, 0.5);
+        }
+        &:hover {
+            background-color: $pillBCHover;
+        }
+        &:first-child {
+            margin-left: 0;
+        }
+        .cross-pill {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            right: 2px;
+            top: 1px;
+            svg {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                right: 0;
+                transform: scale(.6);
             }
         }
     }
@@ -1515,6 +1578,7 @@
                         :value="value"
                         :checked="isInList(c)"
                         @keyup.enter="toggleSwitch"
+                        @click="handleCheckboxLegacy(c)"
                         :disabled="disabled||isLoading">
                 <!-- Checkbox svg -->
                 <button
@@ -1690,15 +1754,14 @@
         </select>
         <!-- >>> Level 1 wrapper <<< -->
         <div class="eg-input-wrapper" v-else>
-            <!-- >>> Level 2 wrapper <<< -->
             <div
                     class="eg-input-content"
                     :class="{
                     'input-style-wrapper':useWrapperStyle,
-                    'focus':hasFocus,
                     'has-icon':(useWrapperStyle)&&(hasIcon),
                     'file-check-pad':hasFileCheck&&!isLoading,
                     'number-content':isNumber&&!noButtons,
+                    focus:hasFocus,
                     dragging:isDragging,
                     autowidth:autoWidth,
                     'has-left-icon':hasPills&&hasLeftIcon}"
@@ -1709,12 +1772,12 @@
                     @click="handleContentClick">
                 <!-- Left icon -->
                 <div v-if="hasLeftIcon" class="input-icon left-icon" @click="$emit('enter')">
-                    <svg-icon :type="leftIcon"></svg-icon>
+                    <eg-icon :type="leftIcon"></eg-icon>
                 </div>
                 <!-- Left icons (inline) -->
                 <template v-if="leftIcons.length>0">
                     <div v-for="i in leftIcons" class="input-icon inline-icon inline-left">
-                        <svg-icon :type="i"></svg-icon>
+                        <eg-icon :type="i"></eg-icon>
                     </div>
                 </template>
                 <!-- Prefix -->
@@ -1744,7 +1807,7 @@
                     <div v-else-if="autoWidth" class="autowidth-shadow" :id="theId+'-autowidth-shadow'">{{ autoWidthLabel }}</div>
                     <!-- Pills -->
                     <template v-if="hasPills && valueIsArray">
-                        <button class="pill" v-for="(p,i) in value" :key="i" @mousedown.prevent.stop="popElement(i)" @keyup.enter="popElement(i)">
+                        <button class="el-tag" v-for="(p,i) in value" :key="i" @mousedown.prevent.stop="handlePillClick(p,i)" @keyup.enter="handlePillClick(p,i)">
                             <span>{{ itemIsObject && p && !!p[oLabel] ? p[oLabel] : p }}</span>
                             <div class="cross-pill" @mousedown.prevent.stop="popElement(i)">
                                 <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1895,7 +1958,9 @@
                         <template v-else-if="files && Array.isArray(files) && files.length==1">
                             <!-- Image -->
                             <span class="file-picture" :id="theId+'-file-0'" v-if="isType('image',files[0])"></span>
-                            <span class="file-picture" :id="theId+'-file-0'" v-else-if="oType"><svg-icon :type="getFileType(files[0][oType])"></svg-icon></span>
+                            <span class="file-picture" :id="theId+'-file-0'" v-else-if="oType">
+                                <eg-icon :type="getFileType(files[0][oType])"></eg-icon>
+                            </span>
                             <!-- Single file -->
                             <label class="file-label" :for="theId">
                                 <span class="file-name">{{ files[0] ? files[0][oLabel] : null }}</span>
@@ -1961,7 +2026,7 @@
                 <!-- Icons (inline) -->
                 <template v-if="icons.length>0">
                     <div v-for="i in icons" class="input-icon inline-icon">
-                        <svg-icon :type="i"></svg-icon>
+                        <eg-icon :type="i"></eg-icon>
                     </div>
                 </template>
                 <!-- Icons -->
@@ -1989,13 +2054,13 @@
                     </svg>
                 </div>
                 <div v-else-if="icon==='check'" class="input-icon" @click="handleEnter">
-                    <svg-icon :type="checkIcon"></svg-icon>
+                    <eg-icon :type="checkIcon"></eg-icon>
                 </div>
                 <div v-else-if="icon" class="input-icon">
-                    <svg-icon :type="icon"></svg-icon>
+                    <eg-icon :type="icon"></eg-icon>
                 </div>
                 <div v-else-if="hasCross&&!disabled" @click.prevent.stop="handleCrossBtn" class="input-icon" :class="{invisible:empty&&!emptyShowCross}">
-                    <svg-icon :type="crossIcon"></svg-icon>
+                    <eg-icon :type="crossIcon"></eg-icon>
                 </div>
                 <!-- Select panel -->
                 <div v-if="selectLike" class="select-panel" :class="{visible:hasFocus, 'show-scrollbar':showScrollbar}" :style="selectResultsStyle">
@@ -2126,7 +2191,7 @@
                                         :data-group="i"
                                         :disabled="disabled||isLoading"
                                         :data-item="j">
-                                    <div class="list-item" :class="{'opt-group':isOptGroup}">
+                                    <div class="list-item" :class="{'opt-group':isOptGroup, empty:!item}">
                                         <span class="content">{{ computeOptionValue(item) }}</span>
                                     </div>
                                 </li>
@@ -2157,7 +2222,7 @@
                     <div class="file-content" :class="{'has-icon':hasIcon, 'file-check-pad':hasFileCheck&&!f.unvalid}">
                         <span class="file-picture" :id="theId+'-file-'+i" v-if="isType('image',f)"></span>
                         <span class="file-picture" :id="theId+'-file-'+i" v-else>
-                            <svg-icon :type="getFileType(f[oType])"></svg-icon>
+                            <eg-icon :type="getFileType(f[oType])"></eg-icon>
                         </span>
                         <span class="file-name">{{ f[oLabel] }}</span>
                         <span class="file-size" v-if="oSize">{{ humanFileSize(f[oSize],false) }}</span>
@@ -2183,8 +2248,8 @@
 
 <script>
     import Hammer from 'hammerjs'
-    import SvgIcon from './toolbox/SvgIcon'
-    import Calendar from './calendar/Calendar'
+    import SvgIcon from '../toolbox/SvgIcon'
+    import Calendar from '../calendar/Calendar'
 
     export default {
         components: {
@@ -2240,12 +2305,13 @@
             minWidth: { type: Number, default: 50 },
             width: { type: String, default: null },
             autoWidth: { type: Boolean, default: false },
-            widthBasis: { type: Number, default: 10 },
+            widthBasis: { type: Number, default: 20 },
 
             // events
             eChange: { type: Boolean, default: false },
             eFocus: { type: Boolean, default: false },
             eBlur: { type: Boolean, default: false },
+            eTagClick: { type: Boolean, default: false },
 
             // text
             placeholder: { default: null },
@@ -2261,7 +2327,6 @@
             leftIcons: { type: Array, default(){return []} },
             crossIcon: { type: String, default: 'cross' },
             checkIcon: { type: String, default: 'check' },
-
             deleteCross: { type: Boolean, default: true },
             emptyShowCross: { type: Boolean, default: false },
             counter: { default: null },
@@ -2288,7 +2353,6 @@
             restrictToOptions: { type: Boolean, default: true },
             tabindex: { type: Boolean, default: false },
             oLabel: { type: String, default: "name" },
-
 
             // slider
             steps: { type: Number, default: null },
@@ -2594,7 +2658,7 @@
             // @keyup.enter event handler for the 'Main text input'
             handleEnter(e) {
                 // select editable, we select the first elements displayed on the results
-                if(this.isSelect && this.restrictToOptions) {
+                if(this.isSelect && (this.restrictToOptions || (!this.restrictToOptions && this.editable))) {
                     let el = this.$el.querySelector('[data-group="0"][data-item="0"]');
                     if(el) {
                         let firstOnList = this.selectedItems[Object.keys(this.selectedItems)[0]][0];
@@ -2611,7 +2675,7 @@
                     // we only add the query as option if there is an error. weakRegex can prevent this blocking
                     else {
                         let o = JSON.parse(JSON.stringify(this.value));
-                        o.push(this.query);
+                        if(this.query) o.push(this.query);
                         if(!(this.counter && o.length>this.counter)) {
                             this.eChange ? this.$emit('change', o) : this.$emit('input', o);
                         }
@@ -2648,9 +2712,9 @@
                         }
                         // otherwise we toggle the value
                         else {
-                            let val = true;
+                            let val = false;
                             if(this.value === 'false' || !this.value) {
-                                val = false
+                                val = true;
                             }
                             this.eChange ? this.$emit('change', val) : this.$emit('input', val);
                         }
@@ -2678,7 +2742,12 @@
                     else {
                         // if the value is an array, we don't emit directly
                         if((this.isSelect && !this.legacy) || (this.isText && this.multiple)) {
-                            this.query = e.target.value;
+                            if(this.isSelect && !this.restrictToOptions) {
+                                this.eChange ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
+                            }
+                            else {
+                                this.query = e.target.value;
+                            }
                         }
                         else {
                             this.eChange ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
@@ -3601,10 +3670,18 @@
             },
             // return the value and label to display in a select option
             computeOptionValue(o) {
+                if(!o && this.placeholder)
+                    return this.placeholder;
                 return this.itemIsObject ? (o[this.oLabel]?o[this.oLabel]:o) : o;
             },
+            // @click event handler for the pills when multiple is true
+            handlePillClick(p,i) {
+                if(this.eTagClick) {
+                    this.$emit('tagClick', p);
+                }
+            },
 
-            // > Switch
+            // > Switch & CHeckbox
             // toggle and update the witch value and position
             // reverse the boolean value
             toggleSwitch() {
@@ -3617,6 +3694,15 @@
                         val = this.switchValues[Object.keys(this.switchValues)[1]];
                     }
                     this.eChange ? this.$emit('change', val) : this.$emit('input', val);
+                }
+            },
+            // action switcher for the checkbox click based on legacy
+            handleCheckboxLegacy(c) {
+                if(this.legacy) {
+                    this.handleInput(c);
+                }
+                else {
+                    this.toggleSwitch(c);
                 }
             },
 
@@ -4215,6 +4301,7 @@
                 if(this.hasError) o.push('error');
                 if(this.legacy) o.push('legacy');
                 if(this.counter) o.push('has-counter');
+                if(this.autoWidth) o.push('auto-width');
                 if(this.isDate||this.isDateRange||this.isDateTime||this.isDateTimeRange) o.push('date');
                 if(this.isTime||this.isDateTime||this.isTimeRange||this.isDateTimeRange) o.push('time');
                 return o;

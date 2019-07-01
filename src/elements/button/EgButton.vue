@@ -105,7 +105,7 @@
         font-family: 'Lato', sans-serif;
         margin: 0 auto;
 
-        // positionining
+        // positioning
         display: flex;
         align-items: center;
 
@@ -142,6 +142,14 @@
                 width: $loaderSize - 5px;
                 height: $loaderSize - 5px;
                 animation: eg-button-spin 1s linear infinite;
+            }
+        }
+
+        // icons tweak
+        .svg-icon {
+            justify-content: center;
+            .material-icons {
+                font-size: 1.4rem;
             }
         }
 
@@ -388,6 +396,9 @@
             padding-right: 3em;
             &.no-content {
                 padding-right: 2em;
+                .svg-icon {
+                    right: 11px;
+                }
             }
         }
         &.li {
@@ -527,17 +538,17 @@
 
 <template>
     <button :disabled="disabled" class="eg-button" :class="computeClass" @click="$emit('click')">
-        <svg-icon class="l-icon" v-if="li||leftIcon" :type="_li"></svg-icon>
+        <eg-icon class="l-icon" v-if="li||leftIcon" :type="_li"></eg-icon>
         <template v-if="leftIcons.length>0" v-for="i in leftIcons">
-            <svg-icon class="inline-icon inline-left" :type="i"></svg-icon>
+            <eg-icon class="inline-icon inline-left" :type="i"></eg-icon>
         </template>
         <span>
             <slot></slot>
         </span>
         <template v-if="icons.length>0" v-for="i in icons">
-            <svg-icon class="inline-icon" :type="i"></svg-icon>
+            <eg-icon class="inline-icon" :type="i"></eg-icon>
         </template>
-        <svg-icon class="r-icon" v-if="!!ri||!!i||!!icon" :type="_ri"></svg-icon>
+        <eg-icon class="r-icon" v-if="!!ri||!!i||!!icon" :type="_ri"></eg-icon>
         <span class="loader" :class="{hidden:!loading}">
             <span class="loader-inside"></span>
         </span>
@@ -603,16 +614,18 @@
             computeClass() {
                 let o = [];
                 if(this.type) o.push(this.type);
-                if(this.sty) o.push(this.sty);
                 if(!this.hasContent) o.push("no-content");
 
                 // styles
                 if(this.primary || this.pri) o.push("primary");
-                if(this.secondary || this.sec) o.push("secondary");
-                if(this.ternary || this.ter) o.push("ternary");
-                if(this.link) o.push("link");
-                if(this.thick) o.push("thick");
-                if(this.transparent || this.tra) o.push("transparent");
+                else if(this.secondary || this.sec) o.push("secondary");
+                else if(this.ternary || this.ter) o.push("ternary");
+                else if(this.link) o.push("link");
+                else if(this.light) o.push("light");
+                else if(this.dark) o.push("dark");
+                else if(this.yoga) o.push("yoga");
+                else if(this.transparent || this.tra) o.push("transparent");
+                else if(this.sty) o.push(this.sty);
 
                 // types
                 if(this.small) o.push("small");
@@ -620,6 +633,7 @@
                 if(this.wide) o.push("wide");
                 if(this.fat) o.push("fat");
                 if(this.thin) o.push("thin");
+                if(this.thick) o.push("thick");
                 if(this.floatLeft || this.fl) o.push("fl");
                 if(this.floatRight || this.fr) o.push("fr");
                 if(this.leftAlign || this.la) o.push("la");
