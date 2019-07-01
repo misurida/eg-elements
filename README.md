@@ -67,6 +67,12 @@ You can display quickly an icon using the `<eg-icon>` wrapper:
 - `primary (pri)` (Boolean, false): If *true*, the primary color style is applied. You can also use the shorthand `pri`.
 - `secondary (sec)` (Boolean, false): If *true*, the secondary color style is applied. You can also use the shorthand `sec`.
 
+```
+<script src="https://kit.fontawesome.com/793c864fe7.js"></script>
+```
+```
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+```
 
 
 ## \<EgBtn\>
