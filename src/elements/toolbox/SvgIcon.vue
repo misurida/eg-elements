@@ -84,16 +84,34 @@
 <script>
     export default {
         props: {
-            type: {type: String, default: null}
+            type: {type: String, default: null},
+            icon: {type: String, default: null},
+            i: {type: String, default: null},
+            fa: {type: String, default: null},
+            fas: {type: String, default: null},
+            far: {type: String, default: null},
+            fal: {type: String, default: null},
+            ma: {type: String, default: null},
         },
         computed: {
-            useFontAwesome() { return this.type && this.type.indexOf('fa:') == 0 },
-            useMaterialIcons() { return this.type && this.type.indexOf('ma:') == 0 },
+            theType() {
+                if(this.ma) return 'ma:' + this.ma;
+                if(this.fa) return 'fa:fa fa-' + this.fa;
+                if(this.fas) return 'fa:fas fa-' + this.fa;
+                if(this.far) return 'fa:far fa-' + this.fa;
+                if(this.fal) return 'fa:fal fa-' + this.fa;
+                if(this.i) return this.i;
+                if(this.icon) return this.icon;
+                if(this.type) return this.type;
+                return null;
+            },
+            useFontAwesome() { return this.theType && this.theType.indexOf('fa:') == 0 },
+            useMaterialIcons() { return this.theType && this.theType.indexOf('ma:') == 0 },
             t() {
                 if(this.useFontAwesome || this.useMaterialIcons) {
-                    return this.type.substr(3);
+                    return this.theType.substr(3);
                 }
-                return this.type;
+                return this.theType;
             }
         }
     }

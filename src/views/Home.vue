@@ -17,7 +17,7 @@
             </ul>
             <div class="icon-demo">
                 <eg-input placeholder="Enter an icon name to get a preview..." width="300px" :restrictToOptions="false" v-model="icon" editable type="select" :list="icons"></eg-input>
-                <eg-icon :type="icon"></eg-icon>
+                <eg-icon :type="icon"/>
             </div>
         </div>
     </div>

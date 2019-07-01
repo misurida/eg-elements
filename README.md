@@ -5,7 +5,7 @@
 Using **npm**:
 
 ```
-npm i eg-elements --save
+npm i eg-elements
 ```
 
 To use the library globally and register all the components in your main js file:
@@ -22,7 +22,7 @@ import { Input, Btn } from 'eg-elements'
 The components styles are written in `lang="scss"`, so you might need the [Webpack SASS pre-processor](https://vue-loader.vuejs.org/guide/pre-processors.html):
 
 ```
-Webpack SASS pre-processor
+npm install -D sass-loader node-sass
 ```
 
 In the webpack config:
@@ -52,6 +52,20 @@ module.exports = {
 ## [Demo](https://ege.erwan.ch) and Documentation
 
 You can see the live demo [here](https://ege.erwan.ch), and the documentation just below!
+
+
+
+## \<EgIcon\>
+
+You can display quickly an icon using the `<eg-icon>` wrapper:
+
+```
+<eg-icon i=cross/>
+```
+
+**Attributes**
+- `primary (pri)` (Boolean, false): If *true*, the primary color style is applied. You can also use the shorthand `pri`.
+- `secondary (sec)` (Boolean, false): If *true*, the secondary color style is applied. You can also use the shorthand `sec`.
 
 
 

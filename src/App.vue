@@ -93,6 +93,7 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            margin-bottom: 60px;
         }
         .svg-icon {
             margin: 0 20px;
