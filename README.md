@@ -119,7 +119,7 @@ The attributes are summarized in the table here, and are described in a list con
 
 
 
-## \<Input\>
+## \<EgInput\>
 
 This element allows you to display different types of *inputs*, allowing the user to interact with the interface and enter content. It allows you to modify a value (usually a *string*) with the `v-model` (or simple `value`) attribute. This attribute can be used with most types. The `label` can displays quickly the name of the field and `message` can display some text below. `deleteCross` (*true* by default) allows you to display a cross in the field to clear the value.
 
@@ -425,7 +425,9 @@ A *datetime-range input* allows the user to select a number by clicking on a pic
 - `free` (Boolean, false): If *true*, the computed value is not based on the steps but on the cursor position.
 
 
-## Directive v-tooltip
+## \<Popover\> and v-tooltip
+
+### Directive v-tooltip
 
 The *v-tooltip* is a [vuejs directive](https://vuejs.org/v2/guide/custom-directive.html#Directive-Hook-Arguments) that can be use on any html element and displays some text in an hovering bubble next to the target element. The directive can be used with two methods:
 
@@ -481,8 +483,6 @@ data() {
 If you want to display more complex content, you can use the default slot of the *my-popover* element:
 
 
-## \<MyPopover\>
-
 ```
 <my-popover click exitOnDomClick>
     <div slot="content">
@@ -491,3 +491,78 @@ If you want to display more complex content, you can use the default slot of the
     <span slot="target" class="delete-button">&#10005;</span>
 </my-popover>
 ```
+
+arrowDistFromBorder: { default: 12 },
+arrowSize: { default: 6 },
+panelDist: { default: 20 },
+bg: { default: "#fff" },
+nopad: { type: Boolean, default: false },
+
+// positioning
+display: { default: "hover" },
+d: { default: null },
+position: { default: "c" },
+p: { default: null },
+side: { default: "top" },
+s: { default: null },
+width: { default: null },
+w: { default: null },
+height: { default: null },
+h: { default: null },
+
+// structural
+value: { default: false }, // the show / hide boolean
+id: { default: null }, // randomly generated if not specified
+targetId: { default: null }, // to target to inject the content into. The parent by default
+triggerId: { default: null }, // The target whose click will trigger the popover. The parent by default
+
+
+## \<Modal\>
+
+value: {default:null},
+animation: {type: String, default:'smooth'},
+
+// sizes
+big: {type:Boolean, default:false},
+medium: {type:Boolean, default:false},
+small: {type:Boolean, default:false},
+noPad: {type:Boolean, default:false},
+
+// content
+title: {type: String, default: null},
+content: {type: String, default: null},
+back: {type: String, default: null},
+b: {type: Boolean, default: false},
+validate: {type: String, default: null},
+v: {type: Boolean, default: false},
+valLab: {type: String, default: 'Validate'},
+backLab: {type: String, default: 'Back'},
+
+// uses a percentage width instead of a threshold
+hideCross: {type:Boolean, default:false},
+
+## \<Sidemenu\>
+
+value: { default: 0 },
+orientation: {type: String, default: 'left'},
+show: {type: Number, default: 0},
+width: {type: Number, default: 300},
+height: {type: Number, default: 300},
+touchWidth: {type: Number, default: 10},
+enableTouch: {type: Boolean, default: true},
+bounce: {type: Boolean, default: false},
+shadowBackground: {type: String, default: '#222'},
+touchBackground: {type: String, default: 'transparent'},
+opacityMax: {type: Number, default: 0.5},
+zIndexMult: {type: Number, default: 2.0},
+shadowSpeed: {type: Number, default: 2},
+showBigSize: {type: Boolean, default: false},
+viewportResize: {type: Boolean, default: true},
+invisible: {type: Boolean, default: false},
+thinScroll: {type: Boolean, default: false},
+background: {type: String, default: "#FFF"},
+trigger: {type: Number, default: Infinity},
+enableClickDeploy: {type: Boolean, default: false},
+enablePan: {type: Boolean, default: false},
+enableSwipe: {type: Boolean, default: true},
+disabled: {type: Boolean, default: false}
