@@ -33,7 +33,7 @@ The EgElements are the following:
 - [\<EgInput\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/input): Any kind of input: text, textarea, select, checkbox, radio, switch, number, slider, file, date, time, star or color
 - [\<Popover\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/popover): and v-tooltip: A popover or tooltip directive to display text or actions quickly next to any element
 - [\<Modal\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/modal): A modal with attributes to display quick content or slot to insert any html
-- [\<Sidemenu\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/sidemenu): A menu that can be hidden next to viewport and based on its width. Pan and swipe events are available (thanks to hammerjs) to display the menu
+- [\<Sidemenu\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/sidemenu): A menu that can be hidden next to viewport and based on its width. Pan and swipe events are available (thanks to [hammerjs](https://hammerjs.github.io/)) to display the menu
 
 ## Icons
 
