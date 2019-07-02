@@ -8,10 +8,10 @@
         <div class="popover-demo">
             <div>
                 <eg-btn @click="showModal1=1" small>Small</eg-btn>
-                <modal small v-model="showModal1" b hideCross content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias consequuntur ducimus, excepturi exercitationem magni maiores officia quam quos vero voluptates. Ab accusamus architecto culpa debitis delectus impedit molestiae quibusdam voluptas?"></modal>
+                <modal small v-model="showModal1" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias consequuntur ducimus, excepturi exercitationem magni maiores officia quam quos vero voluptates. Ab accusamus architecto culpa debitis delectus impedit molestiae quibusdam voluptas?"></modal>
                 <pre v-if="showModalCode">
 &lt;eg-btn @click="showModal1=1" small&gt;Small&lt;/eg-btn&gt;
-&lt;modal small v-model="showModal1" title="Small modal" back="Back" hideCross content="Lorem ipsum [...]"&gt;&lt;/modal&gt;
+&lt;modal small v-model="showModal1" title="Small modal" content="Lorem ipsum [...]"&gt;&lt;/modal&gt;
                 </pre>
             </div>
             <div>
@@ -21,7 +21,7 @@
                 </modal>
                 <pre v-if="showModalCode">
 &lt;eg-btn @click="showModal2=1"&gt;Medium&lt;/eg-btn&gt;
-&lt;modal v-model="showModal2" @validate="showModal2=false" title="Medium modal" back="Back" validate="Validate"&gt;
+&lt;modal v-model="showModal2" @validate="showModal2=false" title="Medium modal" b v&gt;
     &lt;span slot="body"&gt;This is a slot-based content. Check out the code!&lt;/span&gt;
 &lt;/modal&gt;
                 </pre>

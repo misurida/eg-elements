@@ -108,7 +108,7 @@
         max-width: 90vw;
         display: flex;
         margin: 0 auto;
-        .side-menu {
+        .sidemenu {
             width: 300px;
             padding: 10px 15px;
             border: 1px solid #ccc;
@@ -117,7 +117,7 @@
                 padding: 10px 15px;
             }
         }
-        .side-menu-wrapper {
+        .eg-sidemenu-wrapper {
             margin: 0 5px;
         }
         .side-menu-buttons {
@@ -332,6 +332,9 @@
     .modal-view {
         .title-bloc {
             width: inherit;
+        }
+        .side-menu {
+            padding: 10px 15px;
         }
     }
 </style>

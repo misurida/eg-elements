@@ -187,6 +187,9 @@
         & > div {
             display: flex;
         }
+        &.no-header {
+            margin-top: 0;
+        }
     }
 
     // animations
@@ -217,12 +220,14 @@
                 <div class="modal-container" :class="{big,medium,small}">
                     <div class="modal-content">
                         <div v-if="!hideCross" class="exit-cross" @click="handleClose"><eg-icon type="cross"></eg-icon></div>
-                        <div class="modal-header" v-if="$slots.header">
-                            <slot name="header"></slot>
-                        </div>
-                        <div class="modal-header" v-else-if="title">
-                            <h2>{{title}}</h2>
-                        </div>
+                        <template v-if="!noHeader">
+                            <div class="modal-header" v-if="$slots.header">
+                                <slot name="header"></slot>
+                            </div>
+                            <div class="modal-header" v-else-if="title">
+                                <h2>{{title}}</h2>
+                            </div>
+                        </template>
                         <div class="modal-body" v-if="$slots.content || $slots.body" :class="{nopad:noPad}" @keyup.esc.stop>
                             <slot v-if="$slots.body" name="body"></slot>
                             <slot v-else-if="$slots.content" name="content"></slot>
@@ -230,7 +235,7 @@
                         <div class="modal-body" v-else-if="content" :class="{nopad:noPad}" @keyup.esc.stop>
                             <p class="content-p">{{content}}</p>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer" v-if="!noFooter" :class="{'no-header':noHeader}">
                             <slot name="footer"></slot>
                             <eg-btn v-if="back||b" @click="handleClose">{{b?backLab:back}}</eg-btn>
                             <eg-btn v-if="validate||v" pri @click="handleValidate">{{v?valLab:validate}}</eg-btn>
@@ -286,6 +291,10 @@
                     });
                 }
             }
+        },
+        computed: {
+            noHeader() { return !this.$slots.header && !this.title },
+            noFooter() { return !this.$slots.footer && !this.back && !this.b && !this.validate && !this.v },
         },
         mounted() {
             if(this.value !== null && this.$el) {
