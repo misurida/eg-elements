@@ -1,5 +1,7 @@
 # Eg-Elements
 
+EgElements is a library of vuejs components for the experience or user interface. These elements are complete but simple, and are built to be modified with CSS to adapt to any design. These are basic elements (button, input, modal) that can be installed globally or imported individually.
+
 ## Installation
 
 Using **npm**:
