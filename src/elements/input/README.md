@@ -1,3 +1,7 @@
+[Back to home](https://github.com/misurida/eg-elements#eg-elements)
+
+---
+
 ## \<EgInput\>
 
 This element allows you to display different types of *inputs*, allowing the user to interact with the interface and enter content. It allows you to modify a value (usually a *string*) with the `v-model` (or simple `value`) attribute. This attribute can be used with most types. The `label` can displays quickly the name of the field and `message` can display some text below. `deleteCross` (*true* by default) allows you to display a cross in the field to clear the value.

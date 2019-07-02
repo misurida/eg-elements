@@ -1,3 +1,7 @@
+[Back to home](https://github.com/misurida/eg-elements#eg-elements)
+
+---
+
 ## \<Modal\>
 
 The modal element allows the user to display content over the visible page. The content is centered in a block and the background of the page is dark. It is possible to close the modal by clicking on the dark background, clicking on the cross or by modifying `value` (or the variable passed by `value` directly from the parent).

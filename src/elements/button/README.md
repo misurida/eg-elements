@@ -1,3 +1,7 @@
+[Back to home](https://github.com/misurida/eg-elements#eg-elements)
+
+---
+
 ## \<EgBtn\>
 
 The Btn element can be used to display a `<button>` tag quickly. It has multiples styles availables that can be set through the components attributes (*props*), and can display icons on the left or the right. You can set the button style, but also change its state to `loading` to display a loader, `disabled` to to lock it or `error` and `warning` to display a quick style layer on top of the regular style.

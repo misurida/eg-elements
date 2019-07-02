@@ -1,3 +1,7 @@
+[Back to home](https://github.com/misurida/eg-elements#eg-elements)
+
+---
+
 ## \<Sidemenu\>
 
 A sidemenu allows you to display any content via the default slot. This element has a wrapper that has the class'.eg-sidemenu-wrapper' that can be manipulated using CSS. The menu itself has the class'.eg-sidemenu'. This element is hidden outside the default page, on the side specified by `orientation` (left or right). If the attribute `trigger` is not null, its value defines the size *limit* of the viewport: below this size, the menu will be hidden. Otherwise, it will be placed in its wrapper and visible in the DOM as a simple *div*. When the menu is hidden, it is possible to display it by modifying `value`, or by using the *touch zones*. These areas are bands displayed on the side of the viewport that corresponds to `orientation` and the menu can be opened by clicking on them (with''), pan ban (with'') or swipe (with'').
