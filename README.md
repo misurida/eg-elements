@@ -15,17 +15,66 @@ Vue.use(eg)
 ```
 
 You can alternatively use the components individually:
+
 ```
-import { Input, Btn } from 'eg-elements'
+import { EgInput, EgBtn, EgIcon, Popover, Modal, Sidemenu } from 'eg-elements'
 ```
 
-The components styles are written in `lang="scss"`, so you might need the [Webpack SASS pre-processor](https://vue-loader.vuejs.org/guide/pre-processors.html):
+## [Demo](https://ege.erwan.ch) and Documentation
+
+You can see the live demo [here](https://ege.erwan.ch), and the documentation just below!
+
+## Elements
+
+The EgElements are the following:
+- \<EgBtn\>: A button with different style layers or state attributes
+- \<EgInput\>: Any kind of input: text, textarea, select, checkbox, radio, switch, number, slider, file, date, time, star or color
+- \<Popover\> an v-tooltip: A popover or tooltip directive to display text or actions quickly next to any element
+- \<Modal\>: A modal with attributes to display quick content or slot to insert any html
+- \<Sidemenu\>: A menu that can be hidden next to viewport and based on its width. Pan and swipe events are available (thanks to hammerjs) to display the menu
+
+## Icons
+
+You can display quickly an icon using the `<eg-icon>` wrapper:
+
+```
+<eg-icon i=cross/>
+```
+
+**Attributes**
+- `i (icon, type)` (String, null): The name of the icon to display. You can also use the arguments `icon` or `type` instead of `i`.
+
+### EG Icons
+
+You can use any of the following icons:
+
+### Material Icons
+
+You can also use the [Google Material Icons](https://material.io/tools/icons). Then insert the following code in your `index.html` file:
+
+```
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+```
+To use the icons, you have to prepend the attribute with **ma:**. Ex: *ma:alarm*.
+
+### Font Awesome Icons
+
+You can also use the [Font Awesome Icons](https://fontawesome.com/icons). You simply have to create an account and ask for a [kit](https://fontawesome.com/start). You will receive the `SECRET` code to inset into the `index.html` file:
+
+```
+<script src="https://kit.fontawesome.com/{{SECRET}}.js"></script>
+```
+To use the icons, you have to prepend the attribute with **fa:**. Ex: *fa:fas fa-arrow-up*. YOu can also use special attributes `fa`, `fas`, `far` ou `fal` to use just like `i` but prepending automatically *fa:fa fa-*, *fa:fas fa-*, *fa:far fa-* ou *fal:fa fa-*. You can then just use the icon name, such as *arrow-up*.
+
+## SCSS
+
+The components styles are written using `lang="scss"`, so you might need the [Webpack SASS pre-processor](https://vue-loader.vuejs.org/guide/pre-processors.html) if you want to tweak the elements files:
 
 ```
 npm install -D sass-loader node-sass
 ```
 
-In the webpack config:
+Then, in the webpack config:
 
 ```
 module.exports = {
@@ -48,32 +97,6 @@ module.exports = {
   // plugin omitted
 }
 ```
-
-## [Demo](https://ege.erwan.ch) and Documentation
-
-You can see the live demo [here](https://ege.erwan.ch), and the documentation just below!
-
-
-
-## \<EgIcon\>
-
-You can display quickly an icon using the `<eg-icon>` wrapper:
-
-```
-<eg-icon i=cross/>
-```
-
-**Attributes**
-- `primary (pri)` (Boolean, false): If *true*, the primary color style is applied. You can also use the shorthand `pri`.
-- `secondary (sec)` (Boolean, false): If *true*, the secondary color style is applied. You can also use the shorthand `sec`.
-
-```
-<script src="https://kit.fontawesome.com/793c864fe7.js"></script>
-```
-```
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-```
-
 
 ## \<EgBtn\>
 
@@ -447,11 +470,35 @@ A *datetime-range input* allows the user to select a number by clicking on a pic
 
 ## \<Popover\> and v-tooltip
 
+### The \<Popover\> element
+
+The popover allows you to display any type of content (text, buttons or inputs, images, etc.) right next to the text. You can choose the `side` (top, bottom, left and right), and also the positioning related to the element. By default centered, you can set the popover to the left or right of the target if you use the top or bottom position, or up or down if you use the left or right position with `position`.
+
+**Attributes**:
+
+Structural:
+- `value` (default, false): A *truthy* or *falsy* value to define whether the popover should be revealed or not.
+- `id` (String, null): The string to use as id. If not specified, the id will be randomly generated.
+- `targetId` (String, null): A string being the id of the popover target: the element that will host the popover. The DOM parent is used by default.
+- `triggerId` (String, null): A string being the id of the popover trigger: the element that will display the popover when clicked. The DOM parent is used by default.
+
+Positioning:
+- `position (p)`: A character defining the display mode: 'l' to left align the popover, 'c' to center the popover or 'r' to right align the popover. You can also use the shorthand `p`.
+- `side (s)`: A character defining the side to display: 't' for on top, 'r' for on the right, 'b' for below and 'l' for on the left. You can also use the shorthand `s`.
+- `width (w)`: The maximum width of the popover wrapper. You can also use the shorthand `w`.
+- `height (h)`: The maximum height of the popover wrapper. You can also use the shorthand `h`.
+
+Dimensions:
+- `arrowDistFromBorder` (None, 12): The distance in `px` separating the popover arrow from the side of the popover.
+- `arrowSize` (None, 12): the arrow size in `px`.
+- `panelDist` (None, 20): The distance in `px` separating the popover from the target.
+- `bg`: (String, '#fff'): The background color.
+- `nopad` (Boolean, false): If *true*, no padding is used on the popover content.
+
+
 ### Directive v-tooltip
 
-The *v-tooltip* is a [vuejs directive](https://vuejs.org/v2/guide/custom-directive.html#Directive-Hook-Arguments) that can be use on any html element and displays some text in an hovering bubble next to the target element. The directive can be used with two methods:
-
-The *v-tooltip* argument (args) Object can have the following attributes:
+If you just need to display text in a popover, you can use this directive to do it very quickly. The *v-tooltip* is a [vuejs directive](https://vuejs.org/v2/guide/custom-directive.html#Directive-Hook-Arguments) that can be used on any html element and displays some text in an hovering bubble, next to the target element. The attributes are similar to the *popover*:
 
 - `text (t)`: A string representing the text to display in the tooltip. You can also use the shorthand `t`.
 - `display (d)`: A string defining the display mode: 'hover' to reveal the tooltip on target hover, or 'click' to reveal the tooltip when the target is clicked. You can also use the shorthand `d`.
@@ -459,6 +506,8 @@ The *v-tooltip* argument (args) Object can have the following attributes:
 - `side (s)`: A character defining the side to display: 't' for on top, 'r' for on the right, 'b' for below and 'l' for on the left. You can also use the shorthand `s`.
 - `width (w)`: The maximum width of the tooltip wrapper. You can also use the shorthand `w`.
 - `height (h)`: The maximum height of the tooltip wrapper. You can also use the shorthand `h`.
+
+There are several ways to use it:
 
 You can simply pass a string to use the default parameters: 'hover' (display), 't' (side) et 'c' (position). The maximum width will be the width of the target element.
 
@@ -472,13 +521,13 @@ You can also use the binding value as args Object:
 <div v-tooltip="{t:'Hello!', w:'120px'}"></div>
 ```
 
-You can also use the *binding modifiers*: 'click' for the display, 'left', 'top', 'right' or 'bottom' for the side and 'l', 'c' or 'r', 't', b' for the position:
+You can alternatively use the *binding modifiers*: 'click' for the display, 'left', 'top', 'right' or 'bottom' for the side and 'l', 'c' or 'r', 't', b' for the position:
 
 ```
 <div v-tooltip.r.bottom.click="'Hello'"></div>
 ```
 
-You can also use the dynamic argument to change by example the text after the tooltip rendering:
+You can finally use the dynamic argument to change any attribute (`text`, `side`, etc) after the tooltip rendering:
 
 ```
 <div v-tooltip:[args]></div>
@@ -500,89 +549,63 @@ data() {
 }
 ```
 
-If you want to display more complex content, you can use the default slot of the *my-popover* element:
-
-
-```
-<my-popover click exitOnDomClick>
-    <div slot="content">
-        <button class="sem-btn" @click="denySchool(s.sc_id)">Confirm</button>
-    </div>
-    <span slot="target" class="delete-button">&#10005;</span>
-</my-popover>
-```
-
-arrowDistFromBorder: { default: 12 },
-arrowSize: { default: 6 },
-panelDist: { default: 20 },
-bg: { default: "#fff" },
-nopad: { type: Boolean, default: false },
-
-// positioning
-display: { default: "hover" },
-d: { default: null },
-position: { default: "c" },
-p: { default: null },
-side: { default: "top" },
-s: { default: null },
-width: { default: null },
-w: { default: null },
-height: { default: null },
-h: { default: null },
-
-// structural
-value: { default: false }, // the show / hide boolean
-id: { default: null }, // randomly generated if not specified
-targetId: { default: null }, // to target to inject the content into. The parent by default
-triggerId: { default: null }, // The target whose click will trigger the popover. The parent by default
 
 
 ## \<Modal\>
 
-value: {default:null},
-animation: {type: String, default:'smooth'},
+The modal element allows the user to display content over the visible page. The content is centered in a block and the background of the page is dark. It is possible to close the modal by clicking on the dark background, clicking on the cross or by modifying `value` (or the variable passed by `value` directly from the parent).
 
-// sizes
-big: {type:Boolean, default:false},
-medium: {type:Boolean, default:false},
-small: {type:Boolean, default:false},
-noPad: {type:Boolean, default:false},
+The content in the center block is divided into three parts:
+- The *header*: contains a title (default *h2*).
+- The *content* (or *body*): Text, or any element passed through the *slot* `slot="content"`.
+- The *footer*: usually contains action buttons (such as return or validate), or any element passed through the *slot* `slot="footer"`.
 
-// content
-title: {type: String, default: null},
-content: {type: String, default: null},
-back: {type: String, default: null},
-b: {type: Boolean, default: false},
-validate: {type: String, default: null},
-v: {type: Boolean, default: false},
-valLab: {type: String, default: 'Validate'},
-backLab: {type: String, default: 'Back'},
+**Attributes**:
 
-// uses a percentage width instead of a threshold
-hideCross: {type:Boolean, default:false},
+- `value` (None, null): A *truthy* or *falsy* value to define whether the modal should be revealed or not.
+- `animation` (String, 'smooth'): The animation. Can be 'smooth' to have a scaling effect, `fade` to have a fading effet or `direct` to have an instant opening and a faded closing.
+- `noPad` (Boolean, false): If *true*, no padding is applied to the body.
+- `hideCross` (Boolean, false): If *true*, the cross will not be displayed.
+
+Sizes:
+- `big` (String, false): If *true*, the modal is wider.
+- `medium` (String, false): If *true*, the modal is slightly bigger.
+- `small` (String, false): If *true*, the modal is smaller.
+
+Content:
+- `title` (String, null): The title to display in the header.
+- `content` (String, null): The text content to display in the body.
+- `back` (String, null): If specified, a *back button* (default style) will be display with the `back` label. Clicking on it will close the modal.
+- `b` (Boolean, false): If *true*, a *back button* will be displayed with the `backLab` label.
+- `backLab`(String, 'Back'): Label to display in the *back button* if `b` is *true*.
+- `validate` (String, null): If specified, a *validate button* (primary style) will be display with the `validate` label. Clicking on it will trigger the `@validate` event.
+- `v` (Boolean, false): If *true*, a *validate button* will be displayed with the `valLab` label.
+- `valLab`(String, 'Validate'): Label to display in the *display button* if `v` is *true*.
+
 
 ## \<Sidemenu\>
 
-value: { default: 0 },
-orientation: {type: String, default: 'left'},
-show: {type: Number, default: 0},
-width: {type: Number, default: 300},
-height: {type: Number, default: 300},
-touchWidth: {type: Number, default: 10},
-enableTouch: {type: Boolean, default: true},
-bounce: {type: Boolean, default: false},
-shadowBackground: {type: String, default: '#222'},
-touchBackground: {type: String, default: 'transparent'},
-opacityMax: {type: Number, default: 0.5},
-zIndexMult: {type: Number, default: 2.0},
+A sidemenu allows you to display any content via the default slot. This element has a wrapper that has the class'.eg-sidemenu-wrapper' that can be manipulated using CSS. The menu itself has the class'.eg-sidemenu'. This element is hidden outside the default page, on the side specified by `orientation` (left or right). If the attribute `trigger` is not null, its value defines the size *limit* of the viewport: below this size, the menu will be hidden. Otherwise, it will be placed in its wrapper and visible in the DOM as a simple *div*. When the menu is hidden, it is possible to display it by modifying `value`, or by using the *touch zones*. These areas are bands displayed on the side of the viewport that corresponds to `orientation` and the menu can be opened by clicking on them (with''), pan ban (with'') or swipe (with'').
+
+- `value` (None, null): A *truthy* or *falsy* value to define whether the menu should be revealed or not.
+- `orientation: {type: String, default: 'left'},
+- `show` (Number, 0): A *truthy* or *falsy* value to define whether the menu should be revealed or not.
+- `width` (Number, 300): Width in `px` of the menu (when hidden).
+- `touchWidth` (Number, 10): Width in `px` of the *touch zones*.
+- `enableTouch` (Boolean, true): If *true*, hammerjs will be used to listen to the touch events.
+- `bounce` (Boolean, false): If *true*, the hidden menu is not locked: you can drag it futher than the side of the viewport.
+- `shadowBackground` (String, '#222'): The color of the darken background.
+- `touchBackground` (String, 'transparent'): The background color of the *touch zones*.
+- `opacityMax` (Number, 0.5): The maximum opacity of the darken background (from 0 when hidden to `opacityMax` when open, maximum 1).
+- `zIndexMult` (Number, 2.0): A multiplier to modulate the z-index position of the menu.
 shadowSpeed: {type: Number, default: 2},
 showBigSize: {type: Boolean, default: false},
-viewportResize: {type: Boolean, default: true},
+- `viewportResize` (Boolean, true): If *true*, the viewport `@resize` is listened to update the menu.
 invisible: {type: Boolean, default: false},
 thinScroll: {type: Boolean, default: false},
-background: {type: String, default: "#FFF"},
-trigger: {type: Number, default: Infinity},
-enableClickDeploy: {type: Boolean, default: false},
-enablePan: {type: Boolean, default: false},
-enableSwipe: {type: Boolean, default: true},
-disabled: {type: Boolean, default: false}
+- `background` (String, '#fff'): The menu background color
+- `trigger` (Number, Infinity): If specified, the viewport width threshold to hide or reveal the menu. 0 means that the menu is always open (regular div) and Infinity mean that it will be always closed.
+- `enableClickDeploy` (Boolean, false): if *true*, clicking on the *touch zone* will deploy the menu.
+- `enablePan` (Boolean, false): If *true*, you can drag the *touch zone* to open the menu (*pan*).
+- `enableSwipe` (Boolean, true): If *true*, you can swipe on the *touch zone* to open the menu.
+- `disabled` (Boolean, false): If *true*, you can not open or close the menu.
