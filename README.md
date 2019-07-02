@@ -38,7 +38,7 @@ The EgElements are the following:
 You can display quickly an icon using the `<eg-icon>` wrapper:
 
 ```
-<eg-icon i=cross/>
+<eg-icon i="cross"/>
 ```
 
 **Attributes:**
