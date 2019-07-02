@@ -3,7 +3,7 @@
         <h1 id="modal-anchor">Demo of the &lt;Modal&gt; and &lt;Sidemenu&gt; element</h1>
         <div class="title-bloc">
             <h2>&lt;Modal&gt; element</h2>
-            <span><a href="#modal-anchor" @click="showModalCode=!showModalCode">See code</a></span>
+            <span><eg-btn link @click="showModalCode=!showModalCode">See code</eg-btn></span>
         </div>
         <div class="popover-demo">
             <div>
@@ -60,8 +60,8 @@
             </div>
         </div>
         <div class="title-bloc">
-            <h2 id="sidemenu-anchor">Demo of the &lt;Sidemenu&gt; element</h2>
-            <span><a href="#sidemenu-anchor" @click="showPopoverCode=!showPopoverCode">See code</a></span>
+            <h2 id="sidemenu-anchor">&lt;Sidemenu&gt; element</h2>
+            <span><eg-btn link @click="showPopoverCode=!showPopoverCode">See code</eg-btn></span>
         </div>
         <div class="demo-zone">
             <pre v-if="showPopoverCode">

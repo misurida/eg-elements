@@ -107,7 +107,7 @@
     .side-menu-demo {
         max-width: 90vw;
         display: flex;
-        margin: 0 auto;
+        margin: 0 auto 50px auto;
         .sidemenu {
             width: 300px;
             padding: 10px 15px;
@@ -181,6 +181,9 @@
         border-radius: 15px;
         width: 90%;
         margin: 0 auto;
+        @media screen and (max-width: 500px) {
+            margin: 0 10px;
+        }
     }
     .inputs-grid {
         & > * {

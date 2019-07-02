@@ -59,7 +59,7 @@ To use the icons, you have to prepend the attribute with **ma:**. Ex: *ma:alarm*
 
 ### Font Awesome Icons
 
-You can also use the [Font Awesome Icons](https://fontawesome.com/icons). You simply have to create an account and ask for a [kit](https://fontawesome.com/start). You will receive the `SECRET` code to inset into the `index.html` file:
+You can also use the [Font Awesome Icons](https://fontawesome.com/icons). You simply have to create an account and ask for a [kit](https://fontawesome.com/start). You will receive the `SECRET` code to insert into the `index.html` file:
 
 ```
 <script src="https://kit.fontawesome.com/{{SECRET}}.js"></script>

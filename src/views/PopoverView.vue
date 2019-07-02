@@ -3,7 +3,7 @@
         <h1 id="popover-anchor">Demo of &lt;Popover&gt;</h1>
         <div class="title-bloc">
             <h2>Popover with action buttons:</h2>
-            <span><a href="#popover-anchor" @click="showPopoverCode=!showPopoverCode">See code</a></span>
+            <span><eg-btn link @click="showPopoverCode=!showPopoverCode">See code</eg-btn></span>
         </div>
         <div class="demo-zone">
             <pre style="width:500px;" v-if="showPopoverCode">
@@ -63,7 +63,7 @@
 
         <div class="title-bloc" id="tooltip-anchor">
             <h2>Custom v-tooltip directive</h2>
-            <span><a href="#tooltip-anchor" @click="showTooltipCode=!showTooltipCode">See code</a></span>
+            <span><eg-btn link @click="showTooltipCode=!showTooltipCode">See code</eg-btn></span>
         </div>
 
         <div class="demo-zone popover-pre">

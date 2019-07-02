@@ -75,7 +75,7 @@
             left: 0; right: 0;
             bottom: 0;
         }
-        .display {
+        &.display {
             display: inherit;
         }
     }
@@ -95,7 +95,13 @@
         <div class="sidemenu" :class="sideMenuClass" :style="getPanelStyleArray">
             <slot></slot>
         </div>
-        <div v-if="enableTouch" class="touch-zone" :class="touchZoneClass" :id="appendDirection('touch-zone')" :style="this.orientation == 'bottom' ? bottomTouchStyle : lateralTouchStyle" @click="touchClick"></div>
+        <div
+                v-if="enableTouch"
+                class="touch-zone"
+                :class="touchZoneClass"
+                :id="appendDirection('touch-zone')"
+                :style="this.orientation == 'bottom' ? bottomTouchStyle : lateralTouchStyle" @click="touchClick">
+        </div>
         <div class="shadow-zone" :style="shadow" @click="tryClosingMenu"></div>
     </div>
 </template>

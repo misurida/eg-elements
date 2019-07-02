@@ -8,7 +8,7 @@
         <div class="demo-zone" id="text-input-zone">
             <div class="title-bloc">
                 <h2>Text input</h2>
-                <span><span v-if="show.text">{{ text }} | {{ array }} | </span> <a href="#text-input-zone" @click="show.text=!show.text">See code</a></span>
+                <span><span v-if="show.text">{{ text }} | {{ array }} | </span> <eg-btn link @click="show.text=!show.text">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -169,7 +169,7 @@
         <div class="demo-zone" id="textarea-input-zone">
             <div class="title-bloc">
                 <h2>Textarea input</h2>
-                <span><span v-if="show.textarea">{{ text }} | </span> <a href="#textarea-input-zone" @click="show.textarea=!show.textarea">See code</a></span>
+                <span><span v-if="show.textarea">{{ text }} | </span> <eg-btn link @click="show.textarea=!show.textarea">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -232,7 +232,7 @@
         <div class="demo-zone" id="select-input-zone">
             <div class="title-bloc">
                 <h2>Select input</h2>
-                <span><span v-if="show.select">{{ text }} | {{ array }} | {{ object }} | </span> <a href="#select-input-zone" @click="show.select=!show.select">See code</a></span>
+                <span><span v-if="show.select">{{ text }} | {{ array }} | {{ object }} | </span> <eg-btn link @click="show.select=!show.select">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -455,7 +455,7 @@
         <div class="demo-zone" id="checkbox-input-zone">
             <div class="title-bloc">
                 <h2>Checkbox, radio and Switch inputs</h2>
-                <span><span v-if="show.checkbox">{{ boolean }} | {{ text }} | {{ array }} | </span> <a href="#checkbox-input-zone" @click="show.checkbox=!show.checkbox">See code</a></span>
+                <span><span v-if="show.checkbox">{{ boolean }} | {{ text }} | {{ array }} | </span> <eg-btn link @click="show.checkbox=!show.checkbox">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -588,7 +588,7 @@
         <div class="demo-zone" id="number-input-zone">
             <div class="title-bloc">
                 <h2>Number input</h2>
-                <span><span v-if="show.number">{{ number }} | </span> <a href="#number-input-zone" @click="show.number=!show.number">See code</a></span>
+                <span><span v-if="show.number">{{ number }} | </span> <eg-btn link @click="show.number=!show.number">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -653,7 +653,7 @@
         <div class="demo-zone" id="slider-input-zone">
             <div class="title-bloc">
                 <h2>Slider input</h2>
-                <span><span v-if="show.slider">{{ number }} | {{ text }} | </span> <a href="#slider-input-zone" @click="show.slider=!show.slider">See code</a></span>
+                <span><span v-if="show.slider">{{ number }} | {{ text }} | </span> <eg-btn link @click="show.slider=!show.slider">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -745,7 +745,7 @@
         <div class="demo-zone" id="file-input-zone">
             <div class="title-bloc">
                 <h2>File input</h2>
-                <span><span v-if="show.file">{{ file }} | {{ files }} | </span> <a href="#file-input-zone" @click="show.file=!show.file">See code</a></span>
+                <span><span v-if="show.file">{{ file }} | {{ files }} | </span> <eg-btn link @click="show.file=!show.file">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -801,7 +801,7 @@
         <div class="demo-zone" id="date-input-zone">
             <div class="title-bloc">
                 <h2>Date and Time input</h2>
-                <span><span v-if="show.date">{{ date }} | {{ date2 }} | {{ daterange }} | {{ time }} | </span> <a href="#date-input-zone" @click="show.date=!show.date">See code</a></span>
+                <span><span v-if="show.date">{{ date }} | {{ date2 }} | {{ daterange }} | {{ time }} | </span> <eg-btn link @click="show.date=!show.date">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -944,7 +944,7 @@
         <div class="demo-zone" id="star-input-zone" >
             <div class="title-bloc">
                 <h2>Star input</h2>
-                <span><span v-if="show.star">{{ number }} | {{ decnum }} | </span> Experimental | <a href="#star-input-zone" @click="show.star=!show.star">See code</a></span>
+                <span><span v-if="show.star">{{ number }} | {{ decnum }} | </span> Experimental | <eg-btn link @click="show.star=!show.star">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>
@@ -1009,7 +1009,7 @@
         <div class="demo-zone" id="native-input-zone">
             <div class="title-bloc">
                 <h2>Native input</h2>
-                <span><span v-if="show.native">{{ color }} | </span> <a href="#star-input-zone" @click="show.native=!show.native">See code</a></span>
+                <span><span v-if="show.native">{{ color }} | </span> <eg-btn link @click="show.native=!show.native">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>

@@ -9,10 +9,10 @@
             <eg-btn @click="mainLoad=!mainLoad" :icon="mainLoad?'ma:thumb_up':'fa:fas fa-pause'" :secondary="!mainLoad"></eg-btn>
             <eg-btn :sty="selectedStyle" :ri="rightIcon" :li="leftIcon" :loading="mainLoad" :light="mainLoad">{{ text }}</eg-btn>
         </div>
-        <div class="demo-zone-btn" :id="'#btn-zone-'+s" v-for="s in styles">
+        <div class="demo-zone-btn" :id="'#btn-zone-'+s" v-for="s in styles" :key="s">
             <div class="title-bloc">
                 <h2>{{ s }} style</h2>
-                <span><a :href="'#btn-zone-'+s" @click="show[s]=!show[s]">See code</a></span>
+                <span><eg-btn link @click="show[s]=!show[s]">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div class="grid-block">

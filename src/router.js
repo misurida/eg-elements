@@ -6,10 +6,10 @@ import ModalView from './views/ModalView'
 import PopoverView from './views/PopoverView'
 import Home from './views/Home'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
     base: process.env.BASE_URL,
     routes: [
         {

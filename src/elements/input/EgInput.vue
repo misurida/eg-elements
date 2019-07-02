@@ -244,10 +244,12 @@
             cursor: pointer;
             user-select: none;
             font-family: inherit;
-            margin-bottom: 5px;
             &.group-label {
                 margin-bottom: 5px;
             }
+        }
+        &:not(.checkbox), &:not(.radiobox) {
+            margin-bottom: 5px;
         }
 
         // input icons
@@ -1567,7 +1569,7 @@
             <label class="eg-label" :for="theId" v-if="label">{{ isSelect&&query!==null&&query!=value&&restrictToOptions&&!hasPills ? searchLabel : label }}</label>
         </template>
         <div class="eg-input-wrapper" v-if="isCheckbox">
-            <div class="eg-input-content" :class="{'checkbox-group':isCheckbox&&multiple}" v-for="(c,i) in checkboxes">
+            <div class="eg-input-content" :class="{'checkbox-group':isCheckbox&&multiple}" v-for="(c,i) in checkboxes" :key="i">
                 <!-- Checkbox legacy -->
                 <input
                         v-if="legacy"
@@ -1776,7 +1778,7 @@
                 </div>
                 <!-- Left icons (inline) -->
                 <template v-if="leftIcons.length>0">
-                    <div v-for="i in leftIcons" class="input-icon inline-icon inline-left">
+                    <div v-for="i in leftIcons" class="input-icon inline-icon inline-left" :key="i">
                         <eg-icon :type="i"></eg-icon>
                     </div>
                 </template>
@@ -1807,7 +1809,7 @@
                     <div v-else-if="autoWidth" class="autowidth-shadow" :id="theId+'-autowidth-shadow'">{{ autoWidthLabel }}</div>
                     <!-- Pills -->
                     <template v-if="hasPills && valueIsArray">
-                        <button class="el-tag" v-for="(p,i) in value" :key="i" @mousedown.prevent.stop="handlePillClick(p,i)" @keyup.enter="handlePillClick(p,i)">
+                        <button class="el-tag" v-for="(p,i) in value" :key="i" @mousedown.prevent.stop="handlePillClick(p)" @keyup.enter="handlePillClick(p)">
                             <span>{{ itemIsObject && p && !!p[oLabel] ? p[oLabel] : p }}</span>
                             <div class="cross-pill" @mousedown.prevent.stop="popElement(i)">
                                 <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -2025,7 +2027,7 @@
                 <span v-if="suffix&&isText" class="suffix">{{ suffix }}</span>
                 <!-- Icons (inline) -->
                 <template v-if="icons.length>0">
-                    <div v-for="i in icons" class="input-icon inline-icon">
+                    <div v-for="i in icons" class="input-icon inline-icon" :key="i">
                         <eg-icon :type="i"></eg-icon>
                     </div>
                 </template>
@@ -2248,12 +2250,10 @@
 
 <script>
     import Hammer from 'hammerjs'
-    import SvgIcon from '../toolbox/SvgIcon'
     import Calendar from '../calendar/Calendar'
 
     export default {
         components: {
-            SvgIcon,
             Calendar
         },
         props: {
@@ -3675,7 +3675,7 @@
                 return this.itemIsObject ? (o[this.oLabel]?o[this.oLabel]:o) : o;
             },
             // @click event handler for the pills when multiple is true
-            handlePillClick(p,i) {
+            handlePillClick(p) {
                 if(this.eTagClick) {
                     this.$emit('tagClick', p);
                 }
