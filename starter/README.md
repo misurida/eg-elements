@@ -19,6 +19,14 @@ npm install
 
 ## Laravel parameters
 
+To use the authentication:
+
+```
+php artisan make:auth
+```
+
+To generate the application key:
+
 ```
 php artisan key:generate
 ```
@@ -35,19 +43,19 @@ In the migration file:
 
 ```
 $table->increments('id');
-    $table->boolean('boolean');
-    $table->dateTime('dateTime');
-    $table->integer('integer');
-    $table->text('text');
-    $table->string('string')->nullable();
-    $table->integer('model_id')->unsigned()->nullable()->index();
-    $table->foreign('model_id')
-          ->references('id')->on('models')->onDelete('cascade')->onUpdate('cascade');
-    $table->timestamps();
-});
+$table->boolean('boolean');
+$table->dateTime('dateTime');
+$table->integer('integer');
+$table->text('text');
+$table->string('string')->nullable();
+$table->integer('model_id')->unsigned()->nullable()->index();
+$table->foreign('model_id')
+      ->references('id')->on('models')->onDelete('cascade')->onUpdate('cascade');
+$table->timestamps();
 ```
 
 ### Model:
+
 In the model class:
 
 ```
@@ -130,7 +138,7 @@ The `<head>` is in *welcome.blade.php*. You can change the title:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>window.Laravel = { csrfToken: '{{ csrf_token() }}' }</script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-api
+
 <title>My Wonderful Application</title>
 ```
 
@@ -153,7 +161,7 @@ And then still in the body:
 If you are using the app in a sub folder, you can use this template:
 
 ```
-<div id="app" data-base="{{ route('dashboard', [], false) }}" data-logout-link="{{ route('logout') }}">
+<div id="app" data-base="{{ route('dashboard', [], false) }}" data-logout-link="{{ route('logout') }}" data-login-link="{{ route('login') }}">
     <example-component></example-component>
 </div>
 ```
@@ -183,8 +191,8 @@ Route::get('/home', 'AppController@index')->name('home');
 Route::prefix('dashboard')->group(function () {
 	Route::get('/', 'AppController@index')->name('dashboard');
 	Route::prefix('item')->group(function () {
-		Route::get('/', 'DashboardController@index')->name('exercises');
-		Route::get('/{exercise_id}', 'DashboardController@index')->name('exercise');
+		Route::get('/', 'AppController@index')->name('exercises');
+		Route::get('/{exercise_id}', 'AppController@index')->name('exercise');
 	});
 });
 ```
@@ -672,7 +680,7 @@ String.prototype.removeDiacritics = () => {
 };
 ```
 
-## Working with files
+## FIles upload
 
 We will use Laravel's [File Storage](https://laravel.com/docs/5.8/filesystem) system. Create the symbolic link with
 
@@ -690,7 +698,7 @@ You can now store the files outside the public scope of the website in the stora
                 ... (files here, in their folders)
 ```
 
-Put the following code in the *actions* of your store.js
+Put the following code in the *actions* attribute of your *store.js* file:
 
 ```
 postFormData(context, args) {
