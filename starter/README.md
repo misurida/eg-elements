@@ -92,21 +92,19 @@ public function exercises() {
 }
 ```
 
-## Servers
+## Application setup
 
-Apache:
+Run web server:
 ```
 php artisan serve
 ```
 
-Vuejs:
+Watch file modifications:
 ```
 npm run dev
 ```
 
 You might need to run [XAMPP](https://www.apachefriends.org/download.html) to have a MySQL development server.
-
-## Vue elements
 
 ```
 /my-app
