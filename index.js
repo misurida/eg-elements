@@ -21,8 +21,7 @@ export default function install(Vue) {
     Vue.component('sidemenu', Sidemenu);
 
     // v-tooltip directive
-    import tooltip from './src/elements/tooltip/tooltip'
-    Vue.directive('tooltip', tooltip);
+    Vue.directive('tooltip', require('./src/elements/tooltip/tooltip'));
 }
 
 // Create module definition for Vue.use()
