@@ -239,3 +239,60 @@ Route::middleware(['auth:api'])->group(function () {
     });
 });
 ```
+
+In the *AppController.vue* made by `php artisan make:controller AppController`:
+
+```
+/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
+{
+    $this->middleware('auth');
+}
+
+/**
+ * Show the application main page.
+ *
+ * @return \Illuminate\Http\Response
+ */
+public function index()
+{
+    return view('dashboard');
+}
+
+/**
+ * Get the app data for initialization
+ *
+ * @param Int|null $user_id     The user id. If not provided, the currently logged user is used.
+ * @return array                The user data and the user trainings
+ */
+public function getUser(Int $user_id = null) {
+    if(empty($user_id)) {
+        $user = Auth::user();
+        $user_id = $user->id;
+    }
+    else {
+        $user = User::find($user_id);
+        if(empty($user)) {
+            abort(404, "User not found ($user_id)");
+        }
+    }
+    return [
+        'user' => $user,
+        'favorites' => Favorite::where('user_id', $user_id)->get()
+    ];
+}
+
+public function getLists() {
+    $user = Auth::user();
+    $user_id = $user->id;
+    return [
+        'exercises' => Exercise::with('muscles', 'sources', 'files')->get(),
+        'sources' => Source::all(),
+        'tags' => Tag::where('user_id', $user_id)->orWhere('structural', 1)->get()
+    ];
+}
+```
