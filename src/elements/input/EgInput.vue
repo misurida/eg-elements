@@ -1,68 +1,4 @@
 <style lang="scss">
-    // Wrapper
-    $fontSize: 1rem;
-    $lineHeight: 1.5rem;
-    $vPadding: 0.5em;
-    $hPadding: 0.8em;
-    $backgroundColor: #FFF;
-    $borderColor: #767f8d;
-    $boxShadow: 0 0 0 .2rem rgba(0,0,0,0.05);
-    $outline: 0;
-    $border: 1px solid rgba($borderColor, 0.5);
-    $borderRadius: 3px;
-
-    // Input
-    $activeColor: #9f2f35;
-    $color: #2A2A2A;
-    $hoverColor: #6d6d6d;
-    $focusColor: #787878;
-    $placeholderColor: #a6a6a6;
-    $prefixSuffixColor: $color;
-
-    // Label & messages
-    $labelFontSize: 1rem;
-    $labelColor: #505050;
-    $messageFontSize: 0.8rem;
-    $messageColor: #c7c7c7;
-
-    // Error & disabled
-    $errorColor: #9C2727;
-    $errorBoxShadowColor: none;
-    $disabledColor: $labelColor;
-
-    // Radio & checkbox
-    $checkboxColor: $color;
-    $checkboxFill: #E3E3E3;
-    $radioColor: #6d6d6d;
-
-    // Icons & buttons
-    $buttonWidth: 1.6em;
-    $filePicSize: 28px;
-    $iconC: $borderColor;
-    $smallIconFontSize: .8rem;
-
-    // Pill
-    $pillBC: #f5f5f5;
-    $pillBCHover: #e2e2e2;
-    $pillPadding: 3px 25px 3px 8px;
-
-    // Select items
-    $selectedBC: #f5f5f5;
-    $boxShadowSelected: none;
-
-    // select items
-    $listBS: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-    $listBorderRadius: 3px;
-    $listFS: 1rem;
-    $maxHeight: 1000px;
-    $listHoverBC: $selectedBC;
-    $selectedBorder: none;
-
-    // Files
-    $nHPadding:  + 1em;
-    $nHPadding: $hPadding + 1em;
-    $filePadding: 0 $hPadding;
-    $fileHeight: 40px; // + 2px for the borders
 
     @function getContrastedColor($color) {
         @if (lightness($color) > 50) {
@@ -84,496 +20,264 @@
     //      .message, etc
     //  </>
 
-    .eg-input {
-        font-family: inherit;
-        text-align: left;
-        display: inline-block;
-        font-size: $fontSize;
-        input {
-            width: 12em;
-        }
 
-        // ----- Containers -----
-        // Level 1 container
-        .eg-input-wrapper {
-            display: flex;
-            align-items: stretch;
-            flex-wrap: wrap;
-            font-family: inherit;
 
-            // prefix and suffix
-            .suffix,
-            .prefix {
-                font-size: $fontSize;
-                line-height: 1rem;
-                background-color: $backgroundColor;
-                display: flex;
-                align-items: center;
-                color: $prefixSuffixColor;
-            }
-            .prefix {
-                padding-right: 5px;
-            }
-            .suffix {
-                padding-left: 5px;
-            }
+    // Variables
+    :root {
+        --color: #2A2A2A;
+        --color-2: #434343;
+        --color-3: #909090;
+        --color-4: #a9a9a9;
+        --color-5: #c3c3c3;
+        --color-6: #f6f6f6;
 
-            // Level 2 container
-            .eg-input-content {
-                position: relative;
-                display: flex;
-                align-items: stretch;
-                width: 100%;
-                justify-content: flex-end;
-                font-family: inherit;
+        --active-color: #315c9f;
+        --light-active-color: rgba(49,92,159,0.3);
+        --error-color: #9C2727;
 
-                // inner input positioning and placeholders
-                .select-facade,
-                textarea,
-                input {
-                    box-sizing: border-box;
-                    font-size: $fontSize;
-                    outline: 0;
-                    display: inline-block;
-                    line-height: $lineHeight;
-                    font-family: inherit;
-                    &.hidden {
-                        overflow: hidden;
-                        height: 0;
-                        width: 0;
-                        margin: 0;
-                        padding: 0;
-                    }
-                    &.invisible {
-                        display: none;
-                    }
-                    &.transparent {
-                        border: none;
-                        outline-width: 0;
-                        background-color: transparent;
-                        padding: 0;
-                        border-radius: 0;
-                        display: flex;
-                        flex: 1;
-                    }
+        // Boxing
+        --border-radius: 3px;
+        --border: 1px solid var(--color-5);
+        --font-size: 1rem;
+        --v-padding: 0.5em;
+        --h-padding: 0.8em;
+        --padding: var(--v-padding) var(--h-padding);
 
-                    // placeholders
-                    &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-                        color: $placeholderColor;
-                    }
-                    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-                        color: $placeholderColor;
-                        opacity: 1;
-                    }
-                    &::-moz-placeholder { /* Mozilla Firefox 19+ */
-                        color: $placeholderColor;
-                        opacity: 1;
-                    }
-                    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
-                        color: $placeholderColor;
-                    }
-                    &::-ms-input-placeholder { /* Microsoft Edge */
-                        color: $placeholderColor;
-                    }
-                    &.facade-placeholder {
-                        color: $placeholderColor;
-                    }
-                }
-                &.input-style-wrapper {
-                    flex-wrap: wrap;
-                    &.dragging {
-                        border-style: dashed;
-                    }
-                }
+        // Pill
+        --light-bg: #f5f5f5;
+        --light-bs: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+        --lighter-bs: 0 0 0 .2rem var(--color-6);
+        --box-shadow: 0 0 0 .2rem rgba(0,0,0,0.05);
 
-                // autowidth
-                &.autowidth {
-                    justify-content: flex-start;
-                }
-                .autowidth-shadow {
-                    position: absolute;
-                    left: 0;
-                    visibility: hidden;
-                    z-index: -1;
-                }
+        --file-pic-size: 28px;
+        --button-width: 1.6em;
+        --file-height: 40px;
+        --n-h-padding: var(--h-padding) + 1em;
+    }
+    
 
-                // custom scrollbars
-                .select-panel,
-                textarea {
-                    &::-webkit-scrollbar {
-                        width: 0;
-                    }
-                    &::-webkit-scrollbar-track {
-                        background: transparent;
-                    }
-                    &::-webkit-scrollbar-thumb {
-                        background: transparent;
-                        cursor: pointer;
-                    }
-                    &.show-scrollbar {
-                        &::-webkit-scrollbar {
-                            width: 5px;
-                        }
-                        &::-webkit-scrollbar-track {
-                            background: rgba($color, 0.05);
-                        }
-                        &::-webkit-scrollbar-thumb {
-                            background: rgba($color, 0.2);
-                            cursor: pointer;
-                        }
-                    }
-                }
 
-                // multi-input separator
-                .sep {
-                    margin: 0 10px;
-                }
-            }
-        }
-
-        // ----- Quick edits -----
-        // label
-        .eg-label {
-            display: inline-block;
-            flex: 1;
-            border: none;
-            background-color: transparent;
-            padding: 0;
-            font-size: $labelFontSize;
-            color: $labelColor;
-            cursor: pointer;
-            user-select: none;
-            font-family: inherit;
-            &.group-label {
-                margin-bottom: 5px;
-            }
-        }
-        &:not(.checkbox), &:not(.radiobox) {
-            margin-bottom: 5px;
-        }
-
-        // input icons
-        $iconWidth: 1em;
-        .input-icon {
-            cursor: pointer;
-            font-size: 1.2rem;
+    // ----- Loader -----
+    .eg-loader-container {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        .eg-loader {
             position: relative;
-            width: auto;
-            &:not(.inline-icon) {
-                width: $iconWidth;
-                height: $iconWidth;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transform: translateY(-50%);
-                position: absolute;
-                top: 50%;
-                right: 10px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            overflow: hidden;
+            transition: .2s;
+            max-width: 20px;
+            &.hidden {
+                max-width: 0;
             }
-            &.inline-icon {
-                margin: 0 5px;
-                display: flex;
-                align-items: center;
-                &+.inline-icon {
-                    margin-right: 0;
-                }
-                &.inline-left {
-                    margin-right: 5px;
-                    &:first-child {
-                        margin-left: 0;
-                    }
-                    &+.inline-icon {
-                        margin-right: 10px;
-                    }
-                }
-            }
-            &.left-icon {
-                right: auto;
-                left: 10px;
-            }
-            &:hover {
-                opacity: .5;
-            }
-            svg {
-                width: 100%;
-                height: 100%;
-                position: absolute;
+            .eg-loader-inside {
+                position: relative;
                 top: 0;
                 left: 0;
-                path {
-                    fill: $iconC;
+                display: block;
+                border: 2px solid rgba(#000,.05);
+                border-radius: 50%;
+                border-top: 2px solid var(--color-2);
+                width: 15px;
+                height: 15px;
+                animation: spin 1s linear infinite;
+            }
+            &.small {
+                height: 15px;
+                width: 15px;
+                .eg-loader-inside {
+                    height: 10px;
+                    width: 10px;
                 }
             }
-            &.invisible {
-                visibility: hidden;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg) }
+            to { transform: rotate(360deg) }
+        }
+    }
+
+    .eg-inner-style {
+        font-size: var(--font-size);
+        padding: var(--padding);
+        border: none;
+        line-height: 1.5rem;
+        color: var(--color);
+        background-color: transparent;
+        &:focus {
+            outline: none;
+        }
+    }
+    .eg-boxing-style {
+        display: flex;
+        align-items: center;
+        border: var(--border);
+        box-shadow: var(--lighter-bs);
+        border-radius: var(--border-radius);
+        flex-wrap: wrap;
+    }
+
+
+    // Outer wrapper
+    .eg-input {
+        text-align: left;
+        position: relative;
+
+        // Inner wrapper
+        .eg-input-wrapper {
+            border-radius: var(--border-radius);
+        }
+        // Main content
+        .eg-input-content {
+            cursor: pointer;
+            @extend .eg-boxing-style;
+            input,
+            .prefix,
+            .suffix {
+                @extend .eg-inner-style;
             }
-            &.select-caret {
+            input {
+                flex: 1;
+                width: 100%;
+                border-radius: var(--border-radius);
+            }
+            textarea {
+                @extend .eg-inner-style;
+                resize: none;
+                flex: 1;
+            }
+            .prefix {
+                padding-right: 0;
+                color: var(--color-3);
+            }
+            .suffix {
+                padding-left: 0;
+                color: var(--color-3);
+            }
+            .inner-input-button {
+                @extend .eg-inner-style;
+                flex: 1;
+                text-align: left;
+            }
+
+            // Focus
+            &.focus {
+                border-color: var(--active-color);
+                .input-icon .svg-icon svg {
+                    fill: var(--active-color);
+                }
+            }
+        }
+
+        // Tag position
+        .eg-tag {
+            margin-right: 0;
+            &+input {
+
+            }
+        }
+
+        // States
+        &.error {
+            .eg-label {
+                color: var(--error-color);
+            }
+            .eg-input-content {
+                border-color: var(--error-color);
+                .input-icon .svg-icon svg {
+                    fill: var(--error-color);
+                }
+            }
+            .messages-zone {
+                color: var(--error-color);
+            }
+        }
+        &.disabled {
+            opacity: 0.8;
+            .input-icon {
+                cursor: default;
                 &:hover {
                     opacity: 1;
                 }
-                transition: transform .2s;
-                //transform: translateY(-50%) rotate(0);
-                transform: translateY(-50%) rotateY(180deg);
-                svg path {
-                    fill: rgba($color, 0.3);
-                }
             }
-            &.reversed {
-                transform: translateY(-50%) rotate(180deg);
+            .eg-label {
+                cursor: default;
             }
-            &.plus-icon {
-                right: 10px;
-            }
-            &.minus-icon {
-                right: 35px;
-            }
-            &.with-cross {
-                &.plus-icon {
-                    right: 35px;
-                }
-                &.minus-icon {
-                    right: 60px;
-                }
-            }
-            &.file-check-icon {
-                right: 35px;
-            }
-            &.eg-loader-wrapper {
-                right: 10px;
-            }
-        }
-
-        // inner input styling
-        .input-style-wrapper,
-        .select-facade,
-        textarea,
-        input {
-            border: $border;
-            color: $color;
-            border-radius: $borderRadius;
-            background-color: $backgroundColor;
-            padding: $vPadding $hPadding;
-            &.select-legacy {
-                display: inline-block;
-                width: 100%;
-                font-size: 1rem;
-            }
-        }
-
-        // icon induced padding
-        .has-icon {
-            // applies on: .eg-input-content, .select-facade, .file-content and the main input
-            padding-right: $hPadding + $buttonWidth;
-            &.has-left-icon {
-                padding-left: $hPadding + $buttonWidth;
-            }
-        }
-
-        // inner inputs :hover and :focus
-        &:not(.disabled) {
-            .input-style-wrapper,
-            .select-facade:not(.transparent),
-            textarea,
-            input:not(.transparent) {
-                &:hover,
-                &:focus,
-                &.focus {
-                    outline-width: 0;
-                    box-shadow: $boxShadow;
-                    border-color: $focusColor;
-                }
-            }
-        }
-
-        // messages
-        .messages-zone,
-        .file-list {
-            .message {
-                display: block;
-                font-size: $messageFontSize;
-                color: $messageColor;
-                &:not(.message-list) {
-                    margin-top: 6px;
-                }
-            }
-            .message-list {
-                padding-left: 10px;
-                margin: 5px 0 4px 0;
-                list-style-type: none;
-                &.shorter {
-                    padding-left: 5px;
-                }
-                li {
-                    line-height: $fontSize;
-                    &:before {
-                        content: "-";
-                        position: relative;
-                        right: 5px;
+            .eg-tag {
+                cursor: default;
+                .cross-pill {
+                    cursor: default;
+                    &:hover {
+                        opacity: 1;
                     }
                 }
             }
+        }
+
+        // Outsiders
+        .messages-zone {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            color: var(--color-4);
             .message-counter {
                 float: right;
-                font-size: $messageFontSize;
-                color: $messageColor;
-                position: relative;
-                margin-left: 6px;
-                &.error {
-                    color: $errorColor;
-                }
+            }
+            .message-list {
+                padding: 0 0 0 20px;
+                margin: 5px 0 0 0;
             }
         }
 
-        // counter width corrections
-        &.has-counter {
+        // Specials
+        .autowidth-shadow {
+            position: absolute;
+            visibility: hidden;
+        }
+
+        .select-legacy {
+            @extend .eg-inner-style;
+            @extend .eg-boxing-style;
+        }
+
+        // ===> Specific targeting
+
+        // textarea
+        &.textarea {
             .eg-input-content {
+                .input-icon {
+                    position: absolute;
+                    right: 0;
+                    align-items: flex-start;
+                }
+            }
+        }
+
+        // select
+        &.select {
+            user-select: none;
+            .select-legacy {
                 width: 100%;
-                input {
-                    width: 100%;
-                }
-            }
-        }
-
-        // ----- Modes -----
-        &.disabled {
-            .input-icon {
-                cursor: default;
-                &:hover {
-                    opacity: 1;
-                }
-            }
-            .select-facade,
-            label {
-                cursor: default;
-            }
-            .checkbox-input {
-                svg {
-                    path.dot {
-                        stroke: $disabledColor;
-                    }
-                    path.circle {
-                        fill: $disabledColor;
+                &.focus {
+                    border-color: var(--active-color);
+                    .input-icon .svg-icon svg {
+                        fill: var(--active-color);
                     }
                 }
             }
         }
-        &.error {
-            label {
-                color: $errorColor;
-            }
-            .input-style-wrapper,
-            .select-facade,
-            .select-facade:hover,
-            .select-facade:focus,
-            textarea:hover,
-            textarea:focus,
-            input:hover,
-            input:focus,
-            textarea,
-            input:not(.transparent) {
-                border-color: $errorColor;
-                &:hover,
-                &:focus {
-                    box-shadow: $errorBoxShadowColor;
-                }
-            }
-            &:not(.disabled) {
-                &:not(.legacy) {
-                    .input-style-wrapper,
-                    .select-facade:not(.transparent),
-                    textarea,
-                    input:not(.transparent) {
-                        &:hover,
-                        &:focus,
-                        &.focus {
-                            border-color: $errorColor;
-                        }
-                    }
-                }
-            }
-            .input-icon {
-                svg path {
-                    fill: $errorColor;
-                }
-            }
 
-            .checkbox {
-                svg path {
-                    fill: none;
-                    stroke: $errorColor;
-                    &.box {
-                        fill: $errorColor;
-                    }
-                }
-            }
-            .message {
-                color: $errorColor;
-            }
-            .select-panel,
-            textarea {
-                &::-webkit-scrollbar {
-                    width: 5px;
-                }
-                &::-webkit-scrollbar-track {
-                    background: rgba($color, 0.05);
-                }
-                &::-webkit-scrollbar-thumb {
-                    background: rgba($errorColor, 0.8);
-                }
-            }
-            .eg-loader-container .eg-loader .eg-loader-inside {
-                border-top-color: $errorColor;
+        // number
+        &.number {
+            .minus-icon {
+                padding-left: 0;
             }
         }
 
-        // ----- Loader -----
-        .eg-loader-container {
-            text-align: center;
-            display: flex;
-            align-items: center;
-            .eg-loader {
-                position: relative;
-                display: inline-block;
-                width: 20px;
-                height: 20px;
-                overflow: hidden;
-                transition: .2s;
-                max-width: 20px;
-                &.hidden {
-                    max-width: 0;
-                }
-                .eg-loader-inside {
-                    position: relative;
-                    top: 0;
-                    left: 0;
-                    display: block;
-                    border: 2px solid rgba(#000,.05);
-                    border-radius: 50%;
-                    border-top: 2px solid $borderColor;
-                    width: 15px;
-                    height: 15px;
-                    animation: spin 1s linear infinite;
-                }
-                &.small {
-                    height: 15px;
-                    width: 15px;
-                    .eg-loader-inside {
-                        height: 10px;
-                        width: 10px;
-                    }
-                }
-            }
-            @keyframes spin {
-                from { transform: rotate(0deg) }
-                to { transform: rotate(360deg) }
-            }
-        }
-
-        // ----- Specific Inputs -----
+        // checkbox
         &.checkbox {
-            display: inline-block;
-            align-items: center;
-            margin-right: 20px;
             .checkbox-input {
                 // (custom input)
                 height: 16px;
@@ -591,14 +295,14 @@
                     width: 100%;
                     height: 100%;
                     path {
-                        stroke: $checkboxColor;
+                        stroke: var(--color);
                         transition: stroke-dashoffset .1s;
                         &.arrow {
                             stroke-dasharray: 50px;
                             stroke-dashoffset: 50px;
                         }
                         &.box {
-                            fill: $checkboxFill;
+                            fill: #E3E3E3;
                         }
                     }
                 }
@@ -611,74 +315,37 @@
                 }
                 &:hover,
                 &:focus {
-                    box-shadow: $boxShadow;
+                    box-shadow: var(--box-shadow);
                     outline-width: 0;
                 }
             }
             .eg-input-wrapper {
-                // (input and label)
-                .eg-input-content {
-                    align-items: center;
-                    display: flex;
-                    margin-top: 3px;
-                    // to allow stacking
-                    &.checkbox-group {
-                        width: auto;
-                        .eg-label {
-                            font-size: $messageFontSize;
-                        }
-                    }
-                    // legacy input
-                    input {
-                        margin-right: 10px;
-                        width: 15px;
-                        height: 15px;
-                        border-radius: 5px;
-                        &:focus {
-                            box-shadow: $boxShadow;
-                            outline-width: 0;
-                        }
-                    }
-                    // text displayed next to the checkbox
-                    .eg-label {
-                        line-height: 1rem;
-                        margin-right: 15px;
-                    }
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                input {
+                    margin: 0 0.5em 0 0;
+                    width: 1em;
+                    height: 1em;
+                    cursor: pointer;
+                }
+
+                .checkbox-group {
+                    margin-bottom: 5px;
                 }
             }
-            &.disabled {
-                .checkbox {
-                    cursor: default;
-                }
+            .checkbox-label {
+                margin-right: 15px;
             }
         }
-        &.textarea {
-            .input-icon {
-                // (smaller icon size)
-                top: 15px;
-                width: 15px;
-                height: 15px;
-                right: 8px;
-                font-size: 1rem;
-            }
-            .eg-input-wrapper {
-                // (icon padding)
-                .eg-input-content {
-                    .has-icon {
-                        padding-right: $buttonWidth;
-                        &.has-left-icon {
-                            padding-left: $buttonWidth;
-                        }
-                    }
-                }
-            }
-        }
+
+        // radio
         &.radio {
-            text-align: left;
-            display: inline-block;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            .radio-wrapper {
+            .radio-container {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .radio-group {
                 display: inline-block;
                 margin-right: 20px;
             }
@@ -691,22 +358,16 @@
                     margin-top: 0;
                 }
             }
-            // radio custom input
             .radiobox {
                 height: 16px;
                 width: 16px;
                 margin-right: 8px;
-                margin-top: 3px;
                 position: relative;
                 cursor: pointer;
                 background-color: transparent;
                 padding: 0;
                 border: none;
                 border-radius: 50%;
-                &:focus {
-                    box-shadow: $boxShadow;
-                    outline-width: 0;
-                }
                 svg {
                     position: absolute;
                     top: 0;
@@ -715,10 +376,24 @@
                     height: 100%;
                     path {
                         &.circle {
-                            fill: $radioColor;
+                            fill: var(--color-4);
                         }
                         &.dot {
-                            stroke: $radioColor;
+                            stroke: var(--color-4);
+                        }
+                    }
+                }
+                &:focus {
+                    box-shadow: var(--box-shadow);
+                    outline-width: 0;
+                    svg {
+                        path {
+                            &.circle {
+                                fill: var(--color);
+                            }
+                            &.dot {
+                                stroke: var(--color);
+                            }
                         }
                     }
                 }
@@ -759,7 +434,16 @@
                             }
                         }
                     }
-
+                    svg {
+                        path {
+                            &.circle {
+                                fill: var(--color);
+                            }
+                            &.dot {
+                                stroke: var(--color);
+                            }
+                        }
+                    }
                 }
                 &::after {
                     content: '';
@@ -776,15 +460,22 @@
                 &:focus {
                     box-shadow: none;
                     &::after {
-                        background-color: $listHoverBC;
+                        background-color: var(--light-bg);
                         opacity: 1;
+                    }
+                    svg {
+                        path {
+                            &.circle {
+                                fill: var(--color-2);
+                            }
+                            &.dot {
+                                stroke: var(--color-2);
+                            }
+                        }
                     }
                 }
             }
             &.legacy {
-                .radio-container {
-                    margin-top: 5px;
-                }
                 input {
                     margin-top: 3px;
                     height: 15px;
@@ -805,217 +496,15 @@
                     &:focus {
                         box-shadow: none;
                         &::after {
-                            background-color: $listHoverBC;
+                            background-color: var(--light-bg);
                             opacity: 1;
                         }
                     }
                 }
             }
-            &.disabled {
-                .radiobox {
-                    cursor: default;
-                }
-            }
         }
-        .select-panel {
-            position: absolute;
-            top: 45px;
-            left: 0;
-            background-color: #fff;
-            box-shadow: $listBS;
-            border-radius: $listBorderRadius;
-            z-index: 1000;
-            margin-bottom: 0;
-            width: 100%;
-            font-size: $listFS;
-            overflow-y: auto;
-            overflow-x: hidden;
-            max-height: 0;
-            transform: scale(0.95) translateY(-6px);
-            transition: transform .2s, opacity .3s;
-            font-family: inherit;
-            .select-panel-content {
-                padding: $vPadding $hPadding;
-                font-family: inherit;
-            }
-            // item (select option)
-            .select-item {
-                text-align: left;
-                border: none;
-                border-bottom: 1px solid rgba($color, 0.1);
-                cursor: pointer;
-                width: 100%;
-                padding: 0;
-                background-color: transparent;
-                &:focus,
-                &:hover {
-                    background-color: $listHoverBC;
-                    outline-width: 0;
-                }
-                &.selected {
-                    box-shadow: $boxShadowSelected;
-                    background-color: $selectedBC;
-                    border: $selectedBorder;
-                    &:focus,
-                    &:hover {
-                        opacity: .5;
-                    }
-                    .list-item {
-                        border: $selectedBorder;
-                    }
-                }
-                .list-item {
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    border: 1px solid transparent;
-                    & > span {
-                        padding: $vPadding $hPadding;
-                    }
-                    &.opt-group {
-                        padding-left: 0.5em;
-                    }
-                    &.empty {
-                        color: $placeholderColor;
-                    }
-                }
-            }
-            // item group wrapper
-            .item-group {
-                margin: 0;
-                padding: 0;
-                list-style-type: none;
-                .select-item:first-child {
-                    border-top: 1px solid rgba($color, 0.1);
-                }
-            }
-            // item label
-            .item-group-label {
-                display: block;
-                padding: 2em 1em 0.6em 1em;
-                font-size: 0.7rem;
-                color: $borderColor;
-            }
-            // for deployment animation
-            &.visible {
-                max-height: $maxHeight;
-                transform: scale(1) translateY(0);
-                opacity: 1;
-                margin-bottom: 10px;
-            }
-        }
-        .select-facade {
-            // (button which get the focus if non-editable)
-            text-align: left;
-            cursor: pointer;
-        }
-        // fix
-        &.select {
-            .option-placeholder {
-                color: $placeholderColor;
-            }
-            &:not(.time) {
-                .eg-input-content {
-                    width: 100%; // fix
-                    .select-facade {
-                        flex: 1;
-                    }
-                }
-            }
-            .eg-input-wrapper {
-                input {
-                    width: 100%;
-                }
-            }
-        }
-        &.slider {
-            .slider-wrapper {
-                display: flex;
-                margin-bottom: 20px;
-                margin-top: 10px;
-                .slider-value {
-                    margin-right: 10px;
-                }
-            }
-            .slider-content {
-                flex: 1;
-                position: relative;
-                display: block;
-                height: 25px;
-                width: 100%;
-                min-width: 100px;
-                .slider-step {
-                    position: absolute;
-                    height: 2px;
-                    width: 2px;
-                    background-color: #b5b5b5;
-                    left: 0;
-                    &.transparent {
-                        background-color: transparent;
-                    }
-                    .slider-step-label {
-                        position: absolute;
-                        font-size: 0.6rem;
-                        opacity: 0.5;
-                        user-select: none;
-                        top: 10px;
-                        transform: translateX(-50%);
-                        text-align: center;
-                        transition: opacity .2s;
-                        &.shy {
-                            opacity: 0;
-                        }
-                    }
-                    &.restricted {
-                        &:first-child .slider-step-label {
-                            left: 0;
-                            transform: translateX(0);
-                            text-align: left;
-                        }
-                        &:last-child .slider-step-label {
-                            right: 0;
-                            text-align: right;
-                            transform: translateX(0);
-                        }
-                    }
-                }
-                &:hover .slider-step .slider-step-label.shy {
-                    opacity: 0.5;
-                }
-            }
-            .slider-line {
-                height: 2px;
-                position: absolute;
-                top: 50%;
-                left: 0;
-                right: 0;
-                cursor: default;
-                transform: translateY(-50%);
-                background-color: #e6e6e6;
-            }
-            &:not(.disabled) {
-                // (hover and focus)
-                &:hover {
-                    .slider-dot .slider-dot-label {
-                        display: inline-block;
-                        opacity: 1;
-                    }
-                }
-                .slider-dot {
-                    cursor: pointer;
-                    &:focus,
-                    &:hover {
-                        background-color: #f5f5f5;
-                        .slider-dot-label {
-                            display: inline-block;
-                            opacity: 1;
-                        }
-                    }
-                }
-                .slider-line {
-                    cursor: pointer;
-                }
-            }
-        }
+
+        // switch
         &.switch {
             .eg-label {
                 margin-bottom: 5px;
@@ -1045,31 +534,27 @@
                     height: 10px;
                     border-radius: 5px;
                     width: 100%;
-                    background-color: rgba($color, 0.2);
+                    background-color: var(--color-5);
                     top: 50%;
                     position: absolute;
                     transform: translateY(-50%);
                     &.positive {
-                        background-color: rgba($activeColor, 0.2);
+                        background-color: var(--light-active-color);
                     }
                 }
             }
             .slider-dot {
                 transition: left 100ms ease-out, background 100ms ease-out;
                 &.positive {
-                    background-color: $activeColor;
-                    border-color: $activeColor;
+                    background-color: var(--active-color);
+                    border-color: var(--active-color);
                 }
                 &:focus,
                 &:hover {
-                    box-shadow: $boxShadow;
+                    box-shadow: var(--box-shadow);
                     outline-width: 0;
                 }
             }
-        }
-        &.slider,
-        &.switch {
-            // the slider dot is shared with the switch
             .slider-dot {
                 background-color: #fff;
                 box-shadow: 1px 1px 2px .1rem rgba(0,0,0,0.05);
@@ -1084,7 +569,7 @@
                 z-index: 1;
                 outline-width: 0;
                 cursor: pointer;
-                border: 1px solid rgba($borderColor, .5);
+                border: var(--border);
                 &.dragging {
                     box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
                     .slider-dot-label {
@@ -1122,21 +607,8 @@
                 }
             }
         }
-        &.number {
-            // number input icon padding
-            .number-content {
-                padding-right: $hPadding + (2*$buttonWidth);
-                user-select: none;
-                &.has-icon {
-                    padding-right: $hPadding + (3*$buttonWidth);
-                }
-            }
-            &:not(.time) {
-                input {
-                    width: 100%; // quick fix
-                }
-            }
-        }
+
+        // time and date
         &.time,
         &.date {
             //@import url('https://fonts.googleapis.com/css?family=Encode+Sans+Expanded&display=swap');
@@ -1181,7 +653,7 @@
                 display: flex;
                 font-size: 0.75rem;
                 flex-direction: column;
-                padding: $vPadding $hPadding;
+                padding: var(--padding);
                 .time-col {
                     font-family: inherit;
                     flex: 1;
@@ -1277,7 +749,7 @@
             }
             .timer-content {
                 flex: 1;
-                padding: 2*$vPadding $hPadding $vPadding/2 $hPadding;
+                padding: calc(2 * var(--v-padding)) var(--h-padding) calc(var(--v-padding) / 2) var(--h-padding);
             }
             .select-panel {
                 width: 450px;
@@ -1313,9 +785,9 @@
             .eg-input-content {
                 width: 100%;
                 &.file-check-pad {
-                    padding-right: $hPadding + $buttonWidth;
+                    padding-right: calc(var(--h-padding) + var(--button-width));
                     &.has-icon {
-                        padding-right: $hPadding + (2*$buttonWidth);
+                        padding-right: calc(var(--h-padding) + calc(2 * var(--button-width)));
                     }
                 }
             }
@@ -1328,7 +800,7 @@
                     display: flex;
                     width: 100%;
                     &.file-placeholder {
-                        color: $placeholderColor;
+                        color: var(--color-4);
                         &.drop-placeholder {
                             text-align: center;
                             justify-content: center;
@@ -1348,7 +820,7 @@
                 .file-size {
                     font-size: 0.75rem;
                     opacity: 0.5;
-                    margin-left: 2*$hPadding;
+                    margin-left: calc(2 * var(--h-padding));
                 }
             }
             .file-list {
@@ -1358,13 +830,13 @@
                     border: 1px solid transparent;
                     margin-top: 5px;
                     border-radius: 5px;
-                    height: $fileHeight;
-                    padding: $filePadding;
+                    height: var(--file-height);
+                    padding: 0 var(--h-padding);
                     background-color: transparent;
                     font-size: 0.8rem;
                     text-align: left;
                     &.loaded {
-                        border-color: rgba($borderColor, 0.5);
+                        border-color: rgba(var(--color-4), 0.5);
                     }
                     .input-icon {
                         cursor: pointer;
@@ -1380,8 +852,8 @@
                             opacity: 1;
                         }
                         outline-width: 0;
-                        box-shadow: $boxShadow;
-                        border-color: $focusColor;
+                        box-shadow: var(--box-shadow);
+                        border-color: var(--color);
                     }
                     .file-content {
                         width: 100%;
@@ -1391,7 +863,7 @@
                             margin-right: 5px;
                         }
                         &.file-check-pad {
-                            padding-right: (2*$buttonWidth) + $hPadding;
+                            padding-right: calc(2 * var(--button-width) + var(--h-padding));
                         }
                         & > span.file-name {
                             -ms-word-break: break-all;
@@ -1405,13 +877,13 @@
                         }
                     }
                     &.has-icon {
-                        padding-right: (2*$nHPadding) + (1*$buttonWidth);
+                        padding-right: calc(2 * var(--n-h-padding) + 1 * var(--button-width));
                         &.file-check-pad {
-                            padding-right: (2*$nHPadding) + (2*$buttonWidth);
+                            padding-right: calc(2 * var(--n-h-padding) + 2 * var(--button-width));
                         }
                     }
                     &.error {
-                        background-color: rgba($errorColor, 0.1);
+                        background-color: rgba(var(--error-color), 0.1);
                         &:focus,
                         &:hover {
                             outline-width: 0;
@@ -1420,13 +892,13 @@
                         .input-icon {
                             opacity: 1;
                             path {
-                                fill: $errorColor;
+                                fill: var(--error-color);
                             }
                         }
                     }
                 }
                 .message-list {
-                    color: $errorColor;
+                    color: var(--error-color);
                     margin-bottom: 5px;
                 }
                 .file-picture {
@@ -1435,10 +907,10 @@
             }
             .file-picture {
                 display: inline-block;
-                min-width: $filePicSize;
-                height: $filePicSize;
-                margin: -($filePicSize/4);
-                margin-left: -($filePicSize/8);
+                min-width: var(--file-pic-size);
+                height: var(--file-pic-size);
+                margin: -(var(--file-pic-size)/4);
+                margin-left: -(var(--file-pic-size)/8);
                 margin-right: 10px;
                 background-repeat: no-repeat;
                 background-position: center;
@@ -1449,8 +921,8 @@
                     border-radius: 5px;
                     height: 100%;
                     svg {
-                        height: $filePicSize;
-                        width: $filePicSize;
+                        height: var(--file-pic-size);
+                        width: var(--file-pic-size);
                     }
                 }
             }
@@ -1501,50 +973,88 @@
                 min-width: 75px;
             }
         }
-        &.text,
-        &.textarea {
-            &:not(.auto-width) {
-                .eg-input-content {
+    }
 
-                    width: 100%;
-                    .input-style-wrapper,
-                    .select-facade,
-                    textarea,
-                    input {
-                        width: 100%;
-                    }
-                }
+    .input-icon {
+        padding: 10px;
+        cursor: pointer;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        &+.input-icon {
+            padding-left: 0;
+        }
+        &.reversed {
+            transform: rotate(180deg);
+        }
+        &:hover {
+            opacity: 0.5;
+        }
+        width: 1em;
+        .svg-icon {
+            height: 1em;
+            width: 1em;
+            svg {
+                height: 100%;
+                width: 100%;
+                fill: var(--color-4);
             }
+        }
+        svg {
+            width: 1em;
+            height: 1em;
         }
     }
 
-    // pill (items on the multiple input)
-    .el-tag {
-        background-color: $pillBC;
-        border-radius: $borderRadius;
-        margin: 0 6px 0 0;
-        padding: $pillPadding;
-        font-size: 0.65rem;
-        position: relative;
+    // labels
+    .eg-label {
+        display: inline-block;
+        margin-bottom: 5px;
+        flex: 1;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        font-size: 1rem;
+        color: var(--color-2);
         cursor: pointer;
-        border: 1px solid transparent;
+        user-select: none;
+        font-family: inherit;
+        font-weight: normal;
+        &.group-label {
+            margin-bottom: 5px;
+        }
+        &.small {
+            font-size: 0.8rem;
+        }
+    }
+    .checkbox-label {
+        user-select: none;
+        cursor: pointer;
+        color: var(--text-label);
+    }
+
+    // pill (items on the multiple input)
+    .eg-tag {
+        color: var(--color-2);
+        border-radius: var(--border-radius);
+        font-size: 0.8rem;
+        cursor: pointer;
+        background-color: var(--light-bg);
+        border: var(--border);
+        padding: 2px calc(1.75 * var(--h-padding)) 2px var(--h-padding);
+        align-items: center;
+        margin: var(--padding);
+        position: relative;
         &:focus {
             outline-width: 0;
-            border-color: rgba($borderColor, 0.5);
-        }
-        &:hover {
-            background-color: $pillBCHover;
-        }
-        &:first-child {
-            margin-left: 0;
+            border-color: var(--color-6);
         }
         .cross-pill {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
             position: absolute;
-            right: 2px;
-            top: 1px;
+            right: 5%;
+            top: 15%;
+            height: 15px;
+            width: 15px;
             svg {
                 position: absolute;
                 width: 100%;
@@ -1552,6 +1062,164 @@
                 top: 0;
                 right: 0;
                 transform: scale(.6);
+            }
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+        &+.eg-tag {
+            margin-right: 0;
+        }
+    }
+
+    // floating panel
+    .select-panel {
+        position: absolute;
+        :not(.top-align) {
+            top: 0;
+            &:not(.dom-level) {
+                top: 45px;
+            }
+        }
+        &.top-align {
+            bottom: 0;
+            &:not(.dom-level) {
+                bottom: 45px;
+            }
+        }
+        background-color: #fff;
+        box-shadow: var(--light-bs);
+        border-radius: var(--border-radius);
+        z-index: 1000;
+        margin-bottom: 0;
+        width: 100%;
+        font-size: var(--font-size);
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 0;
+        transform: scale(0.95) translateY(-6px);
+        transition: transform .2s, opacity .3s;
+        font-family: inherit;
+        // custom scrollbar
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: transparent;
+            cursor: pointer;
+        }
+        &.show-scrollbar {
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+            &::-webkit-scrollbar-track {
+                background: rgba(var(--color), 0.05);
+            }
+            &::-webkit-scrollbar-thumb {
+                background: rgba(var(--color), 0.2);
+                cursor: pointer;
+            }
+        }
+        .select-panel-content {
+            padding: var(--v-padding) var(--h-padding);
+            font-family: inherit;
+        }
+        // item (select option)
+        .select-item {
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid rgba(var(--color), 0.1);
+            cursor: pointer;
+            width: 100%;
+            padding: 0;
+            background-color: transparent;
+            &:focus,
+            &:hover {
+                background-color: var(--light-bg);
+                outline-width: 0;
+            }
+            &.selected {
+                box-shadow: none;
+                background-color: var(--light-bg);
+                border: none;
+                &:focus,
+                &:hover {
+                    opacity: .5;
+                }
+                .list-item {
+                    border: none;
+                }
+            }
+            .list-item {
+                display: flex;
+                align-items: center;
+                border: 1px solid transparent;
+                .content {
+                    flex: 1;
+                    padding: var(--v-padding) var(--h-padding);
+                }
+                .color-pill {
+                    margin: var(--v-padding) 0 var(--v-padding) var(--h-padding);
+                    height: 15px;
+                    width: 15px;
+                    border-radius: 50%;
+                }
+                &.empty {
+                    color: var(--color-3);
+                }
+            }
+        }
+        // item group wrapper
+        .item-group {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            .select-item:first-child {
+                border-top: 1px solid rgba(var(--color), 0.1);
+            }
+        }
+        // item label
+        .item-group-label {
+            display: block;
+            padding: 2em 1em 0.6em 1em;
+            font-size: 0.7rem;
+            color: var(--color);
+            text-align: left;
+        }
+        // for deployment animation
+        &.visible {
+            max-height: 1000px;
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            margin-bottom: 10px;
+        }
+    }
+
+    // uniblocs
+    .eg-input-unibloc {
+        display: flex;
+        .eg-input {
+            .input-style-wrapper, .select-facade, textarea, input {
+                border-radius: 0;
+                border-left-color: transparent;
+                border-right-color: transparent;
+            }
+            &:first-child {
+                .input-style-wrapper, .select-facade, textarea, input {
+                    border-left-color: var(--color);
+                    border-top-left-radius: var(--border-radius);
+                    border-bottom-left-radius: var(--border-radius);
+                }
+            }
+            &:last-child {
+                .input-style-wrapper, .select-facade, textarea, input {
+                    border-right-color: var(--color);
+                    border-top-right-radius: var(--border-radius);
+                    border-bottom-right-radius: var(--border-radius);
+                }
             }
         }
     }
@@ -1561,15 +1229,16 @@
     <div
             class="eg-input"
             :style="style"
+            @click="handleWrapperClick"
             :class="inputClass">
-        <!-- Checkbox -->
-        <label class="eg-label group-label" :for="theId" v-if="isCheckbox&&!legacy&&multiple">{{ label }}</label>
         <!-- Label -->
+        <label class="eg-label group-label" :for="theId" v-if="isCheckbox&&!legacy&&multiple">{{ label }}</label>
         <template v-else-if="!(isCheckbox&&!multiple)">
-            <label class="eg-label" :for="theId" v-if="label">{{ isSelect&&query!==null&&query!=value&&restrictToOptions&&!hasPills ? searchLabel : label }}</label>
+            <label class="eg-label" :for="theId" v-if="label">{{ labelText }}</label>
         </template>
+        <!-- Checkbox -->
         <div class="eg-input-wrapper" v-if="isCheckbox">
-            <div class="eg-input-content" :class="{'checkbox-group':isCheckbox&&multiple}" v-for="(c,i) in checkboxes" :key="i">
+            <div class="checkbox-group" v-for="(c,i) in checkboxes" :key="i">
                 <!-- Checkbox legacy -->
                 <input
                         v-if="legacy"
@@ -1596,12 +1265,12 @@
                     </svg>
                 </button>
                 <!-- Input text -->
-                <label class="eg-label" :for="checkboxes.length==1?theId:theId+'-'+i" v-if="label">{{ c }}</label>
+                <label class="checkbox-label" :for="checkboxes.length==1?theId:theId+'-'+i" v-if="label||c">{{ c }}</label>
             </div>
         </div>
         <!-- Radio -->
         <div v-else-if="isRadio" class="radio-container">
-            <div v-for="(v,label,i) in elements" class="radio-wrapper" :key="i">
+            <div v-for="(v,label,i) in elements" class="radio-group" :key="i">
                 <div class="radio-inner">
                     <!-- Radio legacy -->
                     <template v-if="legacy">
@@ -1613,7 +1282,7 @@
                                 :value="v"
                                 :disabled="disabled||isLoading"
                                 :checked="checkIfCheck(v)">
-                        <label class="eg-label" :for="theId+'-'+v">{{ label }}</label>
+                        <label class="checkbox-label" :for="theId+'-'+v">{{ label }}</label>
                     </template>
                     <!-- Radio svg -->
                     <template v-else>
@@ -1632,7 +1301,7 @@
                                 <path class="dot" d="m28.756 32.809c2.0445-0.98342 3.6715-2.8024 4.4218-4.9435s0.61456-4.5778-0.36887-6.6223-2.8024-3.6715-4.9435-4.4218-4.5778-0.61456-6.6223 0.36887-3.6715 2.8024-4.4218 4.9435-0.61456 4.5778 0.36887 6.6223 2.8024 3.6715 4.9435 4.4218 4.5778 0.61456 6.6223-0.36887" fill="none" stroke="#000" stroke-width="17.42"/>
                             </svg>
                         </button>
-                        <label class="eg-label" @click="handleValue(v)">{{ label }}</label>
+                        <label class="checkbox-label" @click="handleValue(v)">{{ label }}</label>
                     </template>
                 </div>
             </div>
@@ -1700,20 +1369,20 @@
                             <stop offset="100%" stop-color="transparent"/>
                         </linearGradient>
                         <linearGradient id="dark-to-active">
-                            <stop offset="0%"  :stop-color="darkGray"/>
-                            <stop :offset="(dc*100)+'%'"  :stop-color="darkGray"/>
+                            <stop offset="0%"  :stop-color="darkColor"/>
+                            <stop :offset="(dc*100)+'%'"  :stop-color="darkColor"/>
                             <stop :offset="(dc*100)+'%'" :stop-color="activeColor"/>
                             <stop offset="100%" :stop-color="activeColor"/>
                         </linearGradient>
                         <linearGradient id="dark-to-transparent">
-                            <stop offset="0%"  :stop-color="darkGray"/>
-                            <stop :offset="(dc*100)+'%'"  :stop-color="darkGray"/>
+                            <stop offset="0%"  :stop-color="darkColor"/>
+                            <stop :offset="(dc*100)+'%'"  :stop-color="darkColor"/>
                             <stop :offset="(dc*100)+'%'" stop-color="transparent"/>
                             <stop offset="100%" stop-color="transparent"/>
                         </linearGradient>
                         <linearGradient id="dark-to-light">
-                            <stop offset="0%"  :stop-color="darkGray"/>
-                            <stop :offset="(adc*100)+'%'"  :stop-color="darkGray"/>
+                            <stop offset="0%"  :stop-color="darkColor"/>
+                            <stop :offset="(adc*100)+'%'"  :stop-color="darkColor"/>
                             <stop :offset="(adc*100)+'%'" :stop-color="lightGray"/>
                             <stop offset="100%" :stop-color="lightGray"/>
                         </linearGradient>
@@ -1732,15 +1401,24 @@
             <div v-if="!!switchSecondLabel||switchSecondLabel===0"><span>{{ switchSecondLabel }}</span></div>
         </div>
         <!-- Select legacy -->
-        <select v-else-if="isSelect&&legacy" class="input-style-wrapper select-legacy" @input="handleInput" @focus="handleFocus" @blur="handleBlur" :name="theId" :id="theId">
-            <option :value="null" class="option-placeholder" v-if="placeholder||placeholder==''" :selected="value===null||value===placeholder||value===''">{{ placeholder }}</option>
+        <select
+                v-else-if="isSelect&&legacy"
+                class="select-legacy"
+                :class="{focus:hasFocus}"
+                :disabled="disabled"
+                @input="handleInput"
+                @focus="handleFocus"
+                @blur="handleBlur"
+                :name="theId"
+                :id="theId">
+            <option :value="null" class="option-placeholder" v-if="placeholder||placeholder==''||nullOption" :selected="value===null||value===placeholder||value===''">{{ placeholder }}</option>
             <template v-if="Object.keys(selectedItems).length==1">
                 <option
                         v-for="(item,i) in selectedItems[Object.keys(selectedItems)[0]]"
                         :key="i"
-                        :selected="isOptionSelected(item)"
+                        :selected="isOptionSelected(item,i)"
                         :value="computeOptionValue(item)">
-                    {{ computeOptionValue(item) }}
+                    {{ computeOptionLabel(item) }}
                 </option>
             </template>
             <template v-else-if="Object.keys(selectedItems).length>0">
@@ -1748,32 +1426,32 @@
                     <option
                             v-for="(item,j) in g"
                             :key="j"
-                            :selected="isOptionSelected(item)"
+                            :selected="isOptionSelected(item,j)"
                             :value="computeOptionValue(item)">
-                        {{ computeOptionValue(item) }}</option>
+                        {{ computeOptionLabel(item) }}</option>
                 </optgroup>
             </template>
         </select>
         <!-- >>> Level 1 wrapper <<< -->
         <div class="eg-input-wrapper" v-else>
             <div
-                    class="eg-input-content"
+                    class="eg-input-content input-style-wrapper"
                     :class="{
-                    'input-style-wrapper':useWrapperStyle,
-                    'has-icon':(useWrapperStyle)&&(hasIcon),
+                    'has-icon':hasIcon,
                     'file-check-pad':hasFileCheck&&!isLoading,
                     'number-content':isNumber&&!noButtons,
                     focus:hasFocus,
                     dragging:isDragging,
                     autowidth:autoWidth,
-                    'has-left-icon':hasPills&&hasLeftIcon}"
+                    small,
+                    'has-left-icon':hasLeftIcon}"
                     v-if="!isRadio&&!isCheckbox"
                     :id="theId+'-content'"
                     :style="contentStyle"
                     @ondrop="handleDrop"
                     @click="handleContentClick">
                 <!-- Left icon -->
-                <div v-if="hasLeftIcon" class="input-icon left-icon" @click="$emit('enter')">
+                <div v-if="hasLeftIcon" class="input-icon left-icon" @click.stop="$emit('leftIconClick')">
                     <eg-icon :type="leftIcon"></eg-icon>
                 </div>
                 <!-- Left icons (inline) -->
@@ -1783,7 +1461,7 @@
                     </div>
                 </template>
                 <!-- Prefix -->
-                <span class="prefix" v-if="prefix&&isText">{{ prefix }}</span>
+                <span class="prefix" v-if="prefix&&(isText||isNumber)">{{ prefix }}</span>
                 <!-- Textarea -->
                 <textarea
                         v-if="isTextarea"
@@ -1798,9 +1476,9 @@
                         :disabled="disabled||isLoading"
                         @change="$emit('change', $event.target.value)"
                         @keyup.enter="handleEnter"
-                        @keyup.escape="handleCrossBtn"
-                        @focus="$emit('focus')"
-                        @blur="$emit('blur',$event)"
+                        @keyup.escape="handleEscape"
+                        @focus="handleFocus"
+                        @blur="handleBlur"
                         @input="handleInput"></textarea>
                 <!-- >>> Text input (default) <<< -->
                 <template v-else>
@@ -1809,8 +1487,8 @@
                     <div v-else-if="autoWidth" class="autowidth-shadow" :id="theId+'-autowidth-shadow'">{{ autoWidthLabel }}</div>
                     <!-- Pills -->
                     <template v-if="hasPills && valueIsArray">
-                        <button class="el-tag" v-for="(p,i) in value" :key="i" @mousedown.prevent.stop="handlePillClick(p)" @keyup.enter="handlePillClick(p)">
-                            <span>{{ itemIsObject && p && !!p[oLabel] ? p[oLabel] : p }}</span>
+                        <button class="eg-tag" v-for="(p,i) in value" :key="i" @click.stop @mousedown.prevent.stop="handlePillClick(p)" @keyup.enter="handlePillClick(p)">
+                            <span>{{ computeOptionLabel(p) }}</span>
                             <div class="cross-pill" @mousedown.prevent.stop="popElement(i)">
                                 <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                                     <path d="m22.411 20a2.4002 2.4007 0 0 0-1.6718 4.1227l25.865 25.871-25.89 25.896a2.4009 2.4014 0 1 0 3.3952 3.396l25.89-25.896 25.89 25.896a2.4009 2.4014 0 1 0 3.3952-3.396l-25.89-25.896 25.865-25.871a2.4002 2.4007 0 0 0-1.6718-4.1227 2.4002 2.4007 0 0 0-1.7234 0.72671l-25.865 25.871-25.865-25.871a2.4002 2.4007 0 0 0-1.7234-0.72671z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill-rule="evenodd" image-rendering="auto" shape-rendering="auto" solid-color="#000000" stroke-width=".80008" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
@@ -1980,7 +1658,7 @@
                     <button
                             :id="theId"
                             v-else-if="(isSelect&&!editable&&query===null) || (isNumber&&noInput)"
-                            class="select-facade"
+                            class="inner-input-button"
                             @keyup.down="focusItem(0,-1)"
                             @keyup.right="focusItem(0,-1)"
                             v-html="facadeContent"
@@ -1991,21 +1669,20 @@
                             :disabled="disabled||isLoading"
                             :class="{
                             'has-icon':hasIcon,
-                            'has-left-icon':hasLeftIcon,
-                            'facade-placeholder':!value||(valueIsArray&&value.length==0),
-                            transparent:multiple||noInput}">
+                            'has-left-icon':hasLeftIcon}">
                     </button>
                     <!-- >>> 'Main input tag' <<< -->
                     <input
                             v-else
+                            class="transparent"
                             :class="{
                             'has-icon':hasIcon&&!disabled,
                             'has-left-icon':hasLeftIcon,
-                            'transparent':useWrapperStyle,
                             invisible:isFile}"
                             :id="theId"
                             :name="theId"
                             :type="type"
+                            autocomplete="new-password"
                             :placeholder="isSelect&&multiple&&(valueIsArray&&value.length>0)?'':placeholder"
                             :value="inputValue"
                             :style="inputStyle"
@@ -2013,9 +1690,8 @@
                             :disabled="disabled||isLoading"
                             @change="handleChange"
                             @keyup.enter="handleEnter"
-                            @keyup.escape="handleCrossBtn"
-                            @keyup.down="handleKeyupDown"
-                            @keyup.up="handleKeyupUp"
+                            @keyup.escape="handleEscape"
+                            @keyup.down="focusItem(0,-1)"
                             @keyup.right="focusItem(0,-1)"
                             @keydown="handleTabAndBack"
                             @focus="handleFocus"
@@ -2024,7 +1700,7 @@
                             @input="handleInput">
                 </template>
                 <!-- Suffix -->
-                <span v-if="suffix&&isText" class="suffix">{{ suffix }}</span>
+                <span v-if="suffix&&(isText||isNumber)" class="suffix">{{ suffix }}</span>
                 <!-- Icons (inline) -->
                 <template v-if="icons.length>0">
                     <div v-for="i in icons" class="input-icon inline-icon" :key="i">
@@ -2032,12 +1708,12 @@
                     </div>
                 </template>
                 <!-- Icons -->
-                <div v-if="isNumber&&!noButtons" class="input-icon minus-icon" :class="{'with-cross':hasIcon}" @mousedown.stop="minusDown" @mouseup.stop="minusUp" @mouseleave.stop="killTimer">
+                <div v-if="isNumber&&!noButtons" class="input-icon minus-icon" @mousedown.stop="minusDown" @mouseup.stop="minusUp" @mouseleave.stop="killTimer">
                     <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <path d="m20 47.49v5.0195h60v-5.0195z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill-rule="evenodd" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
                     </svg>
                 </div>
-                <div v-if="isNumber&&!noButtons" class="input-icon plus-icon" :class="{'with-cross':hasIcon}" @mousedown.stop="plusDown" @mouseup.stop="plusUp" @mouseleave.stop="killTimer">
+                <div v-if="isNumber&&!noButtons" class="input-icon plus-icon" @mousedown.stop="plusDown" @mouseup.stop="plusUp" @mouseleave.stop="killTimer">
                     <svg version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <path d="m47.49 20v27.49h-27.49v5.0195h27.49v27.49h5.0195v-27.49h27.49v-5.0195h-27.49v-27.49h-5.0195z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill-rule="evenodd" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
                     </svg>
@@ -2050,7 +1726,7 @@
                 <div v-if="isLoading" class="input-icon eg-loader-wrapper">
                     <div class="eg-loader-container"><div class="eg-loader" :class="{small:isTextarea}"><div class="eg-loader-inside"></div></div></div>
                 </div>
-                <div v-else-if="displaysSelectCaret" class="input-icon select-caret" :class="{reversed:hasFocus}">
+                <div v-else-if="displaysSelectCaret" class="input-icon select-caret" @click.stop.prevent="handleCaretClick" :class="{reversed:hasFocus}">
                     <svg fill="none" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
                         <path d="m12.225 16.85 12.5 16.667 12.5-16.667z" fill="#000"/>
                     </svg>
@@ -2065,7 +1741,7 @@
                     <eg-icon :type="crossIcon"></eg-icon>
                 </div>
                 <!-- Select panel -->
-                <div v-if="selectLike" class="select-panel" :class="{visible:hasFocus, 'show-scrollbar':showScrollbar}" :style="selectResultsStyle">
+                <div v-if="selectLike" class="select-panel" :id="theId+'-select-panel'" :class="{visible:hasFocus, 'show-scrollbar':showScrollbar, 'dom-level':domLevel, 'top-align':topAlign}" :style="selectResultsStyle">
                     <div class="select-panel-content" v-if="sliderSlot">
                         <slot name="slider"></slot>
                     </div>
@@ -2175,6 +1851,25 @@
                         </template>
                     </div>
                     <template v-if="Object.keys(selectedItems).length>0">
+                        <ul class="item-group" v-if="nullOption">
+                            <li
+                                    :tabindex="tabindex?0:-1"
+                                    @keyup.up="focusItem(i,j,true)"
+                                    @keyup.left="focusItem(0,0,true)"
+                                    @keyup.down="focusItem(0,0)"
+                                    @keyup.right="focusItem(0,0)"
+                                    @keydown.enter.prevent.stop="selectItem($event, null, null)"
+                                    @mousedown.prevent="selectItem($event, null, null)"
+                                    class="select-item"
+                                    :class="{selected:isInList(null)}"
+                                    :data-group="0"
+                                    :disabled="disabled||isLoading"
+                                    :data-item="0">
+                                <div class="list-item" :class="{'opt-group':isOptGroup}">
+                                    <span class="content">{{ placeholder }}</span>
+                                </div>
+                            </li>
+                        </ul>
                         <template v-for="(g,groupName,i) in selectedItems">
                             <span class="item-group-label" v-if="groupName!=0" :key="i+guid(2)">{{ groupName }}</span>
                             <ul class="item-group" :key="i+guid(2)">
@@ -2182,19 +1877,22 @@
                                         :tabindex="tabindex?0:-1"
                                         v-for="(item,j) in g"
                                         :key="j+guid(2)"
-                                        @keyup.up="focusItem(i,j,true)"
-                                        @keyup.left="focusItem(i,j,true)"
-                                        @keyup.down="focusItem(i,j)"
-                                        @keyup.right="focusItem(i,j)"
-                                        @keydown.enter.prevent.stop="selectItem($event, item)"
-                                        @mousedown.prevent="selectItem($event, item)"
+                                        @keyup.up="focusItem(nullOption?i+1:i,nullOption?j+1:j,true)"
+                                        @keyup.left="focusItem(nullOption?i+1:i,nullOption?j+1:j,true)"
+                                        @keyup.down="focusItem(nullOption?i+1:i,nullOption?j+1:j)"
+                                        @keyup.right="focusItem(nullOption?i+1:i,nullOption?j+1:j)"
+                                        @keydown.enter.prevent.stop="selectItem($event, item, j)"
+                                        @mousedown.prevent="selectItem($event, item, j)"
                                         class="select-item"
                                         :class="{selected:isInList(item)}"
-                                        :data-group="i"
+                                        :data-group="nullOption?i+1:i"
                                         :disabled="disabled||isLoading"
-                                        :data-item="j">
-                                    <div class="list-item" :class="{'opt-group':isOptGroup, empty:!item}">
-                                        <span class="content">{{ computeOptionValue(item) }}</span>
+                                        :data-item="nullOption?j+1:j">
+                                    <template v-if="hasDefaultSlot">
+                                        <slot class="list-item slotitem" :item="item"></slot>
+                                    </template>
+                                    <div v-else class="list-item" :class="{'opt-group':isOptGroup, empty:!item}">
+                                        <span class="content">{{ computeOptionLabel(item) }}</span>
                                     </div>
                                 </li>
                             </ul>
@@ -2215,7 +1913,7 @@
             <ul v-else-if="messages.length>0" class="message message-list" :class="{shorter:multiple}">
                 <li v-for="m in messages" :key="m">{{ m }}</li>
             </ul>
-            <div v-else-if="hasMessage" class="message">{{ displayedErrorMessage||message }}</div>
+            <div v-else-if="hasMessage" class="message" v-html="displayedErrorMessage||message"></div>
         </div>
         <!-- Multiple files -->
         <div class="file-list" v-if="isFile && files.length>1">
@@ -2302,16 +2000,19 @@
             errorMessages: { type: Array, default(){ return [] } },
 
             // style
-            minWidth: { type: Number, default: 50 },
+            minWidth: { type: Number, default: 10 },
             width: { type: String, default: null },
             autoWidth: { type: Boolean, default: false },
-            widthBasis: { type: Number, default: 20 },
+            widthBasis: { type: Number, default: 10 },
+            small: { type: Boolean, default: false },
+            transparent: { type: Boolean, default: false },
 
             // events
             eChange: { type: Boolean, default: false },
             eFocus: { type: Boolean, default: false },
             eBlur: { type: Boolean, default: false },
             eTagClick: { type: Boolean, default: false },
+            eEscape: { type: Boolean, default: false },
 
             // text
             placeholder: { default: null },
@@ -2348,11 +2049,21 @@
             optGroups: {type: Object, default(){return{}} },
             multiple: { type: Boolean, default: false },
             editable: { type: Boolean, default: false },
-            maxHeight: { type: String, default: "400px" },
-            resultsMinWidth: { type: String, default: "200px" },
+            maxHeight: { type: String, default: "300px" },
+            menuMinWidth: { default: 200 },
+            menuSpace: { default: 2 },
             restrictToOptions: { type: Boolean, default: true },
             tabindex: { type: Boolean, default: false },
             oLabel: { type: String, default: "name" },
+            oValue: { type: String, default: null },
+            oValueIndex: { type: Boolean, default: false },
+            oId: { type: String, default: null },
+            emitObject: { type: Boolean, default: false },
+            nullOption: { type: Boolean, default: false },
+            domLevel: { type: Boolean, default: true },
+            domParentId: { type: String, default: "app" },
+            rightAlign: { type: Boolean, default: false },
+            topAlign: { type: Boolean, default: false },
 
             // slider
             steps: { type: Number, default: null },
@@ -2414,7 +2125,7 @@
             noBorder: { type: Boolean, default: false },
             lightGray: { type: String, default: "#CCC" },
             activeColor: { type: String, default: "#9f2f35" },
-            darkGray: { type: String, default: "#75282e" },
+            darkColor: { type: String, default: "#75282e" },
             noSteps: { type: Boolean, default: false },
             free: { type: Boolean, default: false },
 
@@ -2472,6 +2183,11 @@
                 hadFocus: false,
                 query: null,
                 selectResultsStyle: "",
+                parentHeight: null,
+                parentWidth: null,
+                parentTop: null,
+                parentLeft: null,
+                scrollLength: 0,
 
                 // file
                 files: [],
@@ -2508,76 +2224,87 @@
 
                 // star
                 starHovered: null,
-                spw: null,
-                dc: null,
+                spw: 1,
+                dc: 0,
                 starActive: null,
-                adc: null,
+                adc: 0,
             }
         },
         methods: {
             // @click event handler for .eg-input-content
             handleContentClick(e) {
-                if(this.selectLike && !this.hasFocus) {
-                    // check for the caret click
-                    let onCaret = false;
-                    e.path.forEach(elem => {
-                        if(elem.classList && elem.classList.contains('select-caret')) {
-                            onCaret = true;
+                if(!this.disabled) {
+                    if(this.selectLike && !this.hasFocus) {
+                        // check for the caret click
+                        let onCaret = false;
+                        e.path.forEach(elem => {
+                            if(elem.classList && elem.classList.contains('select-caret')) {
+                                onCaret = true;
+                            }
+                        });
+                        if(onCaret && !this.hadFocus) {
+                            this.focusField();
                         }
-                    });
-                    if(onCaret && !this.hadFocus) {
+                    }
+                    else if(this.isTimeRelated) {
+                        this.lockSelectPanel = true;
+                    }
+                    // we prevent the focusField() on the numbers for the plus/minus buttons click
+                    else if(!this.isNumber) {
                         this.focusField();
                     }
+                    // we set the previous focus marker
+                    this.hadFocus = this.hasFocus;
                 }
-                else if(this.isTimeRelated) {
-                    this.lockSelectPanel = true;
-                }
-                // we prevent the focusField() on the numbers for the plus/minus buttons click
-                else if(!this.isNumber) {
-                    this.focusField();
-                }
-                // we set the previous focus marker
-                this.hadFocus = this.hasFocus;
             },
             // @focus event handler for the 'Main input tag'
             handleFocus(e) {
-                this.hasFocus = true;
-                // we emit the focus event if needed
-                if(this.eFocus) this.$emit('focus', e);
+                if(!this.disabled) {
+                    this.hasFocus = true;
+                    // we emit the focus event if needed
+                    if(this.eFocus) this.$emit('focus', e);
+                    if(this.selectLike && this.domLevel) {
+                        this.$nextTick(() => {
+                            this.fetchPositionData();
+                        });
+                    }
+                }
             },
             // @blur event handler for the 'Main input tag'
             handleBlur(e) {
-                if(this.isSelect) {
-                    if(this.noInput || !this.editable) {
+                if(!this.disabled) {
+                    if(this.isSelect) {
+                        if(this.noInput || !this.editable) {
+                            this.looseFocus();
+                        }
+                        else if(this.multiple && this.query) {
+                            this.query = "";
+                        }
+                        else if(this.isSelect && this.query) {
+                            this.query = this.itemToString(this.value);
+                        }
+                        else if(this.editable && this.restrictToOptions && this.query) {
+                            this.query = this.value;
+                        }
+                    }
+                    // we the user quits an not week and regexUnvalid field, the value is set to the last valid one
+                    else if(this.isTimeRelated) {
+                        if(this.regexUnvalid) {
+                            this.regexUnvalid = false;
+                            this.eChange ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
+                        }
+                    }
+                    // we the user quits an not week and regexUnvalid field, the handleInput() for init is run.
+                    else if(this.regexUnvalid && !this.weakRegex) {
+                        this.handleInput(false);
+                    }
+                    // default behaviour is to loose focus
+                    else {
                         this.looseFocus();
                     }
-                    else if(this.multiple) {
-                        this.query = "";
-                    }
-                    else if(this.editable && !this.query) {
-                        this.query = this.value;
-                    }
-                    else if(this.editable && this.restrictToOptions) {
-                        this.query = this.value;
-                    }
+                    // we emit the blur event if needed
+                    if(this.eBlur) this.$emit('blur', e);
                 }
-                // we the user quits an not week and regexUnvalid field, the value is set to the last valid one
-                else if(this.isTimeRelated) {
-                    if(this.regexUnvalid) {
-                        this.regexUnvalid = false;
-                        this.eChange ? this.$emit('change', this.lastValidValue) : this.$emit('input', this.lastValidValue);
-                    }
-                }
-                // we the user quits an not week and regexUnvalid field, the handleInput() for init is run.
-                else if(this.regexUnvalid && !this.weakRegex) {
-                    this.handleInput(false);
-                }
-                // default behaviour is to loose focus
-                else {
-                    this.looseFocus();
-                }
-                // we emit the blur event if needed
-                if(this.eBlur) this.$emit('blur', e);
             },
             // handle the cross icon click: empty the field based on the type
             handleCrossBtn(e) {
@@ -2605,7 +2332,7 @@
                         // when multiple, we first check the query
                         else if(this.multiple) {
                             // if the query is empty (or no focus), we empty the field by sending an empty array
-                            if(this.query === "" || !this.hasFocus) {
+                            if(this.query && !this.hasFocus) {
                                 this.eChange ? this.$emit('change', []) : this.$emit('input', []);
                                 this.$nextTick(() => {
                                     this.buildSelectResultsStyle();
@@ -2615,6 +2342,7 @@
                         }
                         // if there is a search in progress, we empty the query and focus back on the field
                         else if(this.query !== null) {
+                            this.eChange ? this.$emit('change', null) : this.$emit('input', null);
                             this.query = "";
                             this.focusField();
                         }
@@ -2659,12 +2387,12 @@
             handleEnter(e) {
                 // select editable, we select the first elements displayed on the results
                 if(this.isSelect && (this.restrictToOptions || (!this.restrictToOptions && this.editable))) {
-                    let el = this.$el.querySelector('[data-group="0"][data-item="0"]');
+                    let el = document.getElementById(this.theId+'-select-panel').querySelector('[data-group="0"][data-item="0"]');
                     if(el) {
                         let firstOnList = this.selectedItems[Object.keys(this.selectedItems)[0]][0];
-                        this.selectItem(false, firstOnList);
+                        this.selectItem(false, firstOnList, 0);
                     }
-                    if(this.editable) this.query = "";
+                    if(this.editable && this.query) this.query = "";
                 }
                 // when the user wants to add a new element (mainly type text)
                 else if(this.multiple) {
@@ -2683,10 +2411,8 @@
                         this.focusField();
                     }
                 }
-                // we only emit @change for the parent if the type is text (and not multiple)
-                else if(this.isText) {
-                    this.$emit('enter',e);
-                }
+                this.$emit('enter', e);
+                this.$emit('change', e);
             },
             // @input event handler. e is the native event or the value (for the checkbox)
             handleInput(e) {
@@ -2694,10 +2420,11 @@
                 if(!this.disabled) {
                     // for the numbers: the value must be between min and max if specified
                     if(this.isNumber) {
-                        let val = e.target.value;
+                        let val = Number(e.target.value);
                         if(this.max !== null && val > this.max) val = this.max;
                         if(this.min !== null && val < this.min) val = this.min;
                         this.eChange ? this.$emit('change', val) : this.$emit('input', val);
+                        e.target.value = val;
                     }
                     // for the checkboxes
                     else if(this.isCheckbox) {
@@ -2717,6 +2444,7 @@
                                 val = true;
                             }
                             this.eChange ? this.$emit('change', val) : this.$emit('input', val);
+                            this.$emit('click', val);
                         }
                     }
                     // if the counter triggers an error and is hard-locking
@@ -2749,8 +2477,16 @@
                                 this.query = e.target.value;
                             }
                         }
+                        else if(this.emitObject) {
+                            let val = this.list[e.target.options.selectedIndex];
+                            this.eChange ? this.$emit('change', val) : this.$emit('input', val);
+                        }
                         else {
-                            this.eChange ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
+                            let val = e.target.value
+                            if(this.oValueIndex) {
+                                val = !val ? null : e.target.selectedIndex-1;
+                            }
+                            this.eChange ? this.$emit('change', val) : this.$emit('input', val);
                         }
                     }
                 }
@@ -3056,15 +2792,17 @@
             },
             // set the field as active element
             focusField() {
-                let el = document.getElementById(this.theId);
-                // if lockSelectPanel is true, we do nothing and set is as false for the next call
-                if(el && !this.disabled && !this.lockSelectPanel) {
-                    this.hadFocus = true;
-                    this.hasFocus = true;
-                    el.focus();
-                }
-                else {
-                    this.lockSelectPanel = false;
+                if(!this.disabled) {
+                    let el = document.getElementById(this.theId);
+                    // if lockSelectPanel is true, we do nothing and set is as false for the next call
+                    if(el && !this.disabled && !this.lockSelectPanel) {
+                        this.hadFocus = true;
+                        this.hasFocus = true;
+                        el.focus();
+                    }
+                    else {
+                        this.lockSelectPanel = false;
+                    }
                 }
             },
             // force the click action on the field
@@ -3072,17 +2810,26 @@
                 let el = document.getElementById(this.theId);
                 if(el && !this.disabled) el.click();
             },
+            // apply the focus if the attribute autoFocus is used
+            doFocus() {
+                this.$nextTick(() => {
+                    let el = document.getElementById(this.theId);
+                    if(el) el.focus();
+                });
+            },
 
             // > Text
             // remove the element at index i from the array value (used when 'multiple' is true)
             // when using multiple, remove the element at position i from value
             popElement(i) {
-                let o = JSON.parse(JSON.stringify(this.value));
-                o.splice(i,1);
-                this.eChange ? this.$emit('change', o) : this.$emit('input', o);
-                this.$nextTick(() => {
-                    this.buildSelectResultsStyle();
-                });
+                if(!this.disabled) {
+                    let o = JSON.parse(JSON.stringify(this.value));
+                    o.splice(i,1);
+                    this.eChange ? this.$emit('change', o) : this.$emit('input', o);
+                    this.$nextTick(() => {
+                        this.buildSelectResultsStyle();
+                    });
+                }
             },
             // compute the needed field width from the autowidth-shadow
             getAutoWidth() {
@@ -3092,6 +2839,15 @@
                         this.inputValueWidth = this.isText && this.multiple ? el.clientWidth : el.clientWidth + 10;
                     }
                 });
+            },
+            // @click event handler for the espace typing
+            handleEscape(e) {
+                if(this.eEscape) {
+                    this.$emit('escape',e);
+                }
+                else {
+                    this.handleCrossBtn();
+                }
             },
 
             // > Textarea
@@ -3221,7 +2977,7 @@
                         }
                     }
                 }
-                // we don't $emit change since it is already emitted from the @input
+                this.$emit('change', e);
             },
             // create an image preview from a file Object, and inject the preview in the i-th file
             buildImagePreview(file, i) {
@@ -3468,17 +3224,25 @@
 
             // > Select
             // select an item from the select options list
-            selectItem(e, item) {
+            selectItem(e, item, i) {
                 // select with groups
                 if(this.multiple) {
-                    let unselect = this.value.indexOf(item) >= 0;
+                    let unselect = this.valueIsArray && this.value.indexOf(item) >= 0;
                     if(!(this.counter && this.value.length+1>this.counter) || unselect) {
-                        let value = JSON.parse(JSON.stringify(this.value));
+                        let value = this.valueIsArray ? JSON.parse(JSON.stringify(this.value)) : [];
                         // the item is an object. We have to compare using properties
                         if(this.itemIsObject) {
                             // if a label attribute is defined, we try to remove it from the value (array).
                             // if we cannot, we add the item to the value
-                            if(this.oLabel) {
+                            if(this.oValueIndex) {
+                                debugger;
+                                value = i;
+                            }
+                            else if(this.oValue) {
+                                let sel = value.filter(a => a[this.oValue] != item[this.oValue]);
+                                sel.length >= value.length ? value.push(item) : value = sel;
+                            }
+                            else if(this.oLabel) {
                                 let sel = value.filter(a => a[this.oLabel] != item[this.oLabel]);
                                 sel.length >= value.length ? value.push(item) : value = sel;
                             }
@@ -3502,15 +3266,26 @@
                 }
                 else {
                     // the value in the input field is the visible one (query)
-                    if(this.editable) {
-                        this.query = this.multiple ? "" : item;
+                    if(this.editable && this.query) {
+                        this.query = null;
                     }
-                    this.eChange ? this.$emit('change', item) : this.$emit('input', item);
+                    if(this.itemIsObject && !this.emitObject) {
+                        if(this.oValue && item[this.oValue]) {
+                            this.eChange ? this.$emit('change', item[this.oValue]) : this.$emit('input', item[this.oValue]);
+                        }
+                        else if(this.oLabel && item[this.oLabel]) {
+                            this.eChange ? this.$emit('change', item[this.oLabel]) : this.$emit('input', item[this.oLabel]);
+                        }
+                    }
+                    else {
+                        this.eChange ? this.$emit('change', item) : this.$emit('input', item);
+                    }
                 }
                 if(e === false || (!e.ctrlKey && !e.shiftKey)) {
                     this.lockSelectPanel = false;
                     this.looseFocus();
                 }
+                this.handleChange(item);
             },
             // remove the hasFocus forced focus and blur the active element
             looseFocus() {
@@ -3528,39 +3303,37 @@
             focusItem(i,j,backward) {
                 this.lockSelectPanel = true;
                 if(this.isSelect) {
-                    let group = i;
-                    let item = j;
                     let keys = Object.keys(this.selectedItems);
                     if(this.isOptGroup) {
                         if(backward) {
-                            if(item>0) {
-                                item--;
+                            if(j>0) {
+                                j--;
                             }
-                            else if(group>0) {
-                                group--;
-                                item = keys.length;
+                            else if(i>0) {
+                                i--;
+                                j = keys.length;
                             }
                         }
                         else {
                             if(this.selectedItems[keys[i]].length-1 > j) {
-                                item++;
+                                j++;
                             }
                             else if(keys.length-1 > i) {
-                                item = 0;
-                                group++;
+                                j = 0;
+                                i++;
                             }
                         }
                     }
                     else {
-                        if(!!backward && item>0) {
-                            item--;
+                        if(!!backward && j>0) {
+                            j--;
                         }
                         else if(!backward && this.selectedItems[keys[i]].length-1 > j) {
-                            item++;
+                            j++;
                         }
                     }
 
-                    let el = this.$el.querySelector('[data-group="'+group+'"][data-item="'+item+'"]');
+                    let el = document.getElementById(this.theId+'-select-panel').querySelector('[data-group="'+i+'"][data-item="'+j+'"]');
                     if(el) {
                         el.focus();
                         this.hasFocus = true;
@@ -3574,7 +3347,14 @@
                     // options grouped select
                     if(this.isOptGroup) {
                         if(this.multiple && !!this.value) {
-                            if(this.oLabel) {
+                            if(this.oValue) {
+                                for(let i=0; i<this.value.length; i++) {
+                                    if(this.value[i] && this.value[i][this.oValue] == item[this.oValue]) {
+                                        return true;
+                                    }
+                                }
+                            }
+                            else if(this.oLabel) {
                                 for(let i=0; i<this.value.length; i++) {
                                     if(this.value[i] && this.value[i][this.oLabel] == item[this.oLabel]) {
                                         return true;
@@ -3587,7 +3367,10 @@
                     if(typeof item === "object" && !!this.value) {
                         for(let i=0; i<this.value.length; i++) {
                             let v = this.value[i];
-                            if(v && this.oLabel && v[this.oLabel] == item[this.oLabel]) {
+                            if(v && this.oValue && v[this.oValue] == item[this.oValue]) {
+                                return true;
+                            }
+                            else if(item && v && this.oLabel && v[this.oLabel] == item[this.oLabel]) {
                                 return true;
                             }
                         }
@@ -3615,13 +3398,28 @@
                     let els = this.$el.getElementsByClassName('eg-input-content');
                     let el = els.length > 0 ? els[0] : null;
                     let o = "";
-                    // top
-                    let h = 0;
-                    if(el !== null) {
-                        h = el.offsetHeight ? el.offsetHeight + 3 : 45;
+                    if(this.domLevel) {
+                        let top = this.parentTop + this.parentHeight - this.scrollLength + this.menuSpace;
+                        o += "top:"+top+"px;";
+                        let left = this.parentLeft;
+                        if(this.rightAlign) {
+                            left -= (this.menuMinWidth - this.parentWidth);
+                            o += "left:"+left+"px;";
+                        }
+                        else {
+                            o += "left:"+left+"px;";
+                        }
                     }
-                    if(h > 0) {
-                        o += "top: " + h + "px;";
+                    else {
+                        // top
+                        let h = 0;
+                        if(el !== null) {
+                            h = el.offsetHeight ? el.offsetHeight + this.menuSpace : 45;
+                        }
+                        if(h > 0) {
+                            o += (this.topAlign ? "bottom:" : "top:") + h + "px;";
+                        }
+                        o += this.rightAlign ? "right:0;" : "left:0;";
                     }
                     // max-height
                     if(this.maxHeight) {
@@ -3631,10 +3429,17 @@
                     if(this.isTime && this.hasSeconds) {
                         o += "min-width: 200px;";
                     }
-                    else if(this.resultsMinWidth) {
-                        o += "min-width: " + this.resultsMinWidth + ";";
+                    else if(this.menuMinWidth) {
+                        if(this.domLevel) {
+                            o += "width:" + this.menuMinWidth + "px;";
+                        }
+                        else {
+                            o += "min-width:" + this.menuMinWidth + "px;";
+                        }
                     }
-                    this.selectResultsStyle = o;
+                    if(o != this.selectResultsStyle) {
+                        this.selectResultsStyle = o;
+                    }
                 }
                 else {
                     this.selectResultsStyle = "";
@@ -3665,14 +3470,39 @@
                 }
             },
             // return true the value is selected (for legacy)
-            isOptionSelected(o) {
-                return this.value == this.computeOptionValue(o);
+            isOptionSelected(o,i) {
+                if(this.oValueIndex) {
+                    return i == this.value;
+                }
+                else if(this.emitObject && this.valueIsObject) {
+                    if(this.oValue && this.value[this.oValue]) {
+                        return this.value[this.oValue] === o[this.oValue]
+                    }
+                    else if(this.oLabel && this.value[this.oLabel]) {
+                        return this.value[this.oLabel] === o[this.oLabel]
+                    }
+                }
+                else {
+                    return this.value == this.computeOptionLabel(o);
+                }
             },
-            // return the value and label to display in a select option
-            computeOptionValue(o) {
+            // return the label to display in a select option
+            computeOptionLabel(o) {
                 if(!o && this.placeholder)
                     return this.placeholder;
                 return this.itemIsObject ? (o[this.oLabel]?o[this.oLabel]:o) : o;
+            },
+            // return the value to emit when an option is selected
+            computeOptionValue(o) {
+                if(this.itemIsObject && !this.emitObject) {
+                    if(this.oValue && o[this.oValue]) {
+                        return o[this.oValue];
+                    }
+                    else if(this.oLabel && o[this.oLabel]) {
+                        return o[this.oLabel];
+                    }
+                }
+                return o;
             },
             // @click event handler for the pills when multiple is true
             handlePillClick(p) {
@@ -3680,8 +3510,81 @@
                     this.$emit('tagClick', p);
                 }
             },
+            // format the select item based on oValue or oLabel or emitObject.
+            // Item is a select list element or an key attribute (oLabel, oValue).
+            itemToString(item) {
+                let o = item;
+                if(item instanceof String || typeof(item) === "number") {
+                    if(this.isOptGroup) {
+                        for(let groupName in this.optGroups) {
+                            this.optGroups[groupName].forEach(e => {
+                                if(this.oLabel && this.oId && item == this.oId) {
+                                    o = e[this.oLabel];
+                                }
+                                if(this.oLabel && this.oValue && item == e[this.oValue]) {
+                                    o = e[this.oLabel];
+                                }
+                                else if(this.oLabel && item == e[this.oLabel]) {
+                                    o = e[this.oLabel];
+                                }
+                            });
+                        }
+                    }
+                    else if(this.list.length>0) {
+                        this.list.forEach(e => {
+                            if(this.oLabel && this.oValue && item == e[this.oValue]) {
+                                o = e[this.oLabel];
+                            }
+                            else if(this.oLabel && item == e[this.oLabel]) {
+                                o = e[this.oLabel];
+                            }
+                        });
+                    }
+                }
+                else if(item instanceof Object) {
+                    if(this.oLabel) {
+                        o = item[this.oLabel];
+                    }
+                    else if(this.oValue) {
+                        o = item[this.oValue];
+                    }
+                }
+                if(item instanceof Event) {
+                    debugger;
+                }
+                return o;
+            },
+            // get the element position on the DOM and set the positionning variables for the floating menu (domLevel)
+            fetchPositionData() {
+                let el = this.$el;
+                if(el) {
+                    this.parentHeight = el.clientHeight;
+                    this.parentWidth = el.clientWidth;
+                    // top and left
+                    let go = true;
+                    let p = el.offsetParent;
+                    let top = el.offsetTop;
+                    let left = el.offsetLeft;
+                    while(go) {
+                        go = !!p;
+                        if(go) {
+                            top += p.offsetTop;
+                            left += p.offsetLeft;
+                            p = p.offsetParent;
+                        }
+                    }
+                    this.parentTop = top;
+                    this.parentLeft = left;
+                    this.buildSelectResultsStyle();
+                }
+            },
+            // @scroll event listener to update the select menu position
+            fetchPositionDataDelayed(e) {
+                this.scrollLength = e.target.scrollTop;
+                this.buildSelectResultsStyle();
+            },
 
-            // > Switch & CHeckbox
+            // > Switch & Checkbox
             // toggle and update the witch value and position
             // reverse the boolean value
             toggleSwitch() {
@@ -3703,6 +3606,26 @@
                 }
                 else {
                     this.toggleSwitch(c);
+                }
+            },
+            // @click event handler for the wrapper
+            handleWrapperClick() {
+                if(!this.disabled) {
+                    if(this.selectLike) {
+                        this.hasFocus = true;
+                        this.clickField();
+                    }
+                }
+            },
+            // @click event handler for the wrapper
+            handleCaretClick() {
+                if(!this.disabled) {
+                    if(this.hasFocus) {
+                        this.hasFocus = false;
+                    }
+                    else {
+                        this.focusField();
+                    }
                 }
             },
 
@@ -4056,7 +3979,7 @@
                 if(pl > 1) pl = 1;
                 this.pixLeft = pl;
                 // computed star (svg) pixel width
-                this.spw = this.inputWidth / this.count;
+                this.spw = (this.inputWidth+1) / this.count;
                 // distance in pixels from the left of the currently hovered svg
                 let localDist = d - ((i-1)*this.spw);
                 if(localDist > this.spw-1) localDist = this.spw;
@@ -4101,7 +4024,7 @@
                 let o = "";
                 // filling
                 if((this.starHovered !== null && i<this.starHovered) && i <this.starActive) {
-                    o += "fill:"+this.darkGray+";";
+                    o += "fill:"+this.darkColor+";";
                 }
                 else if(this.starHovered !== null && i<this.starHovered && i != this.starActive) {
                     o += "fill:"+this.lightGray+";";
@@ -4202,7 +4125,12 @@
         },
         watch: {
             hasFocus() {
-                this.buildSelectResultsStyle();
+                if(this.selectLike && this.domLevel) {
+                    this.fetchPositionData();
+                }
+                else {
+                    this.buildSelectResultsStyle();
+                }
             },
             value: {
                 immediate: true,
@@ -4229,7 +4157,7 @@
                     }
                     else if(this.isStar) {
                         this.starActive = Math.ceil(this.value);
-                        this.adc = this.value%1;
+                        this.adc = this.value ? this.value%1 : 0;
                         this.$nextTick(() => {
                             this.getStarSize();
                         });
@@ -4242,6 +4170,11 @@
                     }
                     else if(this.isFile && !this.valueIsArray && !this.preventFileUpdate) {
                         this.files = [this.value];
+                    }
+                    if(this.domLevel && this.selectLike) {
+                        this.$nextTick(() =>{
+                            this.fetchPositionData();
+                        });
                     }
                 }
             },
@@ -4277,17 +4210,13 @@
             // inline style for the 'Main input tag'
             inputStyle() {
                 if(this.autoWidth) {
-                    if((this.isSelect&&!this.editable) || (this.isNumber&&this.noInput) || (this.isText&&this.multiple)) {
+                    if((this.isSelect&&!this.editable) || (this.isNumber&&this.noInput)) {
                         return  "width:" + (!isNaN(this.inputValueWidth) ? this.inputValueWidth : this.widthBasis) + "px;";
                     }
                     else {
-                        let iconWidth = 30;
                         let width = this.inputValueWidth;
                         width += this.widthBasis;
-                        if(this.hasIcon && !this.isNumber && !this.hasPrefix) {
-                            width += iconWidth;
-                        }
-                        if(width < this.minWidth) width = this.minWidth;
+                        if(width < this.minWidth) return null;
                         return "width:" + width + "px;";
                     }
                 }
@@ -4302,6 +4231,8 @@
                 if(this.legacy) o.push('legacy');
                 if(this.counter) o.push('has-counter');
                 if(this.autoWidth) o.push('auto-width');
+                if(this.small) o.push('small');
+                if(this.transparent) o.push('transparent');
                 if(this.isDate||this.isDateRange||this.isDateTime||this.isDateTimeRange) o.push('date');
                 if(this.isTime||this.isDateTime||this.isTimeRange||this.isDateTimeRange) o.push('time');
                 return o;
@@ -4329,11 +4260,11 @@
             // return the type to use
             inputValue() {
                 if(this.isSelect || (this.isText && this.multiple)) {
-                    if(this.query !== null) {
+                    if(this.query || this.query === "") {
                         return this.query;
                     }
-                    else if(this.oLabel && this.value) {
-                        return this.value[this.oLabel];
+                    else {
+                        return this.itemToString(this.value);
                     }
                 }
                 else if(this.isFile) {
@@ -4374,7 +4305,25 @@
                 if(this.isFile && !this.multiple && this.files && this.files.length > 0 && this.files[0]) {
                     return this.files[0][this.oLabel];
                 }
-                return this.value || this.placeholder;
+                return this.itemToString(this.value) || this.placeholder;
+            },
+            // true if the query is the same as the value, or the value label if oValue is used
+            queryEqualsValue() {
+                return this.query != this.itemToString(this.value);
+            },
+            // true if a query search is in progress
+            isSearching() {
+                return this.isSelect && this.query !== null &&
+                    this.queryEqualsValue
+                    && this.restrictToOptions && !this.hasPills;
+            },
+            // computed the main label text
+            labelText() {
+                return this.isSearching ? this.searchLabel : this.label;
+            },
+            // true if the default slot is used
+            hasDefaultSlot() {
+                return !!this.$scopedSlots.default;
             },
 
             // > Text
@@ -4384,6 +4333,8 @@
             hasPills() { return (this.isSelect || this.isText) && this.multiple },
             // true if 'value' is of the object type
             valueIsArray() { return Array.isArray(this.value) },
+            // true if 'value' is of the string type
+            valueIsObject() { return typeof(this.value) === "object" && this.value instanceof Object},
             // true if 'value' is of the string type
             valueIsString() { return typeof this.value === 'string' || this.value instanceof String },
             // true if 'query' is of the string type
@@ -4440,30 +4391,10 @@
             },
             // true if a prefix of suffix is used
             hasPrefix() { return !!this.prefix || !!this.suffix },
-            // true if we must use the wrapper style and invisible inner input
-            useWrapperStyle() {
-                return this.hasPills
-                    || this.isNumber
-                    || this.isFile
-                    || this.isTimeRelated
-                    || (this.hasPrefix && this.isText || this.isNumber)
-                    || this.leftIcons.length > 0
-                    || this.icons.length > 0;
-            },
 
             // > Select
             // true if the elements of the array in 'value' are the object type
             // true if the items of 'list' are of the object type
-            itemIsObject() {
-                if(!this.isOptGroup) {
-                    return this.list.length>0 && typeof this.list[0] === "object";
-                }
-                else {
-                    let e = this.optGroups[Object.keys(this.optGroups)[0]];
-                    return e.length>0 && typeof e[0] === "object";
-                }
-            },
-            // compute an array of options to display, based on the user's query
             selectedItems() {
                 let items = {};
                 if(this.isOptGroup) {
@@ -4472,8 +4403,18 @@
                         if(this.query && this.queryIsString) {
                             let q = this.removeDiacritics(this.query.toLowerCase());
                             let res = g.filter(e => {
-                                if(this.itemIsObject && e && this.oLabel && typeof e[this.oLabel] === "string")
-                                    return this.removeDiacritics(e[this.oLabel].toLowerCase()).indexOf(q) >= 0;
+                                if(e && this.itemIsObject) {
+                                    if(this.oLabel && typeof e[this.oLabel] === "string") {
+                                        if(this.removeDiacritics(e[this.oLabel].toLowerCase()).indexOf(q) >= 0) {
+                                            return true;
+                                        }
+                                    }
+                                    if(this.oValue && typeof e[this.oValue] === "string") {
+                                        if(this.removeDiacritics(e[this.oValue].toLowerCase()).indexOf(q) >= 0) {
+                                            return true;
+                                        }
+                                    }
+                                }
                                 else if(e && typeof e === "string")
                                     return this.removeDiacritics(e.toLowerCase()).indexOf(q) >= 0;
                                 return false;
@@ -4491,8 +4432,18 @@
                     if(this.query && this.queryIsString) {
                         let q = this.removeDiacritics(this.query.toLowerCase());
                         let res = this.list.filter(e => {
-                            if(this.itemIsObject && e && this.oLabel && typeof e[this.oLabel] === "string")
-                                return this.removeDiacritics(e[this.oLabel].toLowerCase()).indexOf(q) >= 0;
+                            if(e && this.itemIsObject) {
+                                if(this.oLabel && typeof e[this.oLabel] === "string") {
+                                    if(this.removeDiacritics(e[this.oLabel].toLowerCase()).indexOf(q) >= 0) {
+                                        return true;
+                                    }
+                                }
+                                if(this.oValue && typeof e[this.oValue] === "string") {
+                                    if(this.removeDiacritics(e[this.oValue].toLowerCase()).indexOf(q) >= 0) {
+                                        return true;
+                                    }
+                                }
+                            }
                             else if(e && typeof e === "string")
                                 return this.removeDiacritics(e.toLowerCase()).indexOf(q) >= 0;
                             return false;
@@ -4505,12 +4456,22 @@
                 }
                 return items;
             },
+            itemIsObject() {
+                if(!this.isOptGroup) {
+                    return this.list.length>0 && typeof this.list[0] === "object";
+                }
+                else {
+                    let e = this.optGroups[Object.keys(this.optGroups)[0]];
+                    return e.length>0 && typeof e[0] === "object";
+                }
+            },
+            // compute an array of options to display, based on the user's query
             // true if the options groups (optGroups prop) is not empty.
             isOptGroup() { return !this.isEmpty(this.optGroups) },
             // true if the value is empty or if there is no query
             empty() { return !this.value && this.query === null; },
             // true if the select caret must be displayed
-            displaysSelectCaret() { return this.selectLike && !this.query; },
+            displaysSelectCaret() { return this.selectLike && !this.query && !this.noSelectOptions; },
             // compute the label (mostly the value) to display in the select field
             selectLabel() {
                 if(this.value || (this.valueIsArray&&this.value.length==0)) {
@@ -4543,7 +4504,7 @@
                     return this.value;
                 }
                 else if(this.isSelect) {
-                    return this.selectLabel || this.value;
+                    return this.selectLabel || this.itemToString(this.value);
                 }
                 return "&nbsp;";
             },
@@ -4551,6 +4512,15 @@
             sliderSlot() { return !!this.$slots.slider; },
             // true if the slider panel should be displayed
             selectLike() { return this.isSelect || this.isTimeRelated || this.sliderSlot; },
+            // true if there is no options provided
+            noSelectOptions() {
+                if(this.isOptGroup) {
+                    return this.isEmpty(this.optGroups);
+                }
+                else {
+                    return this.list.length === 0;
+                }
+            },
 
             // > Checkbox
             // compute the list of checkbox elements to display: label prop or list prop is multiple is used
@@ -4740,10 +4710,7 @@
                 }
             }
             if(this.autoFocus) {
-                this.$nextTick(() => {
-                    let el = document.getElementById(this.theId);
-                    if(el) el.focus();
-                });
+                this.doFocus();
             }
             if(this.selectLike) {
                 let input = this.$el.getElementsByTagName('input')[0];
@@ -4781,11 +4748,36 @@
                     el.ondrop = this.fileDrop;
                 }
             }
+            if(this.domLevel && this.selectLike) {
+                let el = document.getElementById(this.theId+'-select-panel');
+                if(el) {
+                    let parent = document.getElementById(this.domParentId);
+                    if(parent) {
+                        this.fetchPositionData();
+                        parent.style.position = "relative";
+                        parent.prepend(el);
+                        // scroll listening
+                        let go = true;
+                        let maxLevel = 99;
+                        let level = 0;
+                        let p = this.$el.parentElement;
+                        while(go && level < maxLevel) {
+                            go = !(!p || p.localName === "body");
+                            if(go) {
+                                p.addEventListener('scroll', this.fetchPositionDataDelayed);
+                                p = p.parentElement;
+                                level++;
+                            }
+                        }
+                    }
+                }
+            }
         },
         destroyed() {
             if(this.selectLike) {
                 let input = this.$el.getElementsByTagName('input')[0];
                 // multiple select
+
                 if(input) {
                     //input.addEventListener('focus', this.focusField());
                     document.removeEventListener('mousedown', this.selectMouseDown);
@@ -4802,6 +4794,24 @@
                 let el = document.getElementById(this.theId);
                 if(el) {
                     el.removeEventListener('input', this.handleAutoResize);
+                }
+            }
+            if(this.domLevel && this.selectLike) {
+                let el = document.getElementById(this.theId+'-select-panel');
+                if(el) {
+                    let parent = document.getElementById(this.domParentId);
+                    if(parent) {
+                        let go = true;
+                        let p = this.$el.parentElement;
+                        while(go) {
+                            go = !(!p || p.localName === "body");
+                            if(go) {
+                                p.removeEventListener('scroll', this.fetchPositionDataDelayed);
+                                p = p.parentElement;
+                            }
+                        }
+                    }
+                    el.remove();
                 }
             }
         }
