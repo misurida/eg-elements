@@ -115,9 +115,11 @@
         display: flex;
         align-items: center;
         border: var(--border);
-        box-shadow: var(--lighter-bs);
         border-radius: var(--border-radius);
         flex-wrap: wrap;
+        &:hover {
+            box-shadow: var(--lighter-bs);
+        }
     }
 
 
@@ -220,7 +222,7 @@
         // Outsiders
         .messages-zone {
             font-size: 0.8rem;
-            margin-top: 5px;
+            margin: 5px 0;
             color: var(--color-4);
             .message-counter {
                 float: right;
@@ -266,6 +268,11 @@
                         fill: var(--active-color);
                     }
                 }
+            }
+            .inner-input-button,
+            input {
+                box-sizing: content-box;
+                min-width: 20px // to align the icons on the right when multiple is used
             }
         }
 
@@ -783,20 +790,19 @@
         }
         &.file {
             .eg-input-content {
-                width: 100%;
-                &.file-check-pad {
-                    padding-right: calc(var(--h-padding) + var(--button-width));
-                    &.has-icon {
-                        padding-right: calc(var(--h-padding) + calc(2 * var(--button-width)));
-                    }
-                }
+                display: flex;
+                flex-wrap: nowrap;
             }
             .file-element,
             .file-wrapper {
-                cursor: pointer;
+                @extend .eg-inner-style;
                 display: flex;
                 align-items: center;
+                flex-wrap: nowrap;
+                width: 100%;
+                cursor: pointer;
                 label {
+                    cursor: pointer;
                     display: flex;
                     width: 100%;
                     &.file-placeholder {
@@ -804,6 +810,7 @@
                         &.drop-placeholder {
                             text-align: center;
                             justify-content: center;
+                            pointer-events: none;
                         }
                     }
                     & > span.file-name {
@@ -822,6 +829,9 @@
                     opacity: 0.5;
                     margin-left: calc(2 * var(--h-padding));
                 }
+                .invisible {
+                    display: none;
+                }
             }
             .file-list {
                 margin-bottom: 10px;
@@ -831,12 +841,14 @@
                     margin-top: 5px;
                     border-radius: 5px;
                     height: var(--file-height);
-                    padding: 0 var(--h-padding);
+                    padding: 0 0 0 var(--h-padding);
                     background-color: transparent;
                     font-size: 0.8rem;
                     text-align: left;
+                    box-sizing: border-box;
                     &.loaded {
-                        border-color: rgba(var(--color-4), 0.5);
+                        border-color: var(--color-5);
+                        background-color: var(--color-6);
                     }
                     .input-icon {
                         cursor: pointer;
@@ -853,7 +865,7 @@
                         }
                         outline-width: 0;
                         box-shadow: var(--box-shadow);
-                        border-color: var(--color);
+                        border-color: var(--color-4);
                     }
                     .file-content {
                         width: 100%;
@@ -874,6 +886,7 @@
                             hyphens: auto;
                             flex: 1;
                             text-align: left;
+                            line-height: 1rem;
                         }
                     }
                     &.has-icon {
@@ -909,11 +922,8 @@
                 display: inline-block;
                 min-width: var(--file-pic-size);
                 height: var(--file-pic-size);
-                margin: -(var(--file-pic-size)/4);
-                margin-left: -(var(--file-pic-size)/8);
-                margin-right: 10px;
-                background-repeat: no-repeat;
-                background-position: center;
+                margin: calc(-1 * var(--file-pic-size) / 4) 10px calc(-1 * var(--file-pic-size) / 4) calc(-1 * var(--file-pic-size) / 8);
+                background: no-repeat center;
                 background-size: contain;
                 border-radius: 5px;
                 .svg-icon {
@@ -1075,12 +1085,6 @@
     // floating panel
     .select-panel {
         position: absolute;
-        :not(.top-align) {
-            top: 0;
-            &:not(.dom-level) {
-                top: 45px;
-            }
-        }
         &.top-align {
             bottom: 0;
             &:not(.dom-level) {
@@ -1195,6 +1199,10 @@
             transform: scale(1) translateY(0);
             opacity: 1;
             margin-bottom: 10px;
+        }
+
+        &.date {
+            min-width: 260px;
         }
     }
 
@@ -1627,7 +1635,7 @@
                     <button
                             v-else-if="isFile"
                             :disabled="disabled||isLoading"
-                            class="select-facade transparent file-wrapper"
+                            class="file-wrapper"
                             :id="theId+'-file-wrapper'"
                             @focus="handleFocus"
                             @blur="handleBlur"
@@ -1649,7 +1657,7 @@
                         </template>
                         <!-- Multiple files -->
                         <label :for="theId" v-else-if="multiple">
-                            <span class="file-name">{{ files.length }} / {{ validFilesCount }} {{ filesMultipleLabel }}</span>
+                            <span class="file-name">{{ files.length }} {{ filesMultipleLabel }}</span>
                             <span class="file-size" v-if="oSize">{{ humanFileSize(totalSize,false) }}</span>
                         </label>
                         <input type="file" :multiple="multiple" class="invisible" :id="theId" @change="handleChange">
@@ -1665,11 +1673,9 @@
                             @focus="handleFocus"
                             @blur="handleBlur"
                             @keyup.enter="handleEnter"
+                            @keyup.escape="handleEscape"
                             :style="inputStyle"
-                            :disabled="disabled||isLoading"
-                            :class="{
-                            'has-icon':hasIcon,
-                            'has-left-icon':hasLeftIcon}">
+                            :disabled="disabled||isLoading">
                     </button>
                     <!-- >>> 'Main input tag' <<< -->
                     <input
@@ -1741,7 +1747,7 @@
                     <eg-icon :type="crossIcon"></eg-icon>
                 </div>
                 <!-- Select panel -->
-                <div v-if="selectLike" class="select-panel" :id="theId+'-select-panel'" :class="{visible:hasFocus, 'show-scrollbar':showScrollbar, 'dom-level':domLevel, 'top-align':topAlign}" :style="selectResultsStyle">
+                <div v-if="selectLike" class="select-panel" :id="theId+'-select-panel'" :class="{visible:hasFocus, date:isDate, 'show-scrollbar':showScrollbar, 'dom-level':domLevel, 'top-align':topAlign}" :style="selectResultsStyle">
                     <div class="select-panel-content" v-if="sliderSlot">
                         <slot name="slider"></slot>
                     </div>
@@ -2386,7 +2392,7 @@
             // @keyup.enter event handler for the 'Main text input'
             handleEnter(e) {
                 // select editable, we select the first elements displayed on the results
-                if(this.isSelect && (this.restrictToOptions || (!this.restrictToOptions && this.editable))) {
+                if(this.isSelect && this.restrictToOptions) {
                     let el = document.getElementById(this.theId+'-select-panel').querySelector('[data-group="0"][data-item="0"]');
                     if(el) {
                         let firstOnList = this.selectedItems[Object.keys(this.selectedItems)[0]][0];
@@ -2470,7 +2476,8 @@
                     else {
                         // if the value is an array, we don't emit directly
                         if((this.isSelect && !this.legacy) || (this.isText && this.multiple)) {
-                            if(this.isSelect && !this.restrictToOptions) {
+                            if(this.isSelect && !this.restrictToOptions && !this.multiple) {
+                                debugger;
                                 this.eChange ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
                             }
                             else {
@@ -2846,7 +2853,17 @@
                     this.$emit('escape',e);
                 }
                 else {
-                    this.handleCrossBtn();
+                    if(this.isSelect) {
+                        if(!!this.query) {
+                            this.query = "";
+                        }
+                        else {
+                            this.looseFocus();
+                        }
+                    }
+                    else {
+                        this.handleCrossBtn();
+                    }
                 }
             },
 
@@ -4639,7 +4656,7 @@
                 return o;
             },
             // compute the number of valid files
-            validFilesCount() {
+            unvalidFilesCount() {
                 let o = 0;
                 this.files.forEach(f => {
                     if(f && f.unvalid) { o++; }

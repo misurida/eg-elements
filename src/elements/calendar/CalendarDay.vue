@@ -170,7 +170,7 @@
                 height: 35px;
                 width: 35px;
                 border-radius: 50%;
-                background: linear-gradient(to right, #f5f5f5 0% 50%, rgba(0,0,0,0) 50% 100%);
+                background: linear-gradient(to right, rgba(34, 34, 34, .1) 0% 50%, rgba(0,0,0,0) 50% 100%);
                 transform: translateX(-50%) translateY(-50%);
                 transition: opacity .2s;
                 left: 100%;
@@ -196,7 +196,7 @@
                 height: 35px;
                 width: 35px;
                 border-radius: 50%;
-                background: linear-gradient(to left, #f5f5f5 0% 50%, rgba(0,0,0,0) 50% 100%);
+                background: linear-gradient(to left, rgba(34, 34, 34, .1) 0% 50%, rgba(0,0,0,0) 50% 100%);
                 transform: translateX(50%) translateY(-50%);
                 transition: opacity .2s;
                 right: 100%;

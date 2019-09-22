@@ -270,7 +270,6 @@
 
             },
             tryClosingMenu() {
-                debugger;
                 if(this.open) {
                     this.closeMenu();
                 }
