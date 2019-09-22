@@ -1,7 +1,9 @@
 <style lang="scss">
-    .eg-sidemenu-wrapper {
+    .sidemenu-wrapper {
         &.active {
             padding: 0;
+            max-height: 0;
+            max-width: 0;
         }
     }
     // menu panel
@@ -38,9 +40,6 @@
                 cursor: pointer;
                 transition: color .2s;
             }
-        }
-        i:hover {
-            color: #777;
         }
         &:not(.active) {
             left: 0 !important;
@@ -91,7 +90,7 @@
 </style>
 
 <template>
-    <div class="sidemenu-wrapper" :class="{active}">
+    <div class="sidemenu-wrapper" :class="{active, open}">
         <div class="sidemenu" :class="sideMenuClass" :style="getPanelStyleArray">
             <slot></slot>
         </div>
@@ -271,6 +270,7 @@
 
             },
             tryClosingMenu() {
+                debugger;
                 if(this.open) {
                     this.closeMenu();
                 }

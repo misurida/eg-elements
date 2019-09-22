@@ -79,7 +79,9 @@
     $pDefault: 0.625em 1.4em;
     $fsDefault: 1rem;
     // small
-    $pSmall: 0.4em 1.4em;
+    $pSmallV: 0.417em;
+    $pSmallH: 1.4em;
+    $pSmall: $pSmallV $pSmallH;
     $fsSmall: 0.75rem;
     // big
     $pBig: 0.675em 1.5em;
@@ -90,6 +92,8 @@
     $pFat: 1em 2.5em;
     // round
     $roundRadius: 20px;
+    // empty
+    $pEmpty: 0.334em;
 
     .eg-button {
         // properties
@@ -103,14 +107,16 @@
         border-radius: 5px;
         color: $cDefault;
         font-family: 'Lato', sans-serif;
-        margin: 0 auto;
-
-        // positioning
-        display: flex;
-        align-items: center;
 
         // transition
         transition: $t1;
+
+        // content
+        .eg-btn-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         // loader properties
         $loaderSize: 20px;
@@ -150,6 +156,30 @@
             justify-content: center;
             .material-icons {
                 font-size: 1.4rem;
+            }
+        }
+        &.ri {
+            padding-right: 3em;
+            &.no-content {
+                padding-right: 2em;
+                .svg-icon {
+                    right: 11px;
+                }
+            }
+        }
+        &.li {
+            padding-left: 3em;
+            &.no-content {
+                padding-left: 2em;
+            }
+        }
+        &.li.ri.no-content {
+            padding-right: 3.3em;
+        }
+        &:not(.li):not(.ri) {
+            &.no-content {
+                padding-left: 0.5em;
+                padding-right: 0.5em;
             }
         }
 
@@ -272,8 +302,15 @@
                 border: $loaderBorder solid rgba($cLight,.1);
                 border-top: $loaderBorder solid $cLight;
             }
-            .svg-icon svg path {
-                fill: rgba($cLight, 0.9);
+            .svg-icon {
+                opacity: 0.5;
+                &,
+                i {
+                    color: rgba($cLight, 0.9);
+                }
+                svg path {
+                    fill: rgba($cLight, 0.9);
+                }
             }
         }
         &.dark {
@@ -284,8 +321,14 @@
                 border: $loaderBorder solid rgba($cDark,.1);
                 border-top: $loaderBorder solid $cDark;
             }
-            .svg-icon svg path {
-                fill: rgba($cDark, 0.9);
+            .svg-icon {
+                &,
+                i {
+                    color: rgba($cDark, 0.9);
+                }
+                svg path {
+                    fill: rgba($cDark, 0.9);
+                }
             }
         }
         &.link {
@@ -338,9 +381,25 @@
 
         // types
         &.small {
-            padding: $pSmall;
+            height: 32px;
             font-size: $fsSmall;
             line-height: $fsSmall;
+            &:not(.link) {
+                padding: $pSmall;
+            }
+            .svg-icon {
+                width: 1em;
+            }
+            &.ri {
+                padding-right: 2.5em;
+            }
+            &.li {
+                padding-left: 2.5em;
+            }
+            &.no-content {
+                padding-left: $pSmallH;
+                padding-right: $pSmallH;
+            }
         }
         &.big {
             padding: $pBig;
@@ -390,30 +449,6 @@
                 margin: 0 5px;
                 position: relative;
                 width: auto;
-            }
-        }
-        &.ri {
-            padding-right: 3em;
-            &.no-content {
-                padding-right: 2em;
-                .svg-icon {
-                    right: 11px;
-                }
-            }
-        }
-        &.li {
-            padding-left: 3em;
-            &.no-content {
-                padding-left: 2em;
-            }
-        }
-        &.li.ri.no-content {
-            padding-right: 3.3em;
-        }
-        &:not(.li):not(.ri) {
-            &.no-content {
-                padding-left: 0.5em;
-                padding-right: 0.5em;
             }
         }
 
@@ -519,6 +554,17 @@
             }
         }
 
+        // no-content corrections
+        &.no-content {
+            .svg-icon {
+                left: 0;
+                right: 0;
+                justify-content: center;
+                width: 100%;
+            }
+            padding: $pEmpty;
+        }
+
         // helpers
         &.fr {
             float: right;
@@ -534,23 +580,46 @@
         }
 
     }
+
+    .eg-buttons-container {
+        text-align: right;
+        .eg-button:not(:first-child) {
+            margin-left: 5px;
+        }
+        &.flexed {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+    }
 </style>
 
 <template>
-    <button :disabled="disabled" class="eg-button" :class="computeClass" @click="$emit('click')">
-        <eg-icon class="l-icon" v-if="li||leftIcon" :type="_li"></eg-icon>
-        <template v-if="leftIcons.length>0" v-for="i in leftIcons">
-            <eg-icon class="inline-icon inline-left" :type="i"></eg-icon>
-        </template>
-        <span>
-            <slot></slot>
-        </span>
-        <template v-if="icons.length>0" v-for="i in icons">
-            <eg-icon class="inline-icon" :type="i"></eg-icon>
-        </template>
-        <eg-icon class="r-icon" v-if="!!ri||!!i||!!icon" :type="_ri"></eg-icon>
-        <span class="loader" :class="{hidden:!loading}">
-            <span class="loader-inside"></span>
+    <button
+            :disabled="disabled"
+            class="eg-button"
+            :class="computeClass"
+            @keyup="$emit('keyup',$event)"
+            @click="$emit('click',$event)"
+            @dblclick="$emit('dblclick',$event)"
+            @click.ctrl.stop="$emit('ctrlClick',$event)"
+            @click.alt.stop="$emit('altClick',$event)">
+        <span class="span eg-btn-content" :title="title">
+            <eg-icon class="l-icon" v-if="li||leftIcon||!!lfa||!!lfas||!!lfal||!!lfar||!!lma" :type="_li" :fas="lfas" :fal="lfal" :far="lfar" :ma="lma"></eg-icon>
+            <template v-if="leftIcons.length>0" v-for="i in leftIcons">
+                <eg-icon class="inline-icon inline-left" :type="i"></eg-icon>
+            </template>
+            <span>
+                <slot></slot>
+            </span>
+            <template v-if="icons.length>0" v-for="i in icons">
+                <eg-icon class="inline-icon" :type="i"></eg-icon>
+            </template>
+            <eg-icon class="r-icon" v-if="!!ri||!!i||!!icon||!!fa||!!fas||!!fal||!!far||!!ma" :type="_ri" :fa="fa" :fas="fas" :fal="fal" :far="far" :ma="ma"></eg-icon>
+            <span class="loader" :class="{hidden:!loading}">
+                <span class="loader-inside"></span>
+            </span>
         </span>
     </button>
 </template>
@@ -560,6 +629,7 @@
         props: {
             // main
             type: { type: String, default: null },
+            title: { type: String, default: null },
             sty: { type: String, default: null },
 
             // styles
@@ -608,7 +678,16 @@
             li: {type: String, default: null},
             icons: {type: Array, default(){return[]}},
             leftIcons: {type: Array, default(){return[]}},
-
+            fa: {type: String, default: null},
+            fas: {type: String, default: null},
+            far: {type: String, default: null},
+            fal: {type: String, default: null},
+            ma: {type: String, default: null},
+            lfa: {type: String, default: null},
+            lfas: {type: String, default: null},
+            lfar: {type: String, default: null},
+            lfal: {type: String, default: null},
+            lma: {type: String, default: null},
         },
         computed: {
             computeClass() {
@@ -648,8 +727,8 @@
                 if(this.error) o.push("error");
                 if(this.warning) o.push("warning");
                 if(this.valid) o.push("valid");
-                if(this.icon || this.ri || this.i) o.push("ri");
-                if(this.leftIcon || this.li) o.push("li");
+                if(this.icon || this.ri || this.i || this.fa || this.fas || this.fal || this.far || this.ma) o.push("ri");
+                if(this.leftIcon || this.li || this.lfa || this.lfas || this.lfal || this.lfar || this.lma) o.push("li");
 
                 return o;
             },

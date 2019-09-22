@@ -5,6 +5,7 @@ import Popover from './src/elements/popover/Popover'
 import EgIcon from './src/elements/toolbox/SvgIcon'
 import Sidemenu from './src/elements/sidemenu/Sidemenu'
 import Modal from './src/elements/modal/Modal'
+import TooltipDirective from './src/elements/tooltip/tooltip'
 
 // Declare install function executed by Vue.use()
 export default function install(Vue) {
@@ -21,7 +22,10 @@ export default function install(Vue) {
     Vue.component('sidemenu', Sidemenu);
 
     // v-tooltip directive
-    Vue.directive('tooltip', require('./src/elements/tooltip/tooltip'));
+    Vue.directive('tooltip', TooltipDirective);
+
+    // We inject the polyfills
+    require('./src/elements/polyfills/removeDiacritics')
 }
 
 // Create module definition for Vue.use()

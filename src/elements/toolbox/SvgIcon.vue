@@ -1,16 +1,40 @@
 <style lang="scss">
     .svg-icon {
-        display: flex;
-        align-items: center;
+        display: inline-block;
+        user-select: none;
         svg {
-            height: 50px;
-            width: 50px;
+            height: inherit;
+            width: inherit;
+        }
+        &.small {
+            width: 20px;
+            height: 20px;
+            svg {
+                height: inherit;
+                width: inherit;
+            }
+        }
+        &.clickable {
+            cursor: pointer;
+            transition: opacity .2s;
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+        &.fr {
+            float: right;
+        }
+        &.fl {
+            float: left;
+        }
+        .material-icons {
+            font-size: inherit;
         }
     }
 </style>
 
 <template>
-    <span class="svg-icon">
+    <span class="svg-icon" @click="handleClick($event,'click')" @dblclick="handleClick($event,'dblclick')" @click.ctrl="handleClick($event,'ctrlClick')" :class="{small, clickable, fr, fl}">
         <!-- Font Awesome integration -->
         <i v-if="useFontAwesome" :class="t"></i>
 
@@ -76,6 +100,7 @@
         <svg v-else version="1.1" viewBox="0 0 13.229 13.229" xmlns="http://www.w3.org/2000/svg">
             <path d="m6.3375 8.095h0.25107q-0.00866-0.34631 0.069262-0.6147 0.086577-0.30302 0.31168-0.63201 0.12987-0.19047 0.32034-0.38094 0.11255-0.11255 0.33765-0.31168 0.41557-0.36362 0.56275-0.57141 0.24242-0.35497 0.24242-0.82248 0-0.66664-0.49349-1.0649-0.49349-0.3896-1.2727-0.3896-0.78785 0-1.3506 0.44154-0.51946 0.41557-0.51946 0.95235 0 0.26839 0.12987 0.42423 0.11255 0.13852 0.29436 0.13852 0.17315 0.0087 0.29436-0.10389 0.13852-0.12121 0.13852-0.31168 0-0.12121-0.034631-0.20779-0.025973-0.05195-0.07792-0.12987-0.051946-0.06926-0.069262-0.11255-0.025973-0.06926-0.025973-0.15584 0-0.25973 0.38094-0.48483 0.38094-0.21644 0.83114-0.21644 0.55409 0 0.85711 0.33765 0.26839 0.30302 0.26839 0.7792 0 0.41557-0.25107 0.8398-0.13852 0.24242-0.48483 0.64933l-0.23376 0.29436q-0.32034 0.41557-0.42423 0.84846-0.060604 0.25973-0.060604 0.68396zm0.15584 0.84846q-0.24242 0-0.38094 0.14718-0.11255 0.13852-0.11255 0.33765 0 0.19913 0.11255 0.33765 0.13852 0.15584 0.38094 0.15584 0.2251 0 0.36362-0.15584 0.12121-0.13852 0.12121-0.33765 0-0.19913-0.12121-0.33765-0.13852-0.14718-0.36362-0.14718z"/>
         </svg>
+        <span><slot></slot></span>
     </span>
 </template>
 
@@ -92,14 +117,30 @@
             far: {type: String, default: null},
             fal: {type: String, default: null},
             ma: {type: String, default: null},
+            noClick: {type: Boolean, default: false},
+            small: {type: Boolean, default: false},
+            clickable: {type: Boolean, default: false},
+            fr: {type: Boolean, default: false},
+            fl: {type: Boolean, default: false},
+            stop: {type: Boolean, default: false},
+        },
+        methods: {
+            handleClick(e, method) {
+                if(!this.noClick) {
+                    if(this.stop) {
+                        e.stopPropagation();
+                    }
+                    this.$emit(method);
+                }
+            }
         },
         computed: {
             theType() {
                 if(this.ma) return 'ma:' + this.ma;
                 if(this.fa) return 'fa:fa fa-' + this.fa;
-                if(this.fas) return 'fa:fas fa-' + this.fa;
-                if(this.far) return 'fa:far fa-' + this.fa;
-                if(this.fal) return 'fa:fal fa-' + this.fa;
+                if(this.fas) return 'fa:fas fa-' + this.fas;
+                if(this.far) return 'fa:far fa-' + this.far;
+                if(this.fal) return 'fa:fal fa-' + this.fal;
                 if(this.i) return this.i;
                 if(this.icon) return this.icon;
                 if(this.type) return this.type;

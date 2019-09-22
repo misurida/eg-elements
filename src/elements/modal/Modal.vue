@@ -18,7 +18,7 @@
 
     .modal-mask {
         position: fixed;
-        z-index: 9999;
+        z-index: 94;
         top: 0;
         left: 0;
         width: 100%;
@@ -146,6 +146,7 @@
         color: rgba(0,0,0,.9);
         padding: 15px 30px 0 30px;
         border-bottom: $innerBorder;
+        margin-top: 5px;
         @media all and (max-width: 960px) {
             padding: 15px 15px 0 15px;
         }
@@ -161,6 +162,9 @@
     .modal-body {
         flex: 1;
         padding: 10px 30px;
+        &.minpad {
+            padding: 0 10px;
+        }
         @media all and (max-width: 960px) {
             padding: 15px;
         }
@@ -176,11 +180,11 @@
     }
     .modal-footer {
         border-top: $innerBorder;
-        padding: 10px 15px 10px;
+        padding: 10px;
         display: flex;
         justify-content: flex-end;
         box-sizing: border-box;
-        margin-top: 10px;
+        // margin-top: 10px;
         .eg-button {
             margin: 0 0 0 5px;
         }
@@ -189,6 +193,18 @@
         }
         &.no-header {
             margin-top: 0;
+        }
+        &.full-footer {
+            padding: 10px 30px 10px;
+        }
+        &.body-footer {
+            padding: 10px 0 0 0;
+        }
+        &.flexed {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
         }
     }
 
@@ -215,11 +231,11 @@
 
 <template>
     <transition :name="animation">
-        <div class="modal-mask" v-show="value||value===null" tabindex="2" @keyup.esc="handleClose" @keyup.enter="handleValidate">
+        <div class="modal-mask" v-show="!!value" tabindex="2" @keyup.esc="handleClose" @keyup.enter="handleValidate">
             <div class="modal-wrapper" @click.self="handleClose">
                 <div class="modal-container" :class="{big,medium,small}">
                     <div class="modal-content">
-                        <div v-if="!hideCross" class="exit-cross" @click="handleClose"><eg-icon type="cross"></eg-icon></div>
+                        <div v-if="!noCross" class="exit-cross" @click="handleClose"><eg-icon type="cross"></eg-icon></div>
                         <template v-if="!noHeader">
                             <div class="modal-header" v-if="$slots.header">
                                 <slot name="header"></slot>
@@ -228,17 +244,18 @@
                                 <h2>{{title}}</h2>
                             </div>
                         </template>
-                        <div class="modal-body" v-if="$slots.content || $slots.body" :class="{nopad:noPad}" @keyup.esc.stop>
+                        <div class="modal-body" v-if="$slots.content || $slots.body" :class="{nopad:noPad,minpad:minPad}" @keyup.esc.stop>
                             <slot v-if="$slots.body" name="body"></slot>
                             <slot v-else-if="$slots.content" name="content"></slot>
                         </div>
                         <div class="modal-body" v-else-if="content" :class="{nopad:noPad}" @keyup.esc.stop>
                             <p class="content-p">{{content}}</p>
                         </div>
-                        <div class="modal-footer" v-if="!noFooter" :class="{'no-header':noHeader}">
+                        <slot class="modal-footer" v-if="nakedFooter" name="footer"></slot>
+                        <div class="modal-footer" v-else-if="!noFooter" :class="{'no-header':noHeader, 'full-footer':fullFooter}">
                             <slot name="footer"></slot>
                             <eg-btn v-if="back||b" @click="handleClose">{{b?backLab:back}}</eg-btn>
-                            <eg-btn v-if="validate||v" pri @click="handleValidate">{{v?valLab:validate}}</eg-btn>
+                            <eg-btn v-if="validate||v" pri @click="$emit('validate')">{{v?valLab:validate}}</eg-btn>
                         </div>
                     </div>
                 </div>
@@ -251,7 +268,7 @@
     export default {
         props: {
             value: {default:null},
-            animation: {type: String, default:'smooth'},
+            animation: {type: String, default: 'direct'},
 
             // sizes
             big: {type:Boolean, default:false},
@@ -269,26 +286,37 @@
             valLab: {type: String, default: 'Validate'},
             backLab: {type: String, default: 'Back'},
 
-            // uses a percentage width instead of a threshold
-            hideCross: {type:Boolean, default:false},
+            noCross: {type:Boolean, default:false},
+            noFocus: {type:Boolean, default:false},
+            minPad: {type:Boolean, default:false},
+            fullFooter: {type:Boolean, default:false},
+            nakedFooter: {type:Boolean, default:false},
         },
         methods: {
             handleClose() {
-                this.value === null ? this.$emit('close') : this.$emit('input', !this.value);
+                if(this.value !== null) {
+                    this.$emit('input', !this.value)
+                }
+                this.$emit('close');
             },
             handleValidate() {
-                this.$emit('validate');
+                if(!this.noFocus) {
+                    this.$emit('validate');
+                }
+            },
+            focus() {
+                if(this.value !== null && this.$el && this.$el.focus && !this.noFocus) {
+                    this.$nextTick(() => {
+                        this.$el.focus();
+                    });
+                }
             }
         },
         watch: {
             value: {
                 immediate: true,
                 handler() {
-                    this.$nextTick(() => {
-                        if(this.value !== null && this.value && this.$el) {
-                            this.$el.focus();
-                        }
-                    });
+                    this.focus();
                 }
             }
         },
@@ -297,9 +325,7 @@
             noFooter() { return !this.$slots.footer && !this.back && !this.b && !this.validate && !this.v },
         },
         mounted() {
-            if(this.value !== null && this.$el) {
-                this.$el.focus();
-            }
+            this.focus();
         }
     }
 </script>

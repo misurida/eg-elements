@@ -1,21 +1,22 @@
+
 // Vuejs v-tooltip directive
 export default {
     inserted: function (el, bindings) {
         // quick style
-        let bg = '#fff';
-        let color = '#222';
+        let bg = '#111';
+        let color = '#CCC';
         let fontSize = '0.8rem';
-        let bs = "0 0 3px 2px rgba(0,0,0,.05)";
-        let border = "1px solid #ccc";
+        let bs = "0 0 5px 5px rgba(0,0,0,.0)";
+        let border = "1px solid #000";
         let arrowDistFromBorder = 12;
         let arrowSize = 5;
-        let panelDist = 20;
+        let panelDist = 10;
 
         // we create the tooltip elements
         el.wrapper = document.createElement('span');
         el.content = document.createElement('span');
         el.arrow = document.createElement('span');
-        el.display = "hover";
+        el.display = "furtive";
 
         // update function
         el.doUpdate = (el) => {
@@ -72,6 +73,7 @@ export default {
                 if(mod.bottom) side = "b";
                 if(mod.left) side = "l";
                 // display
+                if(mod.furtive) el.display = "furtive";
                 if(mod.hover) el.display = "hover";
                 if(mod.click) el.display = "click";
                 if(mod.clickout) el.display = "clickout";
@@ -305,7 +307,9 @@ export default {
                     timeoutOut = setTimeout(() => { el.querySelector('.tt-wrapper').style.display = "none"; }, exitTime);
                 };
                 el.contentEnter = () => {
-                    clearTimeout(timeoutOut);
+                    if(el.display !== "furtive") {
+                        clearTimeout(timeoutOut);
+                    }
                 };
                 el.contentLeave = () => {
                     timeoutOut = setTimeout(() => { el.querySelector('.tt-wrapper').style.display = "none"; }, exitTime);
