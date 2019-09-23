@@ -31,4 +31,114 @@
   --button-width: 1.6em;
   --file-height: 40px;
   --n-h-padding: var(--h-padding) + 1em;
+
+  /*
+   *  Tooltip
+   */
+  --tooltip-bg: #fff;
+  --tooltip-color: #777;
+  --tooltip-font-size: 0.8rem;
+  --tooltip-line-height: 1rem;
+  --tooltip-shadow: 0 2px 2px 0 rgba(0,0,0,0.05);
+  --tooltip-border: 1px solid #eee;
+
+
+  /*
+   *  Buttons
+   */
+  // Colors
+  --color-black: #121212;
+  --color-gray-1: #3B3B3B;
+  --color-gray-3: #e5e5e5;
+  --color-gray-6: #f2f2f2;
+  --color-white: #f5f5f5;
+  --color-error: #e02b2b;
+  --color-warning: #c69e33;
+  --color-valid: #338633;
+
+  --color-primary: #9C2727;
+  --color-primary-t: var(--color-white);
+  --color-secondary: #3F2E5E;
+  --color-secondary-t: var(--color-white);
+  --color-ternary: #696996;
+  --color-ternary-t: var(--color-white);
+  --color-light: var(--color-gray-6);
+  --color-light-t: var(--color-black);
+  --color-dark: var(--color-gray-1);
+  --color-dark-t: var(--color-white);
+
+  // animations
+  --anim-1: border .2s, box-shadow .1s, background .2s;
+
+  // > Styles
+  // default
+  --btn-default-color: var(--color-black); // color
+  --btn-default-bg: var(--color-gray-3); // background-color
+  --btn-default-border: 1px solid transparent; // border
+  --btn-default-shadow: 0 0 0 .2rem rgba(var(--btn-default-bg), 0.3); // box shadow
+  --btn-default-border-hover: 1px solid rgba(var(--btn-default-color), 0.1); // hover border
+  --btn-default-border-focus: 1px solid rgba(var(--btn-default-color), 0.2); // focus border
+  // primary
+  --btn-primary-color: var(--color-primary-t);
+  --btn-primary-bg: var(--color-primary);
+  --btn-primary-border: 1px solid transparent;
+  --btn-primary-shadow: 0 0 0 .2rem rgba(var(--color-primary), 0.3);
+  --btn-primary-border-hover: 1px solid rgba(var(--color-primary-t), 0.1);
+  --btn-primary-border-focus: 1px solid rgba(var(--color-primary-t), 0.2);
+
+  // secondary
+  --btn-secondary-color: var(--color-secondary-t);
+  --btn-secondary-bg: var(--color-secondary);
+  --btn-secondary-border: 1px solid transparent;
+  --btn-secondary-shadow: 0 0 0 .2rem rgba(var(--color-secondary), 0.3);
+  --btn-secondary-border-hover: 1px solid rgba(var(--color-secondary-t), 0.1);
+  --btn-secondary-border-focus: 1px solid rgba(var(--color-secondary-t), 0.2);
+  // ternary
+  --btn-ternary-color: var(--color-ternary-t);
+  --btn-ternary-bg: var(--color-ternary);
+  --btn-ternary-border: 1px solid transparent;
+  --btn-ternary-shadow: 0 0 0 .2rem rgba(var(--color-ternary), 0.3);
+  --btn-ternary-border-hover: 1px solid rgba(var(--color-ternary-t), 0.1);
+  --btn-ternary-border-focus: 1px solid rgba(var(--color-ternary-t), 0.2);
+  // light
+  --btn-light-color: var(--color-light-t);
+  --btn-light-bg: var(--color-light);
+  --btn-light-border: 1px solid transparent;
+  --btn-light-shadow: 0 0 0 .2rem rgba(var(--color-light), 0.3);
+  --btn-light-border-hover: 1px solid rgba(var(--color-light-t), 0.1);
+  --btn-light-border-focus: 1px solid rgba(var(--color-light-t), 0.2);
+  // dark
+  --btn-dark-color: var(--color-dark-t);
+  --btn-dark-bg: var(--color-dark);
+  --btn-dark-border: 1px solid transparent;
+  --btn-dark-shadow: 0 0 0 .2rem rgba(var(--color-dark), 0.3);
+  --btn-dark-border-hover: 1px solid rgba(var(--color-dark-t), 0.1);
+  --btn-dark-border-focus: 1px solid rgba(var(--color-dark-t), 0.2);
+  // thick
+  --btn-thick-color: var(--color-black);
+  --btn-thick-bg: var(--color-gray-6);
+  --btn-thick-border: 2px solid var(--color-black);
+  --btn-thick-shadow: 0 0 0 .2rem rgba(var(--color-black), 60%);
+  --btn-thick-border-hover: var(--btn-thick-border);
+  --btn-thick-border-focus: var(--btn-thick-border);
+
+  // > Types
+  --btn-default-padding: 0.625em 1.4em;
+  --btn-default-font-size: 1rem;
+  // small
+  --btn-small-padding-v: 0.417em;
+  --btn-small-padding-h: 1.4em;
+  --btn-small-padding: var(--btn-small-padding-v) var(--btn-small-padding-h);
+  --btn-small-font-size: 0.75rem;
+  // big
+  --btn-big-padding: 0.675em 1.5em;
+  --btn-big-font-size: 1.3rem;
+  // thin
+  --btn-thin-padding: 0.3em 0.7em;
+  // fat
+  --btn-fat-padding: 1em 2.5em;
+  // round
+  --btn-round-radius: 20px;
+  // empty
+  --btn-empty-padding: 0.334em;
 }
