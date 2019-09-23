@@ -73,18 +73,18 @@
   // > Styles
   // default
   --btn-default-color: var(--color-black); // color
-  --btn-default-bg: var(--color-gray-3); // background-color
-  --btn-default-border: 1px solid transparent; // border
-  --btn-default-shadow: 0 0 0 .2rem rgba(var(--btn-default-bg), 0.3); // box shadow
-  --btn-default-border-hover: 1px solid rgba(var(--btn-default-color), 0.1); // hover border
-  --btn-default-border-focus: 1px solid rgba(var(--btn-default-color), 0.2); // focus border
+  --btn-default-bg: #ebebeb; // background-color (65%)
+  --btn-default-border: 1px solid #dedede; // border (80%)
+  --btn-default-shadow: 0 0 .1rem .2rem rgba(196,196,196,0.2); // box shadow
+  --btn-default-border-hover: 1px solid #c4c4c4; // hover border (70%)
+  --btn-default-border-focus: 1px solid #ababab; // focus border (60%)
   // primary
   --btn-primary-color: var(--color-primary-t);
   --btn-primary-bg: var(--color-primary);
   --btn-primary-border: 1px solid transparent;
-  --btn-primary-shadow: 0 0 0 .2rem rgba(var(--color-primary), 0.3);
-  --btn-primary-border-hover: 1px solid rgba(var(--color-primary-t), 0.1);
-  --btn-primary-border-focus: 1px solid rgba(var(--color-primary-t), 0.2);
+  --btn-primary-shadow: 0 0 0 .2rem rgba(156, 39, 39, 0.2);
+  --btn-primary-border-hover: 1px solid rgba(156, 39, 39, 0.1);
+  --btn-primary-border-focus: 1px solid rgba(156, 39, 39, 0.2);
 
   // secondary
   --btn-secondary-color: var(--color-secondary-t);

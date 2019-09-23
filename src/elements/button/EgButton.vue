@@ -14,9 +14,6 @@
         color: var(--btn-default-color);
         font-family: 'Lato', sans-serif;
 
-        // transition
-        transition: var(--anim-1);
-
         // content
         .eg-btn-content {
             display: flex;
@@ -48,7 +45,7 @@
                 top: 0;
                 left: 0;
                 display: block;
-                border: $loaderBorder solid rgba(var(--btn-default-color),.1);
+                border: $loaderBorder solid transparent;
                 border-top: $loaderBorder solid var(--btn-default-color);
                 border-radius: 50%;
                 width: $loaderSize - 5px;
@@ -239,9 +236,9 @@
         }
         &.link {
             background-color: transparent;
+            border: none;
             text-decoration: underline;
             padding: 0;
-            transition: opacity .15s;
             &:not(.disabled).focus,
             &:not(.disabled).active,
             &:not(.disabled):hover,
@@ -402,6 +399,7 @@
             background-color: transparent;
             padding-top: 1.5em;
             color: var(--color-black);
+            border: none;
             .loader .loader-inside {
                 border: $loaderBorder solid rgba(var(--color-black),.1);
                 border-top: $loaderBorder solid var(--color-black);
@@ -420,7 +418,6 @@
                 border-radius: 50%;
                 transform: translateX(-50%);
             }
-            transition: opacity .15s;
             &:not(.disabled).focus,
             &:not(.disabled):hover,
             &:not(.disabled):focus {
