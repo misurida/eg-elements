@@ -1,4 +1,5 @@
 <style lang="scss">
+    @import "/elements/variables";
     @import url('https://fonts.googleapis.com/css?family=Lato|Source+Sans+Pro:300,400,600&display=swap');
     * {
         font-family: 'Lato', sans-serif;

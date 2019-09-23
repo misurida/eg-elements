@@ -3,11 +3,12 @@
 export default {
     inserted: function (el, bindings) {
         // quick style
-        let bg = '#111';
-        let color = '#CCC';
-        let fontSize = '0.8rem';
-        let bs = "0 0 5px 5px rgba(0,0,0,.0)";
-        let border = "1px solid #000";
+        let bg = 'var(--tooltip-bg, #111)';
+        let color = 'var(--tooltip-color, #CCC)';
+        let fontSize = 'var(--tooltip-font-size, 0.8rem)';
+        let lineHeight = 'var(--tooltip-line-height, 1rem)';
+        let bs = "var(--tooltip-shadow, 0 0 5px 5px rgba(0,0,0,.0))";
+        let border = "var(--tooltip-border, 1px solid #000)";
         let arrowDistFromBorder = 12;
         let arrowSize = 5;
         let panelDist = 10;
@@ -167,7 +168,7 @@ export default {
 
             // CONTENT
             el.content.style.fontSize = fontSize;
-            el.content.style.lineHeight = fontSize;
+            el.content.style.lineHeight = lineHeight;
             el.content.style.padding = '6px 12px'; // custom
             el.content.style.color = color; // custom
             el.content.style.borderRadius = '3px'; // custom

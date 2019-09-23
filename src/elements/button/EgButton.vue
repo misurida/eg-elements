@@ -1,115 +1,21 @@
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-    // Colors
-    $black: #121212;
-    $dgray: #3B3B3B;
-    $mgray: #e5e5e5;
-    $lgray: #f2f2f2;
-    $white: #f5f5f5;
-    $errorRed: #e02b2b;
-    $warningOrange: #c69e33;
-    $validGreen: #338633;
-
-    $primary: #9C2727;
-    $cPrimary: $white;
-    $secondary: #3F2E5E;
-    $cSecondary: $white;
-    $ternary: #696996;
-    $cTernary: $white;
-    $light: $lgray;
-    $cLight: $black;
-    $dark: $dgray;
-    $cDark: $white;
-
-    // animations
-    $t1: border .2s, box-shadow .1s, background .2s;
-
-    // > Styles
-    // default
-    $cDefault: $black; // color
-    $bgDefault: $mgray; // background-color
-    $bDefault: 1px solid transparent; // border
-    $bsDefault: 0 0 0 .2rem rgba($bgDefault, 0.3); // box shadow
-    $hbDefault: 1px solid rgba($cDefault, 0.1); // hover border
-    $fbDefault: 1px solid rgba($cDefault, 0.2); // focus border
-    // primary
-    $cPrimary: $cPrimary;
-    $bgPrimary: $primary;
-    $bPrimary: 1px solid transparent;
-    $bsPrimary: 0 0 0 .2rem rgba($primary, 0.3);
-    $hbPrimary: 1px solid rgba($cPrimary, 0.1);
-    $fbPrimary: 1px solid rgba($cPrimary, 0.2);
-    // secondary
-    $cSecondary: $cSecondary;
-    $bgSecondary: $secondary;
-    $bSecondary: 1px solid transparent;
-    $bsSecondary: 0 0 0 .2rem rgba($secondary, 0.3);
-    $hbSecondary: 1px solid rgba($cSecondary, 0.1);
-    $fbSecondary: 1px solid rgba($cSecondary, 0.2);
-    // ternary
-    $cTernary: $cTernary;
-    $bgTernary: $ternary;
-    $bTernary: 1px solid transparent;
-    $bsTernary: 0 0 0 .2rem rgba($ternary, 0.3);
-    $hbTernary: 1px solid rgba($cTernary, 0.1);
-    $fbTernary: 1px solid rgba($cTernary, 0.2);
-    // light
-    $cLight: $cLight;
-    $bgLight: $light;
-    $bLight: 1px solid transparent;
-    $bsLight: 0 0 0 .2rem rgba($light, 0.3);
-    $hbLight: 1px solid rgba($cLight, 0.1);
-    $fbLight: 1px solid rgba($cLight, 0.2);
-    // dark
-    $cDark: $cDark;
-    $bgDark: $dark;
-    $bDark: 1px solid transparent;
-    $bsDark: 0 0 0 .2rem rgba($dark, 0.3);
-    $hbDark: 1px solid rgba($cDark, 0.1);
-    $fbDark: 1px solid rgba($cDark, 0.2);
-    // thick
-    $cThick: $black;
-    $bgThick: $lgray;
-    $bThick: 2px solid lighten($black, 60%);
-    $bsThick: 0 0 0 .2rem rgba(lighten($black, 60%), 0.3);
-    $hbThick: $bThick;
-    $fbThick: $bThick;
-
-    // > Types
-    $pDefault: 0.625em 1.4em;
-    $fsDefault: 1rem;
-    // small
-    $pSmallV: 0.417em;
-    $pSmallH: 1.4em;
-    $pSmall: $pSmallV $pSmallH;
-    $fsSmall: 0.75rem;
-    // big
-    $pBig: 0.675em 1.5em;
-    $fsBig: 1.3rem;
-    // thin
-    $pThin: 0.3em 0.7em;
-    // fat
-    $pFat: 1em 2.5em;
-    // round
-    $roundRadius: 20px;
-    // empty
-    $pEmpty: 0.334em;
 
     .eg-button {
         // properties
         position: relative;
         cursor: pointer;
-        font-size: $fsDefault;
-        line-height: $fsDefault;
-        padding: $pDefault;
-        background-color: $bgDefault;
-        border: $bDefault;
+        font-size: var(--btn-default-font-size);
+        line-height: var(--btn-default-font-size);
+        padding: var(--btn-default-padding);
+        background-color: var(--btn-default-bg);
+        border: var(--btn-default-border);
         border-radius: 5px;
-        color: $cDefault;
+        color: var(--btn-default-color);
         font-family: 'Lato', sans-serif;
 
         // transition
-        transition: $t1;
+        transition: var(--anim-1);
 
         // content
         .eg-btn-content {
@@ -142,8 +48,8 @@
                 top: 0;
                 left: 0;
                 display: block;
-                border: $loaderBorder solid rgba($cDefault,.1);
-                border-top: $loaderBorder solid $cDefault;
+                border: $loaderBorder solid rgba(var(--btn-default-color),.1);
+                border-top: $loaderBorder solid var(--btn-default-color);
                 border-radius: 50%;
                 width: $loaderSize - 5px;
                 height: $loaderSize - 5px;
@@ -190,144 +96,144 @@
         &.hover:not(.yoga):not(.link):not(.disabled),
         &:hover:not(.yoga):not(.link):not(.disabled) {
             outline: none;
-            box-shadow: $bsDefault;
-            border: $hbDefault;
+            box-shadow: var(--btn-default-shadow);
+            border: var(--btn-default-border-hover);
             &.primary {
-                border: $hbPrimary;
-                box-shadow: $bsPrimary;
+                border: var(--btn-primary-border-hover);
+                box-shadow: var(--btn-primary-shadow);
             }
             &.secondary {
-                border: $hbSecondary;
-                box-shadow: $bsSecondary;
+                border: var(--btn-secondary-border-hover);
+                box-shadow: var(--btn-secondary-shadow);
             }
             &.ternary {
-                border: $hbTernary;
-                box-shadow: $bsTernary;
+                border: var(--btn-ternary-border-hover);
+                box-shadow: var(--btn-ternary-shadow);
             }
             &.light {
-                border: $hbLight;
-                box-shadow: $bsLight;
+                border: var(--btn-light-border-hover);
+                box-shadow: var(--btn-light-shadow);
             }
             &.dark {
-                border: $hbDark;
-                box-shadow: $bsDark;
+                border: var(--btn-dark-border-hover);
+                box-shadow: var(--btn-dark-shadow);
             }
             &.thick {
-                border: $bThick;
-                box-shadow: $bsThick;
+                border: var(--btn-thick-border-hover);
+                box-shadow: var(--btn-thick-shadow);
                 background-color: transparent;
             }
             &.error {
-                box-shadow: 0 0 0 .2rem rgba($errorRed, 0.3);
+                box-shadow: 0 0 0 .2rem rgba(var(--color-error), 0.3);
             }
             &.warning {
-                box-shadow: 0 0 0 .2rem rgba($warningOrange, 0.3);
+                box-shadow: 0 0 0 .2rem rgba(var(--color-warning), 0.3);
             }
             &.valid {
-                box-shadow: 0 0 0 .2rem rgba($validGreen, 0.3);
+                box-shadow: 0 0 0 .2rem rgba(var(--color-valid), 0.3);
             }
         }
         &.focus:not(.yoga):not(.link):not(.disabled),
         &:focus:not(.yoga):not(.link):not(.disabled) {
             outline: none;
-            box-shadow: $bsDefault;
-            border: $fbDefault;
+            box-shadow: var(--btn-default-shadow);
+            border: var(--btn-default-border-focus);
             &.primary {
-                border: $fbPrimary;
+                border: var(--btn-primary-border-focus);
             }
             &.seconday {
-                border: $fbSecondary;
+                border: var(--btn-secondary-border-focus);
             }
             &.ternary {
-                border: $fbTernary;
+                border: var(--btn-ternary-border-focus);
             }
             &.light {
-                border: $fbDark;
+                border: var(--btn-light-border-focus);
             }
             &.dark {
-                border: $fbDark;
+                border: var(--btn-dark-border-focus);
             }
             &.thick {
-                border: $bThick;
+                border: var(--btn-thick-border-focus);
             }
         }
 
         &.primary {
-            color: $cPrimary;
-            background-color: $bgPrimary;
-            border: $bPrimary;
+            color: var(--color-primary-t);
+            background-color: var(--btn-primary-bg);
+            border: var(--btn-primary-border);
             .loader .loader-inside {
-                border: $loaderBorder solid rgba($cPrimary,.1);
-                border-top: $loaderBorder solid $cPrimary;
+                border: $loaderBorder solid rgba(var(--color-primary-t),.1);
+                border-top: $loaderBorder solid var(--color-primary-t);
             }
             .svg-icon svg path {
-                fill: rgba($cPrimary, 0.9);
+                fill: rgba(var(--color-primary-t), 0.9);
             }
             &.warning {
-                background-color: $warningOrange;
+                background-color: var(--color-warning);
             }
             &.valid {
-                background-color: $validGreen;
+                background-color: var(--color-valid);
             }
         }
         &.secondary {
-            color: $cSecondary;
-            background-color: $bgSecondary;
-            border: $bSecondary;
+            color: var(--color-secondary-t);
+            background-color: var(--btn-secondary-bg);
+            border: var(--btn-secondary-border);
             .loader .loader-inside {
-                border: $loaderBorder solid rgba($cSecondary,.1);
-                border-top: $loaderBorder solid $cSecondary;
+                border: $loaderBorder solid rgba(var(--color-secondary-t),.1);
+                border-top: $loaderBorder solid var(--color-secondary-t);
             }
             .svg-icon svg path {
-                fill: rgba($cSecondary, 0.9);
+                fill: rgba(var(--color-secondary-t), 0.9);
             }
         }
         &.ternary {
-            color: $cTernary;
-            background-color: $bgTernary;
-            border: $bTernary;
+            color: var(--color-ternary-t);
+            background-color: var(--btn-ternary-bg);
+            border: var(--btn-ternary-border);
             .loader .loader-inside {
-                border: $loaderBorder solid rgba($cTernary,.1);
-                border-top: $loaderBorder solid $cTernary;
+                border: $loaderBorder solid rgba(var(--color-ternary-t),.1);
+                border-top: $loaderBorder solid var(--color-ternary-t);
             }
             .svg-icon svg path {
-                fill: rgba($cTernary, 0.9);
+                fill: rgba(var(--color-ternary-t), 0.9);
             }
         }
         &.light {
-            color: $cLight;
-            background-color: $bgLight;
-            border: $bLight;
+            color: var(--color-light-t);
+            background-color: var(--btn-light-bg);
+            border: var(--btn-light-border);
             .loader .loader-inside {
-                border: $loaderBorder solid rgba($cLight,.1);
-                border-top: $loaderBorder solid $cLight;
+                border: $loaderBorder solid rgba(var(--color-light-t),.1);
+                border-top: $loaderBorder solid var(--color-light-t);
             }
             .svg-icon {
                 opacity: 0.5;
                 &,
                 i {
-                    color: rgba($cLight, 0.9);
+                    color: rgba(var(--color-light-t), 0.9);
                 }
                 svg path {
-                    fill: rgba($cLight, 0.9);
+                    fill: rgba(var(--color-light-t), 0.9);
                 }
             }
         }
         &.dark {
-            color: $cDark;
-            background-color: $bgDark;
-            border: $bDark;
+            color: var(--color-dark-t);
+            background-color: var(--btn-dark-bg);
+            border: var(--btn-dark-border);
             .loader .loader-inside {
-                border: $loaderBorder solid rgba($cDark,.1);
-                border-top: $loaderBorder solid $cDark;
+                border: $loaderBorder solid rgba(var(--color-dark-t),.1);
+                border-top: $loaderBorder solid var(--color-dark-t);
             }
             .svg-icon {
                 &,
                 i {
-                    color: rgba($cDark, 0.9);
+                    color: rgba(var(--color-dark-t), 0.9);
                 }
                 svg path {
-                    fill: rgba($cDark, 0.9);
+                    fill: rgba(var(--color-dark-t), 0.9);
                 }
             }
         }
@@ -353,39 +259,39 @@
 
         // error, warning and valid
         &.error {
-            color: $errorRed;
+            color: var(--color-error);
         }
         &.warning {
-            color: $warningOrange;
+            color: var(--color-warning);
         }
         &.valid {
-            color: $validGreen;
+            color: var(--color-valid);
         }
         &.primary,
         &.secondary,
         &.ternary,
         &.dark {
             &.error {
-                color: $lgray;
-                background-color: $errorRed;
+                color: var(--color-gray-6);
+                background-color: var(--color-error);
             }
             &.warning {
-                color: $lgray;
-                background-color: $warningOrange;
+                color: var(--color-gray-6);
+                background-color: var(--color-warning);
             }
             &.valid {
-                color: $lgray;
-                background-color: $validGreen;
+                color: var(--color-gray-6);
+                background-color: var(--color-valid);
             }
         }
 
         // types
         &.small {
             height: 32px;
-            font-size: $fsSmall;
-            line-height: $fsSmall;
+            font-size: var(--btn-small-font-size);
+            line-height: var(--btn-small-font-size);
             &:not(.link) {
-                padding: $pSmall;
+                padding: var(--btn-small-padding);
             }
             .svg-icon {
                 width: 1em;
@@ -397,26 +303,26 @@
                 padding-left: 2.5em;
             }
             &.no-content {
-                padding-left: $pSmallH;
-                padding-right: $pSmallH;
+                padding-left: var(--btn-small-padding-h);
+                padding-right: var(--btn-small-padding-h);
             }
         }
         &.big {
-            padding: $pBig;
-            font-size: $fsBig;
-            line-height: $fsBig;
+            padding: var(--btn-big-padding);
+            font-size: var(--btn-big-font-size);
+            line-height: var(--btn-big-font-size);
         }
         &.thin {
-            padding: $pThin;
+            padding: var(--btn-thin-padding);
         }
         &.fat {
-            padding: $pFat;
+            padding: var(--btn-fat-padding);
         }
         &.square {
             border-radius: 0;
         }
         &.round {
-            border-radius: $roundRadius;
+            border-radius: var(--btn-round-radius);
         }
         &.wide {
             width: 100%;
@@ -442,7 +348,7 @@
                 height: $iconWidth;
                 width: $iconWidth;
                 path {
-                    fill: rgba($cDefault,0.75);
+                    fill: rgba(var(--btn-default-color),0.75);
                 }
             }
             &.inline-icon {
@@ -456,52 +362,52 @@
         &:disabled,
         .disabled {
             opacity: 0.8;
-            color: rgba($cDefault, 0.5);
+            color: rgba(var(--btn-default-color), 0.5);
             cursor: default;
             &.dark,
             &.primary,
             &.secondary,
             &.ternary {
-                color: rgba($cPrimary, 0.5);
+                color: rgba(var(--color-primary-t), 0.5);
             }
         }
 
         // special styles
         &.thick {
-            color: $cThick;
-            background-color: $bgThick;
-            border: $bThick;
+            color: var(--btn-thick-color);
+            background-color: var(--btn-thick-bg);
+            border: var(--btn-thick-border);
             .loader .loader-inside {
-                border: $loaderBorder solid rgba($cThick,.1);
-                border-top: $loaderBorder solid $cThick;
+                border: $loaderBorder solid rgba(var(--btn-thick-color),.1);
+                border-top: $loaderBorder solid var(--btn-thick-color);
             }
             .svg-icon svg path {
-                fill: rgba($cThick, 0.9);
+                fill: rgba(var(--btn-thick-color), 0.9);
             }
             &.error {
-                border-color: $errorRed;
-                color: $errorRed;
+                border-color: var(--color-error);
+                color: var(--color-error);
             }
             &.warning {
-                border-color: $warningOrange;
-                color: $warningOrange;
+                border-color: var(--color-warning);
+                color: var(--color-warning);
             }
             &.valid {
-                border-color: $validGreen;
-                color: $validGreen;
+                border-color: var(--color-valid);
+                color: var(--color-valid);
             }
         }
         &.yoga {
             $dotSize: 8px;
             background-color: transparent;
             padding-top: 1.5em;
-            color: $black;
+            color: var(--color-black);
             .loader .loader-inside {
-                border: $loaderBorder solid rgba($black,.1);
-                border-top: $loaderBorder solid $black;
+                border: $loaderBorder solid rgba(var(--color-black),.1);
+                border-top: $loaderBorder solid var(--color-black);
             }
             .svg-icon svg path {
-                fill: darken($mgray, 40%);
+                fill: var(--color-gray-3);
             }
             &::before {
                 content: '';
@@ -510,7 +416,7 @@
                 left: 50%;
                 width: $dotSize;
                 height: $dotSize;
-                background-color: rgba($primary, 0.2);
+                background-color: rgba(var(--color-primary), 0.2);
                 border-radius: 50%;
                 transform: translateX(-50%);
             }
@@ -523,25 +429,25 @@
             }
             &.active {
                 &::before {
-                    background-color: $primary;
+                    background-color: var(--color-primary);
                 }
             }
             &.error {
-                color: $errorRed;
+                color: var(--color-error);
                 &::before {
-                    background-color: $errorRed;
+                    background-color: var(--color-error);
                 }
             }
             &.warning {
-                color: $warningOrange;
+                color: var(--color-warning);
                 &::before {
-                    background-color: $warningOrange;
+                    background-color: var(--color-warning);
                 }
             }
             &.valid {
-                color: $validGreen;
+                color: var(--color-valid);
                 &::before {
-                    background-color: $validGreen;
+                    background-color: var(--color-valid);
                 }
             }
             &.small::before {
@@ -562,7 +468,7 @@
                 justify-content: center;
                 width: 100%;
             }
-            padding: $pEmpty;
+            padding: var(--btn-empty-padding);
         }
 
         // helpers
