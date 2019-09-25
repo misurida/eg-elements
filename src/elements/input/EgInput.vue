@@ -45,7 +45,7 @@
                 display: block;
                 border: 2px solid rgba(#000,.05);
                 border-radius: 50%;
-                border-top: 2px solid var(--color-2);
+                border-top: 2px solid var(--color-gray-2);
                 width: 15px;
                 height: 15px;
                 animation: spin 1s linear infinite;
@@ -70,7 +70,7 @@
         padding: var(--padding);
         border: none;
         line-height: 1.5rem;
-        color: var(--color);
+        color: var(--color-gray);
         background-color: transparent;
         &:focus {
             outline: none;
@@ -118,23 +118,24 @@
             }
             .prefix {
                 padding-right: 0;
-                color: var(--color-3);
+                color: var(--color-gray-3);
             }
             .suffix {
                 padding-left: 0;
-                color: var(--color-3);
+                color: var(--color-gray-3);
             }
             .inner-input-button {
                 @extend .eg-inner-style;
                 flex: 1;
                 text-align: left;
+                cursor: pointer;
             }
 
             // Focus
             &.focus {
-                border-color: var(--active-color);
+                border-color: var(--color-primary);
                 .input-icon .svg-icon svg {
-                    fill: var(--active-color);
+                    fill: var(--color-primary);
                 }
             }
         }
@@ -150,16 +151,16 @@
         // States
         &.error {
             .eg-label {
-                color: var(--error-color);
+                color: var(--color-error);
             }
             .eg-input-content {
-                border-color: var(--error-color);
+                border-color: var(--color-error);
                 .input-icon .svg-icon svg {
-                    fill: var(--error-color);
+                    fill: var(--color-error);
                 }
             }
             .messages-zone {
-                color: var(--error-color);
+                color: var(--color-error);
             }
         }
         &.disabled {
@@ -188,7 +189,7 @@
         .messages-zone {
             font-size: 0.8rem;
             margin: 5px 0;
-            color: var(--color-4);
+            color: var(--color-gray-4);
             .message-counter {
                 float: right;
             }
@@ -228,9 +229,9 @@
             .select-legacy {
                 width: 100%;
                 &.focus {
-                    border-color: var(--active-color);
+                    border-color: var(--color-primary);
                     .input-icon .svg-icon svg {
-                        fill: var(--active-color);
+                        fill: var(--color-primary);
                     }
                 }
             }
@@ -267,7 +268,7 @@
                     width: 100%;
                     height: 100%;
                     path {
-                        stroke: var(--color);
+                        stroke: var(--color-gray);
                         transition: stroke-dashoffset .1s;
                         &.arrow {
                             stroke-dasharray: 50px;
@@ -348,10 +349,10 @@
                     height: 100%;
                     path {
                         &.circle {
-                            fill: var(--color-4);
+                            fill: var(--color-gray-4);
                         }
                         &.dot {
-                            stroke: var(--color-4);
+                            stroke: var(--color-gray-4);
                         }
                     }
                 }
@@ -361,10 +362,10 @@
                     svg {
                         path {
                             &.circle {
-                                fill: var(--color);
+                                fill: var(--color-gray);
                             }
                             &.dot {
-                                stroke: var(--color);
+                                stroke: var(--color-gray);
                             }
                         }
                     }
@@ -409,10 +410,10 @@
                     svg {
                         path {
                             &.circle {
-                                fill: var(--color);
+                                fill: var(--color-gray);
                             }
                             &.dot {
-                                stroke: var(--color);
+                                stroke: var(--color-gray);
                             }
                         }
                     }
@@ -438,10 +439,10 @@
                     svg {
                         path {
                             &.circle {
-                                fill: var(--color-2);
+                                fill: var(--color-gray-2);
                             }
                             &.dot {
-                                stroke: var(--color-2);
+                                stroke: var(--color-gray-2);
                             }
                         }
                     }
@@ -506,20 +507,20 @@
                     height: 10px;
                     border-radius: 5px;
                     width: 100%;
-                    background-color: var(--color-5);
+                    background-color: var(--color-gray-5);
                     top: 50%;
                     position: absolute;
                     transform: translateY(-50%);
                     &.positive {
-                        background-color: var(--light-active-color);
+                        background-color: rgba(var(--rgb-primary), 0.3);
                     }
                 }
             }
             .slider-dot {
                 transition: left 100ms ease-out, background 100ms ease-out;
                 &.positive {
-                    background-color: var(--active-color);
-                    border-color: var(--active-color);
+                    background-color: var(--color-primary);
+                    border-color: var(--color-primary);
                 }
                 &:focus,
                 &:hover {
@@ -596,144 +597,10 @@
             }
         }
         &.date {
-            .select-panel {
-                width: 280px;
-                .pad-day,
-                .calendar-day {
-                    min-height: 38px;
-                }
-            }
-            .calendar-header {
-                .caret svg {
-                    height: 15px;
-                    width: 15px;
-                }
-            }
-            .calendar-preview {
-                border: none;
-            }
-            .grid-selector {
-                border: none;
-            }
-        }
-        &.time {
-            .select-panel {
-                width: 250px;
-            }
-            .timer-wrapper {
-                font-family: inherit;
-                display: flex;
-                font-size: 0.75rem;
-                flex-direction: column;
-                padding: var(--padding);
-                .time-col {
-                    font-family: inherit;
-                    flex: 1;
-                    margin-left: 5px;
-                    &:first-child {
-                        min-width: 90px;
-                    }
-                    span {
-                        color: darken(#f5f5f5,40%);
-                        font-family: inherit;
-                    }
-                    .time-grid {
-                        font-family: inherit;
-                        border-radius: 3px;
-                        background-color: #f5f5f5;
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                    }
-                    button {
-                        background-color: transparent;
-                        border: none;
-                        cursor: pointer;
-                        padding: 5px 0;
-                        font-size: 0.75rem;
-                        border-radius: 3px;
-                        font-family: inherit;
-                        &:focus,
-                        &:hover {
-                            outline-width: 0;
-                            background-color: darken(#f5f5f5,5%);
-                        }
-                        &.selected {
-                            background-color: darken(#f5f5f5,10%);
-                        }
-                    }
-                    &:first-child {
-                        margin-left: 0;
-                        .time-grid {
-                            grid-template-columns: 1fr 1fr 1fr 1fr;
-                        }
-                    }
-                }
-                .timer-footer {
-                    text-align: right;
-                    padding: 5px;
-                    margin-top: 5px;
-                    background-color: #f5f5f5;
-                    button {
-                        padding: 4px;
-                        font-size: 0.75rem;
-                        background-color: transparent;
-                        margin-left: 4px;
-                        cursor: pointer;
-                        border: 1px solid transparent;
-                        border-radius: 3px;
-                        color: darken(#f5f5f5, 50%);
-                        font-family: inherit;
-                        &:hover {
-                            background-color: darken(#f5f5f5, 5%);
-                        }
-                        &:focus {
-                            outline-width: 0;
-                            border: 1px solid #ccc;
-                        }
-                        &.selected {
-                            border: 1px solid #ccc;
-                        }
-                    }
-                }
-            }
-            .timer-content {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-            }
+
         }
         &.date.time {
-            .calendar-wrapper {
-                display: grid;
-                grid-template-columns: 280px 1fr;
-            }
-            .timer-wrapper {
-                flex-direction: column;
-                justify-content: space-evenly;
-                padding: 0;
-                .time-col {
-                    margin-left: 0;
-                    margin-bottom: 5px;
-                    flex: 0;
-                    .time-grid {
-                        grid-template-columns: repeat(6, 1fr);
-                    }
-                }
-            }
-            .timer-content {
-                flex: 1;
-                padding: calc(2 * var(--v-padding)) var(--h-padding) calc(var(--v-padding) / 2) var(--h-padding);
-            }
-            .select-panel {
-                width: 450px;
-            }
-            @media screen and (max-width: 500px) {
-                .calendar-wrapper {
-                    grid-template-columns: 1fr;
-                }
-                .select-panel {
-                    width: 280px;
-                }
-            }
+
         }
         &.date.legacy,
         &.time.legacy,
@@ -749,9 +616,7 @@
         &.datetime-range,
         &.datetime,
         &.date-range {
-            .timer-content {
-                grid-template-columns: 1fr;
-            }
+
         }
         &.file {
             .eg-input-content {
@@ -771,7 +636,7 @@
                     display: flex;
                     width: 100%;
                     &.file-placeholder {
-                        color: var(--color-4);
+                        color: var(--color-gray-4);
                         &.drop-placeholder {
                             text-align: center;
                             justify-content: center;
@@ -812,8 +677,8 @@
                     text-align: left;
                     box-sizing: border-box;
                     &.loaded {
-                        border-color: var(--color-5);
-                        background-color: var(--color-6);
+                        border-color: var(--color-gray-5);
+                        background-color: var(--color-gray-6);
                     }
                     .input-icon {
                         cursor: pointer;
@@ -830,7 +695,7 @@
                         }
                         outline-width: 0;
                         box-shadow: var(--box-shadow);
-                        border-color: var(--color-4);
+                        border-color: var(--color-gray-4);
                     }
                     .file-content {
                         width: 100%;
@@ -861,7 +726,7 @@
                         }
                     }
                     &.error {
-                        background-color: rgba(var(--error-color), 0.1);
+                        background-color: rgba(var(--rgb-error), 0.1);
                         &:focus,
                         &:hover {
                             outline-width: 0;
@@ -870,13 +735,13 @@
                         .input-icon {
                             opacity: 1;
                             path {
-                                fill: var(--error-color);
+                                fill: var(--color-error);
                             }
                         }
                     }
                 }
                 .message-list {
-                    color: var(--error-color);
+                    color: var(--color-error);
                     margin-bottom: 5px;
                 }
                 .file-picture {
@@ -972,7 +837,7 @@
             svg {
                 height: 100%;
                 width: 100%;
-                fill: var(--color-4);
+                fill: var(--color-gray-4);
             }
         }
         svg {
@@ -990,7 +855,7 @@
         background-color: transparent;
         padding: 0;
         font-size: 1rem;
-        color: var(--color-2);
+        color: var(--color-gray-2);
         cursor: pointer;
         user-select: none;
         font-family: inherit;
@@ -1010,7 +875,7 @@
 
     // pill (items on the multiple input)
     .eg-tag {
-        color: var(--color-2);
+        color: var(--color-gray-2);
         border-radius: var(--border-radius);
         font-size: 0.8rem;
         cursor: pointer;
@@ -1022,7 +887,7 @@
         position: relative;
         &:focus {
             outline-width: 0;
-            border-color: var(--color-6);
+            border-color: var(--color-gray-6);
         }
         .cross-pill {
             position: absolute;
@@ -1085,10 +950,10 @@
                 width: 5px;
             }
             &::-webkit-scrollbar-track {
-                background: rgba(var(--color), 0.05);
+                background: rgba(var(--color-gray), 0.05);
             }
             &::-webkit-scrollbar-thumb {
-                background: rgba(var(--color), 0.2);
+                background: rgba(var(--color-gray), 0.2);
                 cursor: pointer;
             }
         }
@@ -1100,7 +965,7 @@
         .select-item {
             text-align: left;
             border: none;
-            border-bottom: 1px solid rgba(var(--color), 0.1);
+            border-bottom: 1px solid rgba(var(--color-gray), 0.1);
             cursor: pointer;
             width: 100%;
             padding: 0;
@@ -1137,7 +1002,7 @@
                     border-radius: 50%;
                 }
                 &.empty {
-                    color: var(--color-3);
+                    color: var(--color-gray-3);
                 }
             }
         }
@@ -1147,7 +1012,7 @@
             padding: 0;
             list-style-type: none;
             .select-item:first-child {
-                border-top: 1px solid rgba(var(--color), 0.1);
+                border-top: 1px solid rgba(var(--color-gray), 0.1);
             }
         }
         // item label
@@ -1155,7 +1020,7 @@
             display: block;
             padding: 2em 1em 0.6em 1em;
             font-size: 0.7rem;
-            color: var(--color);
+            color: var(--color-gray);
             text-align: left;
         }
         // for deployment animation
@@ -1167,7 +1032,136 @@
         }
 
         &.date {
-            min-width: 260px;
+            min-width: 250px;
+            .calendar-header {
+                .caret svg {
+                    height: 15px;
+                    width: 15px;
+                }
+            }
+            .calendar-preview {
+                border: none;
+            }
+            .grid-selector {
+                border: none;
+            }
+        }
+        &.time,
+        &.datetime { // to get the time format
+            min-width: 250px;
+            .timer-wrapper {
+                font-family: inherit;
+                display: flex;
+                font-size: 0.75rem;
+                flex-direction: column;
+                padding: var(--padding);
+                .time-col {
+                    font-family: inherit;
+                    flex: 1;
+                    margin-left: 5px;
+                    &:first-child {
+                        min-width: 90px;
+                    }
+                    span {
+                        color: darken(#f5f5f5,40%);
+                        font-family: inherit;
+                    }
+                    .time-grid {
+                        font-family: inherit;
+                        border-radius: 3px;
+                        background-color: #f5f5f5;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                    }
+                    button {
+                        background-color: transparent;
+                        border: none;
+                        cursor: pointer;
+                        padding: 5px 0;
+                        font-size: 0.75rem;
+                        border-radius: 3px;
+                        font-family: inherit;
+                        &:focus,
+                        &:hover {
+                            outline-width: 0;
+                            background-color: darken(#f5f5f5,5%);
+                        }
+                        &.selected {
+                            background-color: darken(#f5f5f5,10%);
+                        }
+                    }
+                    &:first-child {
+                        margin-left: 0;
+                        .time-grid {
+                            grid-template-columns: 1fr 1fr 1fr 1fr;
+                        }
+                    }
+                }
+                .timer-footer {
+                    text-align: right;
+                    padding: 5px;
+                    margin-top: 5px;
+                    background-color: #f5f5f5;
+                    button {
+                        padding: 4px;
+                        font-size: 0.75rem;
+                        background-color: transparent;
+                        margin-left: 4px;
+                        cursor: pointer;
+                        border: 1px solid transparent;
+                        border-radius: 3px;
+                        color: darken(#f5f5f5, 50%);
+                        font-family: inherit;
+                        &:hover {
+                            background-color: darken(#f5f5f5, 5%);
+                        }
+                        &:focus {
+                            outline-width: 0;
+                            border: 1px solid #ccc;
+                        }
+                        &.selected {
+                            border: 1px solid #ccc;
+                        }
+                    }
+                }
+            }
+            .timer-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        &.datetime {
+            min-width: 500px;
+            .calendar-wrapper {
+                display: grid;
+                grid-template-columns: 280px 1fr;
+            }
+            .timer-wrapper {
+                flex-direction: column;
+                justify-content: space-evenly;
+                padding: 0;
+                .time-col {
+                    margin-left: 0;
+                    margin-bottom: 5px;
+                    flex: 0;
+                }
+            }
+            .timer-content {
+                flex: 1;
+                grid-gap: 5px;
+                padding: calc(2 * var(--v-padding)) var(--h-padding) calc(var(--v-padding) / 2) var(--h-padding);
+            }
+            .select-panel {
+                width: 450px;
+            }
+            @media screen and (max-width: 500px) {
+                .calendar-wrapper {
+                    grid-template-columns: 1fr;
+                }
+                .select-panel {
+                    width: 280px;
+                }
+            }
         }
     }
 
@@ -1182,14 +1176,14 @@
             }
             &:first-child {
                 .input-style-wrapper, .select-facade, textarea, input {
-                    border-left-color: var(--color);
+                    border-left-color: var(--color-gray);
                     border-top-left-radius: var(--border-radius);
                     border-bottom-left-radius: var(--border-radius);
                 }
             }
             &:last-child {
                 .input-style-wrapper, .select-facade, textarea, input {
-                    border-right-color: var(--color);
+                    border-right-color: var(--color-gray);
                     border-top-right-radius: var(--border-radius);
                     border-bottom-right-radius: var(--border-radius);
                 }
@@ -1203,6 +1197,8 @@
             class="eg-input"
             :style="style"
             @click="handleWrapperClick"
+            @mousedown="handleWrapperMousedown"
+            @mouseup="handleWrapperMouseup"
             :class="inputClass">
         <!-- Label -->
         <label class="eg-label group-label" :for="theId" v-if="isCheckbox&&!legacy&&multiple">{{ label }}</label>
@@ -1330,34 +1326,34 @@
                 <svg @mousemove="starOver($event,i)" :key="i" @click="clickStar($event,i)" :class="{hover:starHovered==i, activated:starActive>=i, full:starHovered>=i, active:i==starActive}" version="1.1" viewBox="0 0 13.229 13.229" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="light-to-transparent">
-                            <stop offset="0%"  :stop-color="lightGray"/>
-                            <stop :offset="(dc*100)+'%'"  :stop-color="lightGray"/>
+                            <stop offset="0%"  stop-color="var(--color-gray-5)"/>
+                            <stop :offset="(dc*100)+'%'"  stop-color="var(--color-gray-5)"/>
                             <stop :offset="(dc*100)+'%'" stop-color="transparent"/>
                             <stop offset="100%" stop-color="transparent"/>
                         </linearGradient>
                         <linearGradient id="active-to-transparent">
-                            <stop offset="0%"  :stop-color="activeColor"/>
-                            <stop :offset="(adc*100)+'%'"  :stop-color="activeColor"/>
+                            <stop offset="0%" stop-color="var(--color-primary)"/>
+                            <stop :offset="(adc*100)+'%'" stop-color="var(--color-primary)"/>
                             <stop :offset="(adc*100)+'%'" stop-color="transparent"/>
                             <stop offset="100%" stop-color="transparent"/>
                         </linearGradient>
                         <linearGradient id="dark-to-active">
-                            <stop offset="0%"  :stop-color="darkColor"/>
-                            <stop :offset="(dc*100)+'%'"  :stop-color="darkColor"/>
-                            <stop :offset="(dc*100)+'%'" :stop-color="activeColor"/>
-                            <stop offset="100%" :stop-color="activeColor"/>
+                            <stop offset="0%"  stop-color="var(--color-primary-2)"/>
+                            <stop :offset="(dc*100)+'%'"  stop-color="var(--color-primary-2)"/>
+                            <stop :offset="(dc*100)+'%'" stop-color="var(--color-primary)"/>
+                            <stop offset="100%" stop-color="var(--color-primary)"/>
                         </linearGradient>
                         <linearGradient id="dark-to-transparent">
-                            <stop offset="0%"  :stop-color="darkColor"/>
-                            <stop :offset="(dc*100)+'%'"  :stop-color="darkColor"/>
+                            <stop offset="0%"  stop-color="var(--color-primary-2)"/>
+                            <stop :offset="(dc*100)+'%'"  stop-color="var(--color-primary-2)"/>
                             <stop :offset="(dc*100)+'%'" stop-color="transparent"/>
                             <stop offset="100%" stop-color="transparent"/>
                         </linearGradient>
                         <linearGradient id="dark-to-light">
-                            <stop offset="0%"  :stop-color="darkColor"/>
-                            <stop :offset="(adc*100)+'%'"  :stop-color="darkColor"/>
-                            <stop :offset="(adc*100)+'%'" :stop-color="lightGray"/>
-                            <stop offset="100%" :stop-color="lightGray"/>
+                            <stop offset="0%"  stop-color="var(--color-primary-2)"/>
+                            <stop :offset="(adc*100)+'%'"  stop-color="var(--color-primary-2)"/>
+                            <stop :offset="(adc*100)+'%'" stop-color="var(--color-gray-5)"/>
+                            <stop offset="100%" stop-color="var(--color-gray-5)"/>
                         </linearGradient>
                     </defs>
                     <path :style="starStyle(i)" d="m9.8862 11.646c-0.012473 0.009088-3.2554-2.1843-3.2709-2.1843-0.015427 4.5e-6 -3.2574 2.1947-3.2699 2.1857-0.012474-0.009088 1.0714-3.7711 1.0666-3.7857-0.0047713-0.014768-3.0939-2.4198-3.0892-2.4345 0.00477-0.014768 3.9176-0.14639 3.9301-0.15545 0.012474-0.00909 1.3453-3.6902 1.3607-3.6903 0.015427-3.4e-6 1.3498 3.6806 1.3623 3.6897 0.01247 0.00909 3.9253 0.13909 3.9301 0.15377 0.0048 0.014768-3.0833 2.4211-3.0881 2.4358-0.0048 0.014768 1.0807 3.7762 1.0682 3.7853z"/>
@@ -1697,7 +1693,7 @@
                 <div v-if="isLoading" class="input-icon eg-loader-wrapper">
                     <div class="eg-loader-container"><div class="eg-loader" :class="{small:isTextarea}"><div class="eg-loader-inside"></div></div></div>
                 </div>
-                <div v-else-if="displaysSelectCaret" class="input-icon select-caret" @click.stop.prevent="handleCaretClick" :class="{reversed:hasFocus}">
+                <div v-else-if="displaysSelectCaret" class="input-icon select-caret" :class="{reversed:hasFocus}">
                     <svg fill="none" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
                         <path d="m12.225 16.85 12.5 16.667 12.5-16.667z" fill="#000"/>
                     </svg>
@@ -1712,7 +1708,7 @@
                     <eg-icon :type="crossIcon"></eg-icon>
                 </div>
                 <!-- Select panel -->
-                <div v-if="selectLike" class="select-panel" :id="theId+'-select-panel'" :class="{visible:hasFocus, date:isDate, 'show-scrollbar':showScrollbar, 'dom-level':domLevel, 'top-align':topAlign}" :style="selectResultsStyle">
+                <div v-if="selectLike" class="select-panel" :id="theId+'-select-panel'" :class="{visible:hasFocus, date:isDate||isDateRange, time:isTime||isTimeRange, datetime:isDateTime||isDateTimeRange, 'show-scrollbar':showScrollbar, 'dom-level':domLevel, 'top-align':topAlign}" :style="selectResultsStyle">
                     <div class="select-panel-content" v-if="sliderSlot">
                         <slot name="slider"></slot>
                     </div>
@@ -1854,13 +1850,14 @@
                                         @keyup.right="focusItem(nullOption?i+1:i,nullOption?j+1:j)"
                                         @keydown.enter.prevent.stop="selectItem($event, item, j)"
                                         @mousedown.prevent="selectItem($event, item, j)"
+                                        @blur="handleListItemBlur"
                                         class="select-item"
                                         :class="{selected:isInList(item)}"
                                         :data-group="nullOption?i+1:i"
                                         :disabled="disabled||isLoading"
                                         :data-item="nullOption?j+1:j">
                                     <template v-if="hasDefaultSlot">
-                                        <slot class="list-item slotitem" :item="item"></slot>
+                                        <slot class="list-item" :item="item"></slot>
                                     </template>
                                     <div v-else class="list-item" :class="{'opt-group':isOptGroup, empty:!item}">
                                         <span class="content">{{ computeOptionLabel(item) }}</span>
@@ -2094,9 +2091,6 @@
             // star
             count: { type: Number, default: 1 },
             noBorder: { type: Boolean, default: false },
-            lightGray: { type: String, default: "#CCC" },
-            activeColor: { type: String, default: "#9f2f35" },
-            darkColor: { type: String, default: "#75282e" },
             noSteps: { type: Boolean, default: false },
             free: { type: Boolean, default: false },
 
@@ -2159,6 +2153,8 @@
                 parentTop: null,
                 parentLeft: null,
                 scrollLength: 0,
+                unfocusSelect: false,
+                focusFlip: false,
 
                 // file
                 files: [],
@@ -3565,6 +3561,13 @@
                 this.scrollLength = e.target.scrollTop;
                 this.buildSelectResultsStyle();
             },
+            //
+            handleListItemBlur(e) {
+                if(e.relatedTarget === null || !e.relatedTarget.classList.contains('select-item')) {
+                    this.looseFocus();
+                    this.hasFocus = false;
+                }
+            },
 
             // > Switch & Checkbox
             // toggle and update the witch value and position
@@ -3592,13 +3595,22 @@
             },
             // @click event handler for the wrapper
             handleWrapperClick() {
-                if(!this.disabled) {
-                    if(this.selectLike) {
-                        this.hasFocus = true;
-                        this.clickField();
-                    }
+
+            },
+            // @mousedown event handler for the wrapper
+            handleWrapperMousedown() {
+                if(this.hasFocus) {
+                    this.focusFlip = true;
                 }
             },
+            // @mouseup event handler for the wrapper
+            handleWrapperMouseup() {
+                if(this.focusFlip) {
+                    this.focusFlip = false;
+                    this.looseFocus();
+                }
+            },
+
             // @click event handler for the wrapper
             handleCaretClick() {
                 if(!this.disabled) {
@@ -4006,16 +4018,16 @@
                 let o = "";
                 // filling
                 if((this.starHovered !== null && i<this.starHovered) && i <this.starActive) {
-                    o += "fill:"+this.darkColor+";";
+                    o += "fill:var(--color-gray-2);";
                 }
                 else if(this.starHovered !== null && i<this.starHovered && i != this.starActive) {
-                    o += "fill:"+this.lightGray+";";
+                    o += "fill:var(--color-gray-5);";
                 }
                 else if(i == this.starHovered || (i == this.starActive && this.value%1!=0)) {
                     // default gradient for the hover and active
                 }
                 else if(i <= this.starActive) {
-                    o += "fill:"+this.activeColor+";";
+                    o += "fill:var(--color-primary);";
                 }
                 else {
                     o += "fill:transparent;";
@@ -4026,10 +4038,10 @@
                     o += "stroke:transparent;";
                 }
                 else if(i <= this.starActive) {
-                    o += "stroke:"+this.activeColor+";";
+                    o += "stroke:var(--color-primary);";
                 }
                 else {
-                    o += "stroke:"+this.lightGray+";";
+                    o += "stroke:var(--color-gray-5);";
                 }
 
                 // stroke width

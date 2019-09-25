@@ -98,7 +98,18 @@
     export default {
         data() {
             return {
-                styles: ['default', 'primary', 'secondary', 'ternary', 'link', 'thick', 'light', 'dark', 'transparent', 'yoga'],
+                styles: [
+                    'default',
+                    'primary',
+                    'secondary',
+                    'ternary',
+                    'light',
+                    'dark',
+                    'transparent',
+                    'link',
+                    'thick',
+                    'yoga'
+                ],
                 icons: ['', 'pdf', 'fa: fas fa-child', 'ma:get_app'],
                 text: "Example",
                 show: {

@@ -252,7 +252,7 @@
         <div class="grid-bloc">
             <div class="day-grid grid-selector" v-if="showGrid.day">
                 <div class="grid-header">Sélectionnez un jour</div>
-                <button v-for="d in daysInMonth" class="grid-element" :data-grid-day="d" @click="handleClickDay(d)" :class="{selected:d==dayNumber}">
+                <button v-for="d in daysInMonth" class="grid-element" :data-grid-day="d" @click="handleDaySelect(d)" :class="{selected:d==dayNumber}">
                     <span>{{ d }}</span>
                 </button>
             </div>
@@ -419,7 +419,7 @@
                 this.month = i;
                 this.refreshAndEmit({forceFocus: true});
             },
-            handleClickDay(d) {
+            handleDaySelect(d) {
                 this.showGrid.day = false;
                 this.dayNumber = d;
                 this.refreshAndEmit({forceFocus: true});
@@ -538,6 +538,7 @@
             handleSelectLeft(day) {
                 let d = JSON.parse(JSON.stringify(day));
                 d.dayNumber = d.day;
+                debugger;
                 // is after the last boundary: we select the day as last
                 if(this.dayAfterFirst(d) && !(this.dayBeforeLast(d) || this.isRBound(d))) {
                     this.lastDate = d;
@@ -613,37 +614,81 @@
                 };
                 if(val || this.rangeValueValid) {
                     if(this.format == "DD:MM:YYYY") {
-
+                        let tab = val.split(":");
+                        o.dayNumber = parseInt(tab[0]);
+                        o.month = parseInt(tab[1]);
+                        o.year = parseInt(tab[2]);
+                        this.regex = /^([0-2][0-9]|(3)[0-1])(:)(((0)[0-9])|((1)[0-2]))(:)\d{4}$/i;
                     }
-                    else if(this.format == "DD-MMM-YYYY") {
-
+                    else if(this.format == "DD-MM-YYYY") {
+                        let tab = val.split("-");
+                        o.dayNumber = parseInt(tab[0]);
+                        o.month = parseInt(tab[1]);
+                        o.year = parseInt(tab[2]);
+                        this.regex = /^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$/i;
                     }
                     else if(this.format == "DD/MM/YYYY") {
-
+                        let tab = val.split("/");
+                        o.dayNumber = parseInt(tab[0]);
+                        o.month = parseInt(tab[1]);
+                        o.year = parseInt(tab[2]);
+                        this.regex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
                     }
                     else if(this.format == "MM.DD.YYYY") {
-
+                        let tab = val.split(".");
+                        o.dayNumber = parseInt(tab[1]);
+                        o.month = parseInt(tab[0]);
+                        o.year = parseInt(tab[2]);
+                        this.regex = /^(((0)[0-9])|((1)[0-2]))(\.)([0-2][0-9]|(3)[0-1])(\.)\d{4}$/i;
                     }
                     else if(this.format == "MM:DD:YYYY") {
-
+                        let tab = val.split(":");
+                        o.dayNumber = parseInt(tab[1]);
+                        o.month = parseInt(tab[0]);
+                        o.year = parseInt(tab[2]);
+                        this.regex = /^(((0)[0-9])|((1)[0-2]))(:)([0-2][0-9]|(3)[0-1])(:)\d{4}$/i;
                     }
                     else if(this.format == "MM-DD-YYYY") {
-
+                        let tab = val.split("-");
+                        o.dayNumber = parseInt(tab[1]);
+                        o.month = parseInt(tab[0]);
+                        o.year = parseInt(tab[2]);
+                        this.regex = /^(((0)[0-9])|((1)[0-2]))(-)([0-2][0-9]|(3)[0-1])(-)\d{4}$/i;
                     }
                     else if(this.format == "MM/DD/YYYY") {
-
+                        let tab = val.split("/");
+                        o.dayNumber = parseInt(tab[1]);
+                        o.month = parseInt(tab[0]);
+                        o.year = parseInt(tab[2]);
+                        this.regex = /^(((0)[0-9])|((1)[0-2]))(\/)([0-2][0-9]|(3)[0-1])(\/)\d{4}$/i;
                     }
                     else if(this.format == "YYYY.MM.DD") {
-
+                        let tab = val.split(".");
+                        o.dayNumber = parseInt(tab[2]);
+                        o.month = parseInt(tab[1]);
+                        o.year = parseInt(tab[0]);
+                        this.regex = /^\d{4}(\.)(((0)[0-9])|((1)[0-2]))(\.)([0-2][0-9]|(3)[0-1])$/i;
                     }
                     else if(this.format == "YYYY:MM:DD") {
-
+                        let tab = val.split(":");
+                        o.dayNumber = parseInt(tab[2]);
+                        o.month = parseInt(tab[1]);
+                        o.year = parseInt(tab[0]);
+                        this.regex = /^\d{4}(:)(((0)[0-9])|((1)[0-2]))(:)([0-2][0-9]|(3)[0-1])$/i;
                     }
-                    else if(this.format == "YYYY-MMM-DD") {
-
+                    else if(this.format == "YYYY-MM-DD") {
+                        let tab = val.split("-");
+                        o.dayNumber = parseInt(tab[2]);
+                        o.month = parseInt(tab[1]);
+                        o.year = parseInt(tab[0]);
+                        this.regex = /^\d{4}(-)(((0)[0-9])|((1)[0-2]))(-)([0-2][0-9]|(3)[0-1])$/i;
                     }
                     else if(this.format == "YYYY/MM/DD") {
-
+                        let tab = val.split("/");
+                        o.dayNumber = parseInt(tab[2]);
+                        o.month = parseInt(tab[1]);
+                        o.year = parseInt(tab[0]);
+                        this.regex = /^\d{4}(\/)(((0)[0-9])|((1)[0-2]))(\/)([0-2][0-9]|(3)[0-1])$/i;
                     }
                     else {
                         if(typeof val === "string") {
@@ -669,33 +714,32 @@
                     return this.pad(d,2) + '/' + this.pad(m,2) + '/' + y;
                 }
                 else if(this.format == "MM.DD.YYYY") {
-
+                    return this.pad(m,2) + '.' + this.pad(d,2) + '.' + y;
                 }
                 else if(this.format == "MM:DD:YYYY") {
-
+                    return this.pad(m,2) + ':' + this.pad(d,2) + ':' + y;
                 }
                 else if(this.format == "MM-DD-YYYY") {
-
+                    return this.pad(m,2) + '-' + this.pad(d,2) + '-' + y;
                 }
                 else if(this.format == "MM/DD/YYYY") {
-
+                    return this.pad(m,2) + '/' + this.pad(d,2) + '/' + y;
                 }
                 else if(this.format == "YYYY.MM.DD") {
-
+                    return y + '.' + this.pad(m,2) + '.' + this.pad(d,2);
                 }
                 else if(this.format == "YYYY:MM:DD") {
-
+                    return y + ':' + this.pad(m,2) + ':' + this.pad(d,2);
                 }
-                else if(this.format == "YYYY-MMM-DD") {
-
+                else if(this.format == "YYYY-MM-DD") {
+                    return y + '-' + this.pad(m,2) + '-' + this.pad(d,2);
                 }
                 else if(this.format == "YYYY/MM/DD") {
-
+                    return y + '/' + this.pad(m,2) + '/' + this.pad(d,2);
                 }
                 else { // this.format == "DD.MM.YYYY"
                     return this.pad(d,2) + '.' + this.pad(m,2) + '.' + y;
                 }
-                return null;
             },
             isLBound(d) {
                 return d.day == this.firstDate.dayNumber && d.month == this.firstDate.month && d.year == this.firstDate.year;

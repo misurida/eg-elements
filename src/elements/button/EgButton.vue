@@ -53,6 +53,15 @@
                 animation: eg-button-spin 1s linear infinite;
             }
         }
+        .white-loader {
+            border: $loaderBorder solid rgba(0,0,0,.05);
+            border-top: $loaderBorder solid var(--color-white);
+        }
+        .gray-loader {
+            border: $loaderBorder solid rgba(255,255,255,.5);
+            border-top: $loaderBorder solid var(--color-gray-5);
+        }
+
 
         // icons tweak
         .svg-icon {
@@ -86,152 +95,138 @@
             }
         }
 
-        // >>> Style !!!
-
-        // Default
-        &.active:not(.yoga):not(.link):not(.disabled),
-        &.hover:not(.yoga):not(.link):not(.disabled),
-        &:hover:not(.yoga):not(.link):not(.disabled) {
-            outline: none;
-            box-shadow: var(--btn-default-shadow);
-            border: var(--btn-default-border-hover);
-            &.primary {
-                border: var(--btn-primary-border-hover);
-                box-shadow: var(--btn-primary-shadow);
-            }
-            &.secondary {
-                border: var(--btn-secondary-border-hover);
-                box-shadow: var(--btn-secondary-shadow);
-            }
-            &.ternary {
-                border: var(--btn-ternary-border-hover);
-                box-shadow: var(--btn-ternary-shadow);
-            }
-            &.light {
-                border: var(--btn-light-border-hover);
-                box-shadow: var(--btn-light-shadow);
-            }
-            &.dark {
-                border: var(--btn-dark-border-hover);
-                box-shadow: var(--btn-dark-shadow);
-            }
-            &.thick {
-                border: var(--btn-thick-border-hover);
-                box-shadow: var(--btn-thick-shadow);
-                background-color: transparent;
-            }
-            &.error {
-                box-shadow: 0 0 0 .2rem rgba(var(--color-error), 0.3);
-            }
-            &.warning {
-                box-shadow: 0 0 0 .2rem rgba(var(--color-warning), 0.3);
-            }
-            &.valid {
-                box-shadow: 0 0 0 .2rem rgba(var(--color-valid), 0.3);
-            }
-        }
-        &.focus:not(.yoga):not(.link):not(.disabled),
-        &:focus:not(.yoga):not(.link):not(.disabled) {
-            outline: none;
-            box-shadow: var(--btn-default-shadow);
-            border: var(--btn-default-border-focus);
-            &.primary {
-                border: var(--btn-primary-border-focus);
-            }
-            &.seconday {
-                border: var(--btn-secondary-border-focus);
-            }
-            &.ternary {
-                border: var(--btn-ternary-border-focus);
-            }
-            &.light {
-                border: var(--btn-light-border-focus);
-            }
-            &.dark {
-                border: var(--btn-dark-border-focus);
-            }
-            &.thick {
-                border: var(--btn-thick-border-focus);
-            }
-        }
+        // >>> Style
 
         &.primary {
-            color: var(--color-primary-t);
+            color: var(--btn-primary-color);
             background-color: var(--btn-primary-bg);
             border: var(--btn-primary-border);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover {
+                    outline: none;
+                    border: var(--btn-primary-border-hover);
+                    box-shadow: var(--btn-primary-shadow);
+                }
+                &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-primary-border-focus);
+                }
+            }
             .loader .loader-inside {
-                border: $loaderBorder solid rgba(var(--color-primary-t),.1);
-                border-top: $loaderBorder solid var(--color-primary-t);
+                @extend .white-loader;
             }
             .svg-icon svg path {
-                fill: rgba(var(--color-primary-t), 0.9);
-            }
-            &.warning {
-                background-color: var(--color-warning);
-            }
-            &.valid {
-                background-color: var(--color-valid);
+                fill: var(--color-primary);
             }
         }
         &.secondary {
-            color: var(--color-secondary-t);
+            color: var(--btn-secondary-color);
             background-color: var(--btn-secondary-bg);
             border: var(--btn-secondary-border);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover {
+                    outline: none;
+                    border: var(--btn-secondary-border-hover);
+                    box-shadow: var(--btn-secondary-shadow);
+                }
+                &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-secondary-border-focus);
+                }
+            }
             .loader .loader-inside {
-                border: $loaderBorder solid rgba(var(--color-secondary-t),.1);
-                border-top: $loaderBorder solid var(--color-secondary-t);
+                @extend .white-loader;
             }
             .svg-icon svg path {
-                fill: rgba(var(--color-secondary-t), 0.9);
+                fill: var(--color-secondary);
             }
         }
         &.ternary {
-            color: var(--color-ternary-t);
+            color: var(--btn-ternary-color);
             background-color: var(--btn-ternary-bg);
             border: var(--btn-ternary-border);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover {
+                    outline: none;
+                    border: var(--btn-ternary-border-hover);
+                    box-shadow: var(--btn-ternary-shadow);
+                }
+                &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-ternary-border-focus);
+                }
+            }
             .loader .loader-inside {
-                border: $loaderBorder solid rgba(var(--color-ternary-t),.1);
-                border-top: $loaderBorder solid var(--color-ternary-t);
+                @extend .white-loader;
             }
             .svg-icon svg path {
-                fill: rgba(var(--color-ternary-t), 0.9);
+                fill: var(--color-ternary);
             }
         }
         &.light {
-            color: var(--color-light-t);
+            color: var(--btn-light-color);
             background-color: var(--btn-light-bg);
             border: var(--btn-light-border);
-            .loader .loader-inside {
-                border: $loaderBorder solid rgba(var(--color-light-t),.1);
-                border-top: $loaderBorder solid var(--color-light-t);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover {
+                    outline: none;
+                    border: var(--btn-light-border-hover);
+                    box-shadow: var(--btn-light-shadow);
+                }
+                &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-light-border-focus);
+                }
             }
-            .svg-icon {
-                opacity: 0.5;
-                &,
-                i {
-                    color: rgba(var(--color-light-t), 0.9);
-                }
-                svg path {
-                    fill: rgba(var(--color-light-t), 0.9);
-                }
+            .loader .loader-inside {
+                @extend .gray-loader;
+            }
+            .svg-icon svg path {
+                fill: var(--color-light);
             }
         }
         &.dark {
-            color: var(--color-dark-t);
+            color: var(--btn-dark-color);
             background-color: var(--btn-dark-bg);
             border: var(--btn-dark-border);
-            .loader .loader-inside {
-                border: $loaderBorder solid rgba(var(--color-dark-t),.1);
-                border-top: $loaderBorder solid var(--color-dark-t);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover {
+                    outline: none;
+                    border: var(--btn-dark-border-hover);
+                    box-shadow: var(--btn-dark-shadow);
+                }
+                &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-dark-border-focus);
+                }
             }
-            .svg-icon {
-                &,
-                i {
-                    color: rgba(var(--color-dark-t), 0.9);
+            .loader .loader-inside {
+                @extend .white-loader;
+            }
+            .svg-icon svg path {
+                fill: var(--color-dark);
+            }
+        }
+        &.transparent {
+            color: var(--btn-transparent-color);
+            background-color: var(--btn-transparent-bg);
+            border: var(--btn-transparent-border);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover {
+                    outline: none;
+                    border: var(--btn-transparent-border-hover);
+                    box-shadow: var(--btn-transparent-shadow);
                 }
-                svg path {
-                    fill: rgba(var(--color-dark-t), 0.9);
+                &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-transparent-border-focus);
                 }
+            }
+            .loader .loader-inside {
+                @extend .gray-loader;
+            }
+            .svg-icon svg path {
+                fill: var(--color-transparent);
             }
         }
         &.link {
@@ -246,42 +241,203 @@
                 opacity: 0.6;
                 outline: none;
             }
-        }
-        &.transparent {
-            background-color: transparent;
-        }
+            &.valid, &.warning, &.error {
+                background-color: transparent;
+                border: none;
 
-
-
-
-        // error, warning and valid
-        &.error {
-            color: var(--color-error);
-        }
-        &.warning {
-            color: var(--color-warning);
-        }
-        &.valid {
-            color: var(--color-valid);
-        }
-        &.primary,
-        &.secondary,
-        &.ternary,
-        &.dark {
-            &.error {
-                color: var(--color-gray-6);
-                background-color: var(--color-error);
+                &:not(.disabled):not(:disabled) {
+                    &.active, &:hover, &.hover {
+                        box-shadow: none;
+                        border: none;
+                    }
+                }
             }
             &.warning {
-                color: var(--color-gray-6);
-                background-color: var(--color-warning);
+                color: var(--color-warning);
             }
             &.valid {
-                color: var(--color-gray-6);
-                background-color: var(--color-valid);
+                color: var(--color-valid);
+            }
+            &.error {
+                color: var(--color-error);
+            }
+            .svg-icon {
+                position: inherit;
+            }
+        }
+        &.thick {
+            color: var(--btn-thick-color);
+            background-color: var(--btn-thick-bg);
+            border: var(--btn-thick-border);
+            .loader .loader-inside {
+                @extend .white-loader;
+            }
+            .svg-icon svg path {
+                fill: var(--color-thick);
+            }
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover {
+                    outline: none;
+                    border: var(--btn-thick-border-hover);
+                    box-shadow: var(--btn-thick-shadow);
+                }
+                &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-thick-border-focus);
+                }
+                &.valid, &.warning, &.error {
+                    border-width: 2px;
+                    background-color: transparent;
+                    &:not(.disabled):not(:disabled) {
+                        &.active, &:hover, &.hover {
+                            box-shadow: none;
+                            border: none;
+                        }
+                    }
+                }
+                &.warning,
+                &.warning:not(.disabled):not(:disabled):hover {
+                    border: 2px solid var(--color-warning);
+                    color: var(--color-warning);
+                }
+                &.valid,
+                &.valid:not(.disabled):not(:disabled):hover {
+                    border: 2px solid var(--color-valid);
+                    color: var(--color-valid);
+                }
+                &.error,
+                &.error:not(.disabled):not(:disabled):hover {
+                    border: 2px solid var(--color-error);
+                    color: var(--color-error);
+                }
+                &:not(.disabled):not(:disabled):hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+        &.yoga {
+            $dotSize: 8px;
+            background-color: transparent;
+            padding-top: 1.5em;
+            color: var(--color-black);
+            border: none;
+            .loader .loader-inside {
+                border: $loaderBorder solid rgba(var(--color-black),.1);
+                border-top: $loaderBorder solid var(--color-black);
+            }
+            .svg-icon svg path {
+                fill: var(--color-gray-3);
+            }
+            &::before {
+                content: '';
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                width: $dotSize;
+                height: $dotSize;
+                background-color: rgba(var(--rgb-primary), 0.1);
+                border-radius: 50%;
+                transform: translateX(-50%);
+            }
+            &:not(.disabled).focus,
+            &:not(.disabled):hover,
+            &:not(.disabled):focus {
+                opacity: 0.6;
+                outline: none;
+            }
+            &.active {
+                &::before {
+                    background-color: var(--color-primary);
+                }
+            }
+            &.error {
+                color: var(--color-error);
+                &::before {
+                    background-color: var(--color-error);
+                }
+            }
+            &.warning {
+                color: var(--color-warning);
+                &::before {
+                    background-color: var(--color-warning);
+                }
+            }
+            &.valid {
+                color: var(--color-valid);
+                &::before {
+                    background-color: var(--color-valid);
+                }
+            }
+            &.small::before {
+                width: $dotSize/1.5;
+                height: $dotSize/1.5;
+            }
+            &.big::before {
+                width: $dotSize*1.5;
+                height: $dotSize*1.5;
+                top: 0;
+            }
+            &.thin::before {
+                top: -5px;
+            }
+            &.fat::before {
+                top: 5px;
+            }
+            &.valid, &.warning, &.error {
+                border: none;
+                background-color: transparent;
+                &:not(.disabled):not(:disabled) {
+                    &.active, &:hover, &.hover {
+                        box-shadow: none;
+                        border: none;
+                    }
+                }
             }
         }
 
+        // states
+        &.valid {
+            background-color: var(--color-valid);
+            border: 1px solid var(--color-valid);
+            color: var(--btn-valid-color);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover, &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-valid-border-hover);
+                    box-shadow: var(--btn-valid-shadow);
+                }
+            }
+        }
+        &.warning {
+            background-color: var(--color-warning);
+            border: 1px solid var(--color-warning);
+            color: var(--btn-warning-color);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover, &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-warning-border-hover);
+                    box-shadow: var(--btn-warning-shadow);
+                }
+            }
+        }
+        &.error {
+            background-color: var(--color-error);
+            border: 1px solid var(--color-error);
+            color: var(--btn-error-color);
+            &:not(.disabled):not(:disabled) {
+                &.active, &:hover, &.hover, &:focus, &.focus {
+                    outline: none;
+                    border: var(--btn-error-border-hover);
+                    box-shadow: var(--btn-error-shadow);
+                }
+            }
+        }
+        &:disabled,
+        .disabled {
+            opacity: 0.8;
+            cursor: default;
+        }
+        
         // types
         &.small {
             height: 32px;
@@ -327,14 +483,13 @@
         }
 
         // icons
-        $iconWidth: 2em;
         .svg-icon {
             display: flex;
             align-items: center;
             position: absolute;
             top: 0;
             bottom: 0;
-            width: $iconWidth;
+            width: var(--icon-width);
             &.r-icon {
                 right: 10px;
             }
@@ -342,8 +497,8 @@
                 left: 10px;
             }
             svg {
-                height: $iconWidth;
-                width: $iconWidth;
+                height: var(--icon-width);
+                width: var(--icon-width);
                 path {
                     fill: rgba(var(--btn-default-color),0.75);
                 }
@@ -355,109 +510,7 @@
             }
         }
 
-        // states
-        &:disabled,
-        .disabled {
-            opacity: 0.8;
-            color: rgba(var(--btn-default-color), 0.5);
-            cursor: default;
-            &.dark,
-            &.primary,
-            &.secondary,
-            &.ternary {
-                color: rgba(var(--color-primary-t), 0.5);
-            }
-        }
-
-        // special styles
-        &.thick {
-            color: var(--btn-thick-color);
-            background-color: var(--btn-thick-bg);
-            border: var(--btn-thick-border);
-            .loader .loader-inside {
-                border: $loaderBorder solid rgba(var(--btn-thick-color),.1);
-                border-top: $loaderBorder solid var(--btn-thick-color);
-            }
-            .svg-icon svg path {
-                fill: rgba(var(--btn-thick-color), 0.9);
-            }
-            &.error {
-                border-color: var(--color-error);
-                color: var(--color-error);
-            }
-            &.warning {
-                border-color: var(--color-warning);
-                color: var(--color-warning);
-            }
-            &.valid {
-                border-color: var(--color-valid);
-                color: var(--color-valid);
-            }
-        }
-        &.yoga {
-            $dotSize: 8px;
-            background-color: transparent;
-            padding-top: 1.5em;
-            color: var(--color-black);
-            border: none;
-            .loader .loader-inside {
-                border: $loaderBorder solid rgba(var(--color-black),.1);
-                border-top: $loaderBorder solid var(--color-black);
-            }
-            .svg-icon svg path {
-                fill: var(--color-gray-3);
-            }
-            &::before {
-                content: '';
-                position: absolute;
-                top: 10px;
-                left: 50%;
-                width: $dotSize;
-                height: $dotSize;
-                background-color: rgba(var(--color-primary), 0.2);
-                border-radius: 50%;
-                transform: translateX(-50%);
-            }
-            &:not(.disabled).focus,
-            &:not(.disabled):hover,
-            &:not(.disabled):focus {
-                opacity: 0.6;
-                outline: none;
-            }
-            &.active {
-                &::before {
-                    background-color: var(--color-primary);
-                }
-            }
-            &.error {
-                color: var(--color-error);
-                &::before {
-                    background-color: var(--color-error);
-                }
-            }
-            &.warning {
-                color: var(--color-warning);
-                &::before {
-                    background-color: var(--color-warning);
-                }
-            }
-            &.valid {
-                color: var(--color-valid);
-                &::before {
-                    background-color: var(--color-valid);
-                }
-            }
-            &.small::before {
-                width: $dotSize/1.5;
-                height: $dotSize/1.5;
-            }
-            &.big::before {
-                width: $dotSize*1.5;
-                height: $dotSize*1.5;
-            }
-        }
-
-        // no-content corrections
+        // no-content (icon only) corrections
         &.no-content {
             .svg-icon {
                 left: 0;
