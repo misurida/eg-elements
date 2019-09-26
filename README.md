@@ -1,6 +1,6 @@
 # Eg-Elements
 
-EgElements is a library of vuejs components for the experience or user interface. These elements are complete but simple, and are built to be modified with CSS to adapt to any design. These are basic elements (button, input, modal) that can be installed globally or imported individually.
+EgElements is a library of Vuejs UI components designed to provide an intuitive and modular usage. These elements are complete but simple, and are built to be easily styled using shared CSS variables to adapt to any design. The library contains basic elements (button, input, modal) that can be installed globally or imported individually.
 
 ## Installation
 
@@ -29,8 +29,8 @@ You can see the live demo [here](https://ege.erwan.ch), and the documentation ju
 ## Elements
 
 The EgElements are the following:
-- [\<EgBtn\>](https://github.com/misurida/eg-elements/tree/master/src/elements/button): A Quickly usable button with different style layers and state attributes.
-- [\<EgInput\>](https://github.com/misurida/eg-elements/tree/master/src/elements/input): Any kind of input: text, textarea, select, checkbox, radio, switch, number, slider, file, date, time, star or color.
+- [\<EgBtn\>](https://github.com/misurida/eg-elements/src/elements/button): A Quickly usable button with different style layers and state attributes.
+- [\<EgInput\>](https://github.com/misurida/eg-elements/src/elements/input): Any kind of input: text, textarea, select, checkbox, radio, switch, number, slider, file, date, time, star or color.
 - [\<Tooltip\>](https://github.com/misurida/eg-elements/tree/master/src/elements/tooltip): A custom directive to display a floating text next to any element.
 - [\<Popover\>](https://github.com/misurida/eg-elements/tree/master/src/elements/popover): A floating popover element to display text or form elements next to any element to help user to do actions quickly.
 - [\<Modal\>](https://github.com/misurida/eg-elements/tree/master/src/elements/modal): A modal with attributes to display quick content or slot to insert any element.
