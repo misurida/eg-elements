@@ -31,4 +31,4 @@ Content:
 - `backLab`(String, 'Back'): Label to display in the *back button* if `b` is *true*.
 - `validate` (String, null): If specified, a *validate button* (primary style) will be display with the `validate` label. Clicking on it will trigger the `@validate` event.
 - `v` (Boolean, false): If *true*, a *validate button* will be displayed with the `valLab` label.
-- `valLab`(String, 'Validate'): Label to display in the *display button* if `v` is *true*.
+- `valLab`(String,  'Validate'): Label to display in the *display button* if `v` is *true*.

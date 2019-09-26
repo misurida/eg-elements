@@ -25,7 +25,7 @@ export default function install(Vue) {
     Vue.directive('tooltip', TooltipDirective);
 
     // We inject the polyfills
-    require('./src/elements/polyfills/removeDiacritics');
+    require('./src/elements/toolbox/removeDiacritics');
 }
 
 // Create module definition for Vue.use()
