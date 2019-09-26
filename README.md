@@ -146,7 +146,20 @@ The tooltip allows the user to display text when the target element is hovered. 
 
 #### Modal basics
 
+When revealed, the modal element appears on top of the page but allowing the user to get back quickly by clicking outside of the modal element. It can also be triggered dynamically using `v-model`.
 
+The content can be placed using the slots `header` (generally on a *h2* tag), `body` and `footer` (if `nakedFooter` is *true*) or using shorthand attributes. These attributes are:
+- `title` (String): the title to display in a *h2* tag.
+- `content` (String): a string content to display in the body.
+- There are two footer shorthands since there are often a *Back* and *Validate* buttons:
+    - `back` or `b` (Boolean): to use the *Back* (default *eg-btn* style).
+    - `backLab` (String): button text ("Back" by default).
+    - `validate` or `v` (Boolean): to use the *Validate* (primary *eg-btn* style).
+    - `valLab` (String): button text ("Validate" by default).
+
+You can finally change the visual aspect using the size boolean attribute (`big`, `medium`, `small`). You can also change the `animation` ('direct', 'fade', 'smooth'), change the body padding (`noPad` for *inherit 0px*), `minpad` for *0px 10px*) and the footer padding (`fullFooter` for *10px 30px 10px*, `noFooter` to hide it).
+
+Finally, you can hide the closing cross within the modal with `noCross` and prevent the auto-focus (allowing the user to close the modal quickly using the delete key) if you need it.
 
 ## Icons
 

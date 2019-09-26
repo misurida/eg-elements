@@ -275,6 +275,9 @@
             medium: {type:Boolean, default:false},
             small: {type:Boolean, default:false},
             noPad: {type:Boolean, default:false},
+            minPad: {type:Boolean, default:false},
+            fullFooter: {type:Boolean, default:false},
+            nakedFooter: {type:Boolean, default:false},
 
             // content
             title: {type: String, default: null},
@@ -288,9 +291,6 @@
 
             noCross: {type:Boolean, default:false},
             noFocus: {type:Boolean, default:false},
-            minPad: {type:Boolean, default:false},
-            fullFooter: {type:Boolean, default:false},
-            nakedFooter: {type:Boolean, default:false},
         },
         methods: {
             handleClose() {
