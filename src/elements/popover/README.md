@@ -13,15 +13,17 @@ Structural:
 - `id` (String, null): The string to use as id. If not specified, the id will be randomly generated.
 - `targetId` (String, null): A string being the id of the popover target: the element that will host the popover. The DOM parent is used by default.
 - `triggerId` (String, null): A string being the id of the popover trigger: the element that will display the popover when clicked. The DOM parent is used by default.
+- `target` (String, null): A DOM id string shorthand if you want to define the same `targetId` and `triggerId`.
 
 Positioning:
-- `position (p)`: A character defining the display mode: 'l' to left align the popover, 'c' to center the popover or 'r' to right align the popover. You can also use the shorthand `p`.
-- `side (s)`: A character defining the side to display: 't' for on top, 'r' for on the right, 'b' for below and 'l' for on the left. You can also use the shorthand `s`.
-- `width (w)`: The maximum width of the popover wrapper. You can also use the shorthand `w`.
-- ~~`height (h)`~~: The maximum height of the popover wrapper. You can also use the shorthand `h`.
+- `side (s)` (String, 't'): A character defining the side to display: 't' for on top, 'r' for on the right, 'b' for below and 'l' for on the left. You can also use the shorthand *s*.
+- `width (w)` (String, null): The maximum width of the popover wrapper. You can also use the shorthand *w*.
+- `domLevel` (Boolean, false): If *true*, the popover is moved in the DOM under the main container top be place in an absolute position to the relative *page*.
+- `domParentId` (String, "app"): Defines the main container used by `domLevel`.
 
 Dimensions:
 - `arrowDistFromBorder` (None, 12): The distance in `px` separating the popover arrow from the side of the popover.
 - `arrowSize` (None, 12): the arrow size in `px`.
 - `panelDist` (None, 20): The distance in `px` separating the popover from the target.
-- `nopad` (Boolean, false): If *true*, no padding is used on the popover content.
+- `pad` (Boolean, false): If *true*, a *6px 12px* padding is applied.
+- `spad` (Boolean, false): If *true*, a *5px* padding is applied.

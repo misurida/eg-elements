@@ -7,22 +7,16 @@ import './registerServiceWorker'
 Vue.config.productionTip = false;
 
 // we import the global components components
-import EgButton from './elements/button/EgButton'
-import EgInput from './elements/input/EgInput'
-import Popover from './elements/popover/Popover'
-import SvgIcon from './elements/toolbox/SvgIcon'
-import Sidemenu from './elements/sidemenu/Sidemenu'
-import Modal from './elements/modal/Modal'
-Vue.component('eg-btn', EgButton);
-Vue.component('eg-input', EgInput);
-Vue.component('eg-icon', SvgIcon);
-Vue.component('popover', Popover);
-Vue.component('modal', Modal);
-Vue.component('sidemenu', Sidemenu);
+import eg from "../index"
+Vue.use(eg, {
+    props: {
+        placeholder: { default: "okok" }
+    },
+    css: {
+        rgbPrimary: "125,11,111"
+    }
+});
 
-// v-tooltip
-import tooltip from './elements/tooltip/tooltip'
-Vue.directive('tooltip', tooltip);
 
 new Vue({
     router,

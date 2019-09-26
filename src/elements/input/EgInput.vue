@@ -1134,6 +1134,9 @@
                 grid-template-columns: 1fr 1fr 1fr;
             }
         }
+        &.time {
+            width: 250px;
+        }
         &.datetime {
             min-width: 500px;
             .calendar-wrapper {
@@ -2032,10 +2035,11 @@
             oId: { type: String, default: null },
             emitObject: { type: Boolean, default: false },
             nullOption: { type: Boolean, default: false },
-            domLevel: { type: Boolean, default: true },
+            domLevel: { type: Boolean, default: false },
             domParentId: { type: String, default: "app" },
             rightAlign: { type: Boolean, default: false },
             topAlign: { type: Boolean, default: false },
+            displayOver: { type: Boolean, default: false },
 
             // slider
             steps: { type: Number, default: null },
@@ -3383,8 +3387,8 @@
             // build the selection options panel (.select-panel) inline style stored in 'selectResultsStyle'
             buildSelectResultsStyle() {
                 if(this.hasFocus) {
-                    let els = this.$el.getElementsByClassName('eg-input-content');
-                    let el = els.length > 0 ? els[0] : null;
+                    let el = this.$el;
+                    if(this.displayOver) el = null;
                     let o = "";
                     if(this.domLevel) {
                         let top = this.parentTop + this.parentHeight - this.scrollLength + this.menuSpace;
@@ -3415,11 +3419,15 @@
                     }
                     // min-width
                     if(this.isTime && this.hasSeconds) {
-                        o += "min-width: 200px;";
+                        o += "min-width: 250px;";
                     }
                     else if(this.menuMinWidth) {
                         if(this.domLevel) {
                             o += "width:" + this.menuMinWidth + "px;";
+                        }
+                        // min width fix for the date floating panel
+                        else if(this.isDateRange || this.isDate) {
+                            o += "min-width:250px;";
                         }
                         else {
                             o += "min-width:" + this.menuMinWidth + "px;";

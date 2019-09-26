@@ -809,6 +809,7 @@
                             label="Time range"
                             type="time-range"
                             width="250px"
+                            :domLevel="false"
                             v-model="timerange">
                     </eg-input>
                     <pre v-if="show.date">
@@ -823,7 +824,9 @@
                     <eg-input
                             label="Datetime"
                             type="datetime"
-                            width="250px"
+                            menu-min-width="400px"
+                            right-align
+                            :domLevel="false"
                             v-model="datetime">
                     </eg-input>
                     <pre v-if="show.date">
@@ -838,6 +841,7 @@
                     <eg-input
                             label="Datetime range"
                             type="datetime-range"
+                            rightAlign
                             v-model="datetimerange">
                     </eg-input>
                     <pre v-if="show.date">

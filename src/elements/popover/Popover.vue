@@ -102,7 +102,6 @@
             arrowDistFromBorder: { default: 12 },
             arrowSize: { default: 6 },
             panelDist: { default: 10 },
-            bg: { default: "#fff" },
             pad: { type: Boolean, default: false },
             spad: { type: Boolean, default: false },
             domLevel: { type: Boolean, default: false },
@@ -283,11 +282,11 @@
                     // side
                     if(this.theSide == "b" || this.theSide == "bottom") {
                         this.arrow.style.bottom = '100%';
-                        this.arrow.style.borderBottomColor = this.bg;
+                        this.arrow.style.borderBottomColor = "var(--popover-bg)";
                     }
                     else {
                         this.arrow.style.top = '100%';
-                        this.arrow.style.borderTopColor = this.bg;
+                        this.arrow.style.borderTopColor = "var(--popover-bg)";
                     }
                     // position
                     if(this.thePosition == 'r') this.arrow.style.right = this.arrowDistFromBorder+'px';
@@ -302,11 +301,11 @@
                     // side
                     if(this.theSide == "r" || this.theSide == "right") {
                         this.arrow.style.right = '100%';
-                        this.arrow.style.borderRightColor = this.bg;
+                        this.arrow.style.borderRightColor = "var(--popover-bg)";
                     }
                     else {
                         this.arrow.style.left = '100%';
-                        this.arrow.style.borderLeftColor = this.bg;
+                        this.arrow.style.borderLeftColor = "var(--popover-bg)";
                     }
                     // position
                     if(this.thePosition == 't') this.arrow.style.top = this.arrowDistFromBorder+'px';

@@ -8,7 +8,7 @@ import Modal from './src/elements/modal/Modal'
 import TooltipDirective from './src/elements/tooltip/tooltip'
 
 // Declare install function executed by Vue.use()
-export default function install(Vue) {
+export default function install(Vue, options) {
     // init
     if (install.installed) return;
     install.installed = true;
@@ -26,6 +26,18 @@ export default function install(Vue) {
 
     // We inject the polyfills
     require('./src/elements/toolbox/removeDiacritics');
+
+    if(!!options) {
+        if(!!options.props) {
+            // seems not to work...
+            Vue.mixin({ props: {placeholder: { default: "Test" }} });
+        }
+        if(!!options.css) {
+            let c = options.css;
+            let s = document.documentElement.style;
+            if(c.rgbPrimary) s.setProperty('--rgb-primary', c.rgbPrimary);
+        }
+    }
 }
 
 // Create module definition for Vue.use()

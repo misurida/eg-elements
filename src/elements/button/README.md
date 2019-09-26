@@ -11,7 +11,7 @@ The attributes are described on the table below, and you can set only one *style
 
 **Attributes**
 
-The attributes are summarized in the table here, and are described in a list containing the name of the attribute, the type of value and the default value between parenthesis, and its description.
+The attributes are summarized in the table here, and are described in the list below (name of the attribute, type of value and the default value between parenthesis, and its description).
 
 | N° | Styles            | Types           | States         |
 |----|-------------------|-----------------|----------------|
