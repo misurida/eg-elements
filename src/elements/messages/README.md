@@ -11,6 +11,8 @@ To display the messages, simply add `<action-messages></action-messages>` inside
 
 Here is the standard store configuration:
 
+### Preparing the store
+
 Add in the `state`:
 ```
 actionMessages: []
@@ -50,6 +52,8 @@ pushMessage({ commit }, message) {
         }
     }
 ```
+
+### Pushing a message
 
 Then if you want to push a message, you can use *dispatch* to tack a new message to display directly into the store:
 ```
