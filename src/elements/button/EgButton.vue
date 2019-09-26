@@ -13,6 +13,22 @@
         border-radius: 5px;
         color: var(--btn-default-color);
         font-family: 'Lato', sans-serif;
+        &:not(.disabled):not(:disabled) {
+            &.active, &:hover, &.hover {
+                outline: none;
+                box-shadow: var(--btn-default-shadow);
+            }
+            &:focus, &.focus {
+                outline: none;
+                box-shadow: var(--btn-default-shadow);
+            }
+        }
+        .loader .loader-inside {
+            @extend .dark-loader;
+        }
+        .svg-icon svg path {
+            fill: var(--color-primary);
+        }
 
         // content
         .eg-btn-content {
@@ -60,6 +76,10 @@
         .gray-loader {
             border: $loaderBorder solid rgba(255,255,255,.5);
             border-top: $loaderBorder solid var(--color-gray-5);
+        }
+        .dark-loader {
+            border: $loaderBorder solid rgba(0,0,0,.05);
+            border-top: $loaderBorder solid var(--color-gray-3);
         }
 
 
@@ -229,48 +249,12 @@
                 fill: var(--color-transparent);
             }
         }
-        &.link {
-            background-color: transparent;
-            border: none;
-            text-decoration: underline;
-            padding: 0;
-            &:not(.disabled).focus,
-            &:not(.disabled).active,
-            &:not(.disabled):hover,
-            &:not(.disabled):focus {
-                opacity: 0.6;
-                outline: none;
-            }
-            &.valid, &.warning, &.error {
-                background-color: transparent;
-                border: none;
-
-                &:not(.disabled):not(:disabled) {
-                    &.active, &:hover, &.hover {
-                        box-shadow: none;
-                        border: none;
-                    }
-                }
-            }
-            &.warning {
-                color: var(--color-warning);
-            }
-            &.valid {
-                color: var(--color-valid);
-            }
-            &.error {
-                color: var(--color-error);
-            }
-            .svg-icon {
-                position: inherit;
-            }
-        }
         &.thick {
             color: var(--btn-thick-color);
             background-color: var(--btn-thick-bg);
             border: var(--btn-thick-border);
             .loader .loader-inside {
-                @extend .white-loader;
+                @extend .dark-loader;
             }
             .svg-icon svg path {
                 fill: var(--color-thick);
@@ -315,16 +299,53 @@
                 }
             }
         }
+        &.link {
+            background-color: transparent;
+            border: none;
+            text-decoration: underline;
+            padding: 0;
+            &:not(.disabled).focus,
+            &:not(.disabled).active,
+            &:not(.disabled):hover,
+            &:not(.disabled):focus {
+                opacity: 0.6;
+                outline: none;
+                box-shadow: none;
+            }
+            &.valid, &.warning, &.error {
+                background-color: transparent;
+                border: none;
+
+                &:not(.disabled):not(:disabled) {
+                    &.active, &:hover, &.hover {
+                        box-shadow: none;
+                        border: none;
+                    }
+                }
+            }
+            &.warning {
+                color: var(--color-warning);
+            }
+            &.valid {
+                color: var(--color-valid);
+            }
+            &.error {
+                color: var(--color-error);
+            }
+            .svg-icon {
+                position: inherit;
+            }
+            .loader .loader-inside {
+                @extend .dark-loader;
+            }
+        }
         &.yoga {
             $dotSize: 8px;
             background-color: transparent;
             padding-top: 1.5em;
             color: var(--color-black);
             border: none;
-            .loader .loader-inside {
-                border: $loaderBorder solid rgba(var(--color-black),.1);
-                border-top: $loaderBorder solid var(--color-black);
-            }
+            box-shadow: none;
             .svg-icon svg path {
                 fill: var(--color-gray-3);
             }
@@ -339,13 +360,23 @@
                 border-radius: 50%;
                 transform: translateX(-50%);
             }
-            &:not(.disabled).focus,
-            &:not(.disabled):hover,
-            &:not(.disabled):focus {
+            &:not(.disabled):not(:disabled).active {
+                outline: none;
+                box-shadow: none;
+            }
+            &:not(.disabled):not(:disabled):focus,
+            &:not(.disabled):not(:disabled).focus {
+                outline: none;
+                box-shadow: none;
+            }
+            &:not(.disabled):not(:disabled):hover,
+            &:not(.disabled):not(:disabled).hover {
                 opacity: 0.6;
                 outline: none;
+                box-shadow: none;
             }
             &.active {
+                box-shadow: none;
                 &::before {
                     background-color: var(--color-primary);
                 }
@@ -387,11 +418,14 @@
                 border: none;
                 background-color: transparent;
                 &:not(.disabled):not(:disabled) {
-                    &.active, &:hover, &.hover {
+                    &.active, &:hover, &.hover, &:focus {
                         box-shadow: none;
                         border: none;
                     }
                 }
+            }
+            .loader .loader-inside {
+                @extend .dark-loader;
             }
         }
 
@@ -401,7 +435,7 @@
             border: 1px solid var(--color-valid);
             color: var(--btn-valid-color);
             &:not(.disabled):not(:disabled) {
-                &.active, &:hover, &.hover, &:focus, &.focus {
+                &.active, &:hover, &.hover {
                     outline: none;
                     border: var(--btn-valid-border-hover);
                     box-shadow: var(--btn-valid-shadow);
@@ -413,7 +447,7 @@
             border: 1px solid var(--color-warning);
             color: var(--btn-warning-color);
             &:not(.disabled):not(:disabled) {
-                &.active, &:hover, &.hover, &:focus, &.focus {
+                &.active, &:hover, &.hover {
                     outline: none;
                     border: var(--btn-warning-border-hover);
                     box-shadow: var(--btn-warning-shadow);

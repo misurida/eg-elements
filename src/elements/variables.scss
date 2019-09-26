@@ -1,9 +1,47 @@
 :root {
   /*
-  *   Inputs
-  */
+   *    Colors
+   */
 
+  --rgb-black: 18, 18, 18;
+  --rgb-white: 245, 245, 245;
+  --rgb-gray: 42, 42, 42;
+  --rgb-gray-2: 67, 67, 67;
+  --rgb-gray-3: 144, 144, 144;
+  --rgb-gray-4: 169, 169, 169;
+  --rgb-gray-5: 195, 195, 195;
+  --rgb-gray-6: 235, 235, 235;
+  --rgb-gray-7: 242, 242, 242;
 
+  --rgb-primary: 63, 46, 94;
+  --rgb-secondary: 71, 115, 130;
+  --rgb-ternary: 75, 115, 175;
+
+  --rgb-error: 156, 39, 39;
+  --rgb-warning: 214, 109, 2;
+  --rgb-valid: 82, 162, 44;
+
+  --color-black: rgb(var(--rgb-black));
+  --color-gray: rgb(var(--rgb-gray));
+  --color-gray-2: rgb(var(--rgb-gray-2));
+  --color-gray-3: rgb(var(--rgb-gray-3));
+  --color-gray-4: rgb(var(--rgb-gray-4));
+  --color-gray-5: rgb(var(--rgb-gray-5));
+  --color-gray-6: rgb(var(--rgb-gray-6));
+  --color-gray-7: rgb(var(--rgb-gray-7));
+  --color-white: rgb(var(--rgb-white));
+
+  --color-primary: rgb(var(--rgb-primary));
+  --color-secondary: rgb(var(--rgb-secondary));
+  --color-ternary: rgb(var(--rgb-ternary));
+
+  --color-error: rgb(var(--rgb-error));
+  --color-warning: rgb(var(--rgb-warning));
+  --color-valid: rgb(var(--rgb-valid));
+
+  /*
+   *    Inputs
+   */
   // Boxing
   --border-radius: 3px;
   --border: 1px solid var(--color-gray-5);
@@ -11,6 +49,7 @@
   --v-padding: 0.5em;
   --h-padding: 0.8em;
   --padding: var(--v-padding) var(--h-padding);
+  --icon-width: 2em;
 
   // Pill
   --light-bg: #f5f5f5;
@@ -24,58 +63,41 @@
   --n-h-padding: var(--h-padding) + 1em;
 
   /*
-   *  Tooltip
+   *    Tooltip // Dark theme
    */
-  --tooltip-bg: #fff;
-  --tooltip-color: #777;
+  --tooltip-bg: #fff; // #111
+  --tooltip-color: #777; // #CCC
   --tooltip-font-size: 0.8rem;
   --tooltip-line-height: 1rem;
-  --tooltip-shadow: 0 2px 2px 0 rgba(0,0,0,0.05);
-  --tooltip-border: 1px solid #eee;
+  --tooltip-shadow: 0 2px 2px 0 rgba(0,0,0,0.05); //  0 0 5px 5px rgba(0,0,0,.0)
+  --tooltip-border: 1px solid #eee; // 1px solid #000
 
   /*
-   *   ========= COLORS =========
+   *    Popover
    */
-  --icon-width: 2em;
-
-  --rgb-black: 18, 18, 18;
-  --rgb-white: 245, 245, 245;
-  --rgb-gray: 42, 42, 42;
-  --rgb-gray-2: 67, 67, 67;
-  --rgb-gray-3: 144, 144, 144;
-  --rgb-gray-4: 169, 169, 169;
-  --rgb-gray-5: 195, 195, 195;
-  --rgb-gray-6: 235, 235, 235;
-  --rgb-gray-7: 242, 242, 242;
-
-  --rgb-error: 156, 39, 39;
-  --rgb-warning: 214, 109, 2;
-  --rgb-valid: 82, 162, 44;
-
-  --rgb-primary: 63, 46, 94;
-  --rgb-secondary: 71, 115, 130;
-  --rgb-ternary: 75, 115, 175;
+  --popover-arrow-size: 5px;
+  --popover-bg: var(--tooltip-bg);
+  --popover-color: var(--tooltip-color);
+  --popover-font-size: var(--tooltip-font-size);
+  --popover-line-height: var(--tooltip-line-height);
+  --popover-shadow: var(--tooltip-shadow);
+  --popover-border: var(--tooltip-border);
 
   /*
-   *  Buttons
+   *    Buttons
    */
-  // Colors
-  --color-black: rgb(var(--rgb-black));
-  --color-gray: rgb(var(--rgb-gray));
-  --color-gray-2: rgb(var(--rgb-gray-2));
-  --color-gray-3: rgb(var(--rgb-gray-3));
-  --color-gray-4: rgb(var(--rgb-gray-4));
-  --color-gray-5: rgb(var(--rgb-gray-5));
-  --color-gray-6: rgb(var(--rgb-gray-6));
-  --color-gray-7: rgb(var(--rgb-gray-7));
-  --color-white: rgb(var(--rgb-white));
-  --color-error: rgb(var(--rgb-error));
-  --color-warning: rgb(var(--rgb-warning));
-  --color-valid: rgb(var(--rgb-valid));
-
-  --color-primary: rgb(var(--rgb-primary));
-  --color-secondary: rgb(var(--rgb-secondary));
-  --color-ternary: rgb(var(--rgb-ternary));
+  --btn-default-padding: 0.625em 1.4em;
+  --btn-default-font-size: 1rem;
+  --btn-small-padding-v: 0.417em;
+  --btn-small-padding-h: 1.4em;
+  --btn-small-padding: var(--btn-small-padding-v) var(--btn-small-padding-h);
+  --btn-small-font-size: 0.75rem;
+  --btn-big-padding: 0.675em 1.5em;
+  --btn-big-font-size: 1.3rem;
+  --btn-thin-padding: 0.3em 0.7em;
+  --btn-fat-padding: 1em 2.5em;
+  --btn-round-radius: 20px;
+  --btn-empty-padding: 0.334em;
 
   // default
   --btn-default-color: var(--color-black); // color
@@ -141,7 +163,6 @@
   --btn-thick-border-hover: 2px solid rgba(var(--rgb-gray-4));
   --btn-thick-border-focus: 2px solid rgba(var(--rgb-gray-3));
 
-
   // warning
   --btn-warning-color: var(--color-white);
   --btn-warning-bg: var(--color-warning);
@@ -149,6 +170,7 @@
   --btn-warning-shadow: 0 0 0 .2rem rgba(var(--rgb-warning), 0.2);
   --btn-warning-border-hover: 1px solid rgba(var(--rgb-warning), 0.1);
   --btn-warning-border-focus: 1px solid rgba(var(--rgb-warning), 0.2);
+
   // valid
   --btn-valid-color: var(--color-white);
   --btn-valid-bg: var(--color-valid);
@@ -156,6 +178,7 @@
   --btn-valid-shadow: 0 0 0 .2rem rgba(var(--rgb-valid), 0.2);
   --btn-valid-border-hover: 1px solid rgba(var(--rgb-valid), 0.1);
   --btn-valid-border-focus: 1px solid rgba(var(--rgb-valid), 0.2);
+
   // error
   --btn-error-color: var(--color-white);
   --btn-error-bg: var(--color-error);
@@ -164,23 +187,4 @@
   --btn-error-border-hover: 1px solid rgba(var(--rgb-error), 0.1);
   --btn-error-border-focus: 1px solid rgba(var(--rgb-error), 0.2);
 
-  // > Types
-  --btn-default-padding: 0.625em 1.4em;
-  --btn-default-font-size: 1rem;
-  // small
-  --btn-small-padding-v: 0.417em;
-  --btn-small-padding-h: 1.4em;
-  --btn-small-padding: var(--btn-small-padding-v) var(--btn-small-padding-h);
-  --btn-small-font-size: 0.75rem;
-  // big
-  --btn-big-padding: 0.675em 1.5em;
-  --btn-big-font-size: 1.3rem;
-  // thin
-  --btn-thin-padding: 0.3em 0.7em;
-  // fat
-  --btn-fat-padding: 1em 2.5em;
-  // round
-  --btn-round-radius: 20px;
-  // empty
-  --btn-empty-padding: 0.334em;
 }

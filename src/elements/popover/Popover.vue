@@ -1,5 +1,4 @@
 <style lang="scss">
-    $arrowSize: 5px;
     .popover-wrapper {
         position: absolute;
         transition: bottom .2s;
@@ -8,12 +7,12 @@
         z-index: 999;
         .popover-content {
             text-align: center;
-            font-size: 0.8rem;
-            line-height: 0.8rem;
-            color: #222;
+            font-size: var(--popover-font-size);
+            line-height: var(--popover-line-height);
+            color: var(--popover-color);
             border-radius: 3px;
-            box-shadow: 0 0 3px 2px rgba(0,0,0,.05);
-            background-color: #fff;
+            box-shadow: var(--popover-shadow);
+            background-color: var(--popover-bg);
             border: 1px solid #ccc;
             position: relative;
             display: inline-block;
@@ -32,7 +31,7 @@
                 position: absolute;
                 pointer-events: none;
                 display: inline-block;
-                border: $arrowSize solid rgba(255, 255, 255, 0);
+                border: var(--popover-arrow-size) solid var(--popover-bg);
             }
             .popover-inner {
                 overflow: auto;
@@ -110,16 +109,16 @@
             domParentId: { type: String, default: "app" },
 
             // positioning
-            display: { default: "hover" },
-            d: { default: null },
-            position: { default: "c" },
-            p: { default: null },
+            // display: { default: "click" },
+            // d: { default: null },
+            //position: { default: "c" },
+            //p: { default: null },
             side: { default: "top" },
             s: { default: null },
             width: { default: null },
             w: { default: null },
-            height: { default: null },
-            h: { default: null },
+            //height: { default: null },
+            //h: { default: null },
 
             // structural
             value: { default: null }, // the show / hide boolean
@@ -159,9 +158,11 @@
                 return randLetter1 + (Date.now() * randInt) + randLetter2;
             },
             closePopover() {
-                document.removeEventListener('click', this.closePopover);
-                this.el.addEventListener('click', this.handleTargetClick);
-                this.value !== null ? this.$emit('input', false) : this.show = false;
+                if(this.el) {
+                    document.removeEventListener('click', this.closePopover);
+                    this.el.addEventListener('click', this.handleTargetClick);
+                    this.value !== null ? this.$emit('input', false) : this.show = false;
+                }
             },
             handleTargetClick(e) {
                 e.stopPropagation();
@@ -169,7 +170,7 @@
                 this.el.removeEventListener('click', this.handleTargetClick);
                 this.value !== null ? this.$emit('input', !this.show) : this.show = !this.show;
             },
-            // get the element position on the DOM and set the positionning variables for the floating menu (domLevel)
+            // get the element position on the DOM and set the positioning variables for the floating menu (domLevel)
             fetchPositionData() {
                 let $el = this.el;
                 if($el) {
@@ -328,6 +329,12 @@
                         this.show = this.value;
                         if(this.wrapper) {
                             this.computePosition();
+                        }
+                        else if(!this.value) {
+                            this.$nextTick(() => {
+                                let el = document.getElementById(this.theTargetId);
+                                if(el) el.focus();
+                            });
                         }
                     }
                 }

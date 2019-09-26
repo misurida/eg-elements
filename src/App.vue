@@ -96,8 +96,10 @@
             align-items: center;
             margin-bottom: 60px;
         }
-        .svg-icon {
+        .svg-icon.demo-icon {
             margin: 0 20px;
+            height: 3em;
+            width: 3em;
         }
         .example-span {
             display: inline-block;
@@ -118,8 +120,9 @@
                 padding: 10px 15px;
             }
         }
-        .eg-sidemenu-wrapper {
+        .sidemenu-wrapper {
             margin: 0 5px;
+            display: inline-block;
         }
         .side-menu-buttons {
             display: flex;

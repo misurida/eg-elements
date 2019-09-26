@@ -16,8 +16,18 @@
                 <li>the <a href="https://fontawesome.com/icons">Font Awesome icons</a>, using the prefix <strong>fa:</strong> <span class="example-span" @click="icon='fa:fas fa-smile'">(ex: 'fa:fas fa-smile')</span></li>
             </ul>
             <div class="icon-demo">
-                <eg-input placeholder="Enter an icon name to get a preview..." width="300px" :restrictToOptions="false" v-model="icon" editable type="select" :list="icons"></eg-input>
-                <eg-icon :type="icon"/>
+                <eg-input
+                        placeholder="Icon preview..."
+                        width="300px"
+                        :restrictToOptions="false"
+                        v-model="icon"
+                        editable
+                        type="select"
+                        :domLevel="false"
+                        topAlign
+                        :list="icons">
+                </eg-input>
+                <eg-icon class="demo-icon" :type="icon"/>
             </div>
         </div>
     </div>

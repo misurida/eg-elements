@@ -161,7 +161,7 @@
     }
     .modal-body {
         flex: 1;
-        padding: 10px 30px;
+        padding: 20px 30px;
         &.minpad {
             padding: 0 10px;
         }
@@ -180,7 +180,7 @@
     }
     .modal-footer {
         border-top: $innerBorder;
-        padding: 10px;
+        padding: 0 10px 10px 10px;
         display: flex;
         justify-content: flex-end;
         box-sizing: border-box;

@@ -19,8 +19,8 @@
 &lt;/div&gt;</pre>
             <div class="popover-demo">
                 <div>
-                    <eg-btn>Right</eg-btn>
-                    <popover nopad side="right" display="hover" width="100px" v-model="p1">
+                    <eg-btn id="popover-btn-right">Right</eg-btn>
+                    <popover w="100" side="right" target="popover-btn-right" v-model="p1">
                         <p class="popover-text">Yeah, that's a popover{{b? '!' : '?'}}</p>
                         <div class="popover-footer">
                             <eg-btn @click="b=!b">Nope</eg-btn>
@@ -29,8 +29,8 @@
                     </popover>
                 </div>
                 <div>
-                    <eg-btn>Top</eg-btn>
-                    <popover nopad side="top" width="100px" v-model="p2">
+                    <eg-btn id="popover-btn-top">Top</eg-btn>
+                    <popover w="100" side="top" target="popover-btn-top" v-model="p2">
                         <p class="popover-text">Yeah, that's a popover{{b? '!' : '?'}}</p>
                         <div class="popover-footer">
                             <eg-btn @click="b=!b">Nope</eg-btn>
@@ -39,8 +39,8 @@
                     </popover>
                 </div>
                 <div>
-                    <eg-btn>Bottom</eg-btn>
-                    <popover nopad side="bottom" width="100px" v-model="p3">
+                    <eg-btn id="popover-btn-bottom">Bottom</eg-btn>
+                    <popover w="100" side="bottom" target="popover-btn-bottom" v-model="p3">
                         <p class="popover-text">Yeah, that's a popover{{b? '!' : '?'}}</p>
                         <div class="popover-footer">
                             <eg-btn @click="b=!b">Nope</eg-btn>
@@ -49,8 +49,8 @@
                     </popover>
                 </div>
                 <div>
-                    <eg-btn>Left</eg-btn>
-                    <popover nopad side="left" width="100px" v-model="p4">
+                    <eg-btn id="popover-btn-left">Left</eg-btn>
+                    <popover w="100" side="left" target="popover-btn-left" v-model="p4">
                         <p class="popover-text">Yeah, that's a popover{{b? '!' : '?'}}</p>
                         <div class="popover-footer">
                             <eg-btn @click="b=!b">Nope</eg-btn>

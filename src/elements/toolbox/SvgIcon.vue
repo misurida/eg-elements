@@ -2,9 +2,12 @@
     .svg-icon {
         display: inline-block;
         user-select: none;
+        margin: 0;
+        min-height: 1em;
+        min-width: 1em;
         svg {
-            height: inherit;
-            width: inherit;
+            min-height: inherit;
+            min-width: inherit;
         }
         &.small {
             width: 20px;

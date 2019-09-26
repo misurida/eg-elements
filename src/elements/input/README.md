@@ -11,11 +11,20 @@ This element allows you to display different types of *inputs*, allowing the use
 
 - `type` (String, "text"): The type of the input. Can be any of the following values (being described below):
     - `text`: Regular input text,
+    - `textarea`: ,
     - `select`: Options selector,
     - `checkbox`: Checkbox to set a boolean value,
     - `radio`: A radio input to select an option among multiple,
     - `number`: Input for the numbers,
     - `file`: Input for one or multiple files,
+    - `date`:
+    - `time`:
+    - `time-range`:
+    - `datetime`:
+    - `date-range`:
+    - `datetime-range`:
+    - `star`:
+    - Other native types (*password*, *color*, *datetime-local*)
 - `value` (None, null): Value of the field linked with the *v-model*.
 - `label` (String, null): The title of the field (displayed above).
 - `id` (String, null): The string to use as `id` for the field and label. If not specified, the label will be used to create the `id`, or randomly generated if the label is not specified.
@@ -43,43 +52,16 @@ Style:
 - `minWidth` (Number, 50): If specified, sets the *min-width* css attribute to the input and the content wrapper.
 - `autoWidth` (Boolean, false): If *true*, the field will adjust its width based on the content size.
 - `widthBasis` (Number, 30): To use with `autoWidth`. Size of the input when the field is empty.
+- `small`:
+- `transparent`:
 
 Events:
 
 - `eChange` (Boolean, false): If *true*, the `@change` event is triggered when the field value changes with the new value as an argument (instead of `@input` for the `v-model`).
 - `eFocus` (Boolean, false): If *true*, the `@focus` event is emitted.
 - `eBlur` (Boolean, false): If *true*, the `@blur` event is emitted.
-
-**Translation texts**:
-
-Text:
-
-- `searchLabel` (String, "Recherche:"): String representing the text to display instead of the label when a query is active.
-- `noItemLabel` (String, "Aucun elements..."): String representing the text to display when to item is available or has been found.
-- `counterMessage` (String, 'The counter has been exceeded!'): Message to be displayed when `counter` is exceeded.
-
-File:
-
-- `filesMultipleLabel` (String, "fichiers"): String representing the text to display after the number in a multiple file input.
-- `noValidFileMessage` (String, "fichiers"): String representing the error message to display when no file is valid after the selection.
-- `dropLabel` (String, "Déposer ici"): String representing the text to display after the number in a multiple file input.
-- `maxSizeError` (String, "Le fichier dépasse la taille maximale"): String representing the message to display if there is a size related error.
-- `extensionError` (String, "L'extension du fichier n'est pas valide"): String representing the message to display if there is an extension related error.
-
-Date:
-
-- `daysShortNames` (Array, [...]): Array containing the short names (3 characters) of the days.
-- `daysFullNames` (Array, [...]): Array containing the full names of the days.
-- `monthsShortNames` (Array, [...]): Array containing the ahort names (3-4 characters) of the months.
-- `monthsFullNames` (Array, [...]): Array containing the full names of the months.
-
-Time:
-
-- `hoursLabel` (String, "Heures"): String representing the text to display as label in the visual time selector (hours).
-- `minutesLabel` (String, "Minutes"): String representing the text to display as label in the visual time selector (minutes).
-- `secondsLabel` (String, "Secondes"): String representing the text to display as label in the visual time selector (seconds).
-- `startingTimeLabel` (String, "Début"): String representing the text to display as label in the visual time selector (starting).
-- `endingTimeLabel` (String, "Fin"): String representing the text to display as label in the visual time selector (ending).
+- `eTagClick`:
+- `eEscape`:
 
 ### Text
 
@@ -92,8 +74,8 @@ You can also display a counter with `counter`, to count by default the number of
 **Attributes**:
 
 - `placeholder` (None, null): The string to display when the value is empty.
-- `suffix` (Boolean, false): string to display before the field.
 - `prefix` (Boolean, false): String to display after the field.
+- `suffix` (Boolean, false): string to display before the field.
 - `multiples` (Boolean, false): Expects an array as `value`. Allows the user to enter multiple values in the field. Can be limited with `counter`.
 
 Validation :
@@ -101,13 +83,18 @@ Validation :
 - `regex` (None, null): A *regular expression* that forces the field value to be formatted. A formatted value is issued through the `@input` event (otherwise the user would be blocked), but not with `@change`. It is therefore preferable to use `@change` and `value` to ensure a compliant return value.
 - `strongRegex` (Boolean, false): If *true*, an input value that is invalidated by `regex` cannot be entered.
 - `weakRegex` (Boolean, false): If *true*, an input value that is invalidated by `regex` is still transmitted throught the `@change` event. If used with `multiple`, allows to add a new option when the user types *enter* in the field (even if there is an active error).
-- `Rules` (Array, []): Indicates a list of rules. Each element of the array must be of type Array and must contain at index 0 a *regular expression* that indicates the rule and at index 1 a message to display if the rule is violated.
+- `rules` (Array, []): Indicates a list of rules. Each element of the array must be of type Array and must contain at index 0 a *regular expression* that indicates the rule and at index 1 a message to display if the rule is violated.
 
 Icons :
 
-- `icon` (String, null): The name of the icon to display in the field: 'glass' for a *search glass*, 'check' for a *checkmark* or 'cross' for a *cross*.
 - `deleteCross` (Boolean, true): If *true*, clicking on the cross icon erases the input content.
 - `emptyShowCross` (Boolean, true): To be used with `deleteCross`. If *true*, still displays the cross, even if there is no value in the field.
+- `icon` (String, null): The name of the icon to display in the field: 'glass' for a *search glass*, 'check' for a *checkmark* or 'cross' for a *cross*.
+- `icons` (Array, []):
+- `leftIcon` (String, null):
+- `leftIcons` (Array, []):
+- `crossIcon` (String, null):
+- `checkIcon` (String, null):
 
 Counter :
 
@@ -127,7 +114,7 @@ A *textarea input* allows the user to enter any text on several lines. This fiel
 - `rows` (None, 2): (Native) the number of columns to display.
 - `cols` (None, null): (Native) the number of lines to display.
 - `autoResize` (Boolean, false): If *true*, the field increases or decreases the number of lines (height) based on the size of the content.
-- `showScrollbar` (Boolean, true): If *true*, the scrollbar is displayed when the container is scrollable.
+- (`showScrollbar`) (Boolean, true): If *true*, the scrollbar is displayed when the container is scrollable.
 
 
 ### Select
@@ -144,10 +131,28 @@ You can link an array to display, add or delete multiple elements with `multiple
 - `multiple` (Boolean, false): If *true*, expects a value of type Array and allows to select several options. The field displays the options in *bubbles* inside the field.
 - `editable` (Boolean, false): If *true*, a text field is displayed in the element to enter a query to filter the options.
 - `restrictToOptions` (Boolean, true): Shortcuts for *Restricted to Options*, to be combined with `editable`. If *false*, the text entered for a search is directly emitted, even if no option has been selected. If combined in addition with `multiple`, typing *enter* in the text field adds the text entered in the value table.
-- `oLabel` (String, `name'): If the options are of type *Object*, this option allows you to specify which attribute represents the name to be displayed.
 - `maxHeight` (String, "400px"): Represents the maximum height of the list of displayed options.
 - `resultsMinWidth` (String, "200px"): Represents the minimum width of the list of displayed options.
 - `tabindex` (Boolean, false): If *true*, the options have the html tabindex attribute set to 1, allowing a tab navigation.
+- (`emitObject`) (Boolean, false):
+- (`nullOption`) (Boolean, false):
+
+Options formatting:
+
+- `oLabel` (String, 'name'): If the options are of type *Object*, this option allows you to specify which attribute represents the name to be displayed.
+- (`oValue`) (String, null):
+- (`oValueIndex`) (Boolean, false):
+- (`oId`) (String, null):
+
+Floating panel:
+
+- `domLevel` (Boolean, true):
+- `domParentId` (String, "app"):
+- `maxHeight` (String, "300px"):
+- `menuMinWidth` (String, "300px"):
+- `menuSpace` (String, "300px"):
+- `rightAlign` (Boolean, false):
+- `topAlign` (Boolean, false):
 
 ### Checkbox
 
@@ -265,33 +270,6 @@ A *datetime-range input* allows the user to enter four strings: two pairs of dat
 - `startSep` (String, ''): String to display and use as separator between the starting date and time.
 - `endSep` (String, ''): String to display and use as separator between the ending date and time.
 
-### Slider
-
-A *slider input* allows the user to select a number between `min` and `max` and move a cursor over an horizontal slider. The slider can move from step to step, and the base step number corresponds to the difference in `min` and `max`, but you can define a number with `steps` and set the number of decimals with `toFixed`. You can also let the slider navigate freely between steps with `stepless`. You can decide to display the field value above the cursor (default) with `showDotLabel` or next to the field with `displayNumber`. You can display (by default) the value of the steps with `showStepLabels`, and also pass custom values with `list`.
-
-**Attributes**:
-
-- `steps` (Number, false): The number of *steps* to be displayed. The user can only select a number that is on a step.
-- `dotSize` (Number, false): The diameter in `px` of the slider selection button (cursor).
-- `toFixed` (Number, false): Number of decimals to be used.
-- `stepless` (Boolean, false): If *true*, the cursor does not necessarily stop at the steps.
-
-Display :
-
-- `displayNumber` (Boolean, false): If *true*, displays the value of the *slider* next to it.
-- `ShowDotLabel` (Boolean, false): If *true*, displays the slider value above the cursor.
-- `ShowSteps` (Boolean, false): If *true*, displays the steps on the slider
-- `showStepLabels` (Boolean, false): If *true*, displays the value of the steps below them.
-- `showStepLabelsOnHover` (Boolean, false): To be used with `showStepLabels`. If *true*, only displays the values of the steps if the user hovers over the slider.
-
-Precision:
-
-- `restricted` (Boolean, false): If *true*, the values displayed for the steps at the ends do not exceed the slider bar (for use with long text).
-- `showLabelEach` (Number, false): Depending on the scale defined by `min` and `max`, only labels of labels are displayed at all `showLabelEach` steps.
-- `minLabelWidth` (Number, false): Minimum size of the values displayed in the steps.
-- `showLabelOffset` (Boolean, false): To be used with `showLabelEach`. Allows to shift the chosen label, while keeping the deviation specified by `showLabelEach` (generally, this attribute takes the value 1 or -1).
-- `precision` (Boolean, false): Number of decimals used when rounding the cursor position. The higher this value, the more fluid the slider will be.
-- `labelMaxWidth` (Number, 0): If specified, the maximum size in `px` of each label.
 
 ### Star
 
@@ -301,8 +279,39 @@ A *datetime-range input* allows the user to select a number by clicking on a pic
 
 - `count` (Number, false): Number of stars to display.
 - `noBorder` (Boolean, false): If *true*, the star strokes are not displayed.
-- `lightGray` (String, '#CCC'): The hovering color.
-- `activeColor` (String, '#CCC'): The active color.
-- `darkGray` (String, '#CCC'): The hovering on active color.
 - `noSteps` (Boolean, false): If *true*, no steps are visible when hovering the stars.
 - `free` (Boolean, false): If *true*, the computed value is not based on the steps but on the cursor position.
+
+
+
+
+## Translation strings
+
+Text:
+
+- `searchLabel` (String, "Recherche:"): String representing the text to display instead of the label when a query is active.
+- `noItemLabel` (String, "Aucun elements..."): String representing the text to display when to item is available or has been found.
+- `counterMessage` (String, 'The counter has been exceeded!'): Message to be displayed when `counter` is exceeded.
+
+File:
+
+- `filesMultipleLabel` (String, "fichiers"): String representing the text to display after the number in a multiple file input.
+- `noValidFileMessage` (String, "fichiers"): String representing the error message to display when no file is valid after the selection.
+- `dropLabel` (String, "Déposer ici"): String representing the text to display after the number in a multiple file input.
+- `maxSizeError` (String, "Le fichier dépasse la taille maximale"): String representing the message to display if there is a size related error.
+- `extensionError` (String, "L'extension du fichier n'est pas valide"): String representing the message to display if there is an extension related error.
+
+Date:
+
+- `daysShortNames` (Array, [...]): Array containing the short names (3 characters) of the days.
+- `daysFullNames` (Array, [...]): Array containing the full names of the days.
+- `monthsShortNames` (Array, [...]): Array containing the ahort names (3-4 characters) of the months.
+- `monthsFullNames` (Array, [...]): Array containing the full names of the months.
+
+Time:
+
+- `hoursLabel` (String, "Heures"): String representing the text to display as label in the visual time selector (hours).
+- `minutesLabel` (String, "Minutes"): String representing the text to display as label in the visual time selector (minutes).
+- `secondsLabel` (String, "Secondes"): String representing the text to display as label in the visual time selector (seconds).
+- `startingTimeLabel` (String, "Début"): String representing the text to display as label in the visual time selector (starting).
+- `endingTimeLabel` (String, "Fin"): String representing the text to display as label in the visual time selector (ending).

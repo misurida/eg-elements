@@ -134,8 +134,12 @@
             // Focus
             &.focus {
                 border-color: var(--color-primary);
-                .input-icon .svg-icon svg {
-                    fill: var(--color-primary);
+                .input-icon .svg-icon {
+                    width: 1.2em;
+                    height: 1.2em;
+                    svg {
+                        fill: var(--color-primary);
+                    }
                 }
             }
         }
@@ -253,8 +257,8 @@
         &.checkbox {
             .checkbox-input {
                 // (custom input)
-                height: 16px;
-                width: 16px;
+                height: 14px;
+                width: 14px;
                 margin-right: 8px;
                 position: relative;
                 cursor: pointer;
@@ -321,6 +325,24 @@
             .radio-group {
                 display: inline-block;
                 margin-right: 20px;
+                &:hover,
+                &:focus {
+                    box-shadow: none;
+                    &::after {
+                        background-color: var(--light-bg);
+                        opacity: 1;
+                    }
+                    svg {
+                        path {
+                            &.circle {
+                                fill: var(--color-gray-2);
+                            }
+                            &.dot {
+                                stroke: var(--color-gray-2);
+                            }
+                        }
+                    }
+                }
             }
             .radio-inner {
                 display: flex;
@@ -410,10 +432,10 @@
                     svg {
                         path {
                             &.circle {
-                                fill: var(--color-gray);
+                                fill: var(--color-primary);
                             }
                             &.dot {
-                                stroke: var(--color-gray);
+                                stroke: var(--color-primary);
                             }
                         }
                     }
@@ -428,24 +450,6 @@
                     border-radius: 50%;
                     opacity: 0;
                     z-index: -1;
-                }
-                &:hover,
-                &:focus {
-                    box-shadow: none;
-                    &::after {
-                        background-color: var(--light-bg);
-                        opacity: 1;
-                    }
-                    svg {
-                        path {
-                            &.circle {
-                                fill: var(--color-gray-2);
-                            }
-                            &.dot {
-                                stroke: var(--color-gray-2);
-                            }
-                        }
-                    }
                 }
             }
             &.legacy {
@@ -2295,6 +2299,9 @@
                         if(!this.restrictToOptions && !this.multiple) {
                             this.eChange ? this.$emit('change', "") : this.$emit('input', "");
                             this.query = this.multiple ? "" : null;
+                            this.$nextTick(() => {
+                                this.focusField();
+                            });
                         }
                         // when multiple, we first check the query
                         else if(this.multiple) {
@@ -2311,7 +2318,9 @@
                         else if(this.query !== null) {
                             this.eChange ? this.$emit('change', null) : this.$emit('input', null);
                             this.query = "";
-                            this.focusField();
+                            this.$nextTick(() => {
+                                this.focusField();
+                            });
                         }
                         // secure default behaviours
                         else {
@@ -2325,6 +2334,9 @@
                     else {
                         this.regexUnvalid = false;
                         this.eChange ? this.$emit('change', "") : this.$emit('input', "");
+                        this.$nextTick(() => {
+                            this.focusField();
+                        });
                     }
                 }
                 // if deleteCross is not activated, we only emit enter (the simple icon is used)
@@ -2438,7 +2450,6 @@
                         // if the value is an array, we don't emit directly
                         if((this.isSelect && !this.legacy) || (this.isText && this.multiple)) {
                             if(this.isSelect && !this.restrictToOptions && !this.multiple) {
-                                debugger;
                                 this.eChange ? this.$emit('change', e.target.value) : this.$emit('input', e.target.value);
                             }
                             else {
@@ -3213,7 +3224,6 @@
                             // if a label attribute is defined, we try to remove it from the value (array).
                             // if we cannot, we add the item to the value
                             if(this.oValueIndex) {
-                                debugger;
                                 value = i;
                             }
                             else if(this.oValue) {
