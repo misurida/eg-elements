@@ -29,17 +29,20 @@ You can see the live demo [here](https://ege.erwan.ch), and the documentation ju
 ## Elements
 
 The EgElements are the following:
-- [\<EgBtn\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/button): A button with different style layers or state attributes
-- [\<EgInput\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/input): Any kind of input: text, textarea, select, checkbox, radio, switch, number, slider, file, date, time, star or color
-- [\<Popover\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/popover): and v-tooltip: A popover or tooltip directive to display text or actions quickly next to any element
-- [\<Modal\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/modal): A modal with attributes to display quick content or slot to insert any html
-- [\<Sidemenu\>](https://github.com/misurida/eg-elements/tree/newbranch/src/elements/sidemenu): A menu that can be hidden next to viewport and based on its width. Pan and swipe events are available (thanks to [hammerjs](https://hammerjs.github.io/)) to display the menu
+- [\<EgBtn\>](https://github.com/misurida/eg-elements/tree/master/src/elements/button): A Quickly usable button with different style layers and state attributes.
+- [\<EgInput\>](https://github.com/misurida/eg-elements/tree/master/src/elements/input): Any kind of input: text, textarea, select, checkbox, radio, switch, number, slider, file, date, time, star or color.
+- [\<Tooltip\>](https://github.com/misurida/eg-elements/tree/master/src/elements/tooltip): A custom directive to display a floating text next to any element.
+- [\<Popover\>](https://github.com/misurida/eg-elements/tree/master/src/elements/popover): A floating popover element to display text or form elements next to any element to help user to do actions quickly.
+- [\<Modal\>](https://github.com/misurida/eg-elements/tree/master/src/elements/modal): A modal with attributes to display quick content or slot to insert any element.
+- [\<Sidemenu\>](https://github.com/misurida/eg-elements/tree/master/src/elements/sidemenu): A menu that can be hidden outside of the viewport and based on its width. Pan and swipe events are available (thanks to [hammerjs](https://hammerjs.github.io/)) to display the menu in a native way.
 
 ## Quick use
 
 The elements are designed to be quickly usable:
 
-### EgInputs basics
+### EgInput quick use
+
+#### EgInputs basics
 
 - The simplest way is to use the properties `v-model` for the value and `label` for the name. By default, `deleteCross` is *true* and display a cross to empty the field as field icon.
 - The input *id* will be created from the label attribute, but you can fix it with `id` or set a unique random id using `idSeed` (also used if no label is provided).
@@ -56,7 +59,7 @@ The elements are designed to be quickly usable:
   - on the left using `lfas` or `lma`.
 - Finally, you can set `legacy` to *true* to use a *native* input (but with the EgElement design). It can be used for the smartphone layouts.
 
-### Text input basics
+#### Text input basics
 
 `<eg-input label="Name" v-model="value"></eg-input>`.
 
@@ -64,28 +67,28 @@ The elements are designed to be quickly usable:
 - You can count the number of words or characters entered using `counter`.
 - You can use an array as *value* and set `multiple` to *true* to allow the user to enter multiple *strings*. The array elements will be dsplayed as *tags* inside the input in a convenient way.
 
-### Textarea basics
+#### Textarea basics
 
 `<eg-input type="textarea" label="Name" v-model="value"></eg-input>`.
 
 - You can also `rows` to set the height of the input, or use `autoHeight` to let the input change its size based on its content.
 
-### Select basics
+#### Select basics
 
 `<eg-input type="textarea" label="Name" v-model="value"></eg-input>`.
 
-This input allows different kind of options to pass to the field using the attributes `list` (if array) or `options` (if object):
+This input allows different kind of options to pass to the field using the attributes `list` (if array), `options` (if object) or `optGroups` (if array containing object):
 - A simple *Array*: `["Options 1", "Options 2", ...]`. The attribute to use is `list`. The value is necessarily a string and the option name will be the same as the value.
 - A simple *Object*: `{"Option 1": value1, "Option 2": value2, ...}`. The attribute to use is `options`. The value can be of any type and the option name will be the *key* related to the selected option (assed by `v-model`).
 - An *Array* of *Objects*: `[{xlab: "Option 1", xval: value1}, ...]`. This method allows you to pass even unformatted object list as options throught `list`. The option name to display will be the attribute defined by `oLabel`, and the value to return must be desined by `oValue` (for selection purposes). If you want to retrieve the whole object of the option, you can set `xxx` to *true*.
 - An *Object* containing *Arrays*: `{"Group 1": [item1: value1, ...], ...}`. This method allows you to display option groups, the group name being the *key* of the main object. The option must be passed to `options` and follow the same object rules than the *Array of Object* method.
 
-The select has a floating panel to display the options, generally below the input field. Its height can be set by `maxHeight` and `resultsMinWidth` if needed. The floating panel is by default displayed *inside* the field, being anchored to the relative field position. If you need it to be in an `absolute` position, you can use the attribute `xxx` and the panel DOM element will be moved on the top of the document and positionned below the field, being now anchored to the relative *page* position.
+The select has a floating panel to display the options, generally below the input field. Its height can be set by `maxHeight` and `resultsMinWidth` if needed. The floating panel is by default displayed *inside* the field, being anchored to the relative field position. If you need it to be in an `absolute` position, you can use the attribute `domLevel` and the panel DOM element will be moved on the top of the document and positionned below the field, being now anchored to the relative *page* position.
 
 - `multiple`. If *true*, the *value* must be an array, allowing the user to select multiple options that will be displayed as *tags* inside the input.
 - `editable`. If *true*, a text input will be displayed on the field, allowing the user to filter the options based on a query string.
 
-### Checkbox and Radio input basics
+#### Checkbox and Radio input basics
 
 There is checkbox / radio input variations based mostly on the `v-model` type: *boolean*, any or a dynamic *Array*.
 
@@ -100,6 +103,49 @@ Radio options: to select *one among multiple*. The options must be an *Object* a
 Checkbox list: to select *one or multiple*. the `label` value will the field group name, displayed on the top of the set. The user can select multiple options since the *value* is an array, and the options can be passed using `list`:
 
 `<eg-input type="checkbox" label="Name" :list="['Yes', 'No', 'Maybe']" v-model="array"></eg-input>`.
+
+
+### Floating element quick use
+
+#### Popover basics
+
+```
+<popover nopad target="target-id" side="right" width="100px" v-model="p1">
+    <p class="popover-text">Text inside the popover</p>
+    <div class="popover-footer">
+        <btn @click="...">Nope</btn>
+        <btn @click="p1=0">Okay</btn>
+    </div>
+</popover>
+```
+
+The popover allows the user to quickly deploy text or element to do action next to a target element. The popover content is inserted directly inside the html tags using simple the default vuejs slot. The class `.popover-footer` can be used to display a formatted footer designed to contain `<eg-btn>` elements and `.popover-text` to display regular text.
+
+To open the popover, the user must click on the target element. You have to define the target element using the `target` attribute and passing the target DOM id. If you want to display the popover next to an element by clicking on another element, you can use the separate attributes `targetId` and `triggerId`.
+
+To change the popover aspect, you can use `width` to specify (with units) the popover width. You can use the attribute `side` to define where to display the popover in relation to the target element.
+
+#### Tooltip basic
+
+Simple example:
+`<div v-tooltip="'Text to reveal'">...</div>`
+
+Complex example:
+`<div v-tooltip:[args]>...</div>`
+```
+args: {
+    text: 'text to reveal',
+    display: 'hover',
+    position: 'c',
+    side: 'top',
+    width: '200px',
+}
+```
+
+The tooltip allows the user to display text when the target element is hovered. The hovering trigger can be changed by *click* or *clickout* using the `display` attribute. The tooltip can be placed on the side defined by `side` and aligned on top/bottom for the left/right sides or left/right for the top/bottom sides using `position`.
+
+#### Modal basics
+
 
 
 ## Icons
