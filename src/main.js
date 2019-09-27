@@ -8,14 +8,7 @@ Vue.config.productionTip = false;
 
 // we import the global components components
 import eg from "../index"
-Vue.use(eg, {
-    props: {
-        placeholder: { default: "okok" }
-    },
-    css: {
-        rgbPrimary: "125,11,111"
-    }
-});
+Vue.use(eg);
 
 
 new Vue({

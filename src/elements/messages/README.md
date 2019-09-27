@@ -68,3 +68,5 @@ Or more simply:
 ```
 this.$store.dispatch('pushMessage', 'New entry created')
 ```
+
+You can also specify a subtext using the attribute `subtext` to the message object. The main text will be *1.2rem* and the subtext will have an opacity of *0.5*.

@@ -1,5 +1,6 @@
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+    @import "../variables";
 
     .eg-button {
         // properties
@@ -27,7 +28,7 @@
             @extend .dark-loader;
         }
         .svg-icon svg path {
-            fill: var(--color-primary);
+            fill: var(--color-gray-2);
         }
 
         // content
@@ -136,7 +137,7 @@
                 @extend .white-loader;
             }
             .svg-icon svg path {
-                fill: var(--color-primary);
+                fill: var(--btn-primary-color);
             }
         }
         &.secondary {
@@ -158,7 +159,7 @@
                 @extend .white-loader;
             }
             .svg-icon svg path {
-                fill: var(--color-secondary);
+                fill: var(--btn-secondary-color);
             }
         }
         &.ternary {
@@ -180,7 +181,7 @@
                 @extend .white-loader;
             }
             .svg-icon svg path {
-                fill: var(--color-ternary);
+                fill: var(--btn-ternary-color);
             }
         }
         &.light {
@@ -202,7 +203,7 @@
                 @extend .gray-loader;
             }
             .svg-icon svg path {
-                fill: var(--color-light);
+                fill: var(--btn-light-color);
             }
         }
         &.dark {
@@ -224,7 +225,7 @@
                 @extend .white-loader;
             }
             .svg-icon svg path {
-                fill: var(--color-dark);
+                fill: var(--btn-dark-color);
             }
         }
         &.transparent {
@@ -246,7 +247,7 @@
                 @extend .gray-loader;
             }
             .svg-icon svg path {
-                fill: var(--color-transparent);
+                fill: var(--btn-transparent-color);
             }
         }
         &.thick {
@@ -257,7 +258,7 @@
                 @extend .dark-loader;
             }
             .svg-icon svg path {
-                fill: var(--color-thick);
+                fill: var(--btn-thick-color);
             }
             &:not(.disabled):not(:disabled) {
                 &.active, &:hover, &.hover {

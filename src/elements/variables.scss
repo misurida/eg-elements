@@ -2,6 +2,9 @@
   /*
    *    Colors
    */
+  --rgb-primary: 69, 100, 143;
+  --rgb-secondary: 69, 78, 94;
+  --rgb-ternary: 205, 184, 169;
 
   --rgb-black: 18, 18, 18;
   --rgb-white: 245, 245, 245;
@@ -13,13 +16,13 @@
   --rgb-gray-6: 235, 235, 235;
   --rgb-gray-7: 242, 242, 242;
 
-  --rgb-primary: 63, 46, 94;
-  --rgb-secondary: 71, 115, 130;
-  --rgb-ternary: 75, 115, 175;
-
   --rgb-error: 156, 39, 39;
   --rgb-warning: 214, 109, 2;
   --rgb-valid: 82, 162, 44;
+
+  --color-primary: rgb(var(--rgb-primary));
+  --color-secondary: rgb(var(--rgb-secondary));
+  --color-ternary: rgb(var(--rgb-ternary));
 
   --color-black: rgb(var(--rgb-black));
   --color-gray: rgb(var(--rgb-gray));
@@ -30,10 +33,6 @@
   --color-gray-6: rgb(var(--rgb-gray-6));
   --color-gray-7: rgb(var(--rgb-gray-7));
   --color-white: rgb(var(--rgb-white));
-
-  --color-primary: rgb(var(--rgb-primary));
-  --color-secondary: rgb(var(--rgb-secondary));
-  --color-ternary: rgb(var(--rgb-ternary));
 
   --color-error: rgb(var(--rgb-error));
   --color-warning: rgb(var(--rgb-warning));
@@ -84,6 +83,41 @@
   --popover-border: var(--tooltip-border);
 
   /*
+   *    Modal
+   */
+  --modal-shadow-color: rgba(0, 0, 0, .5);
+  --modal-bg: #fff;
+  --modal-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  --modal-border: none;
+
+  --modal-resp-medium: 960px;
+  --modal-resp-mini: 450px;
+
+  --modal-default-width: 70%; // width
+  --modal-default-max-width: 800px; // max-width
+  --modal-small-width: 60%;
+  --modal-small-max-width: 580px;
+  --modal-medium-width: 65%;
+  --modal-medium-max-width: 800px;
+  --modal-big-width: calc(100vw - 10em);
+  --modal-big-max-width: 1300px;
+
+  /*
+   *    Sidemenu
+   */
+  --sidemenu-bg: #FFF;
+  --sidemenu-shadow-bg: #222;
+  --sidemenu-touch-bg: transparent;
+
+  /*
+   *    Action Message
+   */
+  --action-message-bg: rgba(0,0,0,0.8);
+  --action-message-padding: 10px 15px;
+  --action-message-color: #f5f5f5;
+  --action-message-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+
+  /*
    *    Buttons
    */
   --btn-default-padding: 0.625em 1.4em;
@@ -124,7 +158,7 @@
   --btn-secondary-border-focus: 1px solid rgba(var(--rgb-secondary), 0.2);
 
   // ternary
-  --btn-ternary-color: var(--color-white);
+  --btn-ternary-color: var(--color-black);
   --btn-ternary-bg: var(--color-ternary);
   --btn-ternary-border: 1px solid var(--color-ternary);
   --btn-ternary-shadow: 0 0 0 .2rem rgba(var(--rgb-ternary), 0.2);

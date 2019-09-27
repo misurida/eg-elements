@@ -1,10 +1,12 @@
 // Import vue component
 import EgButton from './src/elements/button/EgButton'
+import EgBtn from './src/elements/button/EgButton'
 import EgInput from './src/elements/input/EgInput'
 import Popover from './src/elements/popover/Popover'
 import EgIcon from './src/elements/toolbox/SvgIcon'
 import Sidemenu from './src/elements/sidemenu/Sidemenu'
 import Modal from './src/elements/modal/Modal'
+import ActionMessages from './src/elements/messages/ActionMessages'
 import TooltipDirective from './src/elements/tooltip/tooltip'
 
 // Declare install function executed by Vue.use()
@@ -20,6 +22,7 @@ export default function install(Vue, options) {
     Vue.component('popover', Popover);
     Vue.component('modal', Modal);
     Vue.component('sidemenu', Sidemenu);
+    Vue.component('action-messages', ActionMessages);
 
     // v-tooltip directive
     Vue.directive('tooltip', TooltipDirective);
@@ -27,6 +30,8 @@ export default function install(Vue, options) {
     // We inject the polyfills
     require('./src/elements/toolbox/removeDiacritics');
 
+    // CSS method unefficient and JS Mixins errors...
+    /*
     if(!!options) {
         if(!!options.props) {
             // seems not to work...
@@ -38,6 +43,7 @@ export default function install(Vue, options) {
             if(c.rgbPrimary) s.setProperty('--rgb-primary', c.rgbPrimary);
         }
     }
+    */
 }
 
 // Create module definition for Vue.use()
@@ -58,10 +64,11 @@ if (GlobalVue) {
 
 // To allow use as module (npm/webpack/etc.) export component
 export {
-    EgButton,
+    EgButton, EgBtn,
     EgInput,
     EgIcon,
     Popover,
     Modal,
-    Sidemenu
+    Sidemenu,
+    ActionMessages
 };

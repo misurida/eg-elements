@@ -1,16 +1,18 @@
 <style lang="scss">
+    @import "../variables";
+
     .eg-action-messages {
         position: absolute;
         right: 10px;
         bottom: 10px;
         z-index: 95;
         .eg-action-message {
-            background-color: rgba(0,0,0,0.8);
+            background-color: var(--action-message-bg);
+            padding: var(--action-message-padding);
+            color: var(--action-message-color);
+            box-shadow: var(--action-message-shadow);
             margin: 5px;
-            padding: 10px 15px;
-            color: #f5f5f5;
             border-radius: 3px;
-            box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
             .subtext {
                 opacity: .5;
                 font-weight: 400;
@@ -55,9 +57,6 @@
 
 <script>
     export default {
-        props: {
-
-        },
         computed: {
             actionsMessages() { return this.$store.getters.actionMessages }
         }

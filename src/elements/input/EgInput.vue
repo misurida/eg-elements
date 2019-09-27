@@ -2013,7 +2013,7 @@
             // textarea
             rows: { default: 2 },
             cols: { default: null },
-            autoResize: { type: Boolean, default: false },
+            autoHeight: { type: Boolean, default: false },
             showScrollbar: { type: Boolean, default: true },
 
             // radio
@@ -2340,6 +2340,9 @@
                         this.eChange ? this.$emit('change', "") : this.$emit('input', "");
                         this.$nextTick(() => {
                             this.focusField();
+                            if(this.isTextarea && this.autoHeight) {
+                                this.handleAutoResize({target:document.getElementById(this.theId)});
+                            }
                         });
                     }
                 }
@@ -2465,7 +2468,7 @@
                             this.eChange ? this.$emit('change', val) : this.$emit('input', val);
                         }
                         else {
-                            let val = e.target.value
+                            let val = e.target.value;
                             if(this.oValueIndex) {
                                 val = !val ? null : e.target.selectedIndex-1;
                             }
@@ -4741,7 +4744,7 @@
                     this.dotHammer.on('press', this.mouseTap);
                 }
             }
-            if(this.isTextarea && this.autoResize) {
+            if(this.isTextarea && this.autoHeight) {
                 this.$nextTick(() => {
                     let el = document.getElementById(this.theId);
                     if(el) {
@@ -4802,7 +4805,7 @@
                     this.dotHammer.off('press', this.mouseTap);
                 }
             }
-            if(this.isTextarea && this.autoResize) {
+            if(this.isTextarea && this.autoHeight) {
                 let el = document.getElementById(this.theId);
                 if(el) {
                     el.removeEventListener('input', this.handleAutoResize);

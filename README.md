@@ -29,12 +29,13 @@ You can see the live demo [here](https://ege.erwan.ch), and the documentation ju
 ## Elements
 
 The EgElements are the following:
-- [\<EgBtn\>](https://github.com/misurida/eg-elements/src/elements/button): A Quickly usable button with different style layers and state attributes.
-- [\<EgInput\>](https://github.com/misurida/eg-elements/src/elements/input): Any kind of input: text, textarea, select, checkbox, radio, switch, number, slider, file, date, time, star or color.
+- [\<EgBtn\>](https://github.com/misurida/eg-elements/tree/master/src/elements/button): A Quickly usable button with different style layers and state attributes.
+- [\<EgInput\>](https://github.com/misurida/eg-elements/tree/master/src/elements/input): Any kind of input: text, textarea, select, checkbox, radio, switch, number, slider, file, date, time, star or color.
 - [\<Tooltip\>](https://github.com/misurida/eg-elements/tree/master/src/elements/tooltip): A custom directive to display a floating text next to any element.
 - [\<Popover\>](https://github.com/misurida/eg-elements/tree/master/src/elements/popover): A floating popover element to display text or form elements next to any element to help user to do actions quickly.
 - [\<Modal\>](https://github.com/misurida/eg-elements/tree/master/src/elements/modal): A modal with attributes to display quick content or slot to insert any element.
 - [\<Sidemenu\>](https://github.com/misurida/eg-elements/tree/master/src/elements/sidemenu): A menu that can be hidden outside of the viewport and based on its width. Pan and swipe events are available (thanks to [hammerjs](https://hammerjs.github.io/)) to display the menu in a native way.
+- [\<ActionMessages\>](https://github.com/misurida/eg-elements/tree/master/src/elements/messages): Floating message to stack and display quick messages.
 
 ## Quick use
 
@@ -80,10 +81,10 @@ The elements are designed to be quickly usable:
 This input allows different kind of options to pass to the field using the attributes `list` (if array), `options` (if object) or `optGroups` (if array containing object):
 - A simple *Array*: `["Options 1", "Options 2", ...]`. The attribute to use is `list`. The value is necessarily a string and the option name will be the same as the value.
 - A simple *Object*: `{"Option 1": value1, "Option 2": value2, ...}`. The attribute to use is `options`. The value can be of any type and the option name will be the *key* related to the selected option (assed by `v-model`).
-- An *Array* of *Objects*: `[{xlab: "Option 1", xval: value1}, ...]`. This method allows you to pass even unformatted object list as options throught `list`. The option name to display will be the attribute defined by `oLabel`, and the value to return must be desined by `oValue` (for selection purposes). If you want to retrieve the whole object of the option, you can set `xxx` to *true*.
-- An *Object* containing *Arrays*: `{"Group 1": [item1: value1, ...], ...}`. This method allows you to display option groups, the group name being the *key* of the main object. The option must be passed to `options` and follow the same object rules than the *Array of Object* method.
+- An *Array* of *Objects*: `[{xlab: "Option 1", xval: value1}, ...]`. This method allows you to pass even unformatted object list as options through `list`. The option name to display will be the attribute defined by `oLabel`, and the value to return must be defined by `oValue` (for selection purposes). If you want to retrieve the whole object of the option, you can set `emitObject` to *true*.
+- An *Object* containing *Arrays*: `{"Group 1": [item1: value1, ...], ...}`. This method allows you to display option groups, the group name being the *key* of the main object. The option must be passed to `optGroups` and follow the same object rules than the *Array of Object* method.
 
-The select has a floating panel to display the options, generally below the input field. Its height can be set by `maxHeight` and `resultsMinWidth` if needed. The floating panel is by default displayed *inside* the field, being anchored to the relative field position. If you need it to be in an `absolute` position, you can use the attribute `domLevel` and the panel DOM element will be moved on the top of the document and positionned below the field, being now anchored to the relative *page* position.
+The select has a floating panel to display the options, generally below the input field. Its height can be set by `maxHeight` and `resultsMinWidth` if needed. The floating panel is by default displayed *inside* the field, being anchored to the relative field position. If you need it to be in an `absolute` position, you can use the attribute `domLevel` and the panel DOM element will be moved on the top of the document and positioned below the field, being now anchored to the relative *page* position.
 
 - `multiple`. If *true*, the *value* must be an array, allowing the user to select multiple options that will be displayed as *tags* inside the input.
 - `editable`. If *true*, a text input will be displayed on the field, allowing the user to filter the options based on a query string.
@@ -119,7 +120,7 @@ Checkbox list: to select *one or multiple*. the `label` value will the field gro
 </popover>
 ```
 
-The popover allows the user to quickly deploy text or element to do action next to a target element. The popover content is inserted directly inside the html tags using simple the default vuejs slot. The class `.popover-footer` can be used to display a formatted footer designed to contain `<eg-btn>` elements and `.popover-text` to display regular text.
+The popover allows the user to quickly deploy text or element to do action next to a target element. The popover content is inserted directly inside the html tags using simple the default Vuejs slot. The class `.popover-footer` can be used to display a formatted footer designed to contain `<eg-btn>` elements and `.popover-text` to display regular text.
 
 To open the popover, the user must click on the target element. You have to define the target element using the `target` attribute and passing the target DOM id. If you want to display the popover next to an element by clicking on another element, you can use the separate attributes `targetId` and `triggerId`.
 
@@ -161,6 +162,7 @@ You can finally change the visual aspect using the size boolean attribute (`big`
 
 Finally, you can hide the closing cross within the modal with `noCross` and prevent the auto-focus (allowing the user to close the modal quickly using the delete key) if you need it.
 
+
 ## Icons
 
 You can display quickly an icon using the `<eg-icon>` wrapper:
@@ -194,7 +196,21 @@ You can also use the [Font Awesome Icons](https://fontawesome.com/icons). You si
 ```
 To use the icons, you have to prepend the attribute with **fa:**. Ex: *fa:fas fa-arrow-up*. YOu can also use special attributes `fa`, `fas`, `far` ou `fal` to use just like `i` but prepending automatically *fa:fa fa-*, *fa:fas fa-*, *fa:far fa-* ou *fal:fa fa-*. You can then just use the icon name, such as *arrow-up*.
 
-## SCSS
+## CSS Styling and SCSS
+
+Most of the elements are sharing CSS properties through CSS Variable. You can redefine them in your main app container to quickly change the *touch-and-feel* of the element. The variables are defined in the file [variables.scss](https://github.com/misurida/eg-elements/blob/master/src/elements/variables.scss).
+
+You can naturally if needed easily target the key html element to overwrite the CSS properties. By example, here is the structure of the text input:
+```
+<div class="eg-input {type}">
+    <label class="eg-label"></label>
+    <div class="eg-input-wrapper">
+        <input id="{id}">
+        <div class="input-icon"></div>
+    </div>
+    <div class="messages-zone"></div>
+</div>
+```
 
 The components styles are written using `lang="scss"`, so you might need the [Webpack SASS pre-processor](https://vue-loader.vuejs.org/guide/pre-processors.html) if you want to tweak the elements files:
 

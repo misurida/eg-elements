@@ -1,4 +1,6 @@
 <style lang="scss">
+    @import "../variables";
+
     .sidemenu-wrapper {
         &.active {
             padding: 0;
@@ -36,7 +38,7 @@
                 width: 20px;
                 font-size: 20px;
                 margin: 5px;
-                color: #CCC;
+                color: var(--color-gray-5);
                 cursor: pointer;
                 transition: color .2s;
             }
@@ -84,7 +86,7 @@
         top: 0; left: 0; bottom: 0; right: 0;
         height: 100%;
         width: 100%;
-        background: #222;
+        background: var(--color-black);
         cursor: pointer;
     }
 </style>
@@ -168,14 +170,14 @@
                     transform: 'translateY(0)',
                     'transition': 'transform .1s',
                     height: this.touchWidth + 'px',
-                    background: this.touchBackground,
+                    background: "var(--sidemenu-touch-bg)",
                     zIndex: 2 * this.zIndexMult
                 },
                 shadow: {
                     'opacity': 0,
                     'z-index': -1,
                     'transition': 'opacity .3s',
-                    background: this.shadowBackground
+                    background: "var(--sidemenu-shadow-bg)"
                 },
                 settings: {
                     suppressScrollX: true
@@ -359,7 +361,7 @@
                 }
 
                 if(this.active)
-                    out.push({background: this.background});
+                    out.push({background: "var(--sidemenu-bg)"});
                 return out;
             },
             active() {
@@ -373,7 +375,7 @@
                     transform: 'translateX(0)',
                     transition: 'transform .3s',
                     width: this.touchWidth + 'px',
-                    background: this.touchBackground,
+                    background: "var(--sidemenu-touch-bg)",
                     zIndex: 1 * this.zIndexMult,
                 };
             },

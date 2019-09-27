@@ -194,7 +194,7 @@
                             message="We count the words here:"
                             counter-words
                             width="100%"
-                            :autoResize="false"
+                            :autoHeight="false"
                             v-model="bigText">
                     </eg-input>
                     <pre v-if="show.textarea">
@@ -206,7 +206,7 @@
         message="We count the words here:"
         counter-words
         width="100%"
-        :autoResize="false"
+        :autoHeight="false"
         v-model="bigText"&gt;
 &lt;/eg-input&gt;</pre>
                 </div>
@@ -215,7 +215,7 @@
                             type="textarea"
                             label="Auto-resize textarea"
                             width="300px"
-                            auto-resize
+                            auto-height
                             v-model="bigText">
                     </eg-input>
                     <pre v-if="show.textarea">
@@ -223,7 +223,7 @@
         type="textarea"
         label="Auto-resize textarea"
         width="300px"
-        auto-resize
+        auto-height
         v-model="bigText"&gt;
 &lt;/eg-input&gt;</pre>
                 </div>
@@ -856,7 +856,7 @@
         <div class="demo-zone" id="star-input-zone" >
             <div class="title-bloc">
                 <h2>Star input</h2>
-                <span><span v-if="show.star">{{ number }} | {{ decnum }} | </span> Experimental | <eg-btn link @click="show.star=!show.star">See code</eg-btn></span>
+                <span><span v-if="show.star">{{ number }} | {{ decnum }} | </span><eg-btn link @click="show.star=!show.star">See code</eg-btn></span>
             </div>
             <div class="demo-grid">
                 <div>

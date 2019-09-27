@@ -106,14 +106,14 @@ Counter :
 
 ### Textarea
 
-A *textarea input* allows the user to enter any text on several lines. This field is similar to the *text* type and can receive all the arguments of the latter. In addition, you can define the native attributes `rows` and `cols`, and `autoResize` which allows the field to automatically change its height according to the size of the text entered.
+A *textarea input* allows the user to enter any text on several lines. This field is similar to the *text* type and can receive all the arguments of the latter. In addition, you can define the native attributes `rows` and `cols`, and `autoHeight` which allows the field to automatically change its height according to the size of the text entered.
 
 **Attributes**:
 
 - The *validation*, *counter*, `placeholder` and `deleteCross` attributes of the *text* input.
 - `rows` (None, 2): (Native) the number of columns to display.
 - `cols` (None, null): (Native) the number of lines to display.
-- `autoResize` (Boolean, false): If *true*, the field increases or decreases the number of lines (height) based on the size of the content.
+- `autoHeight` (Boolean, false): If *true*, the field increases or decreases the number of lines (height) based on the size of the content.
 - (`showScrollbar`) (Boolean, true): If *true*, the scrollbar is displayed when the container is scrollable.
 
 

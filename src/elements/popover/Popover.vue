@@ -1,4 +1,6 @@
 <style lang="scss">
+    @import '../variables.scss';
+
     .popover-wrapper {
         position: absolute;
         transition: bottom .2s;

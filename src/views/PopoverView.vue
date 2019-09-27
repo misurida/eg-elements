@@ -7,16 +7,14 @@
         </div>
         <div class="demo-zone">
             <pre style="width:500px;" v-if="showPopoverCode">
-&lt;div&gt;
-    &lt;btn&gt;Right&lt;/btn&gt;
-    &lt;popover nopad side="right" width="100px" v-model="p1"&gt;
-        &lt;p class="popover-text"&gt;Yeah, that's a popover{{b? '!' : '?'}}&lt;/p&gt;
-        &lt;div class="popover-footer"&gt;
-            &lt;btn @click="b=!b"&gt;Nope&lt;/btn&gt;
-            &lt;btn @click="p1=0"&gt;Okay&lt;/btn&gt;
-        &lt;/div&gt;
-    &lt;/popover&gt;
-&lt;/div&gt;</pre>
+&lt;eg-btn id="popover-btn-right"&gt;Right&lt;/eg-btn&gt;
+&lt;popover w="100" side="right" target="popover-btn-right" v-model="p1"&gt;
+    &lt;p class="popover-text"&gt;Yeah, that's a popover{{b? '!' : '?'}}&lt;/p&gt;
+    &lt;div class="popover-footer"&gt;
+        &lt;eg-btn @click="b=!b"&gt;Nope&lt;/eg-btn&gt;
+        &lt;eg-btn @click="p1=0"&gt;Okay&lt;/eg-btn&gt;
+    &lt;/div&gt;
+&lt;/popover&gt;</pre>
             <div class="popover-demo">
                 <div>
                     <eg-btn id="popover-btn-right">Right</eg-btn>
@@ -81,7 +79,7 @@ args: {
 }</pre>
             </div>
             <div class="inputs-grid">
-                <eg-input type="textarea" auto-resize v-model="args.text" label="Text"></eg-input>
+                <eg-input type="textarea" auto-height v-model="args.text" label="Text"></eg-input>
                 <eg-input type="select" v-model="args.side" width="150px" label="Side" :list="['top', 'left', 'bottom', 'right']"></eg-input>
                 <eg-input type="select" v-model="args.position" width="150px" label="Position" :list="['l', 'c', 'r', 't', 'b']"></eg-input>
                 <eg-input type="select" v-model="args.display" width="150px" label="Display" :list="['click', 'hover', 'clickout']"></eg-input>

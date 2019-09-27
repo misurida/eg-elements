@@ -40,7 +40,7 @@
         a {
             color: #aaa;
             &.router-link-exact-active {
-                color: #4e7da8;
+                color: var(--color-primary);
                 font-weight: bold;
             }
         }
@@ -66,7 +66,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             text-decoration: none;
-            color: #4e7da8;
+            color: var(--color-primary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -180,7 +180,7 @@
         }
     }
     .title-bloc {
-        background-color: #f5f5f5;
+        background-color: rgba(var(--rgb-primary),0.1);
         padding: 20px 40px;
         border-radius: 15px;
         width: 90%;
@@ -223,8 +223,8 @@
     .popover-demo {
         display: flex;
         flex-wrap: wrap;
-        margin: 40px 0;
         justify-content: center;
+        padding: 20px 0;
         & > * {
             display: inline-block;
             margin: 10px 20px;

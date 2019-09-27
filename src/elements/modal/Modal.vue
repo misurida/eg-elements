@@ -1,20 +1,5 @@
 <style lang="scss">
-    // border to split the header and footer
-    $shadowColor: rgba(0, 0, 0, .5);
-    $bc: #fff;
-    $bs: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-    $innerBorder: none;
-    $border: none;
-
-    // sizes
-    $defaultW: 70%; // width
-    $defaultMW: 800px; // max-width
-    $smallW: 60%;
-    $smallMW: 580px;
-    $mediumW: 65%;
-    $mediumMW: 800px;
-    $bigW: calc(100vw - 10em);
-    $bigMW: 1300px;
+    @import "../variables";
 
     .modal-mask {
         position: fixed;
@@ -23,7 +8,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: $shadowColor;
+        background-color: var(--modal-shadow-color);
         display: table;
         transition: opacity .3s ease;
         .modal-wrapper {
@@ -34,8 +19,8 @@
                 max-height: 90vh;
                 display: flex;
                 flex-direction: column;
-                width: $defaultW;
-                max-width: $defaultMW;
+                width: var(--modal-default-width);
+                max-width: var(--modal-default-max-width);
                 margin: 0 auto;
                 .modal-content {
                     display: flex;
@@ -43,30 +28,28 @@
                     max-height: 90vh;
                     width: 100%;
                     height: 100%;
-                    background-color: $bc;
+                    background-color: var(--modal-bg);
                     border-radius: 2px;
-                    border: $border;
-                    box-shadow: $bs;
+                    box-shadow: var(--modal-shadow);
                     transition: all .3s ease;
                     position: relative;
                     text-align: left;
                 }
                 &.small {
-                    width: $smallW;
-                    max-width: $smallMW;
+                    width: var(--modal-small-width);
+                    max-width: var(--modal-small-max-width);
                 }
                 &.medium {
-                    width: $mediumW;
-                    max-width: $mediumMW;
+                    width: var(--modal-medium-width);
+                    max-width: var(--modal-medium-max-width);
                 }
                 &.big {
-                    width: $bigW;
-                    max-width:$bigMW;
+                    width: var(--modal-big-width);
+                    max-width:var(--modal-big-max-width);
                 }
             }
         }
-        // modal sizes responsiveness
-        @media screen and (max-width: 450px) {
+        @media screen and (max-width: var(--modal-resp-mini)) {
             .modal-wrapper {
                 .modal-container {
                     max-height: 100vh;
@@ -144,17 +127,17 @@
         display: inline-block;
         text-align: left;
         color: rgba(0,0,0,.9);
-        padding: 15px 30px 0 30px;
-        border-bottom: $innerBorder;
+        padding: 15px 30px 10px 30px;
+        border-bottom: var(--modal-border);
         margin-top: 5px;
-        @media all and (max-width: 960px) {
+        @media all and (max-width: var(--modal-resp-medium)) {
             padding: 15px 15px 0 15px;
         }
         h2 {
             margin-bottom: 0;
             font-size: 1.2em;
             padding: 0;
-            @media all and (max-width: 960px) {
+            @media all and (max-width: var(--modal-resp-medium)) {
                 font-size: 1em;
             }
         }
@@ -165,7 +148,7 @@
         &.minpad {
             padding: 0 10px;
         }
-        @media all and (max-width: 960px) {
+        @media all and (max-width:  var(--modal-resp-medium)) {
             padding: 15px;
         }
         overflow: auto;
@@ -179,8 +162,8 @@
         }
     }
     .modal-footer {
-        border-top: $innerBorder;
-        padding: 0 10px 10px 10px;
+        border-top: var(--modal-border);
+        padding: 10px;
         display: flex;
         justify-content: flex-end;
         box-sizing: border-box;
