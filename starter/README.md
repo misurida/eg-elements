@@ -2,8 +2,25 @@
 
 This file is a walthrough to install [Laravel](https://laravel.com/docs/5.8/routing) (5.8.27) and [Vuejs](https://vuejs.org/v2/guide/) for a quick build.
 
+## PhpStorm integration
+
+If you are using PhpStorm, you can directly initialize the composer project. Otherwise, you will have to install Composer and initialize the project:
+
+- [Composer](https://www.jetbrains.com/help/phpstorm/using-the-composer-dependency-manager.html#initializing_in_existing_project)
+
+For PhpStorm users:
+
+- [Configuring local interpreter](https://www.jetbrains.com/help/phpstorm/configuring-local-interpreter.html)
+- [Initializing composer](https://www.jetbrains.com/help/phpstorm/using-the-composer-dependency-manager.html#initializing_in_existing_project)
+
 ## Laravel installation
 
+Laravel installation from Composer:
+```
+composer global require "laravel/installer=~1.1"
+```
+
+Laravel app wizard:
 ```
 laravel new my-app
 npm install -g @vue/cli
