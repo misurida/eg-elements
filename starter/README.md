@@ -15,40 +15,124 @@ For PhpStorm users:
 
 ## Laravel installation
 
-Laravel installation from Composer:
+Laravel installation from the Laravel installer:
 ```
-composer global require "laravel/installer=~1.1"
-```
-
-Laravel app wizard:
-```
-laravel new my-app
-npm install -g @vue/cli
+composer global require laravel/installer
+laravel new my-app-name
 ```
 
-## NPM installation
-
+Or from Composer Create-Project:
 ```
-cd my-app
-npm init
-npm install
+composer create-project --prefer-dist laravel/laravel blog "5.7.*"
 ```
-
-## Laravel parameters
 
 To use the authentication:
-
 ```
 php artisan make:auth
 ```
 
-To generate the application key:
-
+To use the API:
 ```
 php artisan key:generate
 ```
 
-## Database
+To scaffold the vue structure:
+```
+php artisan preset vue
+```
+In resources/js/bootstrap.js, all the frontend libraries will be loded and attached to the window object.
+
+Bringing vue dependencies:
+```
+npm i vue-router --save
+npm i vuex --save
+npm install
+```
+
+
+
+## NPM installation
+
+```
+cd my-app my-app-name
+npm init
+npm install
+```
+
+
+## Routing
+
+```
+Auth::routes();
+Route::get('/{any}', 'AppController@index')->where('any','.*');
+```
+
+> Rename the *HomeController.php* to *AppController.php*
+
+In the home.blade.php
+```
+@extends('layout.app')
+
+@section('content')
+    <App></App>
+@endsection
+```
+
+## The Vue application
+
+In *app.js*:
+```
+import Vue from 'vue';
+import router from './router.js';
+import App from './components/App";
+
+require('./bootstrap');
+
+const app = new Vue({
+    el: '#app',
+    router,
+    components: { App }
+});
+```
+
+Create *router.js*
+```
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import ExampleComponent from './components/ExampleComponent";
+
+Vue.use(VueRouter);
+
+export default new VueRouter({
+    mode: history,
+    routes: [{
+    	path: '/',
+	component: ExampleComponent
+    }],
+})
+```
+
+In *App.vue*:
+```
+<template>
+    <div>
+        <h1>Hello</h1>
+	
+	<router-view></router-view>
+    </div>
+</template>
+```
+
+Running the app:
+```
+php artisan serve
+npm run watch
+```
+
+
+## Eloquent Database Cheat Sheet
+
+To create a model and its migration:
 
 ```
 php artisan make:model DbItem --migration
