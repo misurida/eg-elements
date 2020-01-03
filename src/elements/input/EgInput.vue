@@ -2833,7 +2833,7 @@
                 }
                 else {
                     if(this.isSelect) {
-                        if(!!this.query) {
+                        if(!this.query) {
                             this.query = "";
                         }
                         else {

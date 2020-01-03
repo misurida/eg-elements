@@ -1,7 +1,11 @@
 // Import vue component
-import EgButton from './src/elements/button/EgButton'
-import EgBtn from './src/elements/button/EgButton'
-import EgInput from './src/elements/input/EgInput'
+import TextInput from './src/components/TextInput'
+import Button from './src/components/Button'
+import Select from './src/components/Select'
+import FloatingMenu from './src/components/FloatingMenu'
+import Tag from './src/components/Tag'
+
+
 import Popover from './src/elements/popover/Popover'
 import EgIcon from './src/elements/toolbox/SvgIcon'
 import Sidemenu from './src/elements/sidemenu/Sidemenu'
@@ -15,9 +19,14 @@ export default function install(Vue, options) {
     if (install.installed) return;
     install.installed = true;
 
+    // new installations
+    Vue.component('eg-input', TextInput);
+    Vue.component('eg-button', Button);
+    Vue.component('eg-select', Select);
+    Vue.component('floating-menu', FloatingMenu);
+    Vue.component('tag', Tag);
+
     // we install all the components globally
-    Vue.component('eg-btn', EgButton);
-    Vue.component('eg-input', EgInput);
     Vue.component('eg-icon', EgIcon);
     Vue.component('popover', Popover);
     Vue.component('modal', Modal);
@@ -64,9 +73,11 @@ if (GlobalVue) {
 
 // To allow use as module (npm/webpack/etc.) export component
 export {
-    EgButton, EgBtn,
-    EgInput,
-    EgIcon,
+    TextInput,
+    Button,
+    Select,
+    FloatingMenu,
+
     Popover,
     Modal,
     Sidemenu,

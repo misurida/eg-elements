@@ -18,6 +18,7 @@
 
   --rgb-error: 156, 39, 39;
   --rgb-warning: 214, 109, 2;
+  --rgb-success: 82, 162, 44;
   --rgb-valid: 82, 162, 44;
 
   --color-primary: rgb(var(--rgb-primary));
@@ -36,6 +37,9 @@
 
   --color-error: rgb(var(--rgb-error));
   --color-warning: rgb(var(--rgb-warning));
+  --color-success: rgb(var(--rgb-success));
+
+  // deprecated
   --color-valid: rgb(var(--rgb-valid));
 
   /*
@@ -205,13 +209,13 @@
   --btn-warning-border-hover: 1px solid rgba(var(--rgb-warning), 0.1);
   --btn-warning-border-focus: 1px solid rgba(var(--rgb-warning), 0.2);
 
-  // valid
-  --btn-valid-color: var(--color-white);
-  --btn-valid-bg: var(--color-valid);
-  --btn-valid-border: 1px solid var(--color-valid);
-  --btn-valid-shadow: 0 0 0 .2rem rgba(var(--rgb-valid), 0.2);
-  --btn-valid-border-hover: 1px solid rgba(var(--rgb-valid), 0.1);
-  --btn-valid-border-focus: 1px solid rgba(var(--rgb-valid), 0.2);
+  // success
+  --btn-success-color: var(--color-white);
+  --btn-success-bg: var(--color-success);
+  --btn-success-border: 1px solid var(--color-success);
+  --btn-success-shadow: 0 0 0 .2rem rgba(var(--rgb-success), 0.2);
+  --btn-success-border-hover: 1px solid rgba(var(--rgb-success), 0.1);
+  --btn-success-border-focus: 1px solid rgba(var(--rgb-success), 0.2);
 
   // error
   --btn-error-color: var(--color-white);
