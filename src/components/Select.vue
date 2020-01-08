@@ -28,20 +28,48 @@
 </style>
 
 <template>
-    <div class="eg-input" :class="{multiple,disabled}">
+    <div :class="{'eg-input':inputClass,multiple,disabled}">
         <eg-input
-                :id="_id"
-                :icon="icon"
-                :value="localValue"
-                :flipIcon="focus"
-                :cross="cross"
-                :editable="search"
-                :placeholder="placeholder"
-                :flex="flex"
+                :type="type"
                 :inputClass="false"
+                :baseMin="baseMin"
+                :baseMax="baseMax"
+                :id="_id"
+                :label="label"
+                :placeholder="placeholder"
+                :prefix="prefix"
+                :suffix="suffix"
                 :disabled="disabled"
-                :blur-lock="false"
-                @mousedown="hMouseDown"
+                :editable="editable"
+                :error="error"
+                :warning="warning"
+                :success="success"
+                :cross="cross"
+                :flex="flex"
+                :wide="wide"
+                :regexList="regexList"
+                :message="message"
+                :messages="messages"
+                :counter="counter"
+                :counterMax="counterMax"
+                :counterLock="counterLock"
+                :countWords="countWords"
+                :counterWarn="counterWarn"
+                :counterHide="counterHide"
+                :countWordsSeparator="countWordsSeparator"
+                :icon="icon"
+                :icons="icons"
+                :fa="fa"
+                :fas="fas"
+                :far="far"
+                :fal="fal"
+                :ma="ma"
+                :leftIcons="leftIcons"
+                :reverseIcon="reverseIcon"
+                :flipIcon="focus"
+
+                @click="$emit('click')"
+                @mousedown="$emit('mousedown')"
                 @keyup="hKeyup"
                 @escape="hEscape"
                 @enter="hEnter"
@@ -53,21 +81,28 @@
             <div slot="taglist" class="egi-tags-list" v-if="multiple && value.length > 0">
                 <tag cross v-for="(v,i) in value" :key="getItemId(v)" @cross="popTag(i)">{{ getItemLabel(v) }}</tag>
             </div>
-            <template slot="menu" v-if="!menuEmpty && focus">
+            <template slot="menu" v-if="focus">
                 <!--<transition>-->
                     <floating-menu :id="_id+'-menu'" v-if="focus" :menu="menu" :over="over" :prevent-closing="false">
-                        <div class="items-group" v-for="group in items" :key="getGroupLabel(group)">
-                            <span class="group-title" v-if="getGroupLabel(group) && hasOptions(group)">{{ getGroupLabel(group) }}</span>
-                            <ul>
-                                <li
-                                        class="item"
-                                        :class="{active:isActive(item), selected:isSelected(item), grouped:getGroupLabel(group)}"
-                                        v-for="item in group.options"
-                                        :key="getItemId(item)"
-                                        @mousedown="itemClick(item,$event)">
-                                    <span>{{ getItemLabel(item) }}</span>
-                                </li>
-                            </ul>
+                        <template v-if="!menuEmpty && items[0].options.length > 0">
+                            <div class="items-group" v-for="group in items" :key="getGroupLabel(group)">
+                                <span class="group-title" v-if="getGroupLabel(group) && hasOptions(group)">{{ getGroupLabel(group) }}</span>
+                                <ul>
+                                    <li
+                                            class="item"
+                                            :class="{active:isActive(item), selected:isSelected(item), grouped:getGroupLabel(group)}"
+                                            v-for="(item,i) in group.options"
+                                            @click="itemClick(item)"
+                                            :key="getItemId(item)">
+                                        <slot v-if="$scopedSlots.item" :e="{value:item, i}" name="item"></slot>
+                                        <span v-else>{{ getItemLabel(item) }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </template>
+                        <div class="empty-menu-placeholder" v-else>
+                            <span v-if="localValue">No items found matching: <i>{{ localValue }}</i></span>
+                            <span v-else>No items</span>
                         </div>
                     </floating-menu>
                 <!--</transition>-->
@@ -89,7 +124,6 @@
             */
             menu: {type: String, default: "b"},
             over: {type: Boolean, default: false},
-            search: {type: Boolean, default: false},
             multiple: {type: Boolean, default: false},
             freeInput: {type: Boolean, default: false},
 
@@ -124,13 +158,13 @@
 
             // state
             disabled: {type: Boolean, default: false},
+            editable: {type: Boolean, default: false},
             error: {type: Boolean, default: false},
             warning: {type: Boolean, default: false},
             success: {type: Boolean, default: false},
             cross: {type: Boolean, default: false},
-            reverseIcon: {type: Boolean, default: false},
             flex: {type: Boolean, default: false},
-            block: {type: Boolean, default: false},
+            wide: {type: Boolean, default: false},
 
             // validation and formatting
             regexList: {type: Array, default(){ return [] }},
@@ -157,6 +191,8 @@
             fal: {type: String, default: null},
             ma: {type: String, default: null},
             leftIcons: {type: Array, default() { return [] }},
+            reverseIcon: {type: Boolean, default: false},
+            flipIcon: {type: Boolean, default: false},
         },
         data() {
             return {
@@ -176,7 +212,7 @@
                 else v.length > 0 ? v.splice(1,i) : v = [];
                 this.$emit('input', v);
             },
-            itemClick(i,e) {
+            itemClick(i) {
                 if(this.multiple) {
                     let v = Array.isArray(this.value) ? this.value : [];
                     if(this.isActive(i)) {
@@ -290,7 +326,6 @@
                 return 0;
             },
             looseFocus() {
-                console.log('loose');
                 document.activeElement.blur();
             },
             compare(a, b) {
@@ -317,7 +352,7 @@
 
             // handlers
             hCross() {
-                if(!this.search || !this.localValue) {
+                if(!this.editable || !this.localValue) {
                     this.$emit('input', this.multiple ? [] : null);
                 }
             },
@@ -342,18 +377,12 @@
                 }
             },
             hEscape() {
-                if(this.multiple) {
-                    this.$emit('input', []);
-                }
-                else {
-                    this.$emit('input', []);
-                }
                 if(!this.localValue) {
                     this.looseFocus();
                 }
             },
             hKeyup(e) {
-                if((e.keyCode === 37 || e.key === "ArrowLeft") || (e.keyCode === 38 || e.key === "ArrowTop")) {
+                if((e.keyCode === 37 || e.key === "ArrowLeft") || (e.keyCode === 38 || e.key === "ArrowUp")) {
                     // select the previous one
                     if(this.selectedItem) {
                         this.selectPreviousItem();
@@ -368,7 +397,7 @@
                         this.selectNextItem();
                     }
                 }
-                if((e.key === "Backspace" || e.keyCode === 8) && this.multiple && this.search && this.value.length > 0 && !this.localValue) {
+                if((e.key === "Backspace" || e.keyCode === 8) && this.multiple && this.editable && this.value.length > 0 && !this.localValue) {
                    if(this.confirmPopTag) {
                        this.popTag(this.value.length-1);
                        this.confirmPopTag = false;
@@ -378,11 +407,10 @@
                    }
                 }
             },
-            hMouseDown() {
-                this.looseFocus();
-            },
-            hInput() {
-                //this.$emit('input', e);
+            hInput(e) {
+                if(this.freeInput && !this.multiple) {
+                    this.$emit('input', e);
+                }
             },
             hFocus() {
                 this.focus = true;
@@ -489,7 +517,7 @@
                             return 0;
                         });
                     }
-                    if(this.search && q && g[this.gOptions]) {
+                    if(this.editable && q && g[this.gOptions]) {
                         g[this.gOptions] = g[this.gOptions].filter(e => this.norm(this.getItemLabel(e)).indexOf(q) >= 0);
                     }
                     o.push(g);

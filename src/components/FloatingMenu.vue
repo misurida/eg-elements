@@ -6,7 +6,7 @@
 </style>
 
 <template>
-    <div class="floating-menu" :id="id" :style="style" @mousedown="hMouseDown">
+    <div class="floating-menu" :id="id" :style="style">
         <slot></slot>
     </div>
 </template>
@@ -17,8 +17,6 @@
             id: { type: String, default: null },
             menu: { type: String, default: "b" },
             over: { type: Boolean, default: false },
-            domlevel: { type: Boolean, default: false },
-            preventClosing: { type: Boolean, default: false },
         },
         data() {
             return {
@@ -26,12 +24,6 @@
             }
         },
         methods: {
-            hMouseDown(e) {
-                console.log('no prop');
-                if(!this.preventClosing) {
-                    e.stopPropagation();
-                }
-            },
             computeParentHeight() {
                 if(this.$el && this.$el.offsetParent) {
                     this.h = this.$el.offsetParent.offsetHeight;

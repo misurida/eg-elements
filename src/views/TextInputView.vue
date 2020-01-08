@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang="scss" scoped>
     .input-shelf {
         margin-top: 20px;
         display: flex;
@@ -21,8 +21,7 @@
             <h3>Basic text input</h3>
             <code>value: {{ value }}</code>
             <div class="input-shelf">
-                <eg-input placeholder="Enter text..." v-model="value" icon="caret"></eg-input>
-                <eg-button @click="flip=!flip" :loading="flip">Test</eg-button>
+                <eg-input placeholder="Write something..." v-model="value"></eg-input>
             </div>
         </div>
         <div class="pres-bloc">

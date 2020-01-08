@@ -37,7 +37,7 @@
 </style>
 
 <template>
-    <span class="svg-icon" @click="handleClick($event,'click')" @dblclick="handleClick($event,'dblclick')" @click.ctrl="handleClick($event,'ctrlClick')" :class="{small, clickable, fr, fl}">
+    <span class="svg-icon" @click.exact="handleClick($event,'click')" @dblclick="handleClick($event,'dblclick')" @click.ctrl="handleClick($event,'ctrlClick')" :class="{small, clickable, fr, fl}">
         <!-- Font Awesome integration -->
         <i v-if="useFontAwesome" :class="t"></i>
 

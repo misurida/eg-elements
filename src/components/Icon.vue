@@ -148,7 +148,6 @@
             far: {type: String, default: null},
             fal: {type: String, default: null},
             ma: {type: String, default: null},
-            noClick: {type: Boolean, default: false},
             small: {type: Boolean, default: false},
             clickable: {type: Boolean, default: false},
             fr: {type: Boolean, default: false},
@@ -157,7 +156,7 @@
         },
         methods: {
             handleClick(e, method) {
-                if(!this.noClick) {
+                if(this.clickable) {
                     if(this.stop) {
                         e.stopPropagation();
                     }

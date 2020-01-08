@@ -21,7 +21,7 @@ $focusBox: var(--focus-base) rgba(0,0,0,0.1);
 
 .tag {
   border: 1px solid transparent;
-  background-color: rgba(0,0,0,.15);
+  background-color: rgba(0, 0, 0, 0.08);
   color: rgba(0,0,0,.7);
   fill: rgba(0,0,0,.6);
   display: inline-block;
@@ -175,44 +175,52 @@ $focusBox: var(--focus-base) rgba(0,0,0,0.1);
   }
 }
 
-// primary button
+// primary state
 .tag.clickable.primary,
+.primary .button-shell,
 .button-shell.primary {
   background-color: rgba(var(--rgb-primary), 1);
   color: #ffffff;
   fill: #ffffff;
-  &:hover { background-color: rgba(var(--rgb-primary), 0.9); }
-  &:focus { box-shadow: $focusBox; }
-  &:active { background-color: rgba(var(--rgb-primary), 0.8); }
+  &:hover, &.hover { background-color: rgba(var(--rgb-primary), 0.9); }
+  &:focus, &.focus { box-shadow: $focusBox; }
+  &:active, &.active { background-color: rgba(var(--rgb-primary), 0.8); }
 }
 
-// error / warning / success
-.tag,
-.button-shell {
-  &.error {
-    background-color: rgba(var(--rgb-error), 1);
-    color: #ffffff;
-    fill: #ffffff;
-    &:hover { background-color: rgba(var(--rgb-error), 0.9); }
-    &:focus { box-shadow: var(--focus-base) rgba(var(--rgb-error), 0.5); }
-    &:active { background-color: rgba(var(--rgb-error), 0.8); }
-  }
-  &.warning {
-    background-color: rgba(var(--rgb-warning), 1);
-    color: #ffffff;
-    fill: #ffffff;
-    &:hover { background-color: rgba(var(--rgb-warning), 0.9); }
-    &:focus { box-shadow: var(--focus-base) rgba(var(--rgb-warning), 0.5); }
-    &:active { background-color: rgba(var(--rgb-warning), 0.8); }
-  }
-  &.success {
-    background-color: rgba(var(--rgb-success), 1);
-    color: #ffffff;
-    fill: #ffffff;
-    &:hover { background-color: rgba(var(--rgb-success), 0.9); }
-    &:focus { box-shadow: var(--focus-base) rgba(var(--rgb-success), 0.5); }
-    &:active { background-color: rgba(var(--rgb-success), 0.8); }
-  }
+// error state
+.tag.clickable.error,
+.error .button-shell,
+.button-shell.error {
+  background-color: rgba(var(--rgb-error), 1);
+  color: #ffffff;
+  fill: #ffffff;
+  &:hover, &.hover { background-color: rgba(var(--rgb-error), 0.9); }
+  &:focus, &.focus { box-shadow: var(--focus-base) rgba(var(--rgb-error), 0.5); }
+  &:active, &.active { background-color: rgba(var(--rgb-error), 0.8); }
+}
+
+// warning state
+.tag.clickable.warning,
+.warning .button-shell,
+.button-shell.warning {
+  background-color: rgba(var(--rgb-warning), 1);
+  color: #ffffff;
+  fill: #ffffff;
+  &:hover, &.hover { background-color: rgba(var(--rgb-warning), 0.9); }
+  &:focus, &.focus { box-shadow: var(--focus-base) rgba(var(--rgb-warning), 0.5); }
+  &:active, &.active { background-color: rgba(var(--rgb-warning), 0.8); }
+}
+
+// success state
+.tag.clickable.success,
+.success .button-shell,
+.button-shell.success {
+  background-color: rgba(var(--rgb-success), 1);
+  color: #ffffff;
+  fill: #ffffff;
+  &:hover, &.hover { background-color: rgba(var(--rgb-success), 0.9); }
+  &:focus, &.focus { box-shadow: var(--focus-base) rgba(var(--rgb-success), 0.5); }
+  &:active, &.active { background-color: rgba(var(--rgb-success), 0.8); }
 }
 
 
@@ -408,7 +416,8 @@ $focusBox: var(--focus-base) rgba(0,0,0,0.1);
   }
 
   .egi-label {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
     margin-bottom: 5px;
     display: inline-block;
     width: 100%;
@@ -497,6 +506,20 @@ $focusBox: var(--focus-base) rgba(0,0,0,0.1);
         &::-webkit-input-placeholder { color: rgba(0,0,0,.2); } /* Edge */
         &:-ms-input-placeholder { color: rgba(0,0,0,.2); } /* Internet Explorer 10-11 */
         &::placeholder { color: rgba(0,0,0,.2); }
+      }
+    }
+    .egi-inner .egi-main-icon-slot .egi-cross-icon {
+      display: none;
+    }
+    &:hover {
+      .egi-inner {
+        .egi-icons-left-list,
+        .egi-icons-right-list {
+          .concealable {
+            opacity: 1;
+            transform: none;
+          }
+        }
       }
     }
   }
@@ -646,6 +669,46 @@ $focusBox: var(--focus-base) rgba(0,0,0,0.1);
     }
     &:last-child {
       border-radius: 0 0 .25rem .25rem;
+    }
+  }
+
+  .empty-menu-placeholder {
+    font-size: 0.8rem;
+    padding: var(--input-padding);
+    color: rgba(0,0,0,.5);
+    i {
+      display: block;
+    }
+  }
+}
+
+
+/***************************************
+    Number input
+ ***************************************/
+
+.plus-minus-wrapper {
+  opacity: 0.7;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
+  padding: 2px;
+  grid-gap: 1px;
+  width: 35px;
+  .button-shell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 2px;
+    height: inherit;
+    line-height: 0;
+    &:first-child {
+      border-radius: 3px 3px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 3px 3px;
     }
   }
 }

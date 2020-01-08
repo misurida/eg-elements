@@ -1,0 +1,5 @@
+<svg version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+ <path class="arrow" d="m10.54 27.806s4.2098 1.4275 11.649 9.1491c7.198-13.981 17.284-25.977 17.284-25.977" fill="none" stroke="#000" stroke-linecap="round" stroke-width="6"/>
+ <path class="box" d="m0 0v50h50v-50zm3 3h44v44h-44z" color="#000000" color-rendering="auto" dominant-baseline="auto" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+ <path class="dash" d="m10.419 25h29.162" fill="none" stroke="#000" stroke-linecap="round" stroke-width="5.8258"/>
+</svg>

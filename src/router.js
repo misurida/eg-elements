@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import ButtonsView from './views/ButtonsView'
 import TextInputView from './views/TextInputView'
 import SelectView from './views/SelectView'
+import CheckboxesView from './views/CheckboxesView'
+import NumberInputView from './views/NumberInputView'
 import ModalView from './views/ModalView'
 import PopoverView from './views/PopoverView'
 import HomeView from './views/HomeView'
@@ -21,6 +23,14 @@ export default new Router({
         path: '/inputs/select',
         name: 'select',
         component: SelectView
+    },{
+        path: '/inputs/checkbox',
+        name: 'checkbox',
+        component: CheckboxesView
+    },{
+        path: '/inputs/number',
+        name: 'number',
+        component: NumberInputView
     },{
         path: '/icons',
         name: 'icons',

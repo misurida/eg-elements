@@ -2,8 +2,10 @@
 import TextInput from './src/components/TextInput'
 import Button from './src/components/Button'
 import Select from './src/components/Select'
+import Checkbox from './src/components/Checkbox'
 import FloatingMenu from './src/components/FloatingMenu'
 import Tag from './src/components/Tag'
+import NumberInput from './src/components/NumberInput'
 
 
 import Popover from './src/elements/popover/Popover'
@@ -14,7 +16,7 @@ import ActionMessages from './src/elements/messages/ActionMessages'
 import TooltipDirective from './src/elements/tooltip/tooltip'
 
 // Declare install function executed by Vue.use()
-export default function install(Vue, options) {
+export default function install(Vue) {
     // init
     if (install.installed) return;
     install.installed = true;
@@ -23,6 +25,8 @@ export default function install(Vue, options) {
     Vue.component('eg-input', TextInput);
     Vue.component('eg-button', Button);
     Vue.component('eg-select', Select);
+    Vue.component('eg-checkbox', Checkbox);
+    Vue.component('number-input', NumberInput);
     Vue.component('floating-menu', FloatingMenu);
     Vue.component('tag', Tag);
 
@@ -38,21 +42,6 @@ export default function install(Vue, options) {
 
     // We inject the polyfills
     require('./src/elements/toolbox/removeDiacritics');
-
-    // CSS method unefficient and JS Mixins errors...
-    /*
-    if(!!options) {
-        if(!!options.props) {
-            // seems not to work...
-            Vue.mixin({ props: {placeholder: { default: "Test" }} });
-        }
-        if(!!options.css) {
-            let c = options.css;
-            let s = document.documentElement.style;
-            if(c.rgbPrimary) s.setProperty('--rgb-primary', c.rgbPrimary);
-        }
-    }
-    */
 }
 
 // Create module definition for Vue.use()
@@ -64,7 +53,8 @@ const plugin = {
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
     GlobalVue = window.Vue;
-} else if (typeof global !== 'undefined') {
+}
+else if (typeof global !== 'undefined') {
     GlobalVue = global.Vue;
 }
 if (GlobalVue) {
@@ -77,6 +67,8 @@ export {
     Button,
     Select,
     FloatingMenu,
+    Checkbox,
+    NumberInput,
 
     Popover,
     Modal,

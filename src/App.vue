@@ -19,6 +19,8 @@
                         <router-link to="/buttons">Buttons</router-link>
                         <router-link to="/inputs/text">Text input</router-link>
                         <router-link to="/inputs/select">Select</router-link>
+                        <router-link to="/inputs/checkbox">Checkboxes</router-link>
+                        <router-link to="/inputs/number">Number input</router-link>
                     </div>
                 </div>
                 <div class="right-panel">

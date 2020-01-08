@@ -22,11 +22,13 @@
                 </div>
                 <input
                         v-if="editable"
+                        @change="hChange"
                         @click.stop="hClick"
                         @input="hInput"
                         @focus="hFocus"
                         @blur="hBlur"
                         @keyup="hKeyup"
+                        @keydown="hKeydown"
                         @mousedown.stop
                         :id="_id"
                         :style="inputStyle"
@@ -52,6 +54,10 @@
                     </div>
                     <div class="egi-icons-list" v-if="icons.length > 0">
                         <icon v-for="i in icons" :icon="i" :key="i" clickable :reversed="flipIcon" @click="$emit('iconsClick',i)"></icon>
+                    </div>
+                    <div v-if="plusMinus" class="plus-minus-wrapper">
+                        <div class="button-shell" @mousedown="hUpClick" :class="{active:keyUpDown}">+</div>
+                        <div class="button-shell" @mousedown="hDownClick" :class="{active:keyDownDown}">-</div>
                     </div>
                 </div>
             </div>
@@ -88,9 +94,8 @@
             inputClass: { type: Boolean, default: true },
 
             // containers
-            baseMin: { type: Number, default: 100 },
+            baseMin: { type: Number, default: 50 },
             baseMax: { type: Number, default: 500 },
-            blurLock: { type: Boolean, default: false },
 
             // basics
             id: { type: String, default: null},
@@ -136,6 +141,7 @@
             leftIcons: {type: Array, default() { return [] }},
             reverseIcon: {type: Boolean, default: false},
             flipIcon: {type: Boolean, default: false},
+            plusMinus: {type: Boolean, default: false},
         },
         data() {
             return {
@@ -145,11 +151,16 @@
                 preventBlur: false, // flip to prevent the blur to loose focus when clicking on another field element
                 errorMessages: [], // for the validation
                 messagesTrash: [], // for the validation fading messages
-                errorFadeTimer: null
+                errorFadeTimer: null,
+                keyUpDown: false,
+                keyDownDown: false,
             }
         },
         methods: {
             // handlers
+            hChange(e) {
+                this.$emit('change', e);
+            },
             hInput(e) {
                 let lock = false;
                 let v = e.target.value;
@@ -201,7 +212,7 @@
                 }
             },
             hBlur(e) {
-                if(this.preventBlur || this.blurLock) {
+                if(this.preventBlur) {
                     this.hFocus(e);
                     this.preventBlur = false;
                 }
@@ -213,17 +224,19 @@
             hMouseDown(e) {
                 this.preventBlur = true;
                 this.$emit('mousedown', e);
-                console.warn('md');
                 if(document.activeElement.id !== this._id)
                     this.hFocus(e);
             },
             hClick(e) {
                 this.$emit('click', e);
+                this.resetKeyMarkers();
             },
             hCross() {
-                this.errorMessages = [];
-                this.$emit('input', null);
-                this.$emit('cross');
+                if(!this.disabled) {
+                    this.errorMessages = [];
+                    this.$emit('input', null);
+                    this.$emit('cross');
+                }
             },
             hEscape(e) {
                 if(this.cross) {
@@ -233,6 +246,23 @@
             },
             hEnter(e) {
                 this.$emit('enter', e);
+            },
+            hDownClick(e) {
+                this.$emit('down', e);
+            },
+            hUpClick(e) {
+                this.$emit('up', e);
+            },
+            hKeydown(e) {
+                if((e.keyCode === 38 || e.key === "ArrowUp")) {
+                    this.keyUpDown = true;
+                    this.$emit('up', e);
+                }
+                else if((e.keyCode === 40 || e.key === "ArrowDown")) {
+                    this.keyDownDown = true;
+                    this.$emit('down', e);
+                }
+                this.$emit('keydown', e);
             },
             hKeyup(e) {
                 if(e.keyCode === 27) {
@@ -244,6 +274,7 @@
                 else {
                     this.$emit('keyup', e);
                 }
+                this.resetKeyMarkers();
             },
 
             // functions
@@ -260,6 +291,10 @@
                     }
                 }
                 return 0;
+            },
+            resetKeyMarkers() {
+                this.keyUpDown = false;
+                this.keyDownDown = false;
             },
 
             // tools
@@ -294,7 +329,7 @@
             hasSuffix() { return !!this.suffix || !!this.$slots.suffix },
             hasRightIcon() { return this.icon || this.fa || this.fas || this.far || this.fal || this.ma; },
             hasLeftIcon() { return this.lIcon || this.lfa || this.lfas || this.lfar || this.lfal || this.lma; },
-            showRightIcon() { return this.icons.length > 0 || this.hasRightIcon || this.cross || this.search; },
+            showRightIcon() { return this.icons.length > 0 || this.hasRightIcon || this.cross || this.search || this.plusMinus; },
             showLeftIcon() { return this.leftIcons.length > 0 || this.hasLeftIcon || this.reverseIcon },
             hasError() { return this.errorMessages.filter(e => e.state === "error" || e.state === undefined).length > 0 },
             hasWarning() { return this.errorMessages.filter(e => e.state === "warning").length > 0 },
@@ -311,6 +346,6 @@
                 }
                 return "";
             }
-        }
+        },
     }
 </script>

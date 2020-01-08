@@ -215,7 +215,7 @@
             </div>
             <div class="calendar-header-content">
                 <div class="range-header" v-if="range">
-                    <span>{{ (month-1>=0&&month<13) ? monthNames[month-1] : "?" }}</span>
+                    <span>{{ getMonthName() }}</span>
                     <span>{{ year }}</span>
                 </div>
                 <input
@@ -230,15 +230,15 @@
                     <label :for="theId" v-if="label">{{ label }}</label>
                     <div class="grid-selector-header">
                         <button @click="handleShowGrid('day')">{{ dayNumber }}</button>
-                        <button @click="handleShowGrid('month')">{{ (month-1>=0&&month<13) ? monthNames[month-1] : "?" }}</button>
+                        <button @click="handleShowGrid('month')">{{ getMonthName() }}</button>
                         <button @click="handleShowGrid('year')">{{ year }}</button>
                     </div>
                 </template>
                 <template v-else>
                     <label :for="theId" v-if="label">{{ label }}</label>
-                    <select :id="theId" v-if="dayNumber" v-model="dayNumber" @change="refreshAndEmit"><option v-for="d in daysInMonth" :value="d" :selected="d==dayNumber">{{ d }}</option></select>
-                    <select v-if="month" v-model="month" @change="refreshAndEmit()"><option v-for="(m,i) in monthNames" :value="(i+1)" :selected="m==month">{{ m }}</option></select>
-                    <select v-if="year" v-model="year" @change="refreshAndEmit()"><option v-for="y in years" :value="y" :selected="y==year">{{ y }}</option></select>
+                    <select :id="theId" v-if="dayNumber" v-model="dayNumber" @change="refreshAndEmit"><option v-for="d in daysInMonth" :value="d" :selected="d==dayNumber" :key="d">{{ d }}</option></select>
+                    <select v-if="month" v-model="month" @change="refreshAndEmit()"><option v-for="(m,i) in monthNames" :value="(i+1)" :selected="m==month" :key="m">{{ m }}</option></select>
+                    <select v-if="year" v-model="year" @change="refreshAndEmit()"><option v-for="y in years" :value="y" :selected="y==year" :key="y">{{ y }}</option></select>
                 </template>
             </div>
             <div v-if="fullCalendar" class="caret right-caret" @click="handleRightCaret">
@@ -252,28 +252,28 @@
         <div class="grid-bloc">
             <div class="day-grid grid-selector" v-if="showGrid.day">
                 <div class="grid-header">Sélectionnez un jour</div>
-                <button v-for="d in daysInMonth" class="grid-element" :data-grid-day="d" @click="handleDaySelect(d)" :class="{selected:d==dayNumber}">
+                <button v-for="d in daysInMonth" class="grid-element" :data-grid-day="d" @click="handleDaySelect(d)" :class="{selected:d==dayNumber}" :key="d">
                     <span>{{ d }}</span>
                 </button>
             </div>
             <div class="month-grid grid-selector" v-else-if="showGrid.month">
                 <div class="grid-header ">Sélectionnez un mois</div>
-                <button v-for="(m,i) in monthNames" class="grid-element" :data-grid-month="(i+1)" @click="handleClickMonth(i+1)" :class="{selected:(i+1)==month}">
+                <button v-for="(m,i) in monthNames" class="grid-element" :data-grid-month="(i+1)" @click="handleClickMonth(i+1)" :class="{selected:(i+1)==month}" :key="m">
                     <span>{{ m }}</span>
                 </button>
             </div>
             <div class="year-grid grid-selector" v-else-if="showGrid.year">
                 <div class="grid-header">Sélectionnez une année</div>
-                <button v-for="y in years" class="grid-element" :data-grid-year="y" @click="handleClickYear(y)" :class="{selected:y==year}">
+                <button v-for="y in years" class="grid-element" :data-grid-year="y" @click="handleClickYear(y)" :class="{selected:y==year}" :key="y">
                     <span>{{ y }}</span>
                 </button>
             </div>
             <div class="calendar-preview-wrapper" v-else-if="fullCalendar && daysList.length>0">
                 <div class="calendar-preview">
                     <template v-if="showTableHead">
-                        <div class="table-header" v-for="d in dayNames">{{ d }}</div>
+                        <div class="table-header" v-for="d in dayNames" :key="d">{{ d }}</div>
                     </template>
-                    <template v-if="firstDay.number !== 1"><div class="pad-day" :class="{materialized}" v-for="i in startPadDays"></div></template>
+                    <template v-if="firstDay.number !== 1"><div class="pad-day" :class="{materialized}" v-for="i in startPadDays" :key="i"></div></template>
                     <calendar-day
                             v-for="(d,i) in daysList"
                             :day="d"
@@ -290,7 +290,7 @@
                             :mbound="isMBound(d)"
                             :key="i">
                     </calendar-day>
-                    <template v-if="endPadDays"><div class="pad-day" :class="{materialized}" v-for="i in endPadDays"></div></template>
+                    <template v-if="endPadDays"><div class="pad-day" :class="{materialized}" v-for="i in endPadDays" :key="i"></div></template>
                 </div>
             </div>
             <div class="calendar-footer">
@@ -379,6 +379,9 @@
             }
         },
         methods: {
+            getMonthName() {
+                return (this.month - 1 >= 0 && this.month < 13) ? this.monthNames[this.month-1] : "?";
+            },
             setToday() {
                 let d = new Date();
                 this.dayNumber = parseInt(d.getDate());
@@ -394,7 +397,7 @@
             },
             handleShowGrid(e) {
                 this.showGrid[e] = true;
-                this.$nextTick(_ => {
+                this.$nextTick(() => {
                     if(e == "day") {
                         let el = this.$el.querySelector('[data-grid-day="'+this.dayNumber+'"]');
                         if(el) el.focus();
@@ -424,7 +427,7 @@
                 this.dayNumber = d;
                 this.refreshAndEmit({forceFocus: true});
             },
-            handleDayKeyup(e,i) {
+            handleDayKeyup(e) {
                 if(e.keyCode == 9 && e.shiftKey) { // if is tab and shift (back tab)
                     this.decrementDate();
                 }
@@ -507,7 +510,7 @@
                 let index = e && e.target && e.target.value ? e.target.value : this.dayNumber;
                 this.selectedDay = index > 0 && index < days.length ? days[index-1] : {};
                 if(e && e.forceFocus) {
-                    this.$nextTick(_ => {
+                    this.$nextTick(() => {
                         let el = this.$el.querySelector('[data-day="'+index+'"]');
                         if(el) el.focus();
                     });
