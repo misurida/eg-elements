@@ -1,6 +1,6 @@
 # Eg-Elements
 
-EgElements is a library of Vuejs UI components designed to provide an intuitive and modular usage. These elements are complete but simple, and are built to be easily styled using shared CSS variables to adapt to any design. The library contains basic elements (button, input, modal) that can be installed globally or imported individually.
+EgElements is a library of Vuejs UI components designed to provide an intuitive and modular usage. These elements are complete but simple, and are built to be easily styled using shared CSS variables to adapt to any design. The library contains basic elements (button, input, modal) that can be installed globally or imported individually!
 
 ## Installation
 
