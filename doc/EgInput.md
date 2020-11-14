@@ -80,7 +80,7 @@ These event are triggered only if the field has focus.
 
 ### Icons
 
-The icons attributes are respecting the same rules as EgIcon.
+The icons attributes are respecting the same rules as [EgIcon](https://github.com/misurida/eg-elements/blob/master/doc/EgIcon.md).
 
 - **icon**: {type: String, default: null}: Main icon to display the icon name can be prefixed to use a specific library.
 - **lIcon**: {type: String, default: null}: Main icon to display but on the left of the field (similar to *icon*).
@@ -145,7 +145,7 @@ The icons attributes are respecting the same rules as EgIcon.
 - **taglist**: Content to display inside the input box on the left (after the prefix).
 - **input**: Content to display inside of the input box. Will replace the inner input by its content.
 - **display**: Content to display as fake value (text placeholder).
-- **menu**; Content to display inside the input box, below everything. Used mainly for the EgFloatingMenu needed for the EgSelect.
+- **menu**; Content to display inside the input box, below everything. Used mainly for the EgFloatingMenu needed for the [EgSelect](https://github.com/misurida/eg-elements/blob/master/doc/EgSelect.md).
 
 ## Structure
 

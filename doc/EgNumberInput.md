@@ -8,7 +8,7 @@ The native input number type is used. The value can be limited with a minimum an
 
 Number inputs can be displayed using `<number-input>`.
 
-This component is a TextInput wrapper. It has a similar same structure and is using the same attributes (with others in addition to them).
+This component is a [EgInput](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md) wrapper. It has a similar same structure and is using the same attributes (with others in addition to them).
 
 ## Events
 

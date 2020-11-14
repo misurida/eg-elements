@@ -11,13 +11,13 @@ You can alternatively apply css modification to the modal box element (class .eg
 
 ## Usage
 
-Modals can be displayed using `*<modal>*`.
+Modals can be displayed using `<modal>`.
 
 The modal content can be anything passed using slots for any of the three zones of the modal:
 
 - The header (on the top) displays generally a title.
 - The body (on the middle, default slot) can display anything.
-- The footer (on the bottom) generally used to display buttons. Traditionally, there is a button to confirm the action, and a button to go back and close the modal.
+- The footer (on the bottom) generally used to display buttons ([EgButton](https://github.com/misurida/eg-elements/blob/master/doc/EgButton.md)). Traditionally, there is a button to confirm the action, and a button to go back and close the modal.
 
 ## Events
 

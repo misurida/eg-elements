@@ -40,7 +40,7 @@ For more informations about the color, you can lok at the CSS variables list.
 
 ### Icons
 
-By default, the icons are displayed on the right side of the buttons, but all attributes have a left version to display them on the left style. The icons' attributes are respecting the rules of the EgIcon component.
+By default, the icons are displayed on the right side of the buttons, but all attributes have a left version to display them on the left style. The icons' attributes are respecting the rules of the [EgIcon](https://github.com/misurida/eg-elements/blob/master/doc/EgIcon.md) component.
 
 - **help**: {default: null}: Can be a String or an parameters object that will be given to a HelpIcon components used instead of an icon.
 - **icon**: {type: String, default: null}: Main icon to display the icon name can be prefixed to use a specific library.

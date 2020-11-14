@@ -6,7 +6,7 @@ Select inputs (or simply selects) are visually similar to the text inputs, but w
 
 Selects can be displayed using `<eg-select>`.
 
-This component is a EgInput wrapper. It has a similar same structure with specific slot content, and is using the same attributes than the EgInput (with others in addition to them). Only the arguments not already described in EgInput are documented here.
+This component is a [EgInput](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md) wrapper. It has a similar same structure with specific slot content, and is using the same attributes than the EgInput (with others in addition to them). Only the arguments not already described in EgInput are documented here.
 
 ## Events
 
@@ -61,12 +61,12 @@ This component is a EgInput wrapper. It has a similar same structure with specif
 
 ### Style
 
-- **buttonStyle**: {type: Boolean, default: false}: If true, the select text box field will be an EgButton (can be *primary*).
+- **buttonStyle**: {type: Boolean, default: false}: If true, the select text box field will be an [EgButton](https://github.com/misurida/eg-elements/blob/master/doc/EgButton.md) (can be *primary*).
 - **over**: {type: Boolean, default: false}: If true, the menu will be displayed on top of the field box.
 
 ## Structure
 
-The EgInput (here with the id *#my-field*) has the following structure:
+The EgSelect (here with the id *#my-field*) has the following structure:
 
 ```jsx
 <div id="my-field-wrapper" class="eg-input eg-input-container">
