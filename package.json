@@ -1,7 +1,45 @@
 {
-  "name": "eg-elements",
-  "version": "2.0.1",
+  "_from": "eg-elements@^2.0.1",
+  "_id": "eg-elements@2.0.2",
+  "_inBundle": false,
+  "_integrity": "sha512-JTiw7v6sw/Lg4DeNSd1hj4/SLtnLeH231pXApZOSPOdaJSkoJlhlWT2CB+ske66aqZXUXT3YrDfqVmA/IskxAg==",
+  "_location": "/eg-elements",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "eg-elements@^2.0.1",
+    "name": "eg-elements",
+    "escapedName": "eg-elements",
+    "rawSpec": "^2.0.1",
+    "saveSpec": null,
+    "fetchSpec": "^2.0.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/eg-elements/-/eg-elements-2.0.2.tgz",
+  "_shasum": "c5fa112e8317d68d5b1ffbb508d640331e705a1d",
+  "_spec": "eg-elements@^2.0.1",
+  "_where": "D:\\wamp64.2\\www\\CLRSystem\\clrs",
+  "author": {
+    "name": "Erwan Guyomarch"
+  },
+  "bugs": {
+    "url": "https://github.com/misurida/eg-elements/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "deprecated": false,
   "description": "A Vuejs UI and structure components library",
+  "devDependencies": {},
+  "files": [
+    "/src"
+  ],
+  "homepage": "https://eg-elements.com/",
   "keywords": [
     "vuejs",
     "ui",
@@ -9,44 +47,21 @@
     "simple",
     "component",
     "button",
-    "input"
+    "input",
+    "modal",
+    "tooltip"
   ],
+  "license": "ISC",
   "main": "index.js",
-  "files": [
-    "/src"
-  ],
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "hammerjs": "^2.0.8",
-    "register-service-worker": "^1.6.2",
-    "vue": "^2.6.10",
-    "vue-router": "^3.1.3",
-    "vuex": "^3.1.1"
-  },
+  "name": "eg-elements",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/misurida/eg-elements.git"
   },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.11.0",
-    "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-plugin-pwa": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.2.3",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.3.1",
-    "vue-template-compiler": "^2.6.10"
+  "scripts": {
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "serve": "vue-cli-service serve"
   },
-  "author": "Erwan Guyomarch",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/misurida/eg-elements/issues"
-  },
-  "homepage": "https://ege.erwan.ch/"
+  "version": "2.0.2"
 }

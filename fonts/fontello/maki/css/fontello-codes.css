@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+ 
+.icon-campsite:before { content: '\261d'; } /* '☝' */
+.icon-college:before { content: '\261f'; } /* '☟' */
+.icon-golf:before { content: '\2691'; } /* '⚑' */
+.icon-monument:before { content: '\270d'; } /* '✍' */
+.icon-school:before { content: '\2731'; } /* '✱' */
+.icon-fire-station:before { content: '\2ecf'; } /* '⻏' */
+.icon-airport:before { content: '\e703'; } /* '' */
+.icon-ferry:before { content: '\e704'; } /* '' */
+.icon-fuel:before { content: '\e705'; } /* '' */
+.icon-bus-1:before { content: '\e70b'; } /* '' */
+.icon-warehouse:before { content: '\e715'; } /* '' */
+.icon-museum:before { content: '\e716'; } /* '' */
+.icon-pharmacy:before { content: '\e717'; } /* '' */
+.icon-religious-christian:before { content: '\e77f'; } /* '' */
+.icon-religious-islam:before { content: '\e780'; } /* '' */
+.icon-religious-jewish:before { content: '\e781'; } /* '' */
+.icon-restaurant:before { content: '\e78f'; } /* '' */
+.icon-town-hall:before { content: '\e82e'; } /* '' */
+.icon-toilet:before { content: '\e836'; } /* '' */
+.icon-theatre:before { content: '\e838'; } /* '' */
+.icon-swimming:before { content: '\e83a'; } /* '' */
+.icon-skiing:before { content: '\e83b'; } /* '' */
+.icon-rail:before { content: '\e83c'; } /* '' */
+.icon-roadblock:before { content: '\e848'; } /* '' */
+.icon-harbor:before { content: '\e84a'; } /* '' */
+.icon-heliport:before { content: '\e84b'; } /* '' */
+.icon-hospital-1:before { content: '\e84c'; } /* '' */
+.icon-industrial-building:before { content: '\e84d'; } /* '' */
+.icon-soccer:before { content: '\e850'; } /* '' */
+.icon-tree-2:before { content: '\e8ee'; } /* '' */
+.icon-library:before { content: '\e8ef'; } /* '' */
+.icon-lodging:before { content: '\e8f0'; } /* '' */
+.icon-minefield:before { content: '\e8f4'; } /* '' */
+.icon-credit-card-3:before { content: '\e933'; } /* '' */
+.icon-commerical-building:before { content: '\e934'; } /* '' */
+.icon-airfield:before { content: '\e93c'; } /* '' */
+.icon-fast-food:before { content: '\e946'; } /* '' */
+.icon-aboveground-rail:before { content: '\e947'; } /* '' */
+.icon-art-gallery:before { content: '\e948'; } /* '' */
+.icon-bar:before { content: '\e94a'; } /* '' */
+.icon-baseball:before { content: '\e94b'; } /* '' */
+.icon-football:before { content: '\e954'; } /* '' */
+.icon-garden:before { content: '\e955'; } /* '' */
+.icon-giraffe:before { content: '\e956'; } /* '' */
+.icon-basketball:before { content: '\e957'; } /* '' */
+.icon-beer-2:before { content: '\e959'; } /* '' */
+.icon-bicycle-1:before { content: '\e95b'; } /* '' */
+.icon-cafe:before { content: '\e95d'; } /* '' */
+.icon-pitch:before { content: '\e96a'; } /* '' */
+.icon-police:before { content: '\e973'; } /* '' */
+.icon-grocery-store:before { content: '\e975'; } /* '' */
+.icon-post:before { content: '\e97c'; } /* '' */
+.icon-embassy:before { content: '\e9d1'; } /* '' */
+.icon-tree-3:before { content: '\ecbf'; } /* '' */
+.icon-cemetery:before { content: '\ee5e'; } /* '' */
+.icon-cinema:before { content: '\ee60'; } /* '' */
+.icon-shop:before { content: '🎁'; } /* '\1f381' */
+.icon-cricket:before { content: '🎥'; } /* '\1f3a5' */
+.icon-tennis:before { content: '👥'; } /* '\1f465' */
+.icon-prison:before { content: '📄'; } /* '\1f4c4' */
+.icon-belowground-rail:before { content: '📌'; } /* '\1f4cc' */
+.icon-london-underground:before { content: '📤'; } /* '\1f4e4' */
+.icon-trash-6:before { content: '🔥'; } /* '\1f525' */
