@@ -7,6 +7,7 @@
         user-select: none;
         i {
             transition: opacity .2s, transform .2s;
+            font-size: inherit;
         }
         svg {
             height: 1em;

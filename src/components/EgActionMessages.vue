@@ -38,11 +38,11 @@
                 <span class="text">{{ m.text }}</span>
                 <span v-if="m.subtext" class="subtext">{{ m.subtext }}</span>
                 <ul v-if="m.list">
-                    <li v-for="m in m.list">{{ m }}</li>
+                    <li v-for="mm in m.list" :key="mm">{{ mm }}</li>
                 </ul>
                 <ul v-else-if="m.objectList">
-                    <template v-for="(m,l) in m.objectList">
-                        <li>{{ m.join(', ') }}</li>
+                    <template v-for="(mm) in m.objectList">
+                        <li :key="mm">{{ mm.join(', ') }}</li>
                     </template>
                 </ul>
             </div>

@@ -88,6 +88,7 @@
 
     // default button
     .button-shell {
+        line-height: 1;
         display: inline-block;
         font-size: 1em;
         position: relative;
@@ -239,7 +240,11 @@
             _warning() { return this.warning || this.type === "warning" },
             _success() { return this.success || this.type === "success" },
             loadable() { return this.loading !== null },
-            simpleButton() { return !this.hasRightIcon && !this.hasLeftIcon && !this.loadable }
+            simpleButton() { return !this.hasRightIcon &&
+                !this.hasLeftIcon &&
+                !this.loadable &&
+                this.icons.length <= 0 &&
+                this.lIcons.length <= 0 }
         }
     }
 </script>

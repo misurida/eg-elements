@@ -78,11 +78,11 @@
         }
         .checkbox-label {
             margin-bottom: 0;
-            line-height: 1;
             cursor: pointer;
             user-select: none;
             align-self: flex-end;
             color: currentColor;
+            line-height: 1.3;
         }
         .checkbox-inner {
             display: flex;

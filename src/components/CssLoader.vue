@@ -1,5 +1,5 @@
 <style lang="scss">
-    $loaderSize: 20px;
+    $loaderSize: 22px;
     $loaderBorder: 2px;
     .eg-loader {
         position: relative;
@@ -20,8 +20,8 @@
             border: $loaderBorder solid rgba(#fff, .2);
             border-radius: 50%;
             border-top: $loaderBorder solid var(--color-primary, #CCC);
-            width: $loaderSize;
-            height: $loaderSize;
+            width: $loaderSize - (2 * $loaderBorder);
+            height: $loaderSize - (2 * $loaderBorder);
             animation: spin 1s linear infinite;
         }
     }

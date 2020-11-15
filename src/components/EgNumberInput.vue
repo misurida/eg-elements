@@ -5,14 +5,15 @@
         grid-template-rows: 1fr 1fr;
         height: 100%;
         width: 35px;
+        box-sizing: border-box;
         .button-shell {
+            height: 1.2em;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.8em;
-            font-weight: 600;
-            height: inherit;
-            line-height: 0;
+            font-family: serif;
+            font-weight: 400;
         }
     }
 </style>

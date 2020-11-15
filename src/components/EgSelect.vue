@@ -101,11 +101,11 @@
                 <template v-if="!menuEmpty">
                     <option v-if="_placeholder" class="fake-placeholder" :value="null">{{ _placeholder }}</option>
                     <template v-if="!items || items.length === 1">
-                        <option class="item" v-for="(item,i) in items[0][gOptions]" :key="getItemId(item)" :selected="isSelected(item)">{{ getItemLabel(item) }}</option>
+                        <option class="item" v-for="(item) in items[0][gOptions]" :key="getItemId(item)" :selected="isSelected(item)">{{ getItemLabel(item) }}</option>
                     </template>
                     <template v-else>
                         <optgroup class="items-group" v-for="group in items" :key="getGroupLabel(group)" :label="getGroupLabel(group)">
-                            <option class="item" v-for="(item,i) in group[gOptions]" :key="getItemId(item)" :selected="isSelected(item)">{{ getItemLabel(item) }}</option>
+                            <option class="item" v-for="(item) in group[gOptions]" :key="getItemId(item)" :selected="isSelected(item)">{{ getItemLabel(item) }}</option>
                         </optgroup>
                     </template>
                 </template>
@@ -183,7 +183,6 @@
             clickable: {type: Boolean, default: false},
 
             // style
-            buttonStyle: {type: Boolean, default: false},
             over: {type: Boolean, default: false},
 
 
@@ -529,7 +528,6 @@
             },
             hCross(e) {
                 if(this.editable && !!this.localValue && !this.freeInput) {
-                    debugger;
                     this.setFromValue(this.value);
                 }
                 else if(!this.editable || !this.localValue) {
@@ -628,9 +626,8 @@
                         this.clickFlip = true;
                     }
                     this.focus = true;
-                    let activeElement = document.activeElement;
                     if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-                        let e = document.getElementById(this._id);
+                        e = document.getElementById(this._id);
                     }
                     this.$emit('focus',e);
                 }

@@ -6,23 +6,23 @@ $tt: .15s; // transition time
 :root {
   /*|   Colors    |*/
   // main colors
-  --rgb-default: 200, 200, 200;
+  --rgb-default: 222, 222, 222;
   --rgb-default-text: 90, 90, 90;
   --rgb-primary: 69, 100, 143;
   --rgb-primary-text: 255, 255, 255;
-  --rgb-secondary: 219, 223, 225;
-  --rgb-secondary-text: 0, 0, 0;
+  --rgb-secondary: 202, 215, 232;
+  --rgb-secondary-text: 75, 90, 120;
   --rgb-tertiary: 60, 160, 160;
   --rgb-tertiary-text: 255, 255, 255;
   // status colors
-  --rgb-error: 156, 39, 39;
-  --rgb-warning: 214, 109, 2;
-  --rgb-success: 82, 162, 44;
+  --rgb-error: 200, 75, 75;
+  --rgb-warning: 242, 153, 74;
+  --rgb-success: 40, 160, 90;
   // special colors
   --rgb-dark: 67, 67, 67;
   --rgb-dark-text: 217, 217, 217;
   --rgb-light: 255, 255, 255;
-  --rgb-light-text: 100, 100, 100;
+  --rgb-light-text: 175, 175, 175;
   --rgb-transparent-text: 80, 80, 80;
   --rgb-black: 18, 18, 18;
   --rgb-white: 245, 245, 245;
@@ -309,7 +309,7 @@ $tt: .15s; // transition time
 .tag.clickable.error,
 .error .button-shell,
 .button-shell.error {
-  background-color: rgba(var(--rgb-error), 1);
+  background-color: var(--color-error);
   color: #ffffff;
   &:not(.disabled) {
     color: #ffffff;
@@ -323,7 +323,7 @@ $tt: .15s; // transition time
 .tag.clickable.warning,
 .warning .button-shell,
 .button-shell.warning {
-  background-color: rgba(var(--rgb-warning), 1);
+  background-color: var(--color-warning);
   color: #ffffff;
   &:not(.disabled) {
     color: #ffffff;
@@ -337,7 +337,7 @@ $tt: .15s; // transition time
 .tag.clickable.success,
 .success .button-shell,
 .button-shell.success {
-  background-color: rgba(var(--rgb-success), 1);
+  background-color: var(--color-success);
   color: #ffffff;
   &:not(.disabled) {
     color: #ffffff;
@@ -582,10 +582,10 @@ $tt: .15s; // transition time
       border-color: var(--color-success);
       background-color: rgba(var(--rgb-success),.08);
       input {
-        color: rgba(var(--rgb-success),1);
-        //&::-webkit-input-placeholder { color: rgba(var(--rgb-success),1); } /* Edge */
-        //&:-ms-input-placeholder { color: rgba(var(--rgb-success),1); } /* Internet Explorer 10-11 */
-        //&::placeholder { color: rgba(var(--rgb-success),1); }
+        //color: rgba(var(--rgb-success),1);
+        &::-webkit-input-placeholder { color: rgba(var(--rgb-success),0.8); } /* Edge */
+        &:-ms-input-placeholder { color: rgba(var(--rgb-success),0.8); } /* Internet Explorer 10-11 */
+        &::placeholder { color: rgba(var(--rgb-success),0.8); }
       }
     }
     .egi-counter,
@@ -605,10 +605,10 @@ $tt: .15s; // transition time
       border-color: var(--color-warning);
       background-color: rgba(var(--rgb-warning),.08);
       input {
-        color: rgba(var(--rgb-warning),1);
-        //&::-webkit-input-placeholder { color: rgba(var(--rgb-warning),1); } /* Edge */
-        //&:-ms-input-placeholder { color: rgba(var(--rgb-warning),1); } /* Internet Explorer 10-11 */
-        //&::placeholder { color: rgba(var(--rgb-warning),1); }
+        //color: rgba(var(--rgb-warning),1);
+        &::-webkit-input-placeholder { color: rgba(var(--rgb-warning),0.8); } /* Edge */
+        &:-ms-input-placeholder { color: rgba(var(--rgb-warning),0.8); } /* Internet Explorer 10-11 */
+        &::placeholder { color: rgba(var(--rgb-warning),0.8); }
       }
     }
     .egi-counter,
@@ -628,10 +628,10 @@ $tt: .15s; // transition time
       border-color: var(--color-error);
       background-color: rgba(var(--rgb-error),.08);
       input {
-        color: rgba(var(--rgb-error),1);
-        //&::-webkit-input-placeholder { color: rgba(var(--rgb-error),1); } /* Edge */
-        //&:-ms-input-placeholder { color: rgba(var(--rgb-error),1); } /* Internet Explorer 10-11 */
-        //&::placeholder { color: rgba(var(--rgb-error),1); }
+        //color: rgba(var(--rgb-error),1);
+        &::-webkit-input-placeholder { color: rgba(var(--rgb-error),0.8); } /* Edge */
+        &:-ms-input-placeholder { color: rgba(var(--rgb-error),0.8); } /* Internet Explorer 10-11 */
+        &::placeholder { color: rgba(var(--rgb-error),0.8); }
       }
     }
     .egi-counter,
@@ -1101,10 +1101,10 @@ $loaderBorder: 2px;
   height: $loaderSize;
   max-width: $loaderSize;
   .eg-loader-inside {
-    border: $loaderBorder solid rgba(#fff, .2);
-    border-top: $loaderBorder solid var(--color-primary);
-    width: $loaderSize;
-    height: $loaderSize;
+    border: $loaderBorder solid rgba(#fff, .3);
+    border-top: $loaderBorder solid currentColor;
+    width: $loaderSize - (2 * $loaderBorder);
+    height: $loaderSize - (2 * $loaderBorder);
   }
   &.white {
     .eg-loader-inside {

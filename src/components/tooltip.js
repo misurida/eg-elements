@@ -332,14 +332,14 @@ export default {
             // display events
             if(el.display == "click" || el.display == "clickout") {
                 // events handlers functions definitions
-                el.handleWrapperClick = (e) => {
+                el.handleWrapperClick = () => {
                     el.wrapper.style.display = "flex";
                     setTimeout(() => {
                         document.addEventListener('click', el.handleBodyClick);
                         el.removeEventListener('click', el.handleWrapperClick);
                     }, 200)
                 };
-                el.handleBodyClick = (e) => {
+                el.handleBodyClick = () => {
                     el.wrapper.style.display = "none";
                     setTimeout(() => {
                         document.removeEventListener('click', el.handleBodyClick);
@@ -359,7 +359,6 @@ export default {
             else {
                 // we set the event listeners and their timeouts
                 let timeoutIn;
-                let timeoutOut;
                 // events handlers functions definitions
                 el.wrapperEnter = () => {
                     let wrapper = el.querySelector('.tt-wrapper');
@@ -368,10 +367,10 @@ export default {
                 el.wrapperLeave = () => {
                     clearTimeout(timeoutIn);
                     timeoutIn = null;
-                    timeoutOut = setTimeout(() => { el.querySelector('.tt-wrapper').style.display = "none"; }, exitDelay);
+                    setTimeout(() => { el.querySelector('.tt-wrapper').style.display = "none"; }, exitDelay);
                 };
                 el.contentLeave = () => {
-                    timeoutOut = setTimeout(() => { el.querySelector('.tt-wrapper').style.display = "none"; }, exitDelay);
+                    setTimeout(() => { el.querySelector('.tt-wrapper').style.display = "none"; }, exitDelay);
                 };
                 el.contentClick = (e) => {
                     e.stopPropagation();

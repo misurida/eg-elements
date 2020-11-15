@@ -34,6 +34,7 @@
             cursor: pointer;
             position: relative;
             min-height: 2.715em;
+            box-sizing: border-box;
             &::after {
                 content: '';
                 position: absolute;

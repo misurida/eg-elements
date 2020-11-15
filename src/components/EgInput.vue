@@ -124,6 +124,7 @@
             display: flex;
             align-items: center;
             user-select: none;
+            box-sizing: border-box;
         }
 
         // input icons
@@ -933,7 +934,7 @@
                 let x = !isNaN(v) && ((Array.isArray(v) && v.length <= 0) || (!Array.isArray(v) && !v) || (Object.keys(v).length === 0 && v.constructor === Object));
                 return x;
             },
-            _placeholder() { return !!this.value ? "" : this.placeholder },
+            _placeholder() { return this.value ? "" : this.placeholder },
             isTextarea() { return this.type === "textarea" },
             isColor() { return this.type === "color" },
             hasPrefix() { return !!this.prefix || !!this.$slots.prefix },
