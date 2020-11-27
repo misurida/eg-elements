@@ -10,7 +10,7 @@ Selects can be displayed using by default `<eg-select>`.
 
 They are visually similar to the text inputs, but with a caret on the right. On focus, they display a floating menu (by default on the bottom of the field) containing options that can be selected.
 
-This component is an [Input](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md) wrapper. It has a similar structure and shares all its arguments. Nevertheless, it has some specific attributes and uses the menu slot. 
+This component is an [Input](https://github.com/misurida/eg-elements/blob/master/doc/Input.md) [](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md)wrapper. It has a similar structure and shares all its arguments. Nevertheless, it has some specific attributes and uses the menu slot. 
 
 ## Attributes
 
@@ -60,7 +60,7 @@ This component is an [Input](https://github.com/misurida/eg-elements/blob/master
 
 ### Style
 
-- **buttonStyle**: {type: Boolean, default: false}: If true, the select text box field will be an [Button](https://github.com/misurida/eg-elements/blob/master/doc/EgButton.md) (can be "primary").
+- **buttonStyle**: {type: Boolean, default: false}: If true, the select text box field will be a [Button](https://github.com/misurida/eg-elements/blob/master/doc/Button.md) (can be "primary").
 - **over**: {type: Boolean, default: false}: If true, the menu will be displayed on top of the field box.
 
 ## Events

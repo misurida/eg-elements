@@ -78,9 +78,7 @@
 --modal-min-width: 300px;
 --modal-shadow-color: rgba(0,0,0,.5);
 --modal-bg: #fff;
---modal-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 
-								0 3px 1px -2px rgba(0,0,0,0.12), 
-								0 1px 5px 0 rgba(0,0,0,0.2);
+--modal-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 --modal-border: none;
 --modal-inner-border: none;
 --modal-padding-header: 1.5rem 1.5rem 0 1.5rem;
@@ -98,7 +96,5 @@
 --action-message-bg: rgba(0,0,0,0.8);
 --action-message-padding: 10px 15px;
 --action-message-color: #f5f5f5;
---action-message-shadow:  0 2px 2px 0 rgba(0,0,0,0.14), 
-													0 3px 1px -2px rgba(0,0,0,0.12), 
-													0 1px 5px 0 rgba(0,0,0,0.2);
+--action-message-shadow:  0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 ```

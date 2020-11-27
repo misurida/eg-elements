@@ -10,7 +10,7 @@ Number inputs can be displayed using by default `<eg-input>` with the 'number' t
 
 The native input number type is used. The value can be limited with a minimum and maximum, and incremented (by steps) using the keyboard up or bottom arrow keys. Small and big steps can be used holding respectively ctrl or shift while incrementing. Plus or minus stack buttons are also available to quickly increment the value using the mouse.
 
-This component is an [Input](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md) wrapper. It has a similar structure and shares all its arguments. Nevertheless, it has some specific attributes.
+This component is an [Input](https://github.com/misurida/eg-elements/blob/master/doc/Input.md) [](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md)wrapper. It has a similar structure and shares all its arguments. Nevertheless, it has some specific attributes.
 
 ## Attributes
 

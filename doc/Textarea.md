@@ -8,14 +8,14 @@ A textarea is a form element similar to Input, but allows the user to enter text
 
 Number inputs can be displayed using by default `<eg-input>` with the 'textarea' type.
 
-This component is an [Input](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md) wrapper. It has a similar structure and shares all its arguments. Nevertheless, it has some specific attributes.
+This component is an [Input](https://github.com/misurida/eg-elements/blob/master/doc/Input.md) [](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md)wrapper. It has a similar structure and shares all its arguments. Nevertheless, it has some specific attributes.
 
 ## Attributes
 
-- **rows**: {default: 2}: The native *rows* attribute value (defining the base height).
-- **cols**: {default: null}: The native *cols* attribute (defining the base width).
-- **minHeight**: {type: Number, default: 40}: The minimal field height (in *px).*
-- **newLineShiftOnly**: {type: Boolean, default: false}: If true, pressing *enter* in a textarea field will emit the @enter event and won't do a new line, unless the shift button is pressed at the same time.
+- **rows**: {default: 2}: The native "rows" attribute value (defining the base height).
+- **cols**: {default: null}: The native "cols attribute (defining the base width).
+- **minHeight**: {type: Number, default: 40}: The minimal field height (in px*).*
+- **newLineShiftOnly**: {type: Boolean, default: false}: If true, pressing enter **in a textarea field will emit the @enter event and won't do a new line, unless the shift button is pressed at the same time.
 
 ## Events
 

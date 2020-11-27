@@ -14,7 +14,7 @@ Text inputs have easy-to-use shortcuts to display text (label, placeholder, mess
 
 ### Main
 
-- **value**: {default: null}: The value of the field. Given and updated using v-model. The initial value can be of any type, but a string will be emitted if the value is edited.
+- **value**: {default: null}: The value of the field is given and updated using v-model. The initial value can be of any type, but a string will be emitted if the value is edited.
 - **type**: {type: String, default: "text"}: The type is defining the input type (mostly the input tag's *type* native attribute). I can be:
     - A native type: 'color', 'date', 'datetime-local', 'file', 'month', 'number', 'password', 'range', 'search', 'tel', 'text', 'time', 'url', 'email', 'week'.
     - Textarea
@@ -62,7 +62,7 @@ Text inputs have easy-to-use shortcuts to display text (label, placeholder, mess
 
 ### Icons
 
-More information on how to use the icons.
+[More information on how to use the icons.](https://github.com/misurida/eg-elements/blob/master/doc/Icon.md)
 
 - **icon**: {type: String, default: null}: Main icon to display the icon name can be prefixed to use a specific library.
 - **lIcon**: {type: String, default: null}: Main icon to display but on the left of the field (similar to "icon").
@@ -110,14 +110,14 @@ More information on how to use the icons.
 
 - **wide**: {type: Boolean, default: false}: If true, the field will take all the horizontal available space.
 - **flex**: {type: Boolean, default: false}: If true, the field width will be defined by the value width.
-- **baseMin**: {type: Number, default: 50}: Minimum witdh (in *px*) allowed for the "flex" field to expand.
-- **baseMax**: {type: Number, default: 500}: Maximum witdh (in *px*) allowed for the "flex" field to expand.
+- **baseMin**: {type: Number, default: 50}: Minimum witdh (in px) allowed for the "flex" field to expand.
+- **baseMax**: {type: Number, default: 500}: Maximum witdh (in px) allowed for the "flex" field to expand.
 
 ## Events
 
 - v-model (**@input**): any value can be passed to the field, but will be converted to a string. The input event is triggered when the keyboard key is released in the field.
 - **@click**: triggered when the whole element is clicked (.egi-inner or *input* tag). Default event payload.
-- **@fakeClick**: triggered when the value is clicked. ".fake-input" is the value wrapper class, which is displayed when the field is not *editable*). Default event payload.
+- **@fakeClick**: triggered when the value is clicked. ".fake-input" is the value wrapper class, which is displayed when the field is not "editable"). Default event payload.
 - **@iconClick**: triggered when an icon is clicked. Payload: the event with the extra attribute "icon" containing the name of the icon clicked (prefixed name if an icon library is used).
 - **@change**: triggered when the value of the field changes (after blur). Default event payload (containing "value" in "target").
 - **@focus**: triggered when the field gets the focus. Default event payload.
@@ -146,7 +146,7 @@ These event are triggered only if the field has focus.
 - **taglist**: Content to display inside the input box on the left (after the prefix).
 - **input**: Content to display inside of the input box. Will replace the inner input by its content.
 - **display**: Content to display as fake value (text placeholder).
-- **menu**; Content to display inside the input box, below everything. Used mainly for the Floting menu of the [Select](https://github.com/misurida/eg-elements/blob/master/doc/EgSelect.md) component.
+- **menu**; Content to display inside the input box, below everything. Used mainly for the Floting menu of the [Select](https://github.com/misurida/eg-elements/blob/master/doc/Select.md) component.
 
 ## Structure
 

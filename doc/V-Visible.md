@@ -2,7 +2,7 @@
 
 v-visible is a custom directive that allows to give the element to which it is attached the css class 'visible' when another target element appears on the screen. 
 
-This directive takes as parameter a string that allows to target an element of the DOM using the *querySelector* function (ex: "#my-div"). The class given to the parent element and the position of the target element relative to the visible screen can also be customized by passing an object as parameter.
+This directive takes as parameter a string that allows to target an element of the DOM using the querySelector function (ex: "#my-div"). The class given to the parent element and the position of the target element relative to the visible screen can also be customized by passing an object as parameter.
 
 ## Usage
 

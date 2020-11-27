@@ -1,6 +1,6 @@
 # Sidemenu
 
-Side menus are structural UI elements that are used as container. You can see them as div on a regular viewport size (desktop) that will be hidden on the sides of the viewport under a defined threshold. Under the threshold, the sidemenu has the compact form. When deployed, the rest of the page has an overlay (sidemenu shadow). You can deploy the sidemenu using *value* or using the handlers that are invisible divs placed on the side of the viewport to interact with the closed menu (with mouse or touch events). Clicking on the handle will deploy the menu, and clicking on the shadow will close it.
+Side menus are structural UI elements that are used as container. You can see them as div on a regular viewport size (desktop) that will be hidden on the sides of the viewport under a defined threshold. Under the threshold, the sidemenu has the compact form. When deployed, the rest of the page has an overlay (sidemenu shadow). You can deploy the sidemenu using "value" or using the handlers that are invisible divs placed on the side of the viewport to interact with the closed menu (with mouse or touch events). Clicking on the handle will deploy the menu, and clicking on the shadow will close it.
 
 ```html
 <eg-sidemenu :threshold="classic" orientation="left" v-model="s1">

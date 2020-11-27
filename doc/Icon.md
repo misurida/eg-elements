@@ -22,7 +22,7 @@ You can use several types of icons from different sources easily:
 
 You can set the icon library to with the initialization parameters: 
 
-```
+```jsx
 Vue.use(eg, {
     icons: [
         'brandico',
@@ -45,7 +45,7 @@ Vue.use(eg, {
 
 You can use the **[Google Material Icons](https://material.io/tools/icons)**. Then insert the following code in your *index.html* file:
 
-```
+```html
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 ```
 
@@ -57,7 +57,7 @@ You can also use the text shorthand using a '+' before the name: `icon="+alarm"`
 
 You can also use the **[Font Awesome Icons](https://fontawesome.com/icons)**. You simply have to create an account and ask for a **[kit](https://fontawesome.com/start)**. You will receive the {SECRET} **code to insert into the *index.html* file:
 
-```
+```html
 <script src="https://kit.fontawesome.com/{SECRET}.js"></script>
 ```
 
@@ -71,20 +71,20 @@ To use a native svg icon, you have to prefix the icon name with "svg:" or set th
 
 ## Attributes
 
-- **icon** {type: String, default: null}: The name of the icon to display. You can also use the arguments *i* or *type* instead of *icon*. The eg element icon names can be used, but you can prefix the name with 'ma:' to use the material (google) icons, with 'fa:' to use the font awesome icons or with 'svg:' to use the native svg icons.
-- **i** {type: String, default: null}: *icon* shorthand (see above).
-- **type** {type: String, default: null}: *icon* shorthand (see above).
+- **icon** {type: String, default: null}: The name of the icon to display. You can also use the arguments "i" or "type" instead of "icon". The EG Element icon names can be used, but you can prefix the name with 'ma:' to use the material (google) icons, with 'fa:' to use the font awesome icons or with 'svg:' to use the native svg icons.
+- **i** {type: String, default: null}: "icon" shorthand (see above).
+- **type** {type: String, default: null}: "icon" shorthand (see above).
 - **clickable**: {type: Boolean, default: false}: If true, the icon has a clickable style (cursor and hover change).
 - **fr**: {type: Boolean, default: false}: The icon will have the `float: right` css attribute.
 - **fl**: {type: Boolean, default: false}: The icon will have the `float: left` css attribute.
 - **svg**: {type: Boolean, default: false}: If true, the svg library is used by default (you don't need to use the prefix).
-- **title**: {default: null}: The default *title* attribute, defining a default helping text revealed when the element is hover for a long time.
+- **title**: {default: null}: The default "title" attribute, defining a default helping text revealed when the element is hover for a long time.
 - **stop**: {type: Boolean, default: false}: If true, `e.stopPropagation()` is applied before emitting any click event.
 - **flip**: {type: Boolean, default: false}: If true, the icon is vertically flipped.
 
 ## Events
 
-- **@click**: when the icon is clicked. Payload: the event, containing the extra attribute *eventName* containing the click action as string: 'click', 'dblclick', 'ctrlClick'.
+- **@click**: when the icon is clicked. Payload: the event, containing the extra attribute "eventName" containing the click action as string: 'click', 'dblclick', 'ctrlClick'.
 
 ## Structure
 

@@ -38,7 +38,7 @@ For more information about the colors, you can look at the theme's CSS variables
 
 ### Icons
 
-By default, the icons are displayed on the right side of the buttons, but can be displayed on the left using the left-hand version of the icon attribute. More information on how to use the icons.
+By default, the icons are displayed on the right side of the buttons, but can be displayed on the left using the left-hand version of the icon attribute. [More information on how to use the icons.](https://github.com/misurida/eg-elements/blob/master/doc/Icon.md)
 
 - **help**: {default: null}: Can be a String or an parameters object that will be given to a HelpIcon components used instead of an icon.
 - **icon**: {type: String, default: null}: Main icon to display the icon name can be prefixed to use a specific library.
