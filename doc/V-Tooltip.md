@@ -1,10 +1,19 @@
-# Tooltip
+# V-Tooltip
 
 Tooltips are simple text indications that are display next to an element. They are initially hidden, and displayed when the user needs more information. 
 
 They can be set on any element (any html tag called tooltip parent in the documentation) to generate a tooltip <span> inside in order to position the tooltip based on the parent size.
 
 The tooltips can mainly be modified by editing the default CSS variables.
+
+## Usage
+
+You can use the custom directive in multiple forms:
+
+1. The most basic one is providing a string as directive argument to display it using the default parameters: `v-tooltip="'Hello world!'"`.
+2. You can also give an object containing the parameters to the tooltip if you want to change one or multiple parameters: `v-tooltip="args"`.
+3. You can also use modifiers to quickly change one parameter value. Example with the side parameter: `v-tooltip.left="args"`. The list of modifiers can be found below.
+4. If the parameters can change after the parent element is mounted, you can use the dynamic arguments: `v-tooltip:[args]`.
 
 ## Parameters
 
@@ -22,26 +31,6 @@ Tooltips have the following parameters available. Most of the parameters have a 
 - **fontSize**: The font size (in any font size unit).
 - **enterDelay**: The time needed for the hovering event triggers the tooltip reveal (number in *ms*).
 - **exitDelay**: The time needed for the hovering event triggers the tooltip hiding (number in *ms*).
-
-## Usage
-
-You can use the custom directive in multiple forms. The most basic one is providing a string as directive argument to display it using the default parameters: `v-tooltip="'Hello world!'"`.
-
-You can also give an object containing the parameters to the tooltip if you want to change one or multiple parameters: `v-tooltip="args"`.
-
-You can also use modifiers to quickly change one parameter value. Example with the side parameter: `v-tooltip.left="args"`. The list of modifiers is just below.
-
-If the parameters can change after the parent element is mounted, you can use the dynamic arguments: `v-tooltip:[args]`.
-
-### Modifiers
-
-The modifiers are the following:
-
-- Position: `l`, `c`, `r`, `t` or `b` for 'left', 'center', 'right', 'top' or 'bottom' positionning.
-- Display: `hover`, `click` or `clickout`
-- Side: `top`, `right`, `bottom` or `left`
-- Text: `tal`, `tar` or `tac` for 'left', 'right' or 'center' text align.
-- Themes: `dark` or `light`.
 
 ### Text
 
@@ -78,6 +67,16 @@ The tooltip size is variable between the boundaries of the tooltip wrapper. The 
 The color of the tooltip, text and border (including the arrow) are defined by css variables. A set of these variables are defining a theme. By default, the tooltip has the dark theme and the background color is black with a white text, but you can use the light theme to display a white background tooltip with a black text, you defines the variables to make the tooltips match your design.
 
 - **theme**: dark or light.
+
+## Modifiers
+
+The modifiers are the following:
+
+- For **position**: **l**, **c**, **r**, **t** or **b** for 'left', 'center', 'right', 'top' or 'bottom' positioning.
+- For **display**: **hover**, **click** or clickout.
+- For **side**: **top**, **right**, **bottom** or **left**.
+- For **text**: **tal**, **tar** or **tac** for 'left', 'right' or 'center' text align.
+- For **themes**: **dark** or **light**.
 
 ## Structure
 

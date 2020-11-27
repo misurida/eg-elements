@@ -3,7 +3,6 @@ import EgInput from './src/components/EgInput'
 import EgButton from './src/components/EgButton'
 import EgSelect from './src/components/EgSelect'
 import EgCheckbox from './src/components/EgCheckbox'
-import EgNumberInput from './src/components/EgNumberInput'
 import EgFloatingMenu from './src/components/EgFloatingMenu'
 import EgTag from './src/components/EgTag'
 import EgIcon from './src/components/EgIcon'
@@ -12,6 +11,7 @@ import EgSidemenu from './src/components/EgSidemenu'
 
 import Modal from './src/components/Modal'
 import TooltipDirective from './src/components/tooltip'
+import VisibleDirective from './src/components/visible'
 import HelpIcon from './src/components/HelpIcon'
 import CssLoader from './src/components/CssLoader'
 import HamburgerIcon from './src/components/HamburgerIcon'
@@ -30,18 +30,17 @@ export default function install(Vue, args) {
     // icons theme
     args.icons = args.icons.reverse();
     for(let i=0; i<args.icons.length; i++) {
-        require(`./fonts/fontello/${args.icons[i]}/css/fontello.css`);
+        require(`./assets/fontello/${args.icons[i]}/css/fontello.css`);
     }
 
-    // themes stylers
-    if(!args.style) require('./src/themes/theme_default.scss')
+    // themes styling
+    if(args.theme === "basic") require('./src/themes/theme_basic.scss');
 
     // new installations
-    Vue.component('eg-input', EgInput);
+    if(args.input !== false) Vue.component('eg-input', EgInput);
     Vue.component('eg-button', EgButton);
     Vue.component('eg-select', EgSelect);
     Vue.component('eg-checkbox', EgCheckbox);
-    Vue.component('eg-number-input', EgNumberInput);
     Vue.component('eg-floating-menu', EgFloatingMenu);
     Vue.component('eg-tag', EgTag);
     Vue.component('eg-icon', EgIcon);
@@ -51,8 +50,9 @@ export default function install(Vue, args) {
     Vue.component('help-icon', HelpIcon);
     Vue.component('css-loader', CssLoader);
 
-    // v-tooltip directive
+    // directives
     Vue.directive('tooltip', TooltipDirective);
+    Vue.directive('visible', VisibleDirective);
 
     // We inject polyfills
     require('./polyfills');
@@ -75,7 +75,6 @@ export {
     EgButton,
     EgIcon,
     EgSelect,
-    EgNumberInput,
     EgCheckbox,
     Modal,
     EgFloatingMenu,

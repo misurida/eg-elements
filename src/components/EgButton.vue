@@ -3,6 +3,7 @@
 
     .eg-button {
         font-size: inherit;
+        box-sizing: border-box;
         .button-inner {
             line-height: 1;
             display: flex;
@@ -13,17 +14,30 @@
             transition: all $tt;
             font-size: inherit;
             font-weight: inherit;
+            position: relative;
             &.rshift {
-                position: relative;
                 transform: translateX(-37px);
             }
         }
+        .button-label {
+            display: inline-block;
+            height: 100%;
+            align-self: center;
+        }
+
+        // icons
+        .btn-l-slide-icons,
+        .btn-slide-icons,
         .btn-left-icons,
         .btn-right-icons {
             display: flex;
             align-items: center;
             justify-content: center;
             align-self: center; // buttonStyle select caret
+        }
+        .btn-l-slide-icons,
+        .btn-slide-icons {
+            max-height: 1em;
         }
         .btn-left-icons {
             //margin-right: 10px;
@@ -33,9 +47,9 @@
                     margin-right: 5px;
                 }
             }
+
         }
         .btn-right-icons {
-            //margin-left: 10px;
             margin-left: 0.75em;
             .eg-icon {
                 &:not(:first-child) {
@@ -46,16 +60,17 @@
         .eg-icon {
             display: flex;
             align-items: center;
+            align-self: center;
             justify-content: center;
         }
 
+        // loader icon
         .eg-hidden-icon-wrapper {
             margin-left: 10px;
             position: absolute;
             right: -40px;
         }
         .eg-loader-wrapper {
-            display: relative;
             align-items: center;
         }
         .eg-loader-inside {
@@ -68,9 +83,44 @@
                 display: flex;
             }
         }
+
+        // slide icons
+        &.slideable,
         &.loadable {
             overflow-x: hidden;
+            overflow-y: visible;
         }
+
+        .slide-icon,
+        .l-slide-icon {
+            max-width: 0;
+            position: relative;
+            overflow-x: hidden;
+            transition: max-width $tt * 1.5, transform $tt  * 5;
+        }
+        &.slideable {
+            .button-inner {
+                white-space: nowrap;
+            }
+            &.button-shell.link {
+                height: 1.3em;
+                overflow-y: visible;
+            }
+        }
+        &:hover {
+            .slide-icon,
+            .l-slide-icon {
+                max-width: 50px;
+                transition: max-width $tt, transform $tt;
+            }
+            .slide-icon {
+                transform: translateX(5px);
+            }
+            .l-slide-icon {
+                transform: translateX(-5px);
+            }
+        }
+
 
         // quick css
         &.fr, &.float-right { float: right }
@@ -97,6 +147,7 @@
         transition: background $tt, border $tt;
         vertical-align: bottom;
         border: none;
+        box-sizing: border-box;
         &.disabled {
             cursor: default;
         }
@@ -119,7 +170,6 @@
             :class="{
                 hidden: loading,
                 big, small,
-                loadable,
                 primary:_primary, secondary:_secondary, tertiary:_tertiary,
                 transparent:_transparent, dark:_dark, light:_light, link:_link,
                 error:_error, warning:_warning, success:_success,
@@ -132,27 +182,28 @@
             @mousedown="$emit('mousedown', $event)"
             @mouseup="$emit('mouseup', $event)"
             :disabled="disabled"><slot name="default"></slot></button>
-    <div
-            v-else
-            class="eg-button button-shell"
-            :class="{
+    <div v-else
+         class="eg-button button-shell"
+         :class="{
                 hidden: loading,
                 big, small,
                 loadable,
+                slideable: slideIcon || lSlideIcon,
                 primary:_primary, secondary:_secondary, tertiary:_tertiary,
                 transparent:_transparent, dark:_dark, light:_light, link:_link,
                 error:_error, warning:_warning, success:_success,
                 disabled,fl,fr,wide,icon:noText}"
-            @click="hClick"
-            @keyup.enter="hClick"
-            @keyup.escape="$emit('escape', $event)"
-            @focus="$emit('focus', $event)"
-            @blur="$emit('blur', $event)"
-            @mousedown="$emit('mousedown', $event)"
-            @mouseup="$emit('mouseup', $event)"
-            :disabled="disabled"
-            :tabindex="disabled?-1:0">
+         @click="hClick"
+         @keyup.enter="hClick"
+         @keyup.escape="$emit('escape', $event)"
+         @focus="$emit('focus', $event)"
+         @blur="$emit('blur', $event)"
+         @mousedown="$emit('mousedown', $event)"
+         @mouseup="$emit('mouseup', $event)"
+         :disabled="disabled"
+         :tabindex="disabled?-1:0">
         <div class="button-inner" :class="{rshift:loading}">
+            <!-- Left icons -->
             <div class="btn-left-icons" v-if="hasLeftIcon || lIcons.length > 0">
                 <template v-if="lIcons.length > 0">
                     <eg-icon v-for="i in lIcons" :key="i" :icon="i"></eg-icon>
@@ -161,7 +212,14 @@
                     <eg-icon :icon="lIcon"></eg-icon>
                 </template>
             </div>
+            <div class="btn-l-slide-icons" v-if="lSlideIcon">
+                <eg-icon class="l-slide-icon" :icon="lSlideIcon"></eg-icon>
+            </div>
+
+            <!-- Label -->
             <slot name="default"></slot>
+
+            <!-- Right icons -->
             <div class="btn-right-icons" v-if="hasRightIcon || icons.length > 0 || help !== null">
                 <template v-if="icons.length > 0">
                     <eg-icon v-for="i in icons" :key="i" :icon="i"></eg-icon>
@@ -171,6 +229,10 @@
                     <help-icon v-else :help="help"></help-icon>
                 </template>
             </div>
+            <div class="btn-slide-icons" v-if="slideIcon">
+                <eg-icon class="slide-icon" :icon="slideIcon"></eg-icon>
+            </div>
+            <!-- Loader icon -->
             <div class="eg-hidden-icon-wrapper">
                 <div class="eg-loader-wrapper" v-if="loading">
                     <div class="eg-loader"><div class="eg-loader-inside"></div></div>
@@ -209,6 +271,9 @@
             lIcon: {type: String, default: null},
             lIcons: {type: Array, default() {return []}},
 
+            slideIcon: {type: String, default: null},
+            lSlideIcon: {type: String, default: null},
+
             // themes
             primary: {type: Boolean, default: false},
             secondary: {type: Boolean, default: false},
@@ -243,6 +308,9 @@
             simpleButton() { return !this.hasRightIcon &&
                 !this.hasLeftIcon &&
                 !this.loadable &&
+                !this.help &&
+                !this.slideIcon &&
+                !this.lSlideIcon &&
                 this.icons.length <= 0 &&
                 this.lIcons.length <= 0 }
         }

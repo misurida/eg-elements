@@ -1,6 +1,6 @@
 # Home
 
-EG Elements is a Vuejs components libraries. It contains UI Components, CSS, and helpers that you can use individually or import as a toolbox pack.
+EG Elements is a vuejs library of modular and easily customizable interface components.
 
 ## Installation
 
@@ -16,39 +16,68 @@ To use the library globally and register all the components in your main js file
 
 ```
 import eg from "eg-elements"
-
 Vue.use(eg)
-// can also accept arguments: Vue.use(eg, {})
 ```
 
 You can alternatively use the components individually in one of your components:
 
 ```
-import { EgInput, EgButton, etc. } from 'eg-elements'
+import { EgInput, EgButton } from 'eg-elements'
 ```
 
 ## Components
 
-Standard components:
+Basics:
 
-- [EgInput](https://github.com/misurida/eg-elements/blob/master/doc/EgInput.md)
-- [EgButton](https://github.com/misurida/eg-elements/blob/master/doc/EgButton.md)
-- [EgIcon](https://github.com/misurida/eg-elements/blob/master/doc/EgIcon.md)
-- [EgSelect](https://github.com/misurida/eg-elements/blob/master/doc/EgSelect.md)
-- [EgNumberInput](https://github.com/misurida/eg-elements/blob/master/doc/EgNumberInput.md)
-- [EgCheckbox](https://github.com/misurida/eg-elements/blob/master/doc/EgCheckbox.md)
-- [Modal](https://github.com/misurida/eg-elements/blob/master/doc/Modal.md)
+- Buttons
+- Icons
+- Special Icons
 
-Helpers components:
+Inputs:
 
-- [Tooltip directive](https://github.com/misurida/eg-elements/blob/master/doc/Tooltip.md)
-- EgFloatingMenu
-- HelpIcon
-- EgSidemenu
-- EgActionMessages
+- Text Input
+- Textarea
+- Number Input
+- Select
+- Checkbox
 
-## Design
+Structure:
 
-The components have a internal CSS structure (on the .vue file) but are mainly styled from one of the theme files. These SCSS files are defining most of the visual properties with the help of CSS native variables. The default theme is imported when `Vue.use(eg)` is used, but you have to import it manually at some point if you are importing the components individually. To do that, simply import the theme file: `src/themes/theme_default.scss`
+- Modal
+- Sidemenu
 
-[See the list of CSS Variables.](https://github.com/misurida/eg-elements/blob/master/doc/CSS.md)
+Helpers:
+
+- V-Tooltip directive
+- V-Visible directive
+- Tags
+
+## Global parameters
+
+you can pass some parameters when using Vue.use() to set up several actions:
+
+- First of all, the native icon libraries selected as a string or an array with the attribute "icons"
+- Then the globally installed components can be selected and their names can be customized by passing to the "components" attribute an object that contains the component code as a key and the chosen name as a value.
+- Finally, the theme can be selected, either as a single theme by passing a string to the "theme" attribute, or by passing multiple themes with a table. If multiple themes are selected, they will be active only if one of the parent elements has the theme name as class.
+
+```jsx
+Vue.use(ege, {
+    theme: "basic",
+    components: {
+        icon: "icon",
+        input: "text-input",
+        numberInput: "eg-number"
+    },
+    icons: ['brandico', 'elusive']
+});
+```
+
+## Design and Themes
+
+Each component has an internal CSS structure with a default design and some key classes that you can target and customize. If you select a theme using Vue.use(), you can also use CSS variables to quickly modify the key attributes of the components used in your own css files.
+
+If you import one or more components individually, you can also import the theme manually. The path for the Basic theme is "~eg-elements/src/themes/theme_basic.scss".
+
+Here is the [Page of the Basic theme]() that contains the list of variables and that is currently displayed by default in the demo. The main purpose of using variables is to be able to stylize a component locally. You can overwrite the value of any of these variables in of the parents classes to make it fit the situation, of even your whole design if you overwrite most of them in the :root.
+
+The components styles are written using `lang="scss"`, so you might need the [Webpack SASS pre-processor](https://vue-loader.vuejs.org/guide/pre-processors.html) if you want to tweak the elements files:

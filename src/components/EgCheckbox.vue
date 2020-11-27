@@ -22,6 +22,7 @@
                 top: 0;
                 left: 0;
                 height: 100%;
+                color: currentColor;
                 path {
                     stroke: currentColor;
                 }
@@ -122,7 +123,7 @@
 
         $dotSize: 25px;
         &.switch {
-            .egi-label {
+            .eg-label {
                 margin-bottom: 5px;
             }
             .switch-wrapper {
@@ -229,8 +230,8 @@
 
 <template>
     <div class="checkbox-input" :class="{'eg-input':inputClass, switch:isSwitch, disabled, error, warning, success}">
-        <div class="label-container" v-if="options.length > 0">
-            <span class="egi-label">{{ label }}</span>
+        <div class="label-container" v-if="options.length > 0 && label">
+            <span class="eg-label">{{ label }}</span>
         </div>
         <div class="checkbox-inner">
             <div class="checkbox-group" v-for="(item,label) in _elements" :key="label" @click="$emit('click')">
@@ -304,7 +305,7 @@
                     </div>
                 </template>
                 <!-- Label -->
-                <label class="egi-label checkbox-label" :for="getId(label)" @click="labelClick(item)" v-if="label">{{ label }}</label>
+                <label class="eg-label checkbox-label" :for="getId(label)" @click="labelClick(item)" v-if="label">{{ label }}</label>
             </div>
         </div>
     </div>

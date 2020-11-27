@@ -1,16 +1,14 @@
-# EgButton
+# Button
 
-Buttons are UI elements containing a text label and used to trigger an action. Buttons can be displayed with different styles (mainly the *default* and *primary* styles) and can contain icons. They can also be programatically disabled to make them unusable or display status informations (*loading* or *error* for examples).
+Buttons are elements that allow the user to trigger an action. Their visual aspect allows to draw attention or not to a possible interaction.
 
-## Usage
+```html
+<eg-button primary>Save</eg-button>
+```
 
-A button can be displayed using the `<eg-button>` tag and setting the label as main slot value (between the tags).
+A button can be displayed using by default `<eg-button>` (with the inner label between the tags)
 
-## Events
-
-- @click: when the button is clicked (default event payload).
-- @focus: The the button gets focus (default event payload).
-- @blur: when the button looses focus (default event payload).
+Buttons can be disabled, have special states (error, warning, success) or incorporate icons in addition to the styles provided by the theme: "default", "primary", "secondary", "tertiary" and all special aspects such as "link".
 
 ## Attributes
 
@@ -20,7 +18,7 @@ A button can be displayed using the `<eg-button>` tag and setting the label as m
 
 ### Styles
 
-For more informations about the color, you can lok at the CSS variables list.
+For more information about the colors, you can look at the theme's CSS variables list.
 
 - **primary**: {type: Boolean, default: false}: The button will be of the primary color.
 - **secondary**: {type: Boolean, default: false}: The button will be of the secondary color.
@@ -29,7 +27,7 @@ For more informations about the color, you can lok at the CSS variables list.
 - **dark**: {type: Boolean, default: false}: The button will be of a dark color (dark gray by default).
 - **light**: {type: Boolean, default: false}: The button will be of a light color (light gray by default).
 - **link**: {type: Boolean, default: false}: The button will have the link style: no padding, underlined text (to fit in a paragraph).
-- **type**: {type: String, default: null}: Any style attribute can be passed as string with *type* instead of using the matching attribute (*primary* for example).
+- **type**: {type: String, default: null}: Any style attribute can be passed as string with "type" instead of using the matching attribute (*primary* for example).
 
 ### State
 
@@ -40,7 +38,7 @@ For more informations about the color, you can lok at the CSS variables list.
 
 ### Icons
 
-By default, the icons are displayed on the right side of the buttons, but all attributes have a left version to display them on the left style. The icons' attributes are respecting the rules of the [EgIcon](https://github.com/misurida/eg-elements/blob/master/doc/EgIcon.md) component.
+By default, the icons are displayed on the right side of the buttons, but can be displayed on the left using the left-hand version of the icon attribute. More information on how to use the icons.
 
 - **help**: {default: null}: Can be a String or an parameters object that will be given to a HelpIcon components used instead of an icon.
 - **icon**: {type: String, default: null}: Main icon to display the icon name can be prefixed to use a specific library.
@@ -50,15 +48,21 @@ By default, the icons are displayed on the right side of the buttons, but all at
 
 ### Helpers
 
-- **fr**: {type: Boolean, default: false}: The icon will have the `float: right` css attribute.
-- **fl**: {type: Boolean, default: false}: The icon will have the `float: left` css attribute.
+- **fr**: {type: Boolean, default: false}: The icon will have the `float: right` CSS attribute.
+- **fl**: {type: Boolean, default: false}: The icon will have the `float: left` CSS attribute.
 - **wide**: {type: Boolean, default: false}: The icon will take all the horizontal space (the text will be centered).
 - **big**: {type: Boolean, default: false}: The button appears bigger.
 - **small**: {type: Boolean, default: false}: The button appears smaller.
 
+## Events
+
+- **@click**: when the button is clicked (default event payload).
+- **@focus**: The the button gets focus (default event payload).
+- **@blur**: when the button looses focus (default event payload).
+
 ## Structure
 
-The EgButton has the following structure:
+The Button has the following structure:
 
 ```html
 <!-- If the button contains only text -->
@@ -70,4 +74,4 @@ The EgButton has the following structure:
 </div>
 ```
 
-The sizing style is applied to the class *.button-shell*. The theme styling (primary, secondary) is mostly done altering this class.
+The sizing style is preferably applied to the class ".button-shell". The style of the theme mainly alters this class.

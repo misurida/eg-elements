@@ -198,7 +198,7 @@
         computed: {
             hasDefaultSlot() { return !!this.$slots.default },
             theType() {
-                let t = null;
+                let t = "";
                 if(this.i) t = this.i;
                 if(this.icon) t = this.icon;
                 if(this.type) t = this.type;

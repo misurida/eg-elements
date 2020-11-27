@@ -1,546 +1,212 @@
 <style lang="scss">
-    .sidemenu-wrapper {
-        &.active {
-            z-index: 1;
-            padding: 0;
-            max-height: 0;
-            max-width: 0;
-        }
-    }
-    .sidemenu {
-        position: fixed;
-        padding: 0;
-        box-sizing: border-box;
-        z-index: 0;
-        overflow-y: auto;
-        height: 100%;
-        &.left-sidemenu {
+    .eg-sidemenu-wrapper {
+        .shadow-zone {
+            position: fixed;
             top: 0;
-            bottom: 0;
-        }
-        &.right-sidemenu {
-            top: 0;
-            bottom: 0;
-        }
-        &.bottom-sidemenu {
             left: 0;
             right: 0;
+            bottom: 0;
+            opacity: 0;
+            background-color: var(--sidemenu-shadow-bg);
+            cursor: pointer;
+            transition: opacity .2s;
+            z-index: -1;
         }
-        .icon-zone {
+        .touch-zone {
             position: absolute;
-            height: 50px;
-            text-align: right;
-            display: none;
-            right: 0;
-            span {
-                height: 20px;
-                width: 20px;
-                font-size: 20px;
-                margin: 5px;
-                cursor: pointer;
-                transition: color .2s;
+            cursor: pointer;
+        }
+        &.left, &.right {
+            .touch-zone {
+                top: 0;
+                bottom: 0;
+                width: 10px;
             }
         }
-        &:not(.active) {
-            left: 0 !important;
-        }
-        &.active {
-            padding: 0;
-            z-index: 10;
-        }
-        &.display {
-            .icon-zone.display {
-                display: inherit;
+        &.top, &.bottom{
+            .touch-zone {
+                right: 0;
+                left: 0;
+                height: 10px;
             }
         }
     }
-    .touch-zone {
-        position: absolute;
-        display: none;
-        &.left-touch-zone {
-            left: 0;
-            top: 0; bottom: 0;
+    // panel when the threshold is met
+    .eg-sidemenu-wrapper.under-threshold {
+        height: 0;
+        .eg-sidemenu {
+            z-index: 2;
+            position: fixed;
+            width: inherit;
+            background-color: var(--sidemenu-bg);
+            transition: transform .2s;
         }
-        &.right-touch-zone {
-            right: 0;
-            top: 0; bottom: 0;
+        .touch-zone {
+            z-index: 1;
         }
-
-        &.bottom-touch-zone {
-            left: 0; right: 0;
-            bottom: 0;
+        &.left {
+            .eg-sidemenu {
+                min-height: 100vh;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+            }
+            .touch-zone {
+                right: 0;
+                transform: translateX(100%);
+            }
         }
-        &.display {
-            display: inherit;
+        &.right {
+            .eg-sidemenu {
+                min-height: 100vh;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                transform: translateX(100%);
+            }
+            .touch-zone {
+                left: 0;
+                transform: translateX(-100%);
+            }
         }
-    }
-    .shadow-zone {
-        position: fixed;
-        top: 0; left: 0; bottom: 0; right: 0;
-        height: 100%;
-        width: 100%;
-        background: rgba(0,0,0,0.1);
-        cursor: pointer;
+        &.top {
+            .eg-sidemenu {
+                min-width: 100vw;
+                left: 0;
+                right: 0;
+                top: 0;
+                height: 200px;
+                transform: translateY(-100%);
+            }
+            .touch-zone {
+                bottom: 0;
+                transform: translateY(100%);
+            }
+        }
+        &.bottom {
+            .eg-sidemenu {
+                min-width: 100vw;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 200px;
+                transform: translateY(100%);
+            }
+            .touch-zone {
+                top: 0;
+                transform: translateY(-100%);
+            }
+        }
+        &.deployed {
+            .shadow-zone {
+                opacity: 1;
+            }
+            .eg-sidemenu {
+                transform: translateX(0) translateY(0);
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+        }
     }
 </style>
 
 <template>
-    <div class="sidemenu-wrapper" :class="{active, open}">
-        <div class="sidemenu" :class="sideMenuClass" :style="getPanelStyleArray">
+    <div class="eg-sidemenu-wrapper" :class="theClass">
+        <div class="eg-sidemenu">
             <slot></slot>
+            <div class="touch-zone" v-if="enableClickDeploy" @click="touchClick"></div>
         </div>
-        <div
-                v-if="enableTouch"
-                class="touch-zone"
-                :class="touchZoneClass"
-                :id="appendDirection('touch-zone')"
-                :style="this.orientation == 'bottom' ? bottomTouchStyle : lateralTouchStyle" @click="touchClick">
-        </div>
-        <div class="shadow-zone" v-show="open" :style="shadow" @click="tryClosingMenu"></div>
+        <div class="shadow-zone" @click="hShadowClick"></div>
     </div>
 </template>
 
 <script>
     export default {
         props: {
-            value: {default: 0},
+            value: {default: false},
+            threshold: {default: Infinity},
+            disabled: {type: Boolean, default: false},
             orientation: {type: String, default: 'left'},
-            show: {type: Number, default: 0},
-            width: {type: Number, default: 250},
-            height: {type: Number, default: 250},
-            touchWidth: {type: Number, default: 10},
-            enableTouch: {type: Boolean, default: true},
-            bounce: {type: Boolean, default: false},
-            shadowBackground: {type: String, default: '#222'},
-            touchBackground: {type: String, default: 'transparent'},
-            opacityMax: {type: Number, default: 0.5},
-            zIndexMult: {type: Number, default: 2.0},
-            shadowSpeed: {type: Number, default: 2},
-            showBigSize: {type: Boolean, default: false},
-            viewportResize: {type: Boolean, default: true},
-            invisible: {type: Boolean, default: false},
-            thinScroll: {type: Boolean, default: false},
-            background: {type: String, default: "#FFF"},
-            trigger: {type: Number, default: Infinity},
-            enableClickDeploy: {type: Boolean, default: false},
-            enablePan: {type: Boolean, default: false},
-            enableSwipe: {type: Boolean, default: true},
-            disabled: {type: Boolean, default: false}
+            enableClickDeploy: {type: Boolean, default: true},
+            opacityMax: {type: Number, default: 0.5}
         },
         data() {
             return {
                 w: 0,
-                h: 0,
-                lateralStyle: {
-                    transform: 'translateX(0)',
-                    '-webkit-transition': 'transform 0s',
-                    '-moz-transition': 'transform 0s',
-                    '-ms-transition': 'transform 0s',
-                    '-o-transition': 'transform 0s',
-                    'transition': 'transform 0s'
-                },
-                bottomStyle: {
-                    transform: 'translateY(0)',
-                    '-webkit-transition': 'transform .3s',
-                    '-moz-transition': 'transform .3s',
-                    '-ms-transition': 'transform .3s',
-                    '-o-transition': 'transform .3s',
-                    'transition': 'transform .3s',
-                    bottom: '-' + this.height + 'px',
-                    height: this.width + 'px'
-                },
-                leftStyle: {
-                    left:this.w + 17 < 1480 || !this.showBigSize ? '-' + this.width + 'px' : 0,
-                    width: this.width + 'px'
-                },
-                rightStyle: {
-                    right: this.w + 17 < 1480 || !this.showBigSize ? '-' + this.width + 'px' : 0,
-                    width: this.width + 'px'
-                },
-                bottomTouchStyle: {
-                    transform: 'translateY(0)',
-                    'transition': 'transform .1s',
-                    height: this.touchWidth + 'px',
-                    background: "var(--sidemenu-touch-bg, transparent)",
-                    zIndex: 2 * this.zIndexMult
-                },
-                shadow: {
-                    'opacity': 0,
-                    'z-index': -1,
-                    'transition': 'opacity .3s',
-                    background: "var(--sidemenu-shadow-bg, rgba(0,0,0,0.1)"
-                },
-                settings: {
-                    suppressScrollX: true
-                },
-                x: 0,
-                y: 0,
-                touchZoneClass: '',
-                sideMenuClass: '',
-                panLock: false
+                theId: null
             }
         },
         methods: {
-            getTouchName() {
-                return this.orientation + '-touch-zone';
-            },
-            appendDirection( e ) {
-                return this.orientation + '-' + e;
-            },
-            computeW() { return Math.max(document.documentElement.clientWidth, window.innerWidth || 0) },
-            computeH() { return Math.max(document.documentElement.clientHeight, window.innerHeight || 0) },
-            handleResize() {
-                this.w = this.computeW();
-                this.h = this.computeH();
-            },
-            setShortAnim() {
-                this.lateralStyle['transition'] = 'transform 0s, opacity 0s';
-                this.bottomStyle['transition'] = 'transform 0s, opacity 0s';
-                this.shadow['transition'] = 'transform 0s, opacity 0s';
-            },
-            setLongAnim() {
-                this.lateralStyle['transition'] = 'transform .3s, opacity .3s';
-                this.bottomStyle['transition'] = 'transform .3s, opacity .3s';
-                this.shadow['transition'] = 'transform .3s, opacity .3s';
-            },
-            setShadowOpacity( e ) {
-
-                let d = e.direction; // 2: left, 4: right, 8: bottom
-                let maxOpacity = this.opacityMax;
-                if(maxOpacity == undefined)
-                    maxOpacity = 0.5;
-
-                if(this.orientation == 'left') {
-                    if(d == 4)
-                        this.x = e.center.x;
-                    else if(d == 2)
-                        this.x = this.w - e.center.x;
-
-                    let newOpacity = 0;
-                    if(d == 4) {
-                        newOpacity = (this.x / this.width) / this.shadowSpeed;
-                    }
-                    else if(d == 2) {
-                        newOpacity = ((this.w - this.x) / this.width) / this.shadowSpeed;
-                    }
-                    if((d == 2 || d == 4) && (e.deltaX + this.width)>0) {
-                        if(newOpacity > 1)
-                            newOpacity = 1;
-
-                        if(this.x > 0) {
-                            if (newOpacity > maxOpacity)
-                                this.shadow.opacity = maxOpacity;
-                            else
-                                this.shadow.opacity = newOpacity;
-                        }
-                    }
-                }
-                else if(this.orientation == 'right' && (e.deltaX + this.width)>0) {
-                    if(d == 4)
-                        this.x = e.center.x;
-                    else if(d == 2)
-                        this.x = this.w - e.center.x;
-
-                    let newOpacity = 0;
-                    if(d == 2) {
-                        newOpacity = (this.x / this.width) / this.shadowSpeed;
-                    }
-                    else if(d == 4) {
-                        newOpacity = ((this.w - this.x) / this.width) / this.shadowSpeed;
-                    }
-                    if(d == 2 || d == 4) {
-                        if(newOpacity > 1)
-                            newOpacity = 1;
-
-                        if(this.x > 0) {
-                            if (newOpacity > maxOpacity)
-                                this.shadow.opacity = maxOpacity;
-                            else
-                                this.shadow.opacity = newOpacity;
-                        }
-                    }
-                }
-
-            },
-            tryClosingMenu() {
-                if(this.open) {
-                    this.closeMenu();
-                }
-            },
-            openMenu() {
-                this.setLongAnim();
-
-                if(this.orientation == 'left')
-                    this.lateralStyle.transform = 'translateX('+this.width+'px)';
-                else if(this.orientation == 'right')
-                    this.lateralStyle.transform = 'translateX(-'+this.width+'px)';
-                else if(this.orientation == 'bottom')
-                    this.bottomStyle.transform = 'translateY(-'+this.width+'px)';
-
-                if(this.orientation == 'left')
-                    this.lateralTouchStyle.transform = 'translateX('+this.width+'px)';
-                else if(this.orientation == 'right')
-                    this.lateralTouchStyle.transform = 'translateX(-'+this.width+'px)';
-                else if(this.orientation == 'bottom')
-                    this.bottomTouchStyle.transform = 'translateY(-'+this.width+'px)';
-
-                this.shadow.opacity = this.opacityMax;
-                this.shadow['z-index'] = 2 * this.zIndexMult;
-                this.lateralTouchStyle['z-index'] = 3 * this.zIndexMult;
-                this.bottomTouchStyle['z-index'] = 3 * this.zIndexMult;
-                this.x = this.width;
-                this.$emit('input', 1);
-
-                this.lateralTouchStyle.width = "calc(100% - "+ this.width +"px)";
-                this.bottomTouchStyle.height = "calc(100vh - "+ this.width +"px)";
-            },
-            closeMenu() {
-                this.setLongAnim();
-                this.lateralStyle.transform = 'translateX(0)';
-                this.lateralTouchStyle.transform = 'translateX(0)';
-                this.bottomStyle.transform = 'translateY(0)';
-                this.bottomTouchStyle.transform = 'translateY(0)';
-                this.shadow.opacity = 0;
-                this.x = 0;
-                this.y = 0;
-                this.$emit('input', 0);
-
-                this.lateralTouchStyle.width = this.touchWidth + 'px';
-                this.bottomTouchStyle.height = this.touchWidth + 'px';
-
-                let s = this;
-                setTimeout(function() { s.shadow['z-index'] = -1 }, 300);
+            hShadowClick() {
+                this.$emit('input', false);
             },
             touchClick() {
-                if(this.enableClickDeploy || this.open)
-                    this.$emit('input', !this.open);
+                if(this.enableClickDeploy) {
+                    this.$emit('input', !this.deployed);
+                }
             },
-            togglePanLock() {
-                this.panLock = true;
-                setTimeout(() => { this.panLock = false }, 500);
+            handleResize() {
+                this.w = this.computeW();
+            },
+            computeW() { return Math.max(document.documentElement.clientWidth, window.innerWidth || 0) },
+            setZIndex(val, target) {
+                let e = this.$el.querySelector(target);
+                if(e) {
+                    e.style.zIndex = val;
+                }
+            }
+        },
+        computed: {
+            underThreshold() {
+                let t = this.threshold;
+                if(typeof t === "string") {
+                    if(t === "tiny") t = 300;
+                    else if(t === "mini") t = 480;
+                    else if(t === "smaller") t = 540;
+                    else if(t === "small") t = 720;
+                    else if(t === "classic") t = 900;
+                    else if(t === "medium") t = 1080;
+                    else if(t === "long") t = 1200;
+                    else if(t === "big") t = 1440;
+                    else if(t === "bigger") t = 1600;
+                    else if(t === "large") t = 1920;
+                    else t = 1000;
+                }
+                return this.w <= t;
+            },
+            deployed() {
+                return this.underThreshold ? this.value : 0;
+            },
+            theClass() {
+                return {
+                    deployed: this.deployed,
+                    'under-threshold': this.underThreshold,
+                    right: this.orientation === 'right',
+                    left: this.orientation === 'left',
+                    top: this.orientation === 'top',
+                    bottom: this.orientation === 'bottom',
+                };
             }
         },
         watch: {
-            open() {
-                this.open ? this.openMenu() : this.closeMenu();
-            },
-            w() {
-                this.touchZoneClass = [this.appendDirection('touch-zone')];
-                if(this.active)
-                    this.touchZoneClass += ' display';
-
-                this.sideMenuClass = this.appendDirection('sidemenu');
-                if(this.active)
-                    this.sideMenuClass += ' active';
-            },
-        },
-        computed: {
-            getPanelStyleArray() {
-                let out = [];
-                let o = this.orientation;
-
-                if(o == 'right') {
-                    out.push(this.lateralStyle);
-                    out.push(this.rightStyle);
+            deployed(d) {
+                if(this.underThreshold) {
+                    if(d) {
+                        this.setZIndex(2, '.shadow-zone');
+                        this.setZIndex(3, '.eg-sidemenu');
+                    }
+                    else {
+                        setTimeout(() => {
+                            this.setZIndex(-1, '.shadow-zone');
+                        }, 200);
+                    }
                 }
-                else if(o == 'left') {
-                    out.push(this.lateralStyle);
-                    out.push(this.leftStyle);
-                }
-                else if(o == 'bottom') {
-                    out.push(this.bottomStyle);
-                }
-
-                if(this.active)
-                    out.push({background: "var(--sidemenu-bg, #FFF)"});
-                return out;
-            },
-            active() {
-                return this.w <= this.trigger;
-            },
-            open() {
-                return this.active ? this.value : 0;
-            },
-            lateralTouchStyle() {
-                return {
-                    transform: 'translateX(0)',
-                    transition: 'transform .3s',
-                    width: this.touchWidth + 'px',
-                    background: "var(--sidemenu-touch-bg, transparent)",
-                    zIndex: 1 * this.zIndexMult,
-                };
-            },
+            }
         },
         mounted() {
-            this.w = this.computeW();
-            this.h = this.computeH();
-
-
-            if(this.enableTouch && !this.disabled) {
-                /*
-                let s = this;
-                let menu = new Hammer(this.$el.querySelector('.touch-zone'));
-                let shadow = new Hammer(this.$el.querySelector('.shadow-zone'));
-
-                if(this.orientation == 'left') {
-                    if(this.enableSwipe) {
-                        menu.on('swiperight', function() {
-                            if(s.open)
-                                return true;
-                            s.togglePanLock();
-                            s.openMenu();
-                        });
-                        menu.on('swipeleft', function() {
-                            if(!s.open)
-                                return true;
-                            s.closeMenu();
-                        });
-                        shadow.on('swipeleft', function() {
-                            if(!s.open)
-                                return true;
-                            s.closeMenu();
-                        });
-                    }
-                    if(this.enablePan) {
-                        menu.on('pan', function(e) {
-                            if(!s.panLock) {
-                                s.setShortAnim();
-                                this.zIndexMult > 1 ? s.shadow['z-index'] = (1 * this.zIndexMult) : s.shadow['z-index'] = 1;
-                                if(e.deltaX > 0 && !s.open) {
-                                    if(e.deltaX < s.width)
-                                        s.lateralStyle.transform = 'translateX(' + e.deltaX + 'px)';
-                                    else
-                                        s.lateralStyle.transform = 'translateX(' +s.width+ 'px)';
-                                }
-                                else if(e.deltaX < 0 && s.open || (s.bounce && s.open))
-                                    s.lateralStyle.transform = 'translateX(' + (s.width + e.deltaX) + 'px)';
-                                s.setShadowOpacity(e);
-                            }
-                        });
-                        menu.on('panend', function(e) {
-                            if(!s.panLock) {
-                                if(e.center.x > (s.width/2))
-                                    s.openMenu();
-                                else
-                                    s.closeMenu();
-                            }
-                        });
-                    }
-                }
-                else if(this.orientation == 'right') {
-                    if(this.enableSwipe) {
-                        menu.on('swiperight', function() {
-                            if(!s.open)
-                                return true;
-                            s.closeMenu();
-                        });
-                        shadow.on('swiperight', function() {
-                            if(!s.open)
-                                return true;
-                            s.closeMenu();
-                        });
-                        menu.on('swipeleft', function() {
-                            if(s.open)
-                                return true;
-                            s.togglePanLock();
-                            s.openMenu();
-                        });
-
-                    }
-                    if(this.enablePan) {
-                        menu.on('pan', function(e) {
-                            if(!s.panLock) {
-                                s.setShortAnim();
-                                if(this.zIndexMult > 1)
-                                    s.shadow['z-index'] = (1 * this.zIndexMult);
-                                else
-                                    s.shadow['z-index'] = 1;
-
-                                if(((e.direction == 2 || e.direction == 4) && e.deltaX < 0 && !s.open) && (e.deltaX + s.width)>0) {
-                                    if(e.deltaX > (-1 * s.width))
-                                        s.lateralStyle.transform = 'translateX(' + (e.deltaX) + 'px)';
-                                    else
-                                        s.lateralStyle.transform = 'translateX(-' + s.width + 'px)';
-                                }
-                                else if(e.deltaX > 0 && s.open || (s.bounce && s.open))
-                                    s.lateralStyle.transform = 'translateX(-' + (s.width - e.deltaX) + 'px)';
-                                s.setShadowOpacity(e);
-                            }
-                        });
-                        menu.on('panend', function(e) {
-                            if(!s.panLock) {
-                                if(e.center.x < s.w - (s.width/2))
-                                    s.openMenu();
-                                else
-                                    s.closeMenu();
-                            }
-                        });
-                    }
-                }
-                */
-
-                // deprecated
-                /*
-                bottom menu (prototype)
-                else if(this.orientation == 'bottom') {
-                    if(this.enableSwipe) {
-                        menu.on('swipeup', function() {
-                            if(s.open)
-                                return true;
-                            s.openMenu();
-                        });
-                        menu.on('swipedown', function() {
-                            if(!s.open)
-                                return true;
-                            s.closeMenu();
-                        });
-                    }
-                    if(this.enablePan) {
-                        menu.on('pan', function(e) {
-                            s.setShortAnim();
-                            if(this.zIndexMult > 1)
-                                s.shadow['z-index'] = (1 * this.zIndexMult);
-                            else
-                                s.shadow['z-index'] = 1;
-
-                            if(e.deltaY < 0 && !s.open) {
-                                if(e.deltaY > (-1 * s.width))
-                                    s.bottomStyle.transform = 'translateY(' + (e.deltaY) + 'px)';
-                                else
-                                    s.bottomStyle.transform = 'translateY(-' + s.width + 'px)';
-                            }
-                            else if(e.deltaY > 0 && s.open || (s.bounce && s.open))
-                                s.bottomStyle.transform = 'translateY(-' + (s.width - e.deltaY) + 'px)';
-                            s.setShadowOpacity(e);
-                        });
-                        menu.on('panend', function(e) {
-                            if(e.center.y < s.h - (s.width/2))
-                                s.openMenu();
-                            else
-                                s.closeMenu();
-                        });
-                    }
-                }
-
-                let shadow = this.$el.children[2];
-                if(this.orientation == 'left') {
-                    new Hammer(shadow)
-                        .on('swipeleft', function() {
-                            if(!s.open)
-                                return true;
-                            s.closeMenu();
-                        })
-                }
-                else if(this.orientation == 'right') {
-                    new Hammer(shadow)
-                        .on('swiperight', function() {
-                            if(!s.open)
-                                return true;
-                            s.closeMenu();
-                        })
-                }
-                */
-            }
+            this.handleResize();
+            this.theId = String.rand();
             window.addEventListener('resize', this.handleResize)
         },
         beforeDestroy: function () {

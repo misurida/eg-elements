@@ -27,14 +27,16 @@
         }
 
         // inner flex content
-        .egi-inner {
-            font-size: 1em;
+        .eg-inner {
             display: flex;
             align-items: stretch;
             border-radius: inherit;
             cursor: text;
             flex: 1;
             width: 100%;
+            font-family: inherit;
+            font-weight: inherit;
+            text-decoration: inherit;
             &.no-edit {
                 cursor: pointer;
             }
@@ -68,12 +70,15 @@
         .fake-input,
         textarea,
         input {
-            font-size: 1em;
             flex: 1;
             width: inherit;
             line-height: 1.2;
             z-index: 0;
             box-sizing: content-box;
+            font-family: inherit;
+            font-weight: inherit;
+            text-decoration: inherit;
+            font-size: inherit;
             &:hover,
             &:active,
             &:focus {
@@ -141,7 +146,7 @@
 
             }
         }
-        .egi-cross-icon {
+        .eg-cross-icon {
             opacity: 0;
             width: 0;
             cursor: text;
@@ -152,13 +157,13 @@
                 cursor: pointer;
             }
         }
-        .egi-icons-list {
+        .eg-icons-list {
             display: flex;
             height: 100%;
             align-items: center;
         }
-        .egi-left-icon-slot,
-        .egi-main-icon-slot {
+        .eg-left-icon-slot,
+        .eg-main-icon-slot {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -169,7 +174,7 @@
                 transform: scale(0.8);
             }
         }
-        .egi-main-icon {
+        .eg-main-icon {
             cursor: pointer;
         }
 
@@ -182,13 +187,13 @@
 
         // textarea transformations
         &.textarea {
-            .egi-icons-right-list,
-            .egi-icons-left-list {
+            .eg-icons-right-list,
+            .eg-icons-left-list {
                 position: absolute;
                 top: 0;
                 bottom: 0;
             }
-            .egi-cross-icon {
+            .eg-cross-icon {
                 position: absolute;
                 left: 0;
                 top: 12px;
@@ -197,15 +202,15 @@
                     padding: 0;
                 }
             }
-            .egi-icons-right-list {
+            .eg-icons-right-list {
                 right: 0;
             }
-            .egi-icons-left-list {
+            .eg-icons-left-list {
                 left: 0;
             }
         }
 
-        .egi-messages {
+        .eg-messages {
             li {
                 line-height: 1;
             }
@@ -224,14 +229,14 @@
 
         // element states
         &:hover:not(.disabled) {
-            .egi-inner:not(.empty) {
-                .egi-icons-right-list {
-                    .egi-cross-icon {
+            .eg-inner:not(.empty) {
+                .eg-icons-right-list {
+                    .eg-cross-icon {
                         opacity: 1;
                         width: auto;
                     }
                     &:not(.crossless) {
-                        .egi-main-icon {
+                        .eg-main-icon {
                             width: 0;
                             opacity: 0;
                         }
@@ -240,14 +245,14 @@
             }
         }
 
-        .egi-ghost-text {
+        .eg-ghost-text {
             position: absolute;
             z-index: -1;
             opacity: 0;
             font-size: 1.05em;
         }
 
-        .egi-messages {
+        .eg-messages {
             transition: color $tt;
             li {
                 margin: 0;
@@ -274,7 +279,7 @@
             }
         }
 
-        .egi-counter {
+        .eg-counter {
             float: right;
             transition: color $tt, opacity $tt;
         }
@@ -286,10 +291,29 @@
             border: none;
             transition: color $tt, border $tt, box-shadow $tt;
             cursor: pointer;
+            font-family: inherit;
+            font-weight: inherit;
+            text-decoration: inherit;
+            font-size: inherit;
+        }
+
+        .composed-input {
+            flex: 1;
+            input {
+                flex: none;
+                padding: 0;
+                width: 1ch;
+            }
+            & > span {
+                font-family: inherit;
+                font-weight: inherit;
+                text-decoration: inherit;
+                font-size: inherit;
+            }
         }
 
         &.multiple {
-            .egi-inner:not(.empty) {
+            .eg-inner:not(.empty) {
                 width: 30px;
             }
             .fake-input {
@@ -314,9 +338,9 @@
                 }
             }
             &:hover {
-                .egi-inner {
-                    .egi-icons-left-list,
-                    .egi-icons-right-list {
+                .eg-inner {
+                    .eg-icons-left-list,
+                    .eg-icons-right-list {
                         .concealable {
                             opacity: 1;
                             transform: none;
@@ -335,14 +359,31 @@
     .eg-message {
         transition: color $tt;
     }
-    .egi-label {
+    .eg-label {
         margin: 0;
     }
-    .egi-label-wrapper {
+    .eg-label-wrapper {
         display: flex;
         align-items: center;
         label {
             margin: 0;
+        }
+    }
+    .plus-minus-wrapper {
+        opacity: 0.7;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        height: 100%;
+        width: 35px;
+        box-sizing: border-box;
+        .button-shell {
+            height: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-family: serif;
+            font-weight: 400;
         }
     }
 </style>
@@ -354,7 +395,6 @@
                 'eg-input':inputClass,
                 focus,
                 disabled,
-                wide,
                 primary,
                 error:_error,
                 warning:_warning,
@@ -366,28 +406,30 @@
             }"
             :id="_id+'-wrapper'">
         <slot name="above"></slot>
+        {{localComposition}}
         <div class="label-container" v-if="label">
-            <div class="egi-label-wrapper">
-                <label :for="_id" class="egi-label">{{ label }}</label>
+            <div class="eg-label-wrapper">
+                <label :for="_id" class="eg-label">{{ label }}</label>
                 <help-icon :text="helpText"></help-icon>
             </div>
             <slot name="after-label"></slot>
         </div>
-        <div class="egi-ghost-text" v-if="flex">{{ value || placeholder }}</div>
+        <div class="eg-ghost-text" v-if="flex">{{ value || placeholder }}</div>
+        <!-- input shell -->
         <div :class="{focus, 'input-shell':!buttonStyle}" @mousedown="hMouseDown">
             <div v-if="buttonStyle" class="eg-input-button-wrapper" @mousedown.stop="hBtnMouseDown">
                 <eg-button
-                           :primary="primary"
-                           :id="_id"
-                           :active="focus"
-                           @click.prevent="hBtnClick"
-                           @mousedown.prevent.stop
-                           @keyup="hKeyup"
-                           @escape="hEscape"
-                           @enter="hEnter"
-                           icon="svg:caret"
-                           @focus="hFocus"
-                           @blur="hBlur">
+                        :primary="primary"
+                        :id="_id"
+                        :active="focus"
+                        @click.prevent="hBtnClick"
+                        @mousedown.prevent.stop
+                        @keyup="hKeyup"
+                        @escape="hEscape"
+                        @enter="hEnter"
+                        icon="svg:caret"
+                        @focus="hFocus"
+                        @blur="hBlur">
                     <template v-if="value">{{ value }}</template>
                     <slot name="default" v-else-if="!!$slots.default"></slot>
                     <slot name="default" v-else>{{ placeholder }}</slot>
@@ -395,28 +437,42 @@
             </div>
             <template v-else>
                 <slot name="taglist"></slot>
-                <div class="egi-inner" :class="{'no-edit':!editable, empty:_empty&&!emptyCross}" @click="hClick">
-
+                <div class="eg-inner" :class="{'no-edit':!editable, empty:_empty&&!emptyCross}" @click="hClick">
                     <!-- Left side -->
-                    <div class="egi-icons-left-list" :class="{crossless:!cross}" v-if="showLeftIcon">
-                        <div class="egi-icons-list" v-if="lIcons.length > 0">
+                    <div class="eg-icons-left-list" :class="{crossless:!cross}" v-if="showLeftIcon">
+                        <div class="eg-icons-list" v-if="lIcons.length > 0">
                             <eg-icon v-for="i in lIcons" :icon="i" :key="i" :clickable="clickableIcon" :flip="flipIcon" @click="hIconsClick($event,i)"></eg-icon>
                         </div>
-                        <div class="egi-left-icon-slot" v-if="(lIcon)">
+                        <div class="eg-left-icon-slot" v-if="(lIcon)">
                             <eg-icon :flip="flipIcon" :icon="lIcon" :clickable="clickableIcon" @click="hCross" stop></eg-icon>
                         </div>
                     </div>
-                    <div class="egi-prefix" :class="{'has-left-icon':showLeftIcon}" v-if="hasPrefix" @click="hClick($event)">
+                    <div class="eg-prefix" :class="{'has-left-icon':showLeftIcon}" v-if="hasPrefix" @click="hClick($event)">
                         <span v-if="prefix" v-html="prefix"></span>
                         <slot v-if="!!$slots.prefix"></slot>
                     </div>
-
-                    <!-- Custom input -->
+                    <!-- Custom input slot -->
                     <template v-if="!!$slots.input">
                         <slot name="input"></slot>
                     </template>
-
-                    <!-- Regular input -->
+                    <!-- Composed input -->
+                    <div class="composed-input" v-else-if="isComposed">
+                        <template v-for="(c,ci) in localComposition">
+                            <input :key="ci"
+                                   @click.stop
+                                   :index="c.index"
+                                   v-if="c.type==='input' || c.type==='number'"
+                                   :id="buildComposedId(c)"
+                                   :placeholder="c.placeholder"
+                                   :value="c.value"
+                                   @focus="hComposedFocus"
+                                   @blur="hComposedBlur"
+                                   @keydown="hComposedKeydown($event, ci, c)"
+                                   @input="hComposedChange($event, ci, c)">
+                            <span v-if="c.type==='text'" :key="ci">{{ c.value }}</span>
+                        </template>
+                    </div>
+                    <!-- Input -->
                     <template v-else>
                         <textarea
                                 v-if="isTextarea"
@@ -453,12 +509,13 @@
                                 :placeholder="_placeholder"
                                 :value="value"
                                 :disabled="disabled"
-                                :type="type"
+                                :type="_type"
                                 :min="min"
                                 :max="max"
                                 :step="step"
                                 :class="{'has-left-icon':showLeftIcon, 'has-right-icon':showRightIcon}"
                                 autocomplete="new-password">
+                        <!-- Fake input content -->
                         <div v-else class="fake-wrapper">
                             <div class="custom-fake-inner" @click="hFakeClick" v-if="!!$slots.display">
                                 <input :id="_id" :style="inputStyle" type="text" class="fake-input" @focusout="hBlur" @focus="hFocus" @keyup="hKeyup">
@@ -471,21 +528,20 @@
                             </div>
                         </div>
                     </template>
-
                     <!-- Right side -->
-                    <div class="egi-suffix" :class="{'has-right-icon':showRightIcon}" v-if="hasSuffix">
+                    <div class="eg-suffix" :class="{'has-right-icon':showRightIcon}" v-if="hasSuffix">
                         <span v-if="suffix" v-html="suffix"></span>
                         <slot v-if="!!$slots.suffix"></slot>
                     </div>
-                    <div class="egi-icons-right-list" @click="hFakeClick" :class="{crossless:!cross}" v-if="showRightIcon">
-                        <div class="egi-main-icon-slot" v-if="(cross||hasRightIcon)">
-                            <eg-icon v-if="hasRightIcon" class="egi-main-icon" :class="{'default-caret':icon==='svg:caret'}" :clickable="clickableIcon" :flip="flipIcon" :icon="icon" @click="hIconsClick($event)"></eg-icon>
-                            <eg-icon v-if="(!_empty||emptyCross)&&cross" class="egi-cross-icon" :flip="flipIcon" svg icon="scross" clickable @click="hCross" stop></eg-icon>
+                    <div class="eg-icons-right-list" @click="hFakeClick" :class="{crossless:!cross}" v-if="showRightIcon">
+                        <div class="eg-main-icon-slot" v-if="(cross||hasRightIcon)">
+                            <eg-icon v-if="hasRightIcon" class="eg-main-icon" :class="{'default-caret':icon==='svg:caret'}" :clickable="clickableIcon" :flip="flipIcon" :icon="icon" @click="hIconsClick($event)"></eg-icon>
+                            <eg-icon v-if="(!_empty||emptyCross)&&cross" class="eg-cross-icon" :flip="flipIcon" svg icon="scross" clickable @click="hCross" stop></eg-icon>
                         </div>
-                        <div class="egi-icons-list" v-if="icons.length > 0">
+                        <div class="eg-icons-list" v-if="icons.length > 0">
                             <eg-icon v-for="i in icons" :icon="i" :key="i" :clickable="clickableIcon" :flip="flipIcon" @click="hIconsClick($event,i)"></eg-icon>
                         </div>
-                        <div v-if="plusMinus" class="plus-minus-wrapper">
+                        <div v-if="_plusMinus" class="plus-minus-wrapper">
                             <div class="button-shell" @mousedown="hUpClick" @click="hRelease" @mouseleave="hRelease" :class="{active:keyUpDown}">+</div>
                             <div class="button-shell" @mousedown="hDownClick" @click="hRelease" @mouseleave="hRelease" :class="{active:keyDownDown}">-</div>
                         </div>
@@ -494,13 +550,13 @@
             </template>
             <slot name="menu"></slot>
         </div>
-        <span class="egi-counter" v-if="counter && !counterHide">{{ computeCounterValue() }} <span v-if="counterMax">/ {{ counterMax }}</span></span>
-        <div class="egi-message" v-if="message">{{ message }}</div>
-        <div class="egi-message error" v-if="errorMsg">{{ errorMsg }}</div>
-        <ul class="egi-messages" v-if="messages.length>0">
+        <span class="eg-counter" v-if="counter && !counterHide">{{ computedCounterValue() }} <span v-if="counterMax">/ {{ counterMax }}</span></span>
+        <div class="eg-message" v-if="message">{{ message }}</div>
+        <div class="eg-message error" v-if="errorMsg">{{ errorMsg }}</div>
+        <ul class="eg-messages" v-if="messages.length>0">
             <li v-for="m in messages" :key="m">{{ m }}</li>
         </ul>
-        <ul class="egi-messages state-messages" :class="{error:!_warning&&!_success, warning:_warning, success:_success}" v-if="(_error||_warning||_success)&&(errors.length>0||errorMessages.length>0)">
+        <ul class="eg-messages state-messages" :class="{error:!_warning&&!_success, warning:_warning, success:_success}" v-if="(_error||_warning||_success)&&(errors.length>0||errorMessages.length>0)">
             <template v-if="errors.length > 0">
                 <li v-for="m in errors" :key="m">
                     <eg-icon svg icon="error"></eg-icon>
@@ -528,7 +584,7 @@
         components: { EgIcon, EgButton },
         props: {
             // main
-            value: {default: null},
+            value: {default: undefined},
             type: {
                 type: String,
                 default: "text",
@@ -596,12 +652,15 @@
 
             //// special icons
             flipIcon: {type: Boolean, default: false},
-            plusMinus: {type: Boolean, default: false},
+            plusMinus: {type: Boolean, default: undefined},
 
             // validation
             regexList: {type: Array, default() {return []}},
 
-            // helpers
+            // composed
+            composed: {default: null},
+            placeholders: {type: String, default: null},
+
             //// interactivity
             autoFocus: {type: Boolean, default: false},
             editable: {type: Boolean, default: true},
@@ -626,10 +685,14 @@
             minHeight: {type: Number, default: 40},
             newLineShiftOnly: {type: Boolean, default: false},
 
-            // range type specifics
+            // range & number type specifics
             min: {default: null},
             max: {default: null},
-            step: {default: null},
+            step: {default: 1},
+            stepSmall: {type: Number, default: 0.5},
+            stepBig: {type: Number, default: 10},
+            decimals: {type: Number, default: null},
+            strongDecimals: {type: Boolean, default: false},
 
         },
         data() {
@@ -645,7 +708,9 @@
                 keyDownDown: false,
                 clickRepeatTimer1: null,
                 clickRepeatTimer2: null,
-                lock: false
+                lock: false,
+                localComposition: [],
+                lastCompositionIndex: 0
             }
         },
         methods: {
@@ -678,10 +743,12 @@
                 let v = e.target.value;
                 this.errorMessages = [];
 
+                // we get the corrected value
+
                 // validation
-                if(this.regexList.length > 0 && v) {
-                    for(let i=0; i<this.regexList.length; i++) {
-                        let r = this.regexList[i];
+                if(this._regexList.length > 0 && v) {
+                    for(let i=0; i<this._regexList.length; i++) {
+                        let r = this._regexList[i];
                         if(r.regex instanceof RegExp && !r.regex.test(v)) {
                             if(r.strong) {
                                 if(r.message) {
@@ -707,18 +774,22 @@
                 }
 
                 // counter validation
-                if(v && this.counter && this.counterLock && this.computeCounterValue(v) > this.counterMax) {
+                if(v && this.counter && this.counterLock && this.computedCounterValue(v) > this.counterMax) {
                     // the user can remove characters
                     if(v.length > this.value.length) this.lock = true;
+                }
+
+                // number validation
+                if(this.type === "number") {
+                    v = this.getValidatedValue(v);
                 }
 
                 // emitting the new value
                 if(!this.lock) this.$emit('input', v);
             },
             hFocus(e) {
-                if(!this.disabled) {
-                    if(!this.focus)
-                        this.$emit('focus', e);
+                if(!this.disabled && !this.focus) {
+                    this.$emit('focus', e);
                     this.focus = true;
                     this.doFocus();
                 }
@@ -791,19 +862,33 @@
             },
             hDownClick(e) {
                 this.$emit('down', e);
-                this.clickRepeatTimer1 = setTimeout(() => {
-                    this.clickRepeatTimer2 = setInterval(() => {
-                        this.$emit('down', e);
-                    }, 50);
-                }, 500);
+                // increment
+                this.clearTimeouts();
+                if(this.type === "number") {
+                    this.hNumberDown(e);
+                    this.clickRepeatTimer1 = setTimeout(() => {
+                        if(this.clickRepeatTimer1) {
+                            this.clickRepeatTimer2 = setInterval(() => {
+                                this.hNumberDown(e);
+                            }, 50);
+                        }
+                    }, 500);
+                }
             },
             hUpClick(e) {
                 this.$emit('up', e);
-                this.clickRepeatTimer1 = setTimeout(() => {
-                    this.clickRepeatTimer2 = setInterval(() => {
-                        this.$emit('up', e);
-                    }, 50);
-                }, 500);
+                // increment
+                this.clearTimeouts();
+                if(this.type === "number") {
+                    this.hNumberUp(e);
+                    this.clickRepeatTimer1 = setTimeout(() => {
+                        if(this.clickRepeatTimer1) {
+                            this.clickRepeatTimer2 = setInterval(() => {
+                                this.hNumberUp(e);
+                            }, 50);
+                        }
+                    }, 500);
+                }
             },
             hRelease() {
                 clearTimeout(this.clickRepeatTimer1);
@@ -817,11 +902,11 @@
 
                 if((e.keyCode === 38 || e.key === "ArrowUp")) {
                     this.keyUpDown = true;
-                    this.$emit('up', e);
+                    this.hUpClick(e);
                 }
                 else if((e.keyCode === 40 || e.key === "ArrowDown")) {
                     this.keyDownDown = true;
-                    this.$emit('down', e);
+                    this.hDownClick(e);
                 }
                 this.$emit('keydown', e);
             },
@@ -835,11 +920,12 @@
                 else {
                     this.$emit('keyup', e);
                 }
+                this.clearTimeouts();
                 this.resetKeyMarkers();
             },
 
             // functions
-            computeCounterValue(val) {
+            computedCounterValue(val) {
                 let v = val || this.value;
                 if(v) {
                     if(this.countWords) {
@@ -857,8 +943,203 @@
                 this.keyUpDown = false;
                 this.keyDownDown = false;
             },
+            clearTimeouts() {
+                clearTimeout(this.clickRepeatTimer1);
+                clearInterval(this.clickRepeatTimer2);
+                this.clickRepeatTimer1 = null;
+                this.clickRepeatTimer2 = null;
+            },
 
-            // textarea functions
+            // composed
+            buildComposition(stringValue) {
+                let o = [];
+                if(this.isComposed) {
+                    let val = stringValue ? stringValue : "";
+                    let inputChar = this.composed.inputChar || "_";
+                    let numberChar = this.composed.numberChar || "#";
+                    // we get the inputs chain items as array
+                    let chain = this.composed.composition.split('');
+                    // we get the inputs placeholders as array
+                    let placeholders = this.placeholders;
+                    if(!placeholders) placeholders = this.composed.placeholders;
+                    if(placeholders) placeholders.split('');
+                    // we get the current value as array
+                    let v = val.split('');
+                    // building the chain array to be displayed
+                    let inputIndex = 0;
+                    for(let i=0; i<chain.length; i++) {
+                        let c = chain[i];
+                        if(c === inputChar || c === numberChar) {
+                            // computing the type
+                            let type = "input";
+                            if(c === numberChar) type = "number";
+                            // computing the placeholder
+                            let placeholder = "";
+                            if(placeholders && placeholders.length > i) {
+                                placeholder = placeholders[i];
+                            }
+                            // computing the value
+                            let value = "";
+                            if(this.localComposition[i]) value = this.localComposition[i].value;
+                            if(stringValue) value = v.length-1 >= i ? v[i] : "";
+                            if((type === "input" || type === "number") && value === " ") value = "";
+                            if(stringValue === this.emptyValue) value = "";
+                            o.push({
+                                type,
+                                value,
+                                index: inputIndex,
+                                placeholder,
+                                n: 1
+                            });
+                            inputIndex++;
+                        }
+                        else {
+                            o.push({type: "text", value: c, n: 1});
+                        }
+                    }
+                    this.lastCompositionIndex = inputIndex-1;
+                }
+                this.localComposition = o;
+            },
+            buildComposedId(o) {
+                return o.index === 0 ? this._id : this._id + '-' + o.index;
+            },
+            hComposedKeydown(e, i, item) {
+                if(!e.altKey && !e.ctrlKey && !e.shiftKey) {
+                    if(e.code === "Backspace" || e.keyCode === 8) {
+                        // if we are focusing the first input and the user hits back in an empty field, we clear the value
+                        let l = this.localComposition[i].value;
+                        if(item.index === 0 && !l) {
+                            this.$emit('input', this.emptyValue);
+                        }
+                        // fix for the last input
+                        else if(item.index === this.lastCompositionIndex) {
+                            this.localComposition[i].value = "";
+                        }
+                        setTimeout(() => {
+                            this.focusPreviousComposed(item);
+                        },20);
+                    }
+                    else if(e.code === "Delete" || e.keyCode === 46) {
+                        this.localComposition[i].value = "";
+                        this.focusNextComposed(item, e);
+                    }
+                    else if(e.code === "Enter" || e.keyCode === 13) {
+                        this.focusNextComposed(item, e);
+                    }
+                    else if(e.code === "ArrowUp" || e.keyCode === 38 || e.code === "ArrowRight" || e.keyCode === 39) {
+                        this.focusNextComposed(item, e);
+                    }
+                    else if(e.code === "ArrowDown" || e.keyCode === 40 || e.code === "ArrowLeft" || e.keyCode === 37) {
+                        this.focusPreviousComposed(item);
+                    }
+                }
+                this.hKeydown(e);
+            },
+            hComposedChange(e, i, item) {
+                this.buildComposition();
+                // we build the returned string based on the composition
+                let o = this.localComposition;
+                let noFocus = false;
+                if(o.length >= i) {
+                    let val = e.target.value;
+                    // if more than one characters is entered in the field
+                    if(val.length > 1) {
+                        let str = val.split('');
+                        let next = null;
+                        let j = i;
+                        let count = 0;
+                        // we split the pasted value into the following fields
+                        while (count < str.length && j < this.localComposition.length) {
+                            let c = this.localComposition[j];
+                            if(c && (c.type === "input" || c.type === "number")) {
+                                if(c.type === "number" && isNaN(str[count])) {
+                                    this.localComposition[j].value = " ";
+                                }
+                                else {
+                                    this.localComposition[j].value = str[count];
+                                }
+                            }
+                            // outside counter to use the placeholder text as slot (the char pasted at a placeholder
+                            // position will be erased)
+                            count++;
+                            j++;
+                        }
+                        this.$nextTick(() => { this.focusNextComposed(next); });
+                    }
+                    // regular value changed in the right input
+                    else if(o.length-1 >= i) {
+                        if(o[i].type === "number" && isNaN(val)) {
+                            noFocus = true;
+                            o[i].value = "";
+                        } else {
+                            o[i].value = val;
+                        }
+                    }
+                }
+
+
+                // we set back the local composed value
+                this.$set(this, 'localComposition', o);
+
+                // fix the input width
+                if(Object.is(this.composed) && this.composed.resizeInputs !== false) {
+                    this.fixInputWidth(e.target);
+                }
+
+                // we focus the next field
+                if(!noFocus && e.inputType !== "deleteContentBackward" && e.inputType !== "deleteContentDelete")
+                    this.focusNextComposed(item, e);
+
+                // we emit the value
+                this.$emit('input', this.getComposedValue());
+            },
+            getComposedValue() {
+                return this.localComposition.map(e => {
+                    if((e.type === "input" || e.type === "number") && e.value === "") {
+                        return " ";
+                    }
+                    return e.value;
+                }).join('');
+            },
+            fixInputWidth(target) {
+                target.style.width = "1ch";
+                setTimeout(() => {
+                    if(target.value) target.style.width = target.scrollWidth + "px";
+                    else target.style.width = "1ch";
+                }, 10);
+            },
+            focusNextComposed(item, e) {
+                // if the last input is under focus, we simply blur it
+                if(item && item.index === this.lastCompositionIndex && e) {
+                    //e.target.blur(); // do nothing instead
+                }
+                // otherwise we focus the next one
+                else if(item) {
+                    let index = item.index;
+                    if(!index && item.attributes && item.attributes.index) index = parseInt(item.attributes.index.value);
+                    let id = this._id + '-' + (index+1);
+                    let next = document.getElementById(id);
+                    if(next) next.focus();
+                }
+            },
+            focusPreviousComposed(item) {
+                if(item && item.index > 0) {
+                    let id = this._id + (item.index > 1 ? ('-' + (item.index-1)) : "");
+                    let prev = document.getElementById(id);
+                    if(prev) prev.focus();
+                }
+            },
+            hComposedFocus(e) {
+                this.focus = true;
+                this.$emit('focus', e);
+            },
+            hComposedBlur(e) {
+                this.focus = false;
+                this.$emit('blur', e);
+            },
+
+            // textarea related
             handleAutoResize(e) {
                 let el = document.getElementById(this._id);
                 let style = window.getComputedStyle(el, null).getPropertyValue('font-size');
@@ -894,24 +1175,71 @@
                 }
             },
 
+            // number related
+            getValidatedValue(v) {
+                if(isNaN(v) || !v) {
+                    v = this.min ? this.min : 0;
+                }
+                v = parseFloat(v);
+                if(this.decimals > 0) {
+                    v = parseFloat(v).toFixed(this.decimals);
+                    if(!this.strongDecimals) {
+                        v = parseFloat(v);
+                    }
+                }
+
+                // min-max
+                if((this.min || this. min === 0) && v < this.min) {
+                    v = this.min;
+                }
+                if((this.max || this.max === 0) && v > this.max) {
+                    v = this.max;
+                }
+                return v;
+            },
+            hNumberUp(e) {
+                let v = isNaN(this.value) ? this.min : Number(this.value);
+                if(e.altKey) v += this.stepBig;
+                else if(e.ctrlKey) v += this.stepSmall;
+                else v += this.step;
+                this.$emit('input', this.getValidatedValue(v));
+            },
+            hNumberDown(e) {
+                let v = isNaN(this.value) ? this.min : Number(this.value);
+                if(e.altKey) v -= this.stepBig;
+                else if(e.ctrlKey) v -= this.stepSmall;
+                else v -= this.step;
+                this.$emit('input', this.getValidatedValue(v));
+            },
+
             // tools
             rid() { return Math.random().toString(36).substr(2, 9) },
-            safeString: (s) => s ? s.toLowerCase().replace(/\W+(?!$)/g, '-').replace(/\W$/, '') : ""
+            safeString: (s) => s ? s.toLowerCase().replace(/\W+(?!$)/g, '-').replace(/\W$/, '') : "",
+            setCaretPosition(ctrl, pos) {
+                ctrl.focus();
+                ctrl.setSelectionRange(pos, pos);
+            }
         },
         watch: {
             value: {
                 immediate: true,
-                handler() {
+                handler(v) {
                     // auto-width flex
                     if(this.flex) {
                         this.$nextTick(() => {
-                            let ghost = this.$el.querySelector('.egi-ghost-text');
-                            if(ghost) this.textWidth = ghost.offsetWidth + 10;
-                            // setting the localBaseWidth
-                            if(this.placeholder && !this.value) {
-                                this.localBaseWidth = this.textWidth;
+                            if(this.$el) {
+                                let ghost = this.$el.querySelector('.eg-ghost-text');
+                                if(ghost) this.textWidth = ghost.offsetWidth + 10;
+                                // setting the localBaseWidth
+                                if(this.placeholder && !this.value) {
+                                    this.localBaseWidth = this.textWidth;
+                                }
                             }
                         });
+                    }
+                    // composed input
+                    if(this.isComposed) {
+                        this.buildComposition(v);
                     }
                 }
             },
@@ -919,6 +1247,14 @@
                 immediate: true,
                 handler() {
                     this.runAutoFocus();
+                }
+            },
+            composed: {
+                immediate: true,
+                handler(c) {
+                    if(c) {
+                        this.buildComposition();
+                    }
                 }
             }
         },
@@ -934,6 +1270,10 @@
                 let x = !isNaN(v) && ((Array.isArray(v) && v.length <= 0) || (!Array.isArray(v) && !v) || (Object.keys(v).length === 0 && v.constructor === Object));
                 return x;
             },
+            _regexList() {
+                if(this.type === "number") return [...this.regexList, { regex: /^([0-9.]*)$/, strong: true }];
+                return this.regexList;
+            },
             _placeholder() { return this.value ? "" : this.placeholder },
             isTextarea() { return this.type === "textarea" },
             isColor() { return this.type === "color" },
@@ -941,13 +1281,15 @@
             hasSuffix() { return !!this.suffix || !!this.$slots.suffix },
             hasRightIcon() { return this.icon },
             hasLeftIcon() { return this.lIcon },
-            showRightIcon() { return this.icons.length > 0 || this.hasRightIcon || this.cross || this.search || this.plusMinus; },
+            _type() { return this.type === 'number' ? this.native ? 'number' : 'text' : this.type },
+            _plusMinus() { return this.type === 'number' ? this.plusMinus !== false : this.plusMinus },
+            showRightIcon() { return this.icons.length > 0 || this.hasRightIcon || this.cross || this.search || this._plusMinus; },
             showLeftIcon() { return this.lIcons.length > 0 || this.hasLeftIcon },
             hasError() { return this.errorMessages.filter(e => e.state === "error" || e.state === undefined).length > 0 || this.errorMsg || this.errors.length > 0 },
             hasWarning() { return this.errorMessages.filter(e => e.state === "warning").length > 0 },
             hasSuccess() { return this.errorMessages.filter(e => e.state === "success").length > 0 },
-            counterError() { return this.counterMax && this.computeCounterValue() > this.counterMax; },
-            counterWarning() { return this.counterMax && this.computeCounterValue() === this.counterMax; },
+            counterError() { return this.counterMax && this.computedCounterValue() > this.counterMax; },
+            counterWarning() { return this.counterMax && this.computedCounterValue() === this.counterMax; },
             inputStyle() {
                 if(this.flex) {
                     let width = this._baseMin;
@@ -957,7 +1299,8 @@
                     return `width:${width}px;`;
                 }
                 return "";
-            }
+            },
+            isComposed() { return this.composed && Object.keys(this.composed).length > 0 },
         },
 
         // for textarea only

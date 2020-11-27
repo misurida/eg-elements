@@ -1,15 +1,14 @@
 # EgCheckbox
 
-Checkboxes are elements of the user interface used to enable (and disable) or select (and deselect) an option. A box is displayed and can be checked by clicking on it. A check mark will be displayed inside the box to indicate that the option is selected.
+A checkbox is a component that usually displays text as a label and input as a box with a check mark inside. The user can check or uncheck the option to select it by clicking on it.
 
-## Usage
+```html
+<eg-checkbox v-model="val" label="Check me"></eg-checkbox>
+```
 
-Checkbox(es) can be displayed using `<eg-checkbox>`.
+Checkbox(es) can be displayed using by default `<eg-checkbox>`.
 
-## Events
-
-- v-model (@input): can return a boolean value or a defined value.
-- @click: when the whole element is clicked. No payload.
+A simple checkbox allows to link a value (usually a boolean). It can also be a string of characters if the user has to choose between several checkboxes or also an array if several options are selectable simultaneously.
 
 ## Attributes
 
@@ -21,15 +20,15 @@ Checkbox(es) can be displayed using `<eg-checkbox>`.
 - **disabled**: {type: Boolean, default: false}: If true, the field aspect will change (grayed by default) and will be an no longer usable (no interaction will be possible and no events will be emitted).
 - **native**: {type: Boolean, default: false}: If true, the checkbox field will have the browser native style and behavior.
 - **type**: {type: String, default: null}: The default type is a square box, but other styles can be applied:
-    - *radio*: can be used to display radio buttons: round buttons with a dot inside indicating that the option is selected. A radio input cannot be deselected.
-    - *switch*: display a switch button, generally used to select an option or another. Represented by a small slider with a dot inside. The dot's position is indicating which option selected. The switch field have custom attributes.
+    - **radio**: can be used to display radio buttons: round buttons with a dot inside indicating that the option is selected. A radio input cannot be deselected.
+    - **switch**: display a switch button, generally used to select an option or another. Represented by a small slider with a dot inside. The dot's position is indicating which option selected. The switch field have custom attributes.
 
 ### Options
 
-- **options**: {type: Array, default() {return []}}: Array containing the options. If the array contain a string or number, it will be displayed as label. If it contains object, an attribute can be defined as label using *oLabel*.
+- **options**: {type: Array, default() {return []}}: Array containing the options. If the array contain a string or number, it will be displayed as label. If it contains object, an attribute can be defined as label using "oLabel".
 - **elements**: {type: Object, default(){ return {} }}: Object containing the value of the option as value and the label as key.
-- **multiple**: {type: Boolean, default: false}: If true, the value is expected to an array. A list of options can be provided with the attributes *options* or *elements*. The value will containing the options selected.
-- **oLabel**: {type: String, default: "name"}: If *options* are provided and contain objects, name of the attribute (of the array's objects) to use as option label.
+- **multiple**: {type: Boolean, default: false}: If true, the value is expected to an array. A list of options can be provided with the attributes "options" or "elements". The value will containing the options selected.
+- **oLabel**: {type: String, default: "name"}: If "options" are provided and contain objects, name of the attribute (of the array's objects) to use as option label.
 
 ### State
 
@@ -39,7 +38,7 @@ Checkbox(es) can be displayed using `<eg-checkbox>`.
 
 ### Helpers
 
-- **inputClass**: {type: Boolean, default: true}: If true, the *.eg-input-container* will have the *.eg-input* class (mainly used for components wrapped since only the parent container should have the .eg-input class.
+- **inputClass**: {type: Boolean, default: true}: If true, the ".eg-input-container" will have the ".eg-input" class (mainly used for components wrapped since only the parent container should have the ".eg-input" class).
 - **nullValue**: {default: null}: Value returned when the checkbox is unchecked.
 - **useUndefined**: {type: Boolean, default: false}: If true, the checkbox can be in an undefined state (represented by an horizontal stroke by default).
 
@@ -49,9 +48,14 @@ Checkbox(es) can be displayed using `<eg-checkbox>`.
 - **offLabel**: {type: String, default: null}: The label if the value is negative (the option is not checked).
 - **innerLabels**: {type: Boolean, default: false}: If true, the visual aspect changes. The label are inside the slider box and the dot is hiding the option which is not selected.
 
+## Events
+
+- v-model (**@input**): can return a boolean value or a defined value.
+- **@click**: when the whole element is clicked. No payload.
+
 ## Structure
 
-The EgCheckbox components has the following structure:
+The Checkbox components has the following structure:
 
 ```html
 <div class="checkbox-input eg-input">

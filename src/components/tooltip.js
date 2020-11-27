@@ -426,6 +426,6 @@ export default {
         el.attachEventsHandlers(el);
     },
     unbind(el) {
-        el.attachEventsHandlers(el);
+        el.detachEventsHandlers(el);
     }
 }

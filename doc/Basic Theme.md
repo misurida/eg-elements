@@ -1,38 +1,28 @@
-# CSS
-
-## Variables
-
-Those CSS variables are defining the most important properties of the components and are defined in the used theme (`src/themes/theme_default.scss` by default).
-
-The main purpose of using variables is to be able to stylize a component locally. You can overwrite the value of any of these variables in of the parents classes to make it fit the situation, of even your whole design if you overwrite most of them in the :root.
+# Basic Theme
 
 ```css
 /*|   Colors    |*/
-
 // main colors
---rgb-default: 212, 212, 212;
+--rgb-default: 222, 222, 222;
 --rgb-default-text: 90, 90, 90;
 --rgb-primary: 69, 100, 143;
 --rgb-primary-text: 255, 255, 255;
---rgb-secondary: 219, 223, 225;
---rgb-secondary-text: 0, 0, 0;
+--rgb-secondary: 202, 215, 232;
+--rgb-secondary-text: 75, 90, 120;
 --rgb-tertiary: 60, 160, 160;
 --rgb-tertiary-text: 255, 255, 255;
-
 // status colors
---rgb-error: 156, 39, 39;
---rgb-warning: 214, 109, 2;
---rgb-success: 82, 162, 44;
-
+--rgb-error: 200, 75, 75;
+--rgb-warning: 242, 153, 74;
+--rgb-success: 40, 160, 90;
 // special colors
 --rgb-dark: 67, 67, 67;
 --rgb-dark-text: 217, 217, 217;
 --rgb-light: 255, 255, 255;
---rgb-light-text: 100, 100, 100;
+--rgb-light-text: 175, 175, 175;
 --rgb-transparent-text: 80, 80, 80;
 --rgb-black: 18, 18, 18;
 --rgb-white: 245, 245, 245;
-
 // rgb renders
 --color-default: rgb(var(--rgb-default));
 --color-default-text: rgb(var(--rgb-default-text));
@@ -75,11 +65,11 @@ The main purpose of using variables is to be able to stylize a component locally
 /*|   Tooltips    |*/
 --tooltip-font-size: 1rem;
 --tooltip-line-height: 1;
---tooltip-bg: #111; // #111 | #FFF
---tooltip-color: #EEE; // #CCC | #777
+--tooltip-bg: #111;
+--tooltip-color: #EEE;
 --tooltip-padding: 5px 10px;
---tooltip-shadow: 0 2px 2px 0 rgba(0,0,0,0.05); //  0 0 5px 5px rgba(0,0,0,.0)
---tooltip-border: none; // 1px solid #000 // 1px solid #eee
+--tooltip-shadow: 0 2px 2px 0 rgba(0,0,0,0.05);
+--tooltip-border: none;
 --tooltip-border-radius: 3px;
 --tooltip-max-width: 200px;
 --tooltip-max-height: 200px;
@@ -88,7 +78,9 @@ The main purpose of using variables is to be able to stylize a component locally
 --modal-min-width: 300px;
 --modal-shadow-color: rgba(0,0,0,.5);
 --modal-bg: #fff;
---modal-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+--modal-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 
+								0 3px 1px -2px rgba(0,0,0,0.12), 
+								0 1px 5px 0 rgba(0,0,0,0.2);
 --modal-border: none;
 --modal-inner-border: none;
 --modal-padding-header: 1.5rem 1.5rem 0 1.5rem;
@@ -97,44 +89,16 @@ The main purpose of using variables is to be able to stylize a component locally
 
 /*|   Sidemenu    |*/
 --sidemenu-bg: #FFF;
---sidemenu-shadow-bg: #222;
+--sidemenu-shadow-bg: rgba(0,0,0,.5);
 --sidemenu-touch-bg: transparent;
+--sidemenu-transition-time: .3s;
+--sidemenu-z: 2;
 
 /*|   Action messages    |*/
 --action-message-bg: rgba(0,0,0,0.8);
 --action-message-padding: 10px 15px;
 --action-message-color: #f5f5f5;
---action-message-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-```
-
-### SCSS
-
-The components styles are written using `lang="scss"`, so you might need the [Webpack SASS pre-processor](https://vue-loader.vuejs.org/guide/pre-processors.html) if you want to tweak the elements files:
-
-```
-npm install -D sass-loader node-sass
-```
-
-Then, in the webpack config:
-
-```
-module.exports = {
-  module: {
-    rules: [
-      // ... other rules omitted
-
-      // this will apply to both plain `.scss` files
-      // AND `<style lang="scss">` blocks in `.vue` files
-      {
-        test: /\.scss$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
-      }
-    ]
-  },
-  // plugin omitted
-}
+--action-message-shadow:  0 2px 2px 0 rgba(0,0,0,0.14), 
+													0 3px 1px -2px rgba(0,0,0,0.12), 
+													0 1px 5px 0 rgba(0,0,0,0.2);
 ```

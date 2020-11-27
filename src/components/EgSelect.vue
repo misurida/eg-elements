@@ -62,7 +62,7 @@
         <template slot="above"><slot name="above"></slot></template>
         <template slot="after-label"><slot name="after-label"></slot></template>
         <template slot="below"><slot name="below"></slot></template>
-        <div slot="taglist" class="egi-tags-list" v-if="hasTags()">
+        <div slot="taglist" class="eg-tags-list" v-if="hasTags()">
             <eg-tag
                     :clickable="clickable"
                     cross

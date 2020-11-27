@@ -96,3 +96,20 @@ String.prototype.removeDiacritics = function() {
     }
     return this.replace(/[^\u0000-\u007E]/g, function(a){ return diacriticsMap[a] || a; });
 };
+
+String.prototype.toKebabCase = function() {
+    return this && this
+            .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+            .map(x => x.toLowerCase())
+            .join('-');
+};
+
+String.rand = function() {
+    /**
+     * @return {string}
+     */
+    let S4 = function() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+};

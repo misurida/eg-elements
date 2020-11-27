@@ -2,39 +2,35 @@
 
 Modals are UI elements used to display extra content on top of the whole page. Modal are generally closed by default and can be open (or closed) using the v-model value. When open, modals appear on top of a dark background (the modal shadow) covering the page. Clicking on the shadow or (on the corner cross) will hide the modal window to return to the previous app state.
 
-The main characteristic of the modals are their size. By default, the modal will adjust its size to the content, but you can choose between two types of defined sizes:
+```html
+<eg-button @click="show1=true">Show Modal</eg-button>
+<modal v-model="show1" title="Basic modal" validate="Do something!" back="Procrastinate">
+    <p>So you're telling me I can put anything in here?</p>
+</modal>
+```
+
+Modals can be displayed using by default `<modal>`. 
+
+Their main characteristic is their size. By default, the modal will adjust its size to the content, but you can choose between two types of defined sizes (or apply css modification to the modal box element class *"*.eg-modal-container"):
 
 - Fixed: The modal size is set and there boolean attributes for all the thresholds: tiny, mini, smaller, small, classic, medium, long, big, bigger and large.
 - Flex: The size is proportional to the viewport width and will grow of shrink accordingly. You can choose between regular, basic, narrow and wide.
-
-You can alternatively apply css modification to the modal box element (class .eg-modal-container).
-
-## Usage
-
-Modals can be displayed using `<modal>`.
 
 The modal content can be anything passed using slots for any of the three zones of the modal:
 
 - The header (on the top) displays generally a title.
 - The body (on the middle, default slot) can display anything.
-- The footer (on the bottom) generally used to display buttons ([EgButton](https://github.com/misurida/eg-elements/blob/master/doc/EgButton.md)). Traditionally, there is a button to confirm the action, and a button to go back and close the modal.
-
-## Events
-
-- v-model (@input): boolean flip to show (or hide if false) the modal window.
-- @crossClick: when the modal cross is clicked. No payload.
-- @close: when the modal closes. No payload.
-- @validate: when the *validate* shorthand button is clicked. No payload.
+- The footer (on the bottom) generally used to display buttons ([Button](https://github.com/misurida/eg-elements/blob/master/doc/EgButton.md)). Traditionally, there is a button to confirm the action, and a button to go back and close the modal.
 
 ## Attributes
 
 ### Main
 
-- **value**: {default: null}: The value of the modal is given and updated using v-model. The modal can be displayed (if truthy) or hidden (if falsy), based on *value.*
+- **value**: {default: null}: The value of the modal is given and updated using v-model. The modal can be displayed (if truthy) or hidden (if falsy), based on "value"*.*
 - **animation**: {type: String, default: 'smooth'}: The revealing animation. Can be:
-    - *direct* for an instant transition
-    - *fade* for a fading effet.
-    - *smooth* for a slight scale up and fading effect.
+    - **direct:** for an instant transition
+    - **fade:** **for a fading effet.
+    - **smooth:** **for a slight scale up and fading effect.
 
 ### Sizing
 
@@ -64,7 +60,7 @@ The modal content can be anything passed using slots for any of the three zones 
 - **content**: {type: String, default: null}: A string to be display in a paragraph as modal content.
 - **back**: {type: String, default: null}: If defined, a default button will be displayed in the footer. The label button will be the value of *back.*
 - **b**: {type: Boolean, default: false}: Shortcut to use the back button with the default label.
-- **validate**: {type: String, default: null}: If defined, a primary button will be displayed in the right of the footer. The label button will be the value of *validate.*
+- **validate**: {type: String, default: null}: If defined, a primary button will be displayed in the right of the footer. The label button will be the value of "validate"*.*
 - **v**: {type: Boolean, default: false}: Shortcut to use the primary button with the default label.
 
 ### Helpers
@@ -72,6 +68,13 @@ The modal content can be anything passed using slots for any of the three zones 
 - **noCross**: {type:Boolean, default: null}: If true, the closing cross will be hidden.
 - **noShadowClose**: {type: Boolean, default: false}: If true, clicking on the modal shadow will not close the modal.
 - **noFocus**: {type: Boolean, default: false}: If true, the modal will not have the focus when displayed (preventing an escape key closing).
+
+## Events
+
+- v-model (**@input**): boolean flip to show (or hide if false) the modal window.
+- **@crossClick**: when the modal cross is clicked. No payload.
+- **@close**: when the modal closes. No payload.
+- **@validate**: when the "validate" shorthand button is clicked. No payload.
 
 ## Slots
 
