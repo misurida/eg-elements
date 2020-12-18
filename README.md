@@ -1,6 +1,6 @@
-# Home
+# EG Elements
 
-EG Elements is a vuejs library of modular and easily customizable interface components.
+[EG Elements](https://eg-elements.com/) is a vuejs library of modular and easily customizable interface components.
 
 ## Installation
 
