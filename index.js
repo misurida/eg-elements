@@ -31,7 +31,7 @@ export default function install(Vue, args) {
     if(args.icons && args.icons.length > 0) {
         args.icons = args.icons.reverse();
         for(let i=0; i<args.icons.length; i++) {
-            require(`./assets/fontello/${args.icons[i]}/css/fontello.css`);
+            require(`./src/assets/fontello/${args.icons[i]}/css/fontello.css`);
         }
     }
 
@@ -59,7 +59,7 @@ export default function install(Vue, args) {
     Vue.directive('visible', VisibleDirective);
 
     // polyfills
-    require('./polyfills');
+    require('./src/polyfills');
 }
 
 // Create module definition for Vue.use()
