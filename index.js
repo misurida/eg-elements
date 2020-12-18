@@ -28,13 +28,16 @@ export default function install(Vue, args) {
     install.installed = true;
 
     // icons theme
-    args.icons = args.icons.reverse();
-    for(let i=0; i<args.icons.length; i++) {
-        require(`./assets/fontello/${args.icons[i]}/css/fontello.css`);
+    if(args.icons && args.icons.length > 0) {
+        args.icons = args.icons.reverse();
+        for(let i=0; i<args.icons.length; i++) {
+            require(`./assets/fontello/${args.icons[i]}/css/fontello.css`);
+        }
     }
 
     // themes styling
-    if(args.theme === "basic") require('./src/themes/theme_basic.scss');
+    //if(args.theme === "basic") require('./src/themes/theme_basic.scss');
+    if(args.theme !== null) require('./src/themes/theme_basic.scss');
 
     // new installations
     if(args.input !== false) Vue.component('eg-input', EgInput);
@@ -55,7 +58,7 @@ export default function install(Vue, args) {
     Vue.directive('tooltip', TooltipDirective);
     Vue.directive('visible', VisibleDirective);
 
-    // We inject polyfills
+    // polyfills
     require('./polyfills');
 }
 
