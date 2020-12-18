@@ -375,9 +375,10 @@
         grid-template-rows: 1fr 1fr;
         height: 100%;
         width: 35px;
+        grid-gap: 1px;
         box-sizing: border-box;
         .button-shell {
-            height: 1.2em;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -406,7 +407,6 @@
             }"
             :id="_id+'-wrapper'">
         <slot name="above"></slot>
-        {{localComposition}}
         <div class="label-container" v-if="label">
             <div class="eg-label-wrapper">
                 <label :for="_id" class="eg-label">{{ label }}</label>
@@ -836,7 +836,12 @@
                 if(!this.disabled) {
                     this.errorMessages = [];
                     this.$emit('cross', this.value);
-                    this.$emit('input', this.emptyValue);
+                    if(this.isNumber && this.emptyValue === null) {
+                        this.$emit('input', this.min || 0);
+                    }
+                    else {
+                        this.$emit('input', this.emptyValue);
+                    }
                     this.hFocus(e);
                     if(this.isTextarea) {
                         this.$nextTick(() => {
@@ -1276,6 +1281,7 @@
             },
             _placeholder() { return this.value ? "" : this.placeholder },
             isTextarea() { return this.type === "textarea" },
+            isNumber() { return this.type === "number" },
             isColor() { return this.type === "color" },
             hasPrefix() { return !!this.prefix || !!this.$slots.prefix },
             hasSuffix() { return !!this.suffix || !!this.$slots.suffix },

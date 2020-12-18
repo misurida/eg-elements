@@ -49,6 +49,7 @@ export default function install(Vue, args) {
     Vue.component('modal', Modal);
     Vue.component('help-icon', HelpIcon);
     Vue.component('css-loader', CssLoader);
+    Vue.component('hamburger-icon', HamburgerIcon);
 
     // directives
     Vue.directive('tooltip', TooltipDirective);

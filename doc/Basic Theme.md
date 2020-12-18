@@ -2,6 +2,7 @@
 
 ```css
 /*|   Colors    |*/
+
 // main colors
 --rgb-default: 222, 222, 222;
 --rgb-default-text: 90, 90, 90;
@@ -11,10 +12,12 @@
 --rgb-secondary-text: 75, 90, 120;
 --rgb-tertiary: 60, 160, 160;
 --rgb-tertiary-text: 255, 255, 255;
+
 // status colors
 --rgb-error: 200, 75, 75;
 --rgb-warning: 242, 153, 74;
 --rgb-success: 40, 160, 90;
+
 // special colors
 --rgb-dark: 67, 67, 67;
 --rgb-dark-text: 217, 217, 217;
@@ -23,6 +26,7 @@
 --rgb-transparent-text: 80, 80, 80;
 --rgb-black: 18, 18, 18;
 --rgb-white: 245, 245, 245;
+
 // rgb renders
 --color-default: rgb(var(--rgb-default));
 --color-default-text: rgb(var(--rgb-default-text));
@@ -44,11 +48,13 @@
 --color-white: rgb(var(--rgb-white));
 
 /*|   Buttons    |*/
+
 --button-padding: var(--input-padding);
 --button-padding-big: var(--input-padding-big);
 --button-padding-small: var(--input-padding-small);
 
 /*|   Inputs    |*/
+
 --input-bg: #fff;
 --input-border: thin solid #cdcdcd;
 --input-border-focus: thin solid #bebebe;
@@ -63,6 +69,7 @@
 --select-padding: 9.5px 14px;
 
 /*|   Tooltips    |*/
+
 --tooltip-font-size: 1rem;
 --tooltip-line-height: 1;
 --tooltip-bg: #111;
@@ -74,7 +81,8 @@
 --tooltip-max-width: 200px;
 --tooltip-max-height: 200px;
 
-/*|   Modals    |*/
+/*|=====   Modals    =====|*/
+
 --modal-min-width: 300px;
 --modal-shadow-color: rgba(0,0,0,.5);
 --modal-bg: #fff;
@@ -85,14 +93,16 @@
 --modal-padding-body: 1rem 1.5rem 1.5rem 1.5rem;
 --modal-padding-footer: 0 1.5rem 1rem 1.5rem;
 
-/*|   Sidemenu    |*/
+/*|----------| Sidemenu |----------|*/
+
 --sidemenu-bg: #FFF;
 --sidemenu-shadow-bg: rgba(0,0,0,.5);
 --sidemenu-touch-bg: transparent;
 --sidemenu-transition-time: .3s;
 --sidemenu-z: 2;
 
-/*|   Action messages    |*/
+/*|=====   Action messages    =====|*/
+
 --action-message-bg: rgba(0,0,0,0.8);
 --action-message-padding: 10px 15px;
 --action-message-color: #f5f5f5;
