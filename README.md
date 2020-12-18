@@ -29,30 +29,30 @@ import { EgInput, EgButton } from 'eg-elements'
 
 Basics:
 
-- Buttons
-- Icons
-- Special Icons
+- [Buttons](https://github.com/misurida/eg-elements/blob/master/doc/Button.md)
+- [Icons](https://github.com/misurida/eg-elements/blob/master/doc/Icon.md)
+- [Special Icons](https://github.com/misurida/eg-elements/blob/master/doc/Special%20Icons.md)
 
 Inputs:
 
-- Text Input
-- Textarea
-- Number Input
-- Select
-- Checkbox
+- [Text Input](https://github.com/misurida/eg-elements/blob/master/doc/Input.md)
+- [Textarea](https://github.com/misurida/eg-elements/blob/master/doc/Textarea.md)
+- [Number Input](https://github.com/misurida/eg-elements/blob/master/doc/Number%20Input.md)
+- [Select](https://github.com/misurida/eg-elements/blob/master/doc/Select.md)
+- [Checkbox](https://github.com/misurida/eg-elements/blob/master/doc/EgCheckbox.md)
 
 Structure:
 
-- Modal
-- Sidemenu
+- [Modal](https://github.com/misurida/eg-elements/blob/master/doc/Modal.md)
+- [Sidemenu](https://github.com/misurida/eg-elements/blob/master/doc/Sidemenu.md)
 
 Helpers:
 
-- V-Tooltip directive
-- V-Visible directive
-- Tags
+- [V-Tooltip directive](https://github.com/misurida/eg-elements/blob/master/doc/V-Tooltip.md)
+- [V-Visible directive](https://github.com/misurida/eg-elements/blob/master/doc/V-Visible.md)
+- [Tags](https://github.com/misurida/eg-elements/blob/master/doc/Tags.md)
 
-## Global parameters
+## Global Parameters
 
 you can pass some parameters when using Vue.use() to set up several actions:
 
@@ -78,6 +78,6 @@ Each component has an internal CSS structure with a default design and some key 
 
 If you import one or more components individually, you can also import the theme manually. The path for the Basic theme is "~eg-elements/src/themes/theme_basic.scss".
 
-Here is the [Page of the Basic theme]() that contains the list of variables and that is currently displayed by default in the demo. The main purpose of using variables is to be able to stylize a component locally. You can overwrite the value of any of these variables in of the parents classes to make it fit the situation, of even your whole design if you overwrite most of them in the :root.
+Here is the page of the [Basic theme](https://github.com/misurida/eg-elements/blob/master/doc/Basic%20Theme.md) that contains the list of variables and that is currently displayed by default in the demo. The main purpose of using variables is to be able to stylize a component locally. You can overwrite the value of any of these variables in of the parents classes to make it fit the situation, of even your whole design if you overwrite most of them in the :root.
 
 The components styles are written using `lang="scss"`, so you might need the [Webpack SASS pre-processor](https://vue-loader.vuejs.org/guide/pre-processors.html) if you want to tweak the elements files:

@@ -52,7 +52,7 @@ Helpers:
 - [V-Visible directive](https://github.com/misurida/eg-elements/blob/master/doc/V-Visible.md)
 - [Tags](https://github.com/misurida/eg-elements/blob/master/doc/Tags.md)
 
-## Global parameters
+## Global Parameters
 
 you can pass some parameters when using Vue.use() to set up several actions:
 
