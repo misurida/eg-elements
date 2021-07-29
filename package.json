@@ -1,28 +1,3 @@
-{
-  "_from": "eg-elements@^2.0.1",
-  "_id": "eg-elements@2.0.2",
-  "_inBundle": false,
-  "_integrity": "sha512-JTiw7v6sw/Lg4DeNSd1hj4/SLtnLeH231pXApZOSPOdaJSkoJlhlWT2CB+ske66aqZXUXT3YrDfqVmA/IskxAg==",
-  "_location": "/eg-elements",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "eg-elements@^2.0.1",
-    "name": "eg-elements",
-    "escapedName": "eg-elements",
-    "rawSpec": "^2.0.1",
-    "saveSpec": null,
-    "fetchSpec": "^2.0.1"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/eg-elements/-/eg-elements-2.0.2.tgz",
-  "_shasum": "c5fa112e8317d68d5b1ffbb508d640331e705a1d",
-  "_spec": "eg-elements@^2.0.1",
-  "_where": "D:\\wamp64.2\\www\\CLRSystem\\clrs",
   "author": {
     "name": "Erwan Guyomarch"
   },
