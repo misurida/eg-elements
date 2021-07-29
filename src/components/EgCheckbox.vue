@@ -1,5 +1,4 @@
 <style lang="scss">
-@use "sass:math";
 .checkbox-input {
     margin-right: 10px;
     .check-box,
@@ -186,7 +185,7 @@
                 position: relative;
                 margin: 0;
                 height: $dotSize;
-                border-radius: math.div($dotSize / 2);
+                border-radius: $dotSize * 0.5;
                 padding: 0 $dotSize;
                 .slider-dot {
                     left: 0;
@@ -215,7 +214,7 @@
                         left: 30px;
                     }
                     &.right {
-                        left: math.div($dotSize * 2, 3);
+                        left: $dotSize * 0.666;
                         opacity: 0;
                     }
                 }
