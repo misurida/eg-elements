@@ -9,6 +9,13 @@
         background-color: rgba(0,0,0,0.1);
         display: table;
         transition: opacity .3s ease;
+        & > * {
+            // blur fix
+            backface-visibility: hidden;
+            -webkit-font-smoothing: none;
+            -webkit-filter: blur(0);
+            -webkit-perspective: 1000;
+        }
         .eg-modal-wrapper {
             display: flex;
             align-items: center;
@@ -57,7 +64,7 @@
             padding: 1rem;
             h2, h3, h4, h5, h6 {
                 margin: 0;
-                padding: 0;
+                padding: 0 1em 0 0;
             }
         }
         .eg-modal-body {
@@ -71,6 +78,7 @@
         }
         .eg-modal-side-footer {
             padding: 1rem;
+            display: flex;
         }
         .eg-modal-footer {
             flex: 1;
@@ -105,7 +113,7 @@
             <div class="eg-modal-wrapper" @click.self="handleModalWrapperClick">
                 <div class="eg-modal-container" :class="modalClass">
                     <div class="eg-modal-content">
-                        <div v-if="showCross" class="exit-cross" @click="hCrossClick"><eg-icon type="cross"></eg-icon></div>
+                        <div v-if="showCross" class="exit-cross" @click="hCrossClick"><eg-icon type="svg:scross"></eg-icon></div>
                         <template v-if="!noHeader">
                             <div class="eg-modal-header" v-if="$slots.header">
                                 <slot name="header"></slot>
@@ -114,6 +122,7 @@
                                 <h2>{{title}}</h2>
                             </div>
                         </template>
+                        <slot name="above-body"></slot>
                         <div class="eg-modal-body" v-if="$slots.default || $slots.content || $slots.body" @keyup.esc.stop>
                             <slot v-if="$slots.default" name="default"></slot>
                             <slot v-else-if="$slots.body" name="body"></slot>
@@ -122,9 +131,10 @@
                         <div class="eg-modal-body" v-else @keyup.esc.stop>
                             <p class="content-p" v-if="content" v-html="content"></p>
                         </div>
+                        <slot name="below-body"></slot>
                         <div class="eg-modal-footer-wrapper">
-                            <div class="eg-modal-side-footer" v-if="!!$slots.leftFooter">
-                                <slot name="leftFooter"></slot>
+                            <div class="eg-modal-side-footer" v-if="!!$slots.lfooter">
+                                <slot name="lfooter"></slot>
                             </div>
                             <div class="eg-modal-footer" v-if="!noFooter">
                                 <slot name="footer"></slot>
@@ -198,10 +208,10 @@
                 this.$emit('close');
             },
             hValidate() {
-                if(!this.noFocus) {
+                if(!this.noFocus && (this.v || this.validate)) {
                     this.$emit('validate');
+                    this.hClose();
                 }
-                this.$emit('close');
             },
             focus() {
                 if(this.value !== null && this.$el && this.$el.focus && !this.noFocus) {
@@ -223,7 +233,7 @@
             noHeader() { return !this.$slots.header && !this.title },
             noFooter() { return !this.$slots.footer && !this.back && !this.b && !this.validate && !this.v },
             showCross() {
-                return !this.noCross || (this.noHeader)
+                return !(this.noCross || this.noHeader)
             },
             modalClass() {
                 return {

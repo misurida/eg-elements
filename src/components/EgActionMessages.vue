@@ -34,15 +34,23 @@
     <div class="eg-action-messages">
         <transition-group name="list">
             <div class="eg-action-message" :class="{'has-meta-text':(m.subtext||m.suptext)}" v-for="m in actionsMessages" :key="m.guid">
-                <span v-if="m.suptext" class="suptext">{{ m.suptext }}</span>
-                <span class="text">{{ m.text }}</span>
-                <span v-if="m.subtext" class="subtext">{{ m.subtext }}</span>
+                <span v-if="m.suptext" class="suptext" v-html="m.suptext"></span>
+                <span class="text" v-html="m.text"></span>
+                <span v-if="m.subtext" class="subtext" v-html="m.subtext"></span>
                 <ul v-if="m.list">
                     <li v-for="mm in m.list" :key="mm">{{ mm }}</li>
                 </ul>
                 <ul v-else-if="m.objectList">
                     <template v-for="(mm) in m.objectList">
-                        <li :key="mm">{{ mm.join(', ') }}</li>
+                        <li :key="mm.join(', ')">{{ mm.join(', ') }}</li>
+                    </template>
+                </ul>
+                <ul v-else-if="m.errors">
+                    <template v-for="(mm, prop) in m.errors">
+                        <li :key="prop">
+                            <span>{{ mm.join(', ') }}</span>
+                            <span> ({{ prop }})</span>
+                        </li>
                     </template>
                 </ul>
             </div>

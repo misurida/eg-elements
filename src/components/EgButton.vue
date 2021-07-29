@@ -19,7 +19,7 @@
                 transform: translateX(-37px);
             }
         }
-        .button-label {
+        .btn-inner-label {
             display: inline-block;
             height: 100%;
             align-self: center;
@@ -30,6 +30,8 @@
         .btn-slide-icons,
         .btn-left-icons,
         .btn-right-icons {
+            min-width: 1em;
+            min-height: 1em;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -39,29 +41,14 @@
         .btn-slide-icons {
             max-height: 1em;
         }
-        .btn-left-icons {
-            //margin-right: 10px;
-            margin-right: 0.75em;
-            .eg-icon {
-                &:not(:last-child) {
-                    margin-right: 5px;
-                }
-            }
-
-        }
-        .btn-right-icons {
-            margin-left: 0.75em;
-            .eg-icon {
-                &:not(:first-child) {
-                    margin-left: 5px;
-                }
-            }
-        }
         .eg-icon {
             display: flex;
             align-items: center;
             align-self: center;
             justify-content: center;
+            svg {
+                height: 1em;
+            }
         }
 
         // loader icon
@@ -132,6 +119,10 @@
             justify-content: center;
             .button-inner {
                 text-align: center;
+                width: 100%;
+            }
+            .btn-inner-label {
+                flex: 1;
             }
         }
     }
@@ -185,6 +176,7 @@
     <div v-else
          class="eg-button button-shell"
          :class="{
+                'icon-button': isIconBtn,
                 hidden: loading,
                 big, small,
                 loadable,
@@ -204,7 +196,7 @@
          :tabindex="disabled?-1:0">
         <div class="button-inner" :class="{rshift:loading}">
             <!-- Left icons -->
-            <div class="btn-left-icons" v-if="hasLeftIcon || lIcons.length > 0">
+            <div class="btn-left-icons" v-if="hasLeftIcon || lIcons.length > 0 || wide">
                 <template v-if="lIcons.length > 0">
                     <eg-icon v-for="i in lIcons" :key="i" :icon="i"></eg-icon>
                 </template>
@@ -217,10 +209,10 @@
             </div>
 
             <!-- Label -->
-            <slot name="default"></slot>
+            <span class="btn-inner-label"><slot name="default"></slot></span>
 
             <!-- Right icons -->
-            <div class="btn-right-icons" v-if="hasRightIcon || icons.length > 0 || help !== null">
+            <div class="btn-right-icons" v-if="hasRightIcon || icons.length > 0 || help !== null || wide">
                 <template v-if="icons.length > 0">
                     <eg-icon v-for="i in icons" :key="i" :icon="i"></eg-icon>
                 </template>
@@ -291,8 +283,8 @@
             }
         },
         computed: {
-            hasRightIcon() { return this.icon },
-            hasLeftIcon() { return this.lIcon },
+            hasRightIcon() { return !!this.icon },
+            hasLeftIcon() { return !!this.lIcon },
             noText() { return !this.$slots.default },
             _primary() { return this.primary || this.type === "primary" },
             _secondary() { return this.secondary || this.type === "secondary" },
@@ -305,14 +297,17 @@
             _warning() { return this.warning || this.type === "warning" },
             _success() { return this.success || this.type === "success" },
             loadable() { return this.loading !== null },
-            simpleButton() { return !this.hasRightIcon &&
-                !this.hasLeftIcon &&
-                !this.loadable &&
-                !this.help &&
-                !this.slideIcon &&
-                !this.lSlideIcon &&
-                this.icons.length <= 0 &&
-                this.lIcons.length <= 0 }
+            simpleButton() { return !this.hasAnyIcon && !this.loadable && !this.help },
+            loadable() { return this.loading !== null },
+            isIconBtn() { return this.hasAnyIcon && !this.$slots.default },
+            hasAnyIcon() {
+                return this.hasRightIcon ||
+                    this.hasLeftIcon ||
+                    this.slideIcon ||
+                    this.lSlideIcon ||
+                    this.icons.length > 0 ||
+                    this.lIcons.length > 0
+            }
         }
     }
 </script>

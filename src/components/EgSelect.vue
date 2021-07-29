@@ -57,6 +57,7 @@
             @focus="hFocus"
             @blur="hBlur"
             @cross="hCross"
+            @change="hChange"
             @fakeClick="hFakeClick"
             @input="hInput">
         <template slot="above"><slot name="above"></slot></template>
@@ -86,6 +87,7 @@
                     :id="_id"
                     :disabled="disabled"
                     :tabindex="tabindex"
+                    :multiple="_multiple"
                     @mousedown="$emit('mousedown')"
                     @iconClick="hIconClick"
                     @click="hClick"
@@ -95,17 +97,17 @@
                     @focus="hFocus"
                     @blur="hBlur"
                     @cross="hCross"
-                    @change="hChange"
+                    @change="hNativeChange"
                     @fakeClick="hFakeClick"
                     @input="hInput">
                 <template v-if="!menuEmpty">
                     <option v-if="_placeholder" class="fake-placeholder" :value="null">{{ _placeholder }}</option>
                     <template v-if="!items || items.length === 1">
-                        <option class="item" v-for="(item) in items[0][gOptions]" :key="getItemId(item)" :selected="isSelected(item)">{{ getItemLabel(item) }}</option>
+                        <option class="item" v-for="(item) in items[0][gOptions]" :key="getItemId(item)" :value="getItemId(item)" :selected="isActive(item)">{{ getItemLabel(item) }}</option>
                     </template>
                     <template v-else>
                         <optgroup class="items-group" v-for="group in items" :key="getGroupLabel(group)" :label="getGroupLabel(group)">
-                            <option class="item" v-for="(item) in group[gOptions]" :key="getItemId(item)" :selected="isSelected(item)">{{ getItemLabel(item) }}</option>
+                            <option class="item" v-for="(item) in group[gOptions]" :key="getItemId(item)" :value="getItemId(item)" :selected="isActive(item)">{{ getItemLabel(item) }}</option>
                         </optgroup>
                     </template>
                 </template>
@@ -115,7 +117,7 @@
         <!-- Select options -->
         <template slot="menu" v-else-if="focus">
             <!--<transition>-->
-            <eg-floating-menu :id="_id+'-menu'" v-if="focus" :menu="menu" :over="over" :prevent-closing="false">
+            <eg-floating-menu :id="_id+'-menu'" v-if="focus" :menu="menu" :over="over" :prevent-closing="false" class="items-list">
                 <template v-if="!menuEmpty && items[0][gOptions].length > 0">
                     <div class="items-group" v-for="group in items" :key="getGroupLabel(group)">
                         <span class="group-title" v-if="getGroupLabel(group) && hasOptions(group)">{{ getGroupLabel(group) }}</span>
@@ -272,8 +274,15 @@
         },
         methods: {
             hChange(e) {
+                if(this.editable) {
+                    this.$emit('input', e.target.value);
+                    this.$emit('change', e);
+                }
+            },
+            hNativeChange(e) {
                 // used by the native select
                 this.$emit('input', e.target.value);
+                this.$emit('change', e.target.value);
             },
             popTag(i) {
                 let v = this.value;
@@ -405,7 +414,19 @@
                         return i[this._sort];
                     }
                     else if(this.oLabel) {
-                        return i[this.oLabel];
+                        // the olabel can contain variables (ex: :email)
+                        if(this.oLabel.indexOf(':') >= 0) {
+                            let o = this.oLabel;
+                            for(let p in i) {
+                                let val = i[p] || "…";
+                                o = o.replaceAll(`:${p}`, val);
+                            }
+                            return o;
+                        }
+                        // regular oLabel
+                        else {
+                            return i[this.oLabel];
+                        }
                     }
                     else if(!this.isEmpty(i)) {
                         return i[Object.keys(i)[0]];
@@ -452,9 +473,6 @@
                     return g[Object.keys(g)[0]];
                 }
                 return 0;
-            },
-            looseFocus() {
-                document.activeElement.blur();
             },
             compare(a, b) {
                 return this.getItemId(a) === this.getItemId(b);
@@ -542,9 +560,11 @@
                 else if(!this._multiple) {
                     if(this.editable) {
                         this.$emit('input', this.localValue);
-                        this.$emit('change', this.localValue);
+                        this.looseFocus();
                     }
-                    this.itemClick(this.getFirstItem(), e);
+                    else {
+                        this.itemClick(this.getFirstItem(), e);
+                    }
                 }
                 else if(this.freeInput && this.localValue) {
                     let v = Array.isArray(this.value) ? this.value : [];
@@ -632,10 +652,16 @@
                     this.$emit('focus',e);
                 }
             },
+            looseFocus() {
+                document.activeElement.blur();
+                this.focus = false;
+            },
             hBlur() {
                 this.selectedItem = undefined;
                 let aid = document.activeElement.id;
-                if(aid !== this._id) this.focus = false;
+                if(aid !== this._id) {
+                    this.looseFocus();
+                }
             },
             hasTags() { return this._multiple && this.isArray && this.value.length > 0 },
 

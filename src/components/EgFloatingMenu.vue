@@ -13,11 +13,6 @@
         &.reverse {
             margin-top: 1em;
         }
-        ul {
-            padding: 0;
-            margin: 0;
-            list-style-type: none;
-        }
         .items-group {
             width: 100%;
             height: 100%;

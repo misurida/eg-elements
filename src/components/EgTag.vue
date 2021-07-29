@@ -10,7 +10,7 @@
             cursor: pointer;
         }
         &.cross {
-            padding-right: 25px!important;
+            padding-right: 2.5em!important;
             .eg-icon {
                 svg {
                     vertical-align: baseline;

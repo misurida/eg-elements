@@ -123,6 +123,12 @@
 
         $dotSize: 25px;
         &.switch {
+            .label-container {
+                padding: 0;
+            }
+            .checkbox-inner {
+                margin-top: 0.25em;
+            }
             .eg-label {
                 margin-bottom: 5px;
             }
@@ -204,6 +210,7 @@
                         margin: 0;
                         width: 50%;
                         line-height: 1;
+                        justify-content: center;
                         &.left {
                             left: 30px;
                         }
@@ -230,7 +237,7 @@
 
 <template>
     <div class="checkbox-input" :class="{'eg-input':inputClass, switch:isSwitch, disabled, error, warning, success}">
-        <div class="label-container" v-if="options.length > 0 && label">
+        <div class="label-container" v-if="(options.length > 0 || isSwitch) && label">
             <span class="eg-label">{{ label }}</span>
         </div>
         <div class="checkbox-inner">
@@ -256,7 +263,7 @@
                             @click="hInput(item)"
                             :class="{selected:isSelected(item), undefined:isUndefinedState(item), solo:!label}">
                         <svg version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-                            <path class="box" d="m25 0c-13.789 0-25 11.211-25 25s11.211 25 25 25 25-11.211 25-25-11.211-25-25-25zm0 3c12.168 0 22 9.832 22 22s-9.832 22-22 22-22-9.832-22-22 9.832-22 22-22z" color="#000000" color-rendering="auto" dominant-baseline="auto" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+                            <path class="box" d="m25 0.84135c-13.325 0-24.159 10.834-24.159 24.159s10.834 24.159 24.159 24.159 24.159-10.834 24.159-24.159-10.834-24.159-24.159-24.159zm0 2.899c11.758 0 21.26 9.5011 21.26 21.26s-9.5011 21.26-21.26 21.26-21.26-9.5011-21.26-21.26 9.5011-21.26 21.26-21.26z" color="#000000" color-rendering="auto" dominant-baseline="auto" image-rendering="auto" shape-rendering="auto" solid-color="#000000" stroke-width=".96635" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
                             <path class="dot" d="m37.5 25a12.5 12.5 0 0 1-12.5 12.5 12.5 12.5 0 0 1-12.5-12.5 12.5 12.5 0 0 1 12.5-12.5 12.5 12.5 0 0 1 12.5 12.5z"/>
                         </svg>
                     </div>
@@ -270,12 +277,12 @@
                             <span class="floating-label right" v-if="onLabel">{{ onLabel }}</span>
                         </template>
                         <template v-else>
-                            <span v-if="onLabel">{{ onLabel }}</span>
+                            <span v-if="offLabel">{{ offLabel }}</span>
                             <div class="switch-bloc">
                                 <button class="slider-dot" :disabled="disabled" :class="{positive:isSelected(item)}"></button>
                                 <div class="switch-line" :class="{positive:isSelected(item)}"></div>
                             </div>
-                            <span v-if="offLabel">{{ offLabel }}</span>
+                            <span v-if="onLabel">{{ onLabel }}</span>
                         </template>
                     </div>
                     <!-- Checkbox legacy -->
@@ -305,7 +312,7 @@
                     </div>
                 </template>
                 <!-- Label -->
-                <label class="eg-label checkbox-label" :for="getId(label)" @click="labelClick(item)" v-if="label">{{ label }}</label>
+                <label class="eg-label checkbox-label" :for="getId(label)" @click="labelClick(item)" v-if="label && !isSwitch">{{ label }}</label>
             </div>
         </div>
     </div>
