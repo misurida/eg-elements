@@ -31,7 +31,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "vue": "^2.6.10"
+    "vue": "^2.6.14"
   },
   "deprecated": false,
   "description": "A Vuejs UI and structure components library",
